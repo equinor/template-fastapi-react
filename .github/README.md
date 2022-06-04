@@ -25,12 +25,12 @@ This boilerplate is the **go-to** for getting starting with a smooth FastAPI RES
 </div>
 
 <a id="key-features"></a>
-## 🎯 Key features
+## :dart: Key features
 
 * Using clean architecture
 
 <a id="quickstart"></a>
-## ⚡️ Quickstart
+## :zap: Quickstart
 
 ### Prerequisites
 
@@ -56,12 +56,12 @@ docker-compose up
 The web app will be served at http://localhost
 
 <a id="development"></a>
-## Development
+## :dizzy: Development
 
 See the [development](../DEVELOPMENT.md) docs if you want to start developing.
 
 <a id="Contributing"></a>
-## 👍 Contributing
+## :+1: Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
