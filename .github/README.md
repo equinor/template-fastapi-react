@@ -67,6 +67,6 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 [license-badge]: https://img.shields.io/badge/License-MIT-yellow.svg
-[license]: https://github.com/equinor/boilerplate-clean-architecture/blob/main/LICENSE
+[license]: https://github.com/equinor/boilerplate-clean-architecture/blob/main/LICENSE.md
 [releases]: https://github.com/equinor/boilerplate-clean-architecture/releases
 
