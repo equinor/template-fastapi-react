@@ -1,0 +1,48 @@
+name: Generate documentation
+
+on:
+  # Workflow dispatch is used for manual triggers
+  workflow_dispatch:
+  # Workflow call is used for called from another workflow
+  workflow_call:
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  generate-documentation:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 'Checkout GitHub Action'
+      uses: actions/checkout@main
+
+    - uses: actions/setup-java@v3
+      with:
+         # See https://github.com/actions/setup-java for available options
+        distribution: 'temurin'
+        java-version: '17'
+
+    - name: "Install dependencies for plantuml"
+      run: sudo apt-get update && sudo apt-get install -y graphviz plantuml fonts-ipafont fonts-ipaexfont
+
+      # Taken from https://gist.github.com/thedmeyer/8b50362ae71ecbadabb17f8683c70ece
+    #- name: "Process diagrams"
+    #  run: plantuml -Djava.awt.headless=true -v -tsvg -r -o "${{ github.workspace }}/diagrams/" "${{ github.workspace }}/docs/**.puml"
+
+    #- name: Display Diagrams
+    #  run: pwd && ls ${{ github.workspace }}/diagrams
+
+    - name: 'Build and deploy'
+      shell: bash
+      run: |
+        brew install doctave/doctave/doctave
+        doctave build --release --allow-failed-checks
+
+    - name: GitHub Pages
+      if: github.ref == 'refs/heads/main'
+      uses: crazy-max/ghaction-github-pages@v2.6.0
+      with:
+        build_dir: site/
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -4,7 +4,7 @@ services:
   nginx:
     restart: unless-stopped
     build: ./nginx
-    image: gts.azurecr.io/nginx:latest
+    image: boilerplate.azurecr.io/nginx:latest
     ports:
       - "80:8080"
     links:
@@ -15,8 +15,15 @@ services:
     build: ./api
     image: gts.azurecr.io/api:latest
     restart: unless-stopped
+    depends_on:
+      - db
 
   web:
     build: ./web
-    image: gts.azurecr.io/web:latest
+    image: boilerplate.azurecr.io/web:latest
     restart: unless-stopped
+
+  db:
+    image: mongo:5.0.9
+    restart: unless-stopped
+    command: --auth --quiet

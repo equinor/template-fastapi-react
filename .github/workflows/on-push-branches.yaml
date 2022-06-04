@@ -1,0 +1,11 @@
+on:
+  workflow_dispatch:
+  push:
+    branches-ignore:
+      - main
+    tags-ignore:
+      - v*
+
+jobs:
+  tests:
+    uses: ./.github/workflows/tests.yaml

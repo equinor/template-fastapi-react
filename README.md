@@ -1,93 +1,82 @@
-# GTS
+<!-- markdownlint-configure-file {
+  "MD013": {
+    "code_blocks": false,
+    "tables": false
+  },
+  "MD033": false,
+  "MD041": false
+} -->
 
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-![Docstring coverage: Interrogate](https://github.com/equinor/gts/blob/main/interrogate_badge.svg)
+<div align="center">
 
-## How-to guides
+# Awesome Boilerplate
 
-### Create and activate local venv
+[![License][license-badge]][license]
 
-```shell
-cd api/  # should be in api/
-python3 -m venv .venv  # create
-source .venv/bin/activate  # activate
+This is a **solution template** for creating a Single Page App (SPA) with React and FastAPI following the principles of Clean Architecture.
+
+[Key Features](#key-features)•
+[Quickstart](#quickstart) •
+[Development](#development) •
+[Contributing](#contributing)
+
+</div>
+
+<a id="key-features"></a>
+## :dart: Key features
+
+- Clean architecture
+- Screaming architecture
+- Auto-generate changelogs
+- Auto-generated OpenAPI specification
+- Automatic documentation of REST API
+- Auto-generate REST API clients
+- Pre-commit hooks
+- Pydantic data validation
+
+<a id="quickstart"></a>
+## :zap: Quickstart
+
+### Prerequisites
+
+In order to run the commands described below, you need:
+- [Docker](https://www.docker.com/)
+- [Docker Compose](https://docs.docker.com/compose/)
+- Make sure you have Python installed. version 3.10 or higher is required.
+
+### Configuration
+
+Environment variables is used for configuration and must be set before running.
+
+Create a copy of `.env-template` called `.env` and populate it with values.
+
+- `XXX`: Specifies the directory in which the database is stored.
+
+### Running
+
+Once you have done the configuration, you can start running:
+
+```sh
+docker-compose up
 ```
 
+The application will be served at http://localhost
 
-### Install Poetry & dependencies
+The API documentation can be found at http://localhost:5000/docs
 
-```shell
-pip install poetry
-poetry config virtualenvs.create false  # poetry should not create venv
-poetry install  # install dependencies
-```
+<a id="development"></a>
+## :dizzy: Development
 
+See the [development](https://fictional-system-acdaeb8b.pages.github.io/) docs if you want to start developing.
 
-### Add Python package to Poetry
+<a id="Contributing"></a>
+## :+1: Contributing
 
-```shell
-cd api/
-# Add package to pyproject.toml
-poetry update
-```
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
+Please make sure to update tests as appropriate.
 
-### Pre-commit
+[license-badge]: https://img.shields.io/badge/License-MIT-yellow.svg
+[license]: https://github.com/equinor/boilerplate-clean-architecture/blob/main/LICENSE
+[releases]: https://github.com/equinor/boilerplate-clean-architecture/releases
 
-```shell
-pre-commit install # tell pre-commit to always run for this repository
-cd api/
-python3 -m venv .venv
-source .venv/bin/activate
-pre-commit run --all-files
-```
-### Run backend app.py with Uvicorn
-
-```shell
-cd api/src/  # location of app.py
-uvicorn app:create_app --reload
-```
-
-<details><summary>Check for missing docstrings with Interrogate</summary>
-
-### Check for missing docstrings with Interrogate
-```shell
-cd api/
-interrogate [PATH]
-
-RESULT: PASSED (minimum: 85.0%, actual: 100.0%)
-```
-Add verbosity to see a summary:
-```shell
-interrogate -vv [PATH]
-
--------------------------------------- Detailed Coverage --------------------------------------
-| Name                                                            |                    Status |
-|-----------------------------------------------------------------|---------------------------|
-| app.py (module)                                                 |                   COVERED |
-|   create_app (L18)                                              |                   COVERED |
-|     create_app.add_process_time_header (L29)                    |                   COVERED |
-|   cli (L45)                                                     |                   COVERED |
-|   run (L51)                                                     |                   COVERED |
-|-----------------------------------------------------------------|---------------------------|
-| config.py (module)                                              |                   COVERED |
-|   Config (L6)                                                   |                   COVERED |
-|-----------------------------------------------------------------|---------------------------|
-| controllers/hello_world.py (module)                             |                   COVERED |
-|   hello_world (L9)                                              |                   COVERED |
-|-----------------------------------------------------------------|---------------------------|
-| utils/logging.py (module)                                       |                   COVERED |
-|-----------------------------------------------------------------|---------------------------|
-
-------------------------------------------- Summary -------------------------------------------
-| Name                                |       Total |       Miss |       Cover |       Cover% |
-|-------------------------------------|-------------|------------|-------------|--------------|
-| app.py                              |           5 |          0 |           5 |         100% |
-| config.py                           |           2 |          0 |           2 |         100% |
-| controllers/hello_world.py          |           2 |          0 |           2 |         100% |
-| utils/logging.py                    |           1 |          0 |           1 |         100% |
-|-------------------------------------|-------------|------------|-------------|--------------|
-| TOTAL                               |          10 |          0 |          10 |       100.0% |
------------------------ RESULT: PASSED (minimum: 85.0%, actual: 100.0%) -----------------------
-```
-</details>

@@ -1,0 +1,18 @@
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'CHANGELOG.md'
+      - '.pre-commit-config.yaml'
+
+jobs:
+  tests:
+    uses: ./.github/workflows/tests.yaml
+
+  release:
+    uses: ./.github/workflows/release.yaml
+
+  docs:
+    uses: ./.github/workflows/generate-docs.yaml

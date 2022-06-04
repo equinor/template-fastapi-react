@@ -1,18 +1,19 @@
-"""
-Create FastAPI application instance.
-"""
-
 import time
 from typing import Callable  # for type hinting
 
 import click
 import uvicorn
-from fastapi import APIRouter, FastAPI
+from fastapi import APIRouter, FastAPI, Security
 from starlette.requests import Request
 from starlette.responses import Response
 
+from authentication.authentication import auth_w_jwt_or_pat, auth_with_jwt
 from config import config
-from utils.loggers import logger
+from features.health_check import health_check_feature
+from features.personal_access_token import personal_access_token_feature
+from features.todo import todo_feature
+from features.whoami import whoami_feature
+from common.utils.logger import logger
 
 server_root = "/api"
 version = "v1"
@@ -20,41 +21,31 @@ prefix = f"{server_root}/{version}"
 
 
 def create_app() -> FastAPI:
-    """
-    Create main app instance, import controllers, add middleware.
-
-    Returns
-    -------
-    FastAPI
-        FastAPI instance with given controllers and middleware.
-
-    """
-    from controllers import hello_world
-
     public_routes = APIRouter()
-    public_routes.include_router(hello_world.router)
+    public_routes.include_router(health_check_feature.router)
 
-    app = FastAPI(title="GTS", description="GTS")
+    authenticated_routes = APIRouter()
+    authenticated_routes.include_router(todo_feature.router)
+    authenticated_routes.include_router(whoami_feature.router)
+
+    # Some routes a PAT can not be used to authenticate.
+    # For example, to get new access tokens. That would be bad...
+    jwt_only_routes = APIRouter()
+    jwt_only_routes.include_router(personal_access_token_feature.router)
+
+    app = FastAPI(title="Awesome Boilerplate", description="")
+    app.include_router(
+        authenticated_routes, prefix=prefix, dependencies=[Security(auth_w_jwt_or_pat)]
+    )
+    app.include_router(
+        jwt_only_routes, prefix=prefix, dependencies=[Security(auth_with_jwt)]
+    )
     app.include_router(public_routes, prefix=prefix)
 
     @app.middleware("http")
     async def add_process_time_header(
         request: Request, call_next: Callable
     ) -> Response:
-        """
-        Add process time header.
-
-        Parameters
-        ----------
-        request
-            Incoming request.
-        call_next
-            A function that receives request as parameter.
-        Returns
-        -------
-        Response
-            Modified response.
-        """
         start_time = time.time()
         response = await call_next(request)
         process_time = time.time() - start_time
@@ -70,18 +61,11 @@ def create_app() -> FastAPI:
 
 @click.group()
 def cli():
-    """
-    Click group cli(): run all commands in created group.
-    """
     pass
 
 
 @cli.command()
 def run():
-    """
-    A Click command in the cli group: run create_app with Uvicorn.
-    Type python app.py run in command line.
-    """
     uvicorn.run(
         "app:create_app",
         host="0.0.0.0",  # nosec

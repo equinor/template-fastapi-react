@@ -1,0 +1,30 @@
+@startuml
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+LAYOUT_WITH_LEGEND()
+
+Person(application_users, "Application User", "A user of the todo application.")
+
+System(web, "Single-Page Application", "Provide all the todo functionality to users via their web browser. ")
+
+Rel(application_users, web, "Uses")
+
+System_Boundary(api, "REST API") {
+   Component(controllers, "Controllers", "Function", "Trigger use cases and returning the result.")
+   Component(use_cases, "Use Cases", "Class", "Implement and encapsulate all of the business rules.")
+   Component(repositories, "Repositories", "Interface", "Handle read and write logic against storage medias.")
+   Component(entities, "Entity", "Class", "The domain objects")
+
+   Rel(controllers, use_cases, "Execute")
+   Rel(use_cases, repositories, "Uses")
+   Rel(repositories, entities, "Instantiate")
+}
+
+Rel(web, controllers, "Requests")
+
+ContainerDb(database, "Database", "MongoDB", "Store todos")
+Rel(repositories, database, "Read and write to", "JDBC")
+
+@enduml

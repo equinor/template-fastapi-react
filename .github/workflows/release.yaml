@@ -1,11 +1,9 @@
-name: CI
-
 on:
-  push:
-    branches: [ master, feature/changelogs ]
-    paths-ignore:
-    - 'CHANGELOG.md'
-    - '.pre-commit-config.yaml'
+  # Workflow dispatch is used for manual triggers
+  workflow_dispatch:
+  # Workflow call is used for called from another workflow
+  workflow_call:
+
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -24,10 +22,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          apt-get update
-          apt-get install -y software-properties-common
-          add-apt-repository -y ppa:git-core/ppa
-          apt-get install -y git
+          sudo apt-get update
+          sudo apt-get install -y software-properties-common
+          sudo add-apt-repository -y ppa:git-core/ppa
+          sudo apt-get install -y git
 
       # Checkout repository. By setting `fetch-depth: 0`, this fetch will include all history and tags
       - name: Checkout
@@ -42,7 +40,7 @@ jobs:
           git config --local user.email "$(git log --format='%ae' HEAD^!)"
           git config --local user.name "$(git log --format='%an' HEAD^!)"
           git config --global core.autocrlf true
-          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/equinor/boilerplate-react-fastapi 
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/equinor/boilerplate-clean-architecture
 
       - name: Install Precommit
         run: pip install pre-commit
@@ -52,7 +50,7 @@ jobs:
         run: npx standard-version --tag-prefix=
 
       # - name: stage changed files
-      #   run: git add .
+      #   run: git create .
 
       # Create a pull request from the changes
       - name: Create Pull Request
