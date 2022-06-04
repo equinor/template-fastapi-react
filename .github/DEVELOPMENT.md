@@ -9,7 +9,7 @@
 
 <div align="center">
 
-# Development guideline
+# Development docs
 
 How to get the boilerplate up and running on your local machine for development and testing purposes.
 
@@ -19,6 +19,7 @@ How to get the boilerplate up and running on your local machine for development 
 [Upgrading packages](#upgrading-packages) •
 [Testing](#testing) •
 [Pre commit](#pre-commit) •
+[Generate changelog](#generate-changelog) 
 
 </div>
 
@@ -149,7 +150,7 @@ yarn test
 
 We use pre-commit to do a minimum of checks locally before committing.
 
-The project provides a [`.pre-commit-config.yaml`](.pre-commit-config.yaml)-file that is used to setup git _pre-commit hooks_.
+The project provides a [`.pre-commit-config.yaml`](../.pre-commit-config.yaml)-file that is used to setup git _pre-commit hooks_.
 
 #### 1) Install pre-commit
 
@@ -165,3 +166,11 @@ Pre-commit tests can be skipped with `git commit --no-verify`
 ```shell
 pre-commit run --all-files
 ```
+
+## Generate changelogs
+
+### Testing locally
+
+```shell
+act -j release -s GITHUB_TOKEN=<INSERT TOKEN HERE>
+````
