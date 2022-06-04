@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  nginx:
+    restart: unless-stopped
+    build: ./nginx
+    image: gts.azurecr.io/nginx:latest
+    ports:
+      - "80:8080"
+    links:
+      - web
+      - api
+
+  api:
+    build: ./api
+    image: gts.azurecr.io/api:latest
+    restart: unless-stopped
+
+  web:
+    build: ./web
+    image: gts.azurecr.io/web:latest
+    restart: unless-stopped

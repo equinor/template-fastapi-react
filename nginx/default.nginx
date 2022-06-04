@@ -1,0 +1,32 @@
+server {
+    listen 8080;
+    server_name localhost;
+    client_max_body_size 2G;
+
+    #security headers
+    include /etc/nginx/security.conf;
+
+    access_log /dev/stdout combined;
+    error_log /dev/stdout;
+
+    location /api/ {
+        proxy_pass http://api:5000/api/;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection upgrade;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_set_header X-Forwarded-Port $server_port;
+        proxy_set_header X-Request-Start $msec;
+    }
+
+    location / {
+        proxy_pass http://web:3000/;
+        # Passthrough for websocket
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host $host;
+    }
+}

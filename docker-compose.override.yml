@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  nginx:
+    image: gts-nginx-dev
+
+  api:
+    build:
+      target: development
+    image: gts-api-dev
+    volumes:
+      - ./api/src/:/code
+    environment:
+      ENVIRONMENT: local
+      LOGGING_LEVEL: debug
+
+  web:
+    build:
+      target: development
+    image: gts-web-dev
+    stdin_open: true
+    volumes:
+      - ./web/src:/code/src
+    environment:
+      - NODE_ENV=development
