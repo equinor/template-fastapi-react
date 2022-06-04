@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [ master, feature/changelogs ]
+    branches: [ main, feature/changelogs ]
     paths-ignore:
     - 'CHANGELOG.md'
     - '.pre-commit-config.yaml'

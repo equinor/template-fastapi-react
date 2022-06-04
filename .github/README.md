@@ -27,7 +27,8 @@ This boilerplate is the **go-to** for getting starting with a smooth FastAPI RES
 <a id="key-features"></a>
 ## :dart: Key features
 
-* Using clean architecture
+* Clean architecture
+* Auto-generate changelogs
 
 <a id="quickstart"></a>
 ## :zap: Quickstart
@@ -39,7 +40,7 @@ In order to run the commands described below, you need:
 - [Docker Compose](https://docs.docker.com/compose/)
 - Make sure you have Python installed. version 3.10 or higher is required.
 
-### Initial configuration
+### Configuration
 
 Environment variables is used for configuration and must be set before running.
 
@@ -47,7 +48,7 @@ Create a copy of `.env-template` called `.env` and populate it with values.
 
 - `XXX`: Specifies the directory in which the database is stored.
 
-### Start running
+### Running
 
 ```sh
 docker-compose up
@@ -58,7 +59,7 @@ The web app will be served at http://localhost
 <a id="development"></a>
 ## :dizzy: Development
 
-See the [development](../DEVELOPMENT.md) docs if you want to start developing.
+See the [development](DEVELOPMENT.md) docs if you want to start developing.
 
 <a id="Contributing"></a>
 ## :+1: Contributing
