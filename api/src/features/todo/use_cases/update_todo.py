@@ -1,5 +1,6 @@
 from pydantic import BaseModel, Field, ValidationError
 
+from common.use_case import use_case_responses
 from entities.TodoItem import TodoItem
 from features.todo.interfaces import TodoRepositoryInterface
 from infrastructure.repositories.TodoRepository import TodoRepository
@@ -19,6 +20,7 @@ class UpdateTodoResponse(BaseModel):
     success: bool = Field(...)
 
 
+@use_case_responses
 def update_todo_use_case(
     id: str,
     data: UpdateTodoRequest,
