@@ -5,6 +5,14 @@ title: 2 Initial setup
 Initial setup
 =============
 
+## Install pre-commit
+
+```
+pre-commit install
+# to enforce conventional commits
+pre-commit install --hook-type commit-msg
+```
+
 ## API
 
 From inside the /api folder.

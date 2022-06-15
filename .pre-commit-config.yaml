@@ -10,11 +10,11 @@ repos:
       - id: trailing-whitespace
       - id: mixed-line-ending
 
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.2.1
+  - repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v1.3.0
     hooks:
-      - id: no-commit-to-branch
-        args: [ '--pattern', '^(feat|fix|refactor|style|test|docs|build|ci|perf)\/[a-z0-9._-]+$' ]
+      - id: conventional-pre-commit
+        always_run: true
 
   - repo: https://github.com/ambv/black
     rev: 21.9b0
