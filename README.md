@@ -12,6 +12,7 @@
 # Awesome Boilerplate
 
 [![License][license-badge]][license]
+[![On push main branch][on-push-main-branch-badge]][on-push-main-branch-action]
 
 This is a **solution template** for creating a Single Page App (SPA) with React and FastAPI following the principles of Clean Architecture.
 
@@ -79,4 +80,5 @@ Please make sure to update tests as appropriate.
 [license-badge]: https://img.shields.io/badge/License-MIT-yellow.svg
 [license]: https://github.com/equinor/boilerplate-clean-architecture/blob/main/LICENSE
 [releases]: https://github.com/equinor/boilerplate-clean-architecture/releases
-
+[on-push-main-branch-badge]: https://github.com/equinor/boilerplate-clean-architecture/actions/workflows/on-push-main-branch.yaml/badge.svg
+[on-push-main-branch-action]: https://github.com/equinor/boilerplate-clean-architecture/actions/workflows/on-push-main-branch.yaml
