@@ -21,7 +21,7 @@ Source code dependencies can only point inwards. Nothing in an inner circle can 
 
 ### The golden rule
 
-Talk inward with simple structures and talk outwards through interfaces.
+Talk inward with simple structures (dictionaries or classes) and talk outwards through interfaces.
 
 ## Why Clean Architecture?
 
@@ -62,13 +62,40 @@ The Component diagram shows how a container is made up of a number of components
 
 ![Container diagram](/diagrams/api-level-3.svg)
 
+
 The components:
 
-- `Entities`- are the enterprise business objects of our application. These should not be affected by any change external to them, and these should be the most stable code within your application. An entity can be an object with methods, or it can be a set of data structures and functions.
-- `Use cases` - implements and encapsulates all the application business rules. Each use case orchestrates all of the logic for a specific application business use case. Changes to use cases should not impact the entities. Inside use cases we should have every right to expect that arguments are valid in terms of type.
-- `Controllers` - are intermediate layers. You can think of them as an entry and exit gates to the use cases. It receives a request and return a response. The controller takes the user input (the request), converts it into the request object defined by the use case and passes the request objects to the use case, and at the end return the response objects. In FastAPI you can set response_model and request_model, and API documentation can be generated and validated (in controllers). 
-- `Repositories` - the storage layer takes entities and returns entities, hides storage details.
+- `Entities`- are the enterprise business objects of our application. These should not be affected by any change external to them, and these should be the most stable code within your application. An entity can be an object with methods, or it can be a set of data structures and functions. Should be a regular class, dataclasses, or value objects (if all the properties are the same, the objects are identical). Entity does not depend on anything except possibly other entities. It holds data (state) and logic reusable for various applications.
+- `Use cases` - implements and encapsulates all the application business rules. Each use case orchestrates all of the logic for a specific application business use case. Logic that defines the actual features of our app. Changes to use cases should not impact the entities. Inside use cases we should have every right to expect that arguments are valid in terms of type. The only thing you can do with a use case is to execute it. Use cases interact with entities (thus depend on them) and hold logic of the specific application (and typically execute that logic via various repositories or data access layer(s) gateway(s).
+- `Controllers` - you can think of them as an entry and exit gates to the use cases. It receives a request and return a response. The controller takes the user input (the request), converts it into the request object defined by the use case and passes the request objects to the use case, and at the end return the response objects.
+- `Repositories` - takes entities and returns entities, hides storage details. Can work against local, remote, data services or third party services.
 
-Dependency injection: 
-- The concrete implementation of a repository is injected into the use-case as run-time. The use-case should only know of the repository interface before run-time. 
+Dependency injection:
+- The concrete implementation of a repository is injected into the use-case as run-time. The use-case should only know of the repository interface (abstract class) before run-time.
 
+
+Dedicated request and response models for each use-case:
+- In FastAPI you can set response_model and request_model, and then the API documentation can be generated and validated (in controllers). Each use-case have own read- and write- model to handle custom requests inputs and outputs for each use-case.
+
+## Glossary of terms
+
+Some important terms in Clean Architecture.
+
+- `Èntity`- This is your business objects.
+- `Enterprise business logic` - This is the implementations of enterprise business rules.  Enterprise business rules is your business policy in the real world.
+- `Application business logic` - The implementation of your application business rules. The application business rules is the features of your app, the todo List that your app need to get done to be your app, it’s like enterprise business rules but it is specific for your application.
+
+## Enterprise business logic (entities) vs. application business logic (use-cases)
+
+For example let's say we have a banking app with three functionalities: login, view balance and transfer funds.
+
+So, to be able to transfer funds the user must be logged in and should have sufficient balance.
+
+Entities:
+  * User (holds user name, hashed&salted password; logic like validate user name, hash plain-text password)
+  * Balance (holds user dependency, amount, limits, logic like verify if given transfer amount is OK)
+
+Use cases:
+  * Authenticate (based on user-name/password input, validate it and (using some sort of repository or gateway to data) pull user entity from backend, along with some token likely), likely cache it if success or report errors if any
+  * View Balance (based on user entity input, pull balance entity from backend (same as above...), report errors if any
+  * Transfer Funds (based on user entity and amount input, pull balance entity, verify if transfer permitted, perform if so or report error if not)
