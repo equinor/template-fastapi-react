@@ -73,19 +73,14 @@ The components:
 Dependency injection:
 - The concrete implementation of a repository is injected into the use-case as run-time. The use-case should only know of the repository interface (abstract class) before run-time.
 
-
 Dedicated request and response models for each use-case:
 - In FastAPI you can set response_model and request_model, and then the API documentation can be generated and validated (in controllers). Each use-case have own read- and write- model to handle custom requests inputs and outputs for each use-case.
 
-## Glossary of terms
-
-Some important terms in Clean Architecture.
-
-- `Èntity`- This is your business objects.
-- `Enterprise business logic` - This is the implementations of enterprise business rules.  Enterprise business rules is your business policy in the real world.
-- `Application business logic` - The implementation of your application business rules. The application business rules is the features of your app, the todo List that your app need to get done to be your app, it’s like enterprise business rules but it is specific for your application.
-
 ## Enterprise business logic (entities) vs. application business logic (use-cases)
+
+The business logic are divided between two layers: the domain layer (aka entities) and the application layer (aka use cases). The domain layer contains the enterprise business logic, and the application layer contains the application business logic. The difference being that enterprise logic could be shared with other systems whereas application logic would typically be specific to single system.
+
+### Example: Bank application
 
 For example let's say we have a banking app with three functionalities: login, view balance and transfer funds.
 
@@ -99,3 +94,11 @@ Use cases:
   * Authenticate (based on user-name/password input, validate it and (using some sort of repository or gateway to data) pull user entity from backend, along with some token likely), likely cache it if success or report errors if any
   * View Balance (based on user entity input, pull balance entity from backend (same as above...), report errors if any
   * Transfer Funds (based on user entity and amount input, pull balance entity, verify if transfer permitted, perform if so or report error if not)
+
+## Glossary of terms
+
+Some important terms in Clean Architecture.
+
+- `Èntity`- This is your business objects.
+- `Enterprise business logic` - This is the implementations of enterprise business rules.  Enterprise business rules is your business policy in the real world.
+- `Application business logic` - The implementation of your application business rules. The application business rules is the features of your app, the todo List that your app need to get done to be your app, it’s like enterprise business rules but it is specific for your application.
