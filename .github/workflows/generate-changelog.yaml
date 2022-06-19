@@ -1,0 +1,63 @@
+on:
+  # Workflow dispatch is used for manual triggers
+  workflow_dispatch:
+  # Workflow call is used for called from another workflow
+  workflow_call:
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  generate-changelog:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/setup-python@v3
+        with:
+          python-version: '3.9'
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 14
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y software-properties-common
+          sudo add-apt-repository -y ppa:git-core/ppa
+          sudo apt-get install -y git
+
+      # Checkout repository. By setting `fetch-depth: 0`, this fetch will include all history and tags
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # Configure git identity with the user set in last log entrance
+      - name: Configure Git identity
+        run: |
+          git config --local user.email "$(git log --format='%ae' HEAD^!)"
+          git config --local user.name "$(git log --format='%an' HEAD^!)"
+          git config --global core.autocrlf true
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/equinor/boilerplate-clean-architecture
+
+      - name: Install Precommit
+        run: pip install pre-commit
+
+      # Bump version with standard-version, remove prefixes from version tag
+      - name: Bump version
+        run: npx standard-version --tag-prefix=
+
+      # Create changelog artifact
+      - name: Upload changelog
+        uses: actions/upload-artifact@v3
+        with:
+          name: CHANGELOG
+          path: CHANGELOG.md
+
+      # Set the new version number to an environment variable
+      - name: Retrieve new version
+        id: tag
+        run: |
+          echo "::set-output name=version::$(git describe HEAD)"
