@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - testing
     paths-ignore:
       - 'CHANGELOG.md'
       - '.pre-commit-config.yaml'
@@ -12,7 +13,9 @@ jobs:
     uses: ./.github/workflows/tests.yaml
 
   release:
+    needs: tests
     uses: ./.github/workflows/release.yaml
 
   docs:
+    needs: release
     uses: ./.github/workflows/generate-docs.yaml

@@ -51,6 +51,11 @@ jobs:
 
       # - name: stage changed files
       #   run: git create .
+      - name: Upload math result for job 1
+        uses: actions/upload-artifact@v3
+        with:
+          name: CHANGELOG
+          path: CHANGELOG.md
 
       # Create a pull request from the changes
       - name: Create Pull Request

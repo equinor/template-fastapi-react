@@ -33,6 +33,16 @@ jobs:
     #- name: Display Diagrams
     #  run: pwd && ls ${{ github.workspace }}/diagrams
 
+    - name: Download CHANGELOG
+      uses: actions/download-artifact@v3
+      with:
+        name: CHANGELOG
+
+    - name: 'Add changelog'
+      shell: bash
+      run: |
+        cp CHANGELOG.md docs/Changelog.md
+
     - name: 'Build and deploy'
       shell: bash
       run: |
@@ -40,7 +50,7 @@ jobs:
         doctave build --release --allow-failed-checks
 
     - name: GitHub Pages
-      if: github.ref == 'refs/heads/main'
+      if: github.ref == 'refs/heads/testing'
       uses: crazy-max/ghaction-github-pages@v2.6.0
       with:
         build_dir: site/
