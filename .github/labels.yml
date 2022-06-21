@@ -83,3 +83,23 @@
   name: "type: :neckbeard: refactor"
   description: ""
   color: "FBCA04"
+- # build
+  name: "type: :hammer: build"
+  description: ""
+  color: "FBCA04"
+- # ci
+  name: "type: :ship: ci"
+  description: ""
+  color: "FBCA04"
+- # test
+  name: "type: :traffic_light: test"
+  description: ""
+  color: "FBCA04"
+- # chore
+  name: "type: :construction: chore"
+  description: ""
+  color: "FBCA04"
+- # perf
+  name: "type: :speedboat: perf"
+  description: ""
+  color: "FBCA04"
