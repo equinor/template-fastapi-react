@@ -1,3 +1,4 @@
+import traceback
 from typing import Callable
 
 from pydantic import ValidationError
@@ -27,7 +28,8 @@ def use_case_executor(use_case: Callable, *args, **kwargs):
         logger.error(e)
         return PlainTextResponse(str(e), status_code=status.HTTP_400_BAD_REQUEST)
     except Exception as e:
+        traceback.print_exc()
         logger.error(f"Unexpected unhandled exception: {e}")
         return PlainTextResponse(
-            str(e), status_code=status.HTTP_500_INTERNAL_SERVER_ERROR
+            "Unexpected unhandled exception", status_code=status.HTTP_500_INTERNAL_SERVER_ERROR
         )

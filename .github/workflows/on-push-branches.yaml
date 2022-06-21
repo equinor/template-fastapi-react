@@ -1,3 +1,4 @@
+name: "On push to branches"
 on:
   workflow_dispatch:
   push:
@@ -9,3 +10,5 @@ on:
 jobs:
   tests:
     uses: ./.github/workflows/tests.yaml
+    secrets:
+      ACR_SECRET: ${{ secrets.ACR_SECRET }}
