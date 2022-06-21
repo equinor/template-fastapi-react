@@ -5,6 +5,12 @@ on:
   workflow_dispatch:
   # Workflow call is used for called from another workflow
   workflow_call:
+    inputs:
+      message:
+        description: 'A message to shown in the changelog'
+        default: ''
+        required: true
+        type: string
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -41,6 +47,7 @@ jobs:
     - name: 'Add changelog'
       shell: bash
       run: |
+        sed -i -e '1i${{ inputs.message }}\' CHANGELOG.md
         cp CHANGELOG.md docs/Changelog.md
 
     - name: 'Build and deploy'

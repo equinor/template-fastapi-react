@@ -19,3 +19,5 @@ jobs:
   docs:
     needs: release
     uses: ./.github/workflows/generate-docs.yaml
+    with:
+      message: 'Warning: This is the development version.'
