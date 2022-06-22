@@ -23,6 +23,10 @@ services:
       SECRET_KEY: $SECRET_KEY
     ports:
       - "5000:5000"
+    depends_on:
+      - db
+    links:
+      - db
 
   web:
     build:
