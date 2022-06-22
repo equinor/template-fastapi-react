@@ -48,13 +48,14 @@ jobs:
         run: pip install pre-commit
 
       - name: Check valid Python files
+        if: ${{ false }}  # disable for now
         run: pre-commit run check-ast --all-files
 
       - name: Build API image
         run: |
-          docker login -u $CR_LOGIN -p ${{ secrets.ACR_SECRET }} $IMAGE_REGISTRY
-          docker pull $API_IMAGE
-          docker build --cache-from $API_IMAGE --target development --tag api-development ./api
+          # docker login -u $CR_LOGIN -p ${{ secrets.ACR_SECRET }} $IMAGE_REGISTRY
+          # docker pull $API_IMAGE
+          docker build --target development --tag api-development ./api # TODO: --cache-from $API_IMAGE
 
       - name: Black Linting
         run: docker run --rm api-development black --check --diff --exclude something .
@@ -72,6 +73,7 @@ jobs:
         run: docker run --rm api-development interrogate
 
       - name: Integration tests
+        if: ${{ false }}  # disable for now
         run: docker-compose -f docker-compose.yml -f docker-compose.ci.yml run api behave
 
   test-web:
@@ -84,9 +86,9 @@ jobs:
 
       - name: Run prettier formatting
         run: pre-commit run prettier --all-files
-        
+
       - name: Build Web Image
         run: |
-          docker login -u $CR_LOGIN -p ${{ secrets.ACR_SECRET }} $IMAGE_REGISTRY
-          docker pull $WEB_IMAGE
+          # docker login -u $CR_LOGIN -p ${{ secrets.ACR_SECRET }} $IMAGE_REGISTRY
+          # docker pull $WEB_IMAGE
           docker build --cache-from $WEB_IMAGE --target development --tag web-dev ./web
