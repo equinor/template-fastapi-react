@@ -34,8 +34,8 @@ class AddTodoResponse(BaseModel):
 @use_case_responses
 def add_todo_use_case(
     data: AddTodoRequest,
-    todo_item_repository: TodoRepositoryInterface = TodoRepository(),
+    todo_item_repository=TodoRepository(),
 ) -> Optional[AddTodoResponse]:
     todo_item = TodoItem(id=str(uuid.uuid4()), title=data.title)
     todo_item_repository.create(todo_item)
-    return AddTodoResponse.from_entity(cast(TodoItem, todo_item))
+    return AddTodoResponse.from_entity(todo_item)

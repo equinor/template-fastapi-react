@@ -11,7 +11,7 @@ class DeleteTodoByIdResponse(BaseModel):
 
 @use_case_responses
 def delete_todo_use_case(
-    id: str, todo_item_repository: TodoRepositoryInterface = TodoRepository()
+    id: str, todo_item_repository=TodoRepository()
 ) -> DeleteTodoByIdResponse:
     if todo_item_repository.delete_by_id(id):
         return DeleteTodoByIdResponse(success=True)

@@ -1,44 +1,30 @@
 from abc import abstractmethod
-from typing import Dict, Generic, List, TypeVar
-
-# Type definition for Model
-M = TypeVar("M")
-
-# Type definition for Unique Id
-K = TypeVar("K")
+from typing import Any, Dict, Generic, List, TypeVar
 
 
-class ClientInterface(Generic[M, K]):
+class ClientInterface:
 
     # Create a new instance of the Model
     @abstractmethod
-    def create(self, instance: M) -> M:
+    def create(self, instance) -> dict:
         pass
 
     # Delete an existing instance of the Model
     @abstractmethod
-    def delete(self, id: K) -> None:
+    def delete(self, id: str) -> None:
         pass
 
     # Fetch an existing instance of the Model by it's unique Id
     @abstractmethod
-    def find_by_id(self, id: K) -> M:
-        pass
-
-    @abstractmethod
-    def find_by_filter(self, filter, projection) -> M:
+    def find_by_id(self, id) -> dict:
         pass
 
     # Lists all existing instance of the Model
     @abstractmethod
-    def list(self, limit: int, start: int) -> List[M]:
+    def list(self) -> List[dict]:
         pass
 
     # Updates an existing instance of the Model
     @abstractmethod
-    def update(self, id: K, instance: M) -> M:
-        pass
-
-    @abstractmethod
-    def get_all(self) -> List[M]:
+    def update(self, id: str, instance: dict) -> dict:
         pass
