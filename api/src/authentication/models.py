@@ -1,9 +1,7 @@
-from datetime import datetime
 from enum import IntEnum
 from typing import Any, Dict, List, Optional
-from uuid import uuid4
 
-from pydantic import UUID4, BaseModel
+from pydantic import BaseModel
 
 
 class AccessLevel(IntEnum):
@@ -14,6 +12,7 @@ class AccessLevel(IntEnum):
     def check_privilege(self, required_level: "AccessLevel") -> bool:
         if self.value >= required_level.value:
             return True
+        return False
 
     @classmethod
     def __get_validators__(cls):
@@ -75,25 +74,4 @@ class ACL(BaseModel):
             "roles": {k: v.name for k, v in self.roles.items()},
             "users": {k: v.name for k, v in self.users.items()},
             "others": self.others.name,
-        }
-
-
-class PATData(BaseModel):
-    pat_hash: str = None
-    uuid: UUID4 = str(uuid4())
-    user_id: str
-    # TODO: Roles should be checked on every request, as they mey be updated after the PAT has been created
-    roles: List[str] = []
-    scope: AccessLevel
-    expire: datetime
-
-    # TODO: It could be useful to have a 'name' or 'description' on the PAT
-    def dict(self, *kwargs) -> dict:
-        return {
-            "_id": self.pat_hash,  # Use the actual hash as the indexed '_id' value, as this is looked up most often.
-            "uuid": self.uuid,  # Another uuid is used to identify pat, which can safely be returned to user.
-            "user_id": self.user_id,
-            "roles": self.roles,
-            "scope": self.scope.name,
-            "expire": str(self.expire),
         }

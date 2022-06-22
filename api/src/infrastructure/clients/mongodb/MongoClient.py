@@ -1,3 +1,4 @@
+from abc import ABC
 from typing import Dict, List, Optional
 
 from pymongo import MongoClient
@@ -7,20 +8,7 @@ from config import config
 from infrastructure.clients.ClientInterface import ClientInterface
 
 
-def get_mongo_client(collection: str):
-    mongo_database_client = MongoDatabaseClient(
-        username=config.MONGODB_USERNAME,
-        password=config.MONGODB_PASSWORD,
-        host=config.MONGODB_HOSTNAME,
-        database=config.MONGODB_DATABASE,
-        collection=collection,
-        tls=False,
-        port=config.MONGODB_PORT,
-    )
-    return mongo_database_client
-
-
-class MongoDatabaseClient(ClientInterface[Dict, str]):
+class MongoDatabaseClient(ClientInterface, ABC):
     def __init__(
         self,
         username: str,
@@ -58,29 +46,24 @@ class MongoDatabaseClient(ClientInterface[Dict, str]):
 
     def create(self, document: Dict) -> Dict:
         try:
-            return self.handler[self.collection].insert_one(document).acknowledged
+            self.handler[self.collection].insert_one(document)
+            return document
         except DuplicateKeyError:
             raise Exception
 
-    def get_all(self) -> List[Dict]:
+    def list(self) -> List[dict]:
         return self.handler[self.collection].find()
 
     def find_by_id(self, uid: str) -> Dict:
         return self.handler[self.collection].find_one(filter={"_id": uid})
 
-    def find_by_filter(self, filter, projection) -> List[Dict]:
-        return self.handler[self.collection].find_one(
-            filter=filter, projection=projection
-        )
-
     def update(self, uid: str, document: Dict) -> Dict:
         self.handler[self.collection].replace_one({"_id": uid}, document)
         return document
 
-    def delete(self, uid: str) -> bool:
-        return (
-            self.handler[self.collection].delete_one(filter={"_id": uid}).acknowledged
-        )
+    def delete(self, uid: str) -> None:
+        self.handler[self.collection].delete_one(filter={"_id": uid})
+        return None
 
     def find(self, filters: Dict) -> Optional[List[Dict]]:
         return self.handler[self.collection].find(filter=filters)
@@ -93,3 +76,16 @@ class MongoDatabaseClient(ClientInterface[Dict, str]):
 
     def delete_many(self, query: Dict):
         return self.handler[self.collection].delete_many(query)
+
+
+def get_mongo_client(collection: str) -> MongoDatabaseClient:
+    mongo_database_client = MongoDatabaseClient(
+        username=config.MONGODB_USERNAME,
+        password=config.MONGODB_PASSWORD,
+        host=config.MONGODB_HOSTNAME,
+        database=config.MONGODB_DATABASE,
+        collection=collection,
+        tls=False,
+        port=config.MONGODB_PORT,
+    )
+    return mongo_database_client

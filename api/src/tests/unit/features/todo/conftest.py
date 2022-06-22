@@ -48,7 +48,7 @@ def mock_client(test_data):
 
     client.create = mock_create
     client.find_by_id.side_effect = mock_find_by_id
-    client.get_all = mock_get_all
+    client.list = mock_get_all
     client.delete = mock_delete
     client.update = mock_update
 

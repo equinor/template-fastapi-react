@@ -13,12 +13,6 @@ from authentication.models import User
 from common.exceptions import credentials_exception
 from common.utils.logger import logger
 from config import config, default_user
-from features.personal_access_token.interfaces.PersonalAccessTokenRepositoryInterface import (
-    PersonalAccessTokenRepositoryInterface,
-)
-from infrastructure.repositories.PersonalAccessTokenRepository import (
-    PersonalAccessTokenRepository,
-)
 
 oauth2_scheme = OAuth2AuthorizationCodeBearer(
     authorizationUrl=config.OAUTH_AUTH_ENDPOINT, tokenUrl=config.OAUTH_TOKEN_ENDPOINT
@@ -77,41 +71,3 @@ def auth_with_jwt(jwt_token: str = Security(oauth2_scheme)) -> User:
     if user is None:
         raise credentials_exception
     return user
-
-
-def get_user_from_pat(
-    pat: str,
-    pat_repository: PersonalAccessTokenRepositoryInterface = PersonalAccessTokenRepository(),
-) -> User:
-    pat_data = pat_repository.get_by_id(pat)
-    if not pat_data:
-        raise credentials_exception
-    if datetime.datetime.now() > pat_data.expire:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Personal Access Token expired",
-            headers={"WWW-Authenticate": "Access-Key"},
-        )
-    user = User(**pat_data.dict())
-    return user
-
-
-# This dependency function will try to use one of 'Access-Key' or 'Authorization' headers for authentication.
-# 'Access-Key' takes precedence.
-async def auth_w_jwt_or_pat(
-    jwt_token: str = Security(oauth2_scheme_optional_header),
-    personal_access_token: str = Security(
-        APIKeyHeader(name="Access-Key", auto_error=False)
-    ),
-) -> User:
-    if not config.AUTH_ENABLED:
-        return default_user
-
-    if personal_access_token:
-        return get_user_from_pat(personal_access_token)
-    if jwt_token:
-        return auth_with_jwt(jwt_token)
-
-    raise HTTPException(
-        status_code=status.HTTP_401_UNAUTHORIZED, detail="Not authenticated"
-    )

@@ -3,7 +3,7 @@ repos:
     rev: v4.1.0
     hooks:
       - id: check-ast
-        language_version: python3.8
+        language_version: python3.10
       - id: check-merge-conflict
       - id: check-json
       - id: check-yaml
@@ -17,10 +17,11 @@ repos:
         always_run: true
 
   - repo: https://github.com/ambv/black
-    rev: 21.9b0
+    rev: 22.3.0
     hooks:
       - id: black
-        language_version: python3.8
+        language_version: python3.10
+        args: [--target-version, py310]
         files: ^api/src/.*\.py$
 
   - repo: https://github.com/PyCQA/bandit
@@ -52,3 +53,12 @@ repos:
         files: ^web/.*\.(ts|tsx|js|css|html|json)$
         args:
           ["--config=web/.prettierrc.js", "--ignore-path=web/.prettierignore"]
+
+  - repo: local
+    hooks:
+      - id: mypy
+        name: Python type checking
+        pass_filenames: false
+        files: ^api/.*\.py$
+        entry: sh -c "api/.venv/bin/python -m mypy --namespace-packages --ignore-missing-imports api/src/app.py"
+        language: system

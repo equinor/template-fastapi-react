@@ -10,11 +10,11 @@ class Config(BaseSettings):
     LOGGER_LEVEL: str = Field("INFO", env="LOGGING_LEVEL", to_lower=True)
 
     # Database
-    MONGODB_USERNAME: str = os.getenv("MONGODB_USERNAME")
-    MONGODB_PASSWORD: str = os.getenv("MONGODB_PASSWORD")
-    MONGODB_HOSTNAME: str = os.getenv("MONGODB_HOSTNAME")
-    MONGODB_DATABASE: str = os.getenv("MONGODB_DATABASE", "test")
-    MONGODB_PORT: int = os.getenv("MONGODB_PORT", 27017)
+    MONGODB_USERNAME: str = Field("dummy", env="MONGODB_USERNAME")
+    MONGODB_PASSWORD: str = Field("dummy", env="MONGODB_PASSWORD")
+    MONGODB_HOSTNAME: str = Field("db", env="MONGODB_HOSTNAME")
+    MONGODB_DATABASE: str = Field("test", env="MONGODB_DATABASE")
+    MONGODB_PORT: int = Field(27017, env="MONGODB_PORT")
 
     # Access control
     APPLICATION_ADMIN = Field("admin", env="APPLICATION_ADMIN")

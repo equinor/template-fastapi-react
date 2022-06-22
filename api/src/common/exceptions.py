@@ -1,9 +1,11 @@
+from typing import Optional
+
 from fastapi import HTTPException
 from starlette import status
 
 
 class ApplicationException(Exception):
-    def __init__(self, message: str):
+    def __init__(self, message: Optional[str] = "Something went wrong"):
         super()
         self.message = message
 

@@ -1,5 +1,5 @@
 import time
-from typing import Callable  # for type hinting
+from typing import Callable
 
 import click
 import uvicorn
@@ -7,11 +7,10 @@ from fastapi import APIRouter, FastAPI, Security
 from starlette.requests import Request
 from starlette.responses import Response
 
-from authentication.authentication import auth_w_jwt_or_pat, auth_with_jwt
+from authentication.authentication import auth_with_jwt
 from common.utils.logger import logger
 from config import config
 from features.health_check import health_check_feature
-from features.personal_access_token import personal_access_token_feature
 from features.todo import todo_feature
 from features.whoami import whoami_feature
 
@@ -27,18 +26,9 @@ def create_app() -> FastAPI:
     authenticated_routes = APIRouter()
     authenticated_routes.include_router(todo_feature.router)
     authenticated_routes.include_router(whoami_feature.router)
-
-    # Some routes a PAT can not be used to authenticate.
-    # For example, to get new access tokens. That would be bad...
-    jwt_only_routes = APIRouter()
-    jwt_only_routes.include_router(personal_access_token_feature.router)
-
-    app = FastAPI(title="Template Fastapi React", description="")
+    app = FastAPI(title="Awesome Boilerplate", description="")
     app.include_router(
-        authenticated_routes, prefix=prefix, dependencies=[Security(auth_w_jwt_or_pat)]
-    )
-    app.include_router(
-        jwt_only_routes, prefix=prefix, dependencies=[Security(auth_with_jwt)]
+        authenticated_routes, prefix=prefix, dependencies=[Security(auth_with_jwt)]
     )
     app.include_router(public_routes, prefix=prefix)
 
