@@ -2,6 +2,7 @@ from typing import List
 
 from pydantic import BaseModel, Field
 
+from common.use_case import use_case_responses
 from entities.TodoItem import TodoItem
 from infrastructure.repositories.TodoRepository import TodoRepository
 
@@ -18,6 +19,7 @@ class GetTodoAllResponse(BaseModel):
         )
 
 
+@use_case_responses
 def get_todo_all_use_case(
     todo_item_repository=TodoRepository(),
 ) -> List[GetTodoAllResponse]:

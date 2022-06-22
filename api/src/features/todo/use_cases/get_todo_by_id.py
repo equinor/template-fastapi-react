@@ -2,6 +2,7 @@ from typing import Optional, cast
 
 from pydantic import BaseModel, Field
 
+from common.use_case import use_case_responses
 from entities.TodoItem import TodoItem
 from features.todo.exceptions import TodoItemNotFoundError
 from features.todo.interfaces import TodoRepositoryInterface
@@ -20,6 +21,7 @@ class GetTodoByIdResponse(BaseModel):
         )
 
 
+@use_case_responses
 def get_todo_by_id_use_case(
     id: str, todo_item_repository=TodoRepository()
 ) -> Optional[GetTodoByIdResponse]:
