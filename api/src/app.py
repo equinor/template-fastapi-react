@@ -33,7 +33,7 @@ def create_app() -> FastAPI:
     jwt_only_routes = APIRouter()
     jwt_only_routes.include_router(personal_access_token_feature.router)
 
-    app = FastAPI(title="Awesome Boilerplate", description="")
+    app = FastAPI(title="Template Fastapi React", description="")
     app.include_router(
         authenticated_routes, prefix=prefix, dependencies=[Security(auth_w_jwt_or_pat)]
     )

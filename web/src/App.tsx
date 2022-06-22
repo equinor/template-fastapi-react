@@ -107,7 +107,7 @@ const App = () => {
 
   return (
     <ToDoContainer>
-      <Header>Awesome Boilerplate</Header>
+      <Header>Template Fastapi React</Header>
       <div>Logged inn as: {token && tokenData?.['unique_name']}</div>
       <div className="form">
         <form onSubmit={addItem}>

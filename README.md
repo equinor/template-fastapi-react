@@ -9,7 +9,7 @@
 
 <div align="center">
 
-# Awesome Boilerplate
+# Template Fastapi React
 
 [![License][license-badge]][license]
 [![On push main branch][on-push-main-branch-badge]][on-push-main-branch-action]
