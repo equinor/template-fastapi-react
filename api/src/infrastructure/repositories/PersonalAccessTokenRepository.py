@@ -1,12 +1,12 @@
 from typing import Optional
 
 from authentication.models import PATData
+from common.utils.encryption import scrypt
 from features.personal_access_token.interfaces.PersonalAccessTokenRepositoryInterface import (
     PersonalAccessTokenRepositoryInterface,
 )
 from infrastructure.clients.ClientInterface import ClientInterface
 from infrastructure.clients.mongodb.MongoClient import get_mongo_client
-from common.utils.encryption import scrypt
 
 
 class PersonalAccessTokenRepository(PersonalAccessTokenRepositoryInterface):

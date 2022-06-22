@@ -1,14 +1,16 @@
 import datetime
 
 from authentication.models import AccessLevel, PATData, User
+from common.use_case import use_case_responses
+from common.utils.encryption import generate_key, scrypt
 from infrastructure.repositories.PersonalAccessTokenRepository import (
     PersonalAccessTokenRepository,
 )
-from common.utils.encryption import generate_key, scrypt
 
 MAX_TOKEN_TTL = datetime.timedelta(days=365).total_seconds()
 
 
+@use_case_responses
 def create_pat_use_case(
     user: User,
     scope: AccessLevel = AccessLevel.WRITE,

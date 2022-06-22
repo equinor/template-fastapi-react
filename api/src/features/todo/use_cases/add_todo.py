@@ -3,6 +3,7 @@ from typing import Optional, cast
 
 from pydantic import BaseModel, Field
 
+from common.use_case import use_case_responses
 from entities.TodoItem import TodoItem
 from features.todo.interfaces import TodoRepositoryInterface
 from infrastructure.repositories.TodoRepository import TodoRepository
@@ -30,6 +31,7 @@ class AddTodoResponse(BaseModel):
         )
 
 
+@use_case_responses
 def add_todo_use_case(
     data: AddTodoRequest,
     todo_item_repository: TodoRepositoryInterface = TodoRepository(),

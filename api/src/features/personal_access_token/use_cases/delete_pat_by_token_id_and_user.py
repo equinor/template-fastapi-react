@@ -1,6 +1,7 @@
 from pydantic import BaseModel, Field
 
 from authentication.models import User
+from common.use_case import use_case_responses
 from features.personal_access_token.interfaces.PersonalAccessTokenRepositoryInterface import (
     PersonalAccessTokenRepositoryInterface,
 )
@@ -13,6 +14,7 @@ class DeletePatResponse(BaseModel):
     success: bool = Field(...)
 
 
+@use_case_responses
 def delete_pat_by_token_id_and_user_use_case(
     token_id: str,
     user: User,

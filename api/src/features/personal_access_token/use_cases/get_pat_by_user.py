@@ -4,6 +4,7 @@ from pydantic.fields import Field
 from pydantic.main import BaseModel
 
 from authentication.models import PATData, User
+from common.use_case import use_case_responses
 from features.personal_access_token.interfaces.PersonalAccessTokenRepositoryInterface import (
     PersonalAccessTokenRepositoryInterface,
 )
@@ -28,6 +29,7 @@ class GetPatByUsernameResponse(BaseModel):
         )
 
 
+@use_case_responses
 def get_pat_by_user_use_case(
     user: User,
     pat_repository: PersonalAccessTokenRepositoryInterface = PersonalAccessTokenRepository(),

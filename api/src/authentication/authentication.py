@@ -11,6 +11,7 @@ from starlette.exceptions import HTTPException
 from authentication.mock_token_generator import mock_rsa_public_key
 from authentication.models import User
 from common.exceptions import credentials_exception
+from common.utils.logger import logger
 from config import config, default_user
 from features.personal_access_token.interfaces.PersonalAccessTokenRepositoryInterface import (
     PersonalAccessTokenRepositoryInterface,
@@ -18,7 +19,6 @@ from features.personal_access_token.interfaces.PersonalAccessTokenRepositoryInte
 from infrastructure.repositories.PersonalAccessTokenRepository import (
     PersonalAccessTokenRepository,
 )
-from common.utils.logger import logger
 
 oauth2_scheme = OAuth2AuthorizationCodeBearer(
     authorizationUrl=config.OAUTH_AUTH_ENDPOINT, tokenUrl=config.OAUTH_TOKEN_ENDPOINT
