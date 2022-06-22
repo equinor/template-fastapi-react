@@ -1,9 +1,18 @@
+name: "Test"
 on:
   # Workflow dispatch is used for manual triggers
   workflow_dispatch:
   # Workflow call is used for called from another workflow
   workflow_call:
+    secrets:
+      ACR_SECRET:
+        required: false
 
+env:
+  IMAGE_REGISTRY: heracles.azurecr.io
+  CR_LOGIN: heracles
+  API_IMAGE: heracles.azurecr.io/dmt/api
+  WEB_IMAGE: heracles.azurecr.io/dmt/web
 
 jobs:
   common-checks:
@@ -41,8 +50,11 @@ jobs:
       - name: Check valid Python files
         run: pre-commit run check-ast --all-files
 
-      - name: Build API test image
-        run: docker build --target development --tag api-development ./api
+      - name: Build API image
+        run: |
+          docker login -u $CR_LOGIN -p ${{ secrets.ACR_SECRET }} $IMAGE_REGISTRY
+          docker pull $API_IMAGE
+          docker build --cache-from $API_IMAGE --target development --tag api-development ./api
 
       - name: Black Linting
         run: docker run --rm api-development black --check --diff --exclude something .
@@ -59,6 +71,9 @@ jobs:
       - name: Documentation Check
         run: docker run --rm api-development interrogate
 
+      - name: Integration tests
+        run: docker-compose -f docker-compose.yml -f docker-compose.ci.yml run api behave
+
   test-web:
     runs-on: ubuntu-latest
     steps:
@@ -69,9 +84,9 @@ jobs:
 
       - name: Run prettier formatting
         run: pre-commit run prettier --all-files
-
-      - name: Build Web test image
-        run: docker build --target development --tag web-development ./web
-
-
-
+        
+      - name: Build Web Image
+        run: |
+          docker login -u $CR_LOGIN -p ${{ secrets.ACR_SECRET }} $IMAGE_REGISTRY
+          docker pull $WEB_IMAGE
+          docker build --cache-from $WEB_IMAGE --target development --tag web-dev ./web

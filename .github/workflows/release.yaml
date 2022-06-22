@@ -1,3 +1,4 @@
+name: "Release"
 on:
   # Workflow dispatch is used for manual triggers
   workflow_dispatch:
