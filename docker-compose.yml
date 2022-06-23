@@ -13,14 +13,14 @@ services:
 
   api:
     build: ./api
-    image: gts.azurecr.io/api:latest
+    image: ghcr.io/equinor/template-fastapi-react/api
     restart: unless-stopped
     depends_on:
       - db
 
   web:
     build: ./web
-    image: boilerplate.azurecr.io/web:latest
+    image: ghcr.io/equinor/template-fastapi-react/web
     restart: unless-stopped
 
   db:

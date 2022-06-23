@@ -1,5 +1,4 @@
 FROM node:14 as base
-
 ARG AUTH_ENABLED=0
 ARG REDIRECT_URI=http://localhost/
 # Azure AD requires a scope.
@@ -17,8 +16,8 @@ ENV REACT_APP_AUTH_REDIRECT_URI=$REDIRECT_URI
 
 WORKDIR /code
 ADD package.json yarn.lock /code/
-ADD ./ /code/
 RUN yarn install --frozen-lockfile
+ADD ./ /code/
 # To be able to call node modules binaries
 ENV PATH=$PATH:./node_modules/.bin/
 
@@ -34,4 +33,3 @@ COPY --from=build /code/build /code/build
 USER 1000
 CMD ["serve", "--single", "/code/build", "--listen", "8001"]
 EXPOSE 8001
-
