@@ -100,7 +100,7 @@ python-versions = "~=3.5"
 name = "certifi"
 version = "2022.6.15"
 description = "Python package for providing Mozilla's CA Bundle."
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 
@@ -874,7 +874,7 @@ python-versions = ">=3.7"
 [metadata]
 lock-version = "1.1"
 python-versions = "3.10.*"
-content-hash = "f51d52ed32b59c5bae5f626647fea72435b2c07a315955a421078509210ed77f"
+content-hash = "6f1a05de347c5b77089a674f76cc5dcb0828cef7902b55ae9229d859f80a9e69"
 
 [metadata.files]
 anyio = [

@@ -5,14 +5,15 @@ on:
   # Workflow call is used for called from another workflow
   workflow_call:
     secrets:
-      ACR_SECRET:
+      CR_SECRET:
+        description: 'Secret to authenticate if using an other container registry than Github'
         required: false
 
 env:
-  IMAGE_REGISTRY: heracles.azurecr.io
-  CR_LOGIN: heracles
-  API_IMAGE: heracles.azurecr.io/dmt/api
-  WEB_IMAGE: heracles.azurecr.io/dmt/web
+  IMAGE_REGISTRY: ghcr.io
+  REGISTRY_USER: $GITHUB_ACTOR
+  API_IMAGE: ghcr.io/equinor/template-fastapi-react/api
+  WEB_IMAGE: ghcr.io/equinor/template-fastapi-react/web
 
 jobs:
   common-checks:
@@ -53,8 +54,8 @@ jobs:
 
       - name: Build API image
         run: |
-          # docker login -u $CR_LOGIN -p ${{ secrets.ACR_SECRET }} $IMAGE_REGISTRY
-          # docker pull $API_IMAGE
+          echo ${{ secrets.GITHUB_TOKEN }} | docker login $IMAGE_REGISTRY -u $GITHUB_ACTOR --password-stdin
+          docker pull $API_IMAGE
           docker build --target development --tag api-development ./api # TODO: --cache-from $API_IMAGE
 
       - name: Black Linting
@@ -89,6 +90,6 @@ jobs:
 
       - name: Build Web Image
         run: |
-          # docker login -u $CR_LOGIN -p ${{ secrets.ACR_SECRET }} $IMAGE_REGISTRY
-          # docker pull $WEB_IMAGE
+          echo ${{ secrets.GITHUB_TOKEN }} | docker login $IMAGE_REGISTRY -u $GITHUB_ACTOR --password-stdin
+          docker pull $WEB_IMAGE
           docker build --cache-from $WEB_IMAGE --target development --tag web-dev ./web
