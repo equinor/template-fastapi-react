@@ -10,6 +10,8 @@ services:
     links:
       - web
       - api
+    env_file:
+      - .env
 
   api:
     build: ./api
@@ -17,13 +19,19 @@ services:
     restart: unless-stopped
     depends_on:
       - db
+    env_file:
+      - .env
 
   web:
     build: ./web
     image: ghcr.io/equinor/template-fastapi-react/web
     restart: unless-stopped
+    env_file:
+      - .env
 
   db:
     image: mongo:5.0.9
     restart: unless-stopped
     command: --auth --quiet
+    env_file:
+      - .env
