@@ -1,4 +1,5 @@
 **/gen/*
+src/api/generated
 
 build
 coverage
