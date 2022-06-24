@@ -12,6 +12,7 @@ __pycache__/
 web/node_modules
 web/.pnp
 .pnp.js
+web/package-lock.json
 
 # Testing
 /coverage
