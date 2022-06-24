@@ -73,9 +73,12 @@ jobs:
       - name: Documentation Check
         run: docker run --rm api-development interrogate
 
-      - name: Integration tests
+      - name: BDD Integration tests
         if: ${{ false }}  # disable for now
         run: docker-compose -f docker-compose.yml -f docker-compose.ci.yml run api behave
+
+      - name: Pytest Integration tests
+        run: docker-compose -f docker-compose.yml -f docker-compose.ci.yml run --rm api pytest --integration
 
   test-web:
     runs-on: ubuntu-latest
