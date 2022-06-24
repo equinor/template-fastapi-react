@@ -1,12 +1,8 @@
-import datetime
-
 import requests
 from cachetools import TTLCache, cached
 from fastapi import Security
-from fastapi.security import APIKeyHeader, OAuth2AuthorizationCodeBearer
+from fastapi.security import OAuth2AuthorizationCodeBearer
 from jose import JWTError, jwt
-from starlette import status
-from starlette.exceptions import HTTPException
 
 from authentication.mock_token_generator import mock_rsa_public_key
 from authentication.models import User
@@ -15,10 +11,6 @@ from common.utils.logger import logger
 from config import config, default_user
 
 oauth2_scheme = OAuth2AuthorizationCodeBearer(
-    authorizationUrl=config.OAUTH_AUTH_ENDPOINT, tokenUrl=config.OAUTH_TOKEN_ENDPOINT
-)
-
-oauth2_scheme_optional_header = OAuth2AuthorizationCodeBearer(
     authorizationUrl=config.OAUTH_AUTH_ENDPOINT,
     tokenUrl=config.OAUTH_TOKEN_ENDPOINT,
     auto_error=False,
@@ -48,6 +40,8 @@ def fetch_openid_configuration() -> dict:
 def auth_with_jwt(jwt_token: str = Security(oauth2_scheme)) -> User:
     if not config.AUTH_ENABLED:
         return default_user
+    if not jwt_token:
+        raise credentials_exception
     # If TEST_TOKEN is true, we are running tests. Use the self-signed keys. If not, get keys from auth server.
     key = (
         mock_rsa_public_key

@@ -27,8 +27,9 @@ def create_app() -> FastAPI:
     authenticated_routes.include_router(todo_feature.router)
     authenticated_routes.include_router(whoami_feature.router)
     app = FastAPI(title="Awesome Boilerplate", description="")
-    dependencies = [Security(auth_with_jwt)] if config.AUTH_ENABLED else []
-    app.include_router(authenticated_routes, prefix=prefix, dependencies=dependencies)
+    app.include_router(
+        authenticated_routes, prefix=prefix, dependencies=[Security(auth_with_jwt)]
+    )
     app.include_router(public_routes, prefix=prefix)
 
     @app.middleware("http")

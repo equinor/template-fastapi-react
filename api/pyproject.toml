@@ -13,6 +13,7 @@ fastapi = "^0.75.2"
 uvicorn = {extras = ["standard"], version = "^0.17.5"}
 gunicorn = "^20.1.0"
 pymongo = "4.0.2"
+cryptography = "37.0.2"  # Locked because of a bad 37.0.3 release. (https://cryptography.io/en/latest/changelog/#yanked)
 # Not a direct dependecy, but needed to get certificates
 certifi = "^2022.6.15"
 

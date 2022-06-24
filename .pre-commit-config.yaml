@@ -8,7 +8,9 @@ repos:
       - id: check-json
       - id: check-yaml
       - id: trailing-whitespace
+        exclude: ^.*\.(lock)$||^docs\/
       - id: mixed-line-ending
+        exclude: ^.*\.(lock)$||^docs\/
 
   - repo: https://github.com/compilerla/conventional-pre-commit
     rev: v1.3.0
