@@ -8,6 +8,8 @@ services:
     image: template-api-dev
     volumes:
       - ./api/src/:/code
+    env_file:
+      - .env
     environment:
       ENVIRONMENT: local
       LOGGING_LEVEL: debug
@@ -41,12 +43,16 @@ services:
     stdin_open: true
     volumes:
       - ./web/src:/code/src
+    env_file:
+      - .env
     environment:
       - NODE_ENV=development
 
   db:
     volumes:
       - ./data/db:/data/db
+    env_file:
+      - .env
     environment:
       MONGO_INITDB_ROOT_USERNAME: $MONGODB_USERNAME
       MONGO_INITDB_ROOT_PASSWORD: $MONGODB_PASSWORD
@@ -56,6 +62,8 @@ services:
     restart: unless-stopped
     ports:
       - "8081:8081"
+    env_file:
+      - .env
     environment:
       ME_CONFIG_MONGODB_SERVER: db
       ME_CONFIG_MONGODB_ADMINUSERNAME: $MONGODB_USERNAME
