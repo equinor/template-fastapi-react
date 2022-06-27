@@ -8,7 +8,7 @@ from starlette.testclient import TestClient
 from app import create_app
 from config import config
 
-pytest_plugins = ["integration.mongodb_fixtures"]
+pytest_plugins = ["tests.integration.mongodb_fixtures"]
 
 
 @pytest.fixture(autouse=True)
