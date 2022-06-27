@@ -45,16 +45,12 @@ class TestTodo:
         assert response.status_code == HTTP_422_UNPROCESSABLE_ENTITY
 
     def test_update_todo(self, test_app):
-        response = test_app.put(
-            "/api/v1/todos/1", json={"title": "title 1 updated", "is_completed": False}
-        )
+        response = test_app.put("/api/v1/todos/1", json={"title": "title 1 updated", "is_completed": False})
 
         assert response.status_code == HTTP_200_OK
         assert response.json()["success"]
 
-    def test_update_todo_should_return_unprocessable_when_invalid_entity(
-        self, test_app
-    ):
+    def test_update_todo_should_return_unprocessable_when_invalid_entity(self, test_app):
         response = test_app.put("/api/v1/todos/1", json={"title": ""})
 
         assert response.status_code == HTTP_422_UNPROCESSABLE_ENTITY

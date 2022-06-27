@@ -6,9 +6,7 @@ from config import config
 
 
 def scrypt(value: str, salt: str = config.SECRET_KEY) -> str:
-    digest = hashlib.scrypt(
-        value.encode(), salt=salt.encode(), n=16, r=8, p=1
-    )  # OWASP recommended minimum
+    digest = hashlib.scrypt(value.encode(), salt=salt.encode(), n=16, r=8, p=1)  # OWASP recommended minimum
     return digest.hex()
 
 

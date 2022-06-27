@@ -995,12 +995,12 @@ legend right
 |<#B3B3B3> external container |
 endlegend
 
-rectangle "<$person>\n==Application User\n\n A user of the todo application." <<person>> as application_users 
-rectangle "==Single-Page Application\n\n Provide all the todo functionality to users via their web browser. " <<system>> as web_application 
-rectangle "==REST API\n\n Provides todo functionality via a JSON/HTTPS API." <<system>> as rest_api 
+rectangle "<$person>\n==Application User\n\n A user of the todo application." <<person>> as application_users
+rectangle "==Single-Page Application\n\n Provide all the todo functionality to users via their web browser. " <<system>> as web_application
+rectangle "==REST API\n\n Provides todo functionality via a JSON/HTTPS API." <<system>> as rest_api
 application_users - ->> web_application : **Uses**
 web_application - ->> rest_api : **Makes API calls to**\n//<size:12>[JSON/HTTPS]</size>//
-database "==Database\n//<size:12>[MongoDB]</size>//\n\nStore todos" <<container>> as database 
+database "==Database\n//<size:12>[MongoDB]</size>//\n\nStore todos" <<container>> as database
 rest_api - ->> database : **Read and write to**\n//<size:12>[JDBC]</size>//
 
 @enduml

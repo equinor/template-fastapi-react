@@ -38,9 +38,7 @@ class MongoDatabaseClient(ClientInterface, ABC):
     def wipe_db(self):
         databases = self.handler.client.list_database_names()
         databases = [
-            database_name
-            for database_name in databases
-            if database_name not in ("admin", "config", "local")
+            database_name for database_name in databases if database_name not in ("admin", "config", "local")
         ]  # Don't delete the mongo admin or local database
         for database_name in databases:
             self.handler.client.drop_database(database_name)

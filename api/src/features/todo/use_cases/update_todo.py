@@ -26,9 +26,7 @@ def update_todo_use_case(
     todo_item_repository=TodoRepository(),
 ) -> UpdateTodoResponse:
     todo_item = todo_item_repository.get(id)
-    updated_todo_item = TodoItem(
-        id=todo_item.id, title=data.title, is_completed=data.is_completed
-    )
+    updated_todo_item = TodoItem(id=todo_item.id, title=data.title, is_completed=data.is_completed)
     if todo_item_repository.update(updated_todo_item):
         return UpdateTodoResponse(success=True)
     return UpdateTodoResponse(success=False)
