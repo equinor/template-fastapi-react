@@ -10,8 +10,6 @@ on:
 jobs:
   tests:
     uses: ./.github/workflows/tests.yaml
-    secrets:
-      ACR_SECRET: ${{ secrets.ACR_SECRET }}
 
   generate-changelog:
     needs: tests
@@ -29,16 +27,14 @@ jobs:
     uses: ./.github/workflows/publish.yaml
     with:
       image-tag: latest
-      oauth-redirect-url: https://proxy-data-modelling-tool-dev.radix.equinor.com
-    secrets:
-      ACR_SECRET: ${{ secrets.ACR_SECRET }}
+      oauth-redirect-url: REPLACE_ME
 
   set-commit-ref:
     if: ${{ false }}  # disable for now
     runs-on: ubuntu-latest
     outputs:
       commit-ref: ${{ steps.create-ref.outputs.commit-ref }}
-      oauth-redirect-url: https://proxy-data-modelling-tool-dev.radix.equinor.com
+      oauth-redirect-url: REPLACE_ME
     steps:
       - uses: actions/checkout@master
       - id: create-ref
@@ -52,9 +48,7 @@ jobs:
     uses: ./.github/workflows/publish.yaml
     with:
       image-tag: ${{ needs.set-commit-ref.outputs.commit-ref }}
-      oauth-redirect-url: https://proxy-data-modelling-tool-dev.radix.equinor.com
-    secrets:
-      ACR_SECRET: ${{ secrets.ACR_SECRET }}
+      oauth-redirect-url: REPLACE_ME
 
   deploy:
     if: ${{ false }}  # disable for now

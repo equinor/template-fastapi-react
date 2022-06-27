@@ -9,21 +9,21 @@ on:
         required: true
         type: string
       oauth-redirect-url:
-        description: 'redirect url for oauth. Should be the public url to access the web app'
-        default: 'https://data-modelling-tool.app.radix.equinor.com'
+        description: 'Redirect url for oauth. Should be the public url to access the web app'
+        default: 'https://template-fastapi-react.app.radix.equinor.com'
         required: true
         type: string
     secrets:
-      ACR_SECRET:
+      CR_SECRET:
+        description: 'Secret to authenticate if using an other container registry than Github'
         required: false
 
 
 env:
-  IMAGE_REGISTRY: heracles.azurecr.io
-  REGISTRY_USER: heracles
-  API_IMAGE: heracles.azurecr.io/dmt/api
-  WEB_IMAGE: heracles.azurecr.io/dmt/web
-  SRS_IMAGE: heracles.azurecr.io/dmt-job/srs
+  IMAGE_REGISTRY: ghcr.io
+  REGISTRY_USER: $GITHUB_ACTOR
+  API_IMAGE: ghcr.io/equinor/template-fastapi-react/api
+  WEB_IMAGE: ghcr.io/equinor/template-fastapi-react/web
 
 jobs:
   build-and-publish-web-master:
@@ -34,15 +34,15 @@ jobs:
       - name: "Build and Publish Web"
         run: |
           echo "Tagging with ${{ inputs.image-tag }}"
-          docker login -u $REGISTRY_USER -p ${{ secrets.ACR_SECRET }} $IMAGE_REGISTRY
+          echo ${{ secrets.GITHUB_TOKEN }} | docker login $IMAGE_REGISTRY -u $GITHUB_ACTOR --password-stdin
           docker pull $WEB_IMAGE
           echo $(git log -n 1 --format=format:'%h% %>(12) %cs %>(12,mtrunc)%aN%  %s %D') > ./web/packages/home/public/version.txt
           docker build \
           --build-arg REDIRECT_URI=${{inputs.oauth-redirect-url}} \
           --build-arg AUTH_ENABLED=1 \
-          --build-arg AUTH_SCOPE=api://97a6b5bd-63fb-42c6-bb75-7e5de2394ba0/dmss \
-          --build-arg CLIENT_ID=97a6b5bd-63fb-42c6-bb75-7e5de2394ba0 \
-          --build-arg TENANT_ID=3aa4a235-b6e2-48d5-9195-7fcf05b459b0 \
+          --build-arg AUTH_SCOPE=REPLACEME \
+          --build-arg CLIENT_ID=REPLACEME \
+          --build-arg TENANT_ID=REPLACEME \
           --cache-from ${WEB_IMAGE} \
           --tag ${WEB_IMAGE} \
           ./web
@@ -57,7 +57,7 @@ jobs:
       - name: "Build and Publish API"
         run: |
           echo "Tagging with ${{ inputs.image-tag }}"
-          docker login -u $REGISTRY_USER -p ${{ secrets.ACR_SECRET }} $IMAGE_REGISTRY
+          echo ${{ secrets.GITHUB_TOKEN }} | docker login $IMAGE_REGISTRY -u $GITHUB_ACTOR --password-stdin
           docker pull $API_IMAGE
           echo $(git log -n 1 --format=format:'%h% %>(12) %cs %>(12,mtrunc)%aN%  %s %D') > ./api/src/version.txt
           docker build --cache-from $API_IMAGE --target prod --tag $API_IMAGE ./api

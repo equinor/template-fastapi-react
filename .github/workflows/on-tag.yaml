@@ -8,23 +8,19 @@ on:
 jobs:
   tests:
     uses: ./.github/workflows/tests.yaml
-    secrets:
-      ACR_SECRET: ${{ secrets.ACR_SECRET }}
 
   publish-prod-tag:
     needs: tests
     uses: ./.github/workflows/publish.yaml
     with:
       image-tag: production
-      oauth-redirect-url: https://heracles.app.radix.equinor.com
-    secrets:
-      ACR_SECRET: ${{ secrets.ACR_SECRET }}
+      oauth-redirect-url: REPLACE_ME
 
   set-tag-ref:
     runs-on: ubuntu-latest
     outputs:
       tag-ref: ${{ steps.tag-ref.outputs.tag-ref }}
-      oauth-redirect-url: https://heracles.app.radix.equinor.com
+      oauth-redirect-url: REPLACE_ME
     steps:
       - uses: actions/checkout@master
       - id: create-ref
@@ -37,9 +33,7 @@ jobs:
     uses: ./.github/workflows/publish.yaml
     with:
       image-tag: ${{ needs.set-tag-ref.outputs.tag-ref }}
-      oauth-redirect-url: https://heracles.app.radix.equinor.com
-    secrets:
-      ACR_SECRET: ${{ secrets.ACR_SECRET }}
+      oauth-redirect-url: REPLACE_ME
 
   deploy:
     needs: publish-prod-tag

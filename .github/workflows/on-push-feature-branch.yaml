@@ -10,5 +10,3 @@ on:
 jobs:
   tests:
     uses: ./.github/workflows/tests.yaml
-    secrets:
-      ACR_SECRET: ${{ secrets.ACR_SECRET }}
