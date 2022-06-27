@@ -5,12 +5,16 @@ repos:
       - id: check-ast
         language_version: python3.10
       - id: check-merge-conflict
+      - id: check-case-conflict
       - id: check-json
+      - id: check-toml
       - id: check-yaml
       - id: trailing-whitespace
         exclude: ^.*\.(lock)$||^docs\/
       - id: mixed-line-ending
         exclude: ^.*\.(lock)$||^docs\/
+      - id: detect-private-key
+        exclude: api/src/authentication/mock_token_generator.py
 
   - repo: https://github.com/compilerla/conventional-pre-commit
     rev: v1.3.0
@@ -32,11 +36,6 @@ repos:
       - id: bandit
         args: [-l, --recursive, -x, tests]
         files: ^api/.*\.py$
-
-  - repo: https://github.com/Lucas-C/pre-commit-hooks-safety
-    rev: v1.2.4
-    hooks:
-    -   id: python-safety-dependencies-check
 
   - repo: https://github.com/econchick/interrogate
     rev: 1.5.0
@@ -70,16 +69,17 @@ repos:
 
   - repo: local
     hooks:
+      - id: safety
+        name: safety-check
+        entry: sh -c "export PYTHONPATH=./src && api/.venv/bin/python -m safety check"
+        language: system
       - id: mypy
         name: Python type checking
         pass_filenames: false
         files: ^api/.*\.py$
         entry: sh -c "api/.venv/bin/python -m mypy --namespace-packages --ignore-missing-imports api/src/app.py"
         language: system
-
-  - repo: local
-    hooks:
-      - id: pytest-check
+      - id: pytest
         name: pytest-check
         entry: sh -c "export PYTHONPATH=./src && api/.venv/bin/python -m pytest api/src/tests"
         language: system
