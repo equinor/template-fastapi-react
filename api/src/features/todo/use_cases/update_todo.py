@@ -1,6 +1,7 @@
 from pydantic import BaseModel, Field
+from starlette.responses import JSONResponse
 
-from common.use_case import use_case_responses
+from common.responses import create_response
 from entities.TodoItem import TodoItem
 from infrastructure.repositories.TodoRepository import TodoRepository
 
@@ -19,14 +20,14 @@ class UpdateTodoResponse(BaseModel):
     success: bool = Field(...)
 
 
-@use_case_responses
+@create_response(JSONResponse)
 def update_todo_use_case(
     id: str,
     data: UpdateTodoRequest,
     todo_item_repository=TodoRepository(),
-) -> UpdateTodoResponse:
+) -> dict:
     todo_item = todo_item_repository.get(id)
     updated_todo_item = TodoItem(id=todo_item.id, title=data.title, is_completed=data.is_completed)
     if todo_item_repository.update(updated_todo_item):
-        return UpdateTodoResponse(success=True)
-    return UpdateTodoResponse(success=False)
+        return UpdateTodoResponse(success=True).dict()
+    return UpdateTodoResponse(success=False).dict()

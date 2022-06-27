@@ -1,8 +1,9 @@
-from typing import Optional, cast
+from typing import cast
 
 from pydantic import BaseModel, Field
+from starlette.responses import JSONResponse
 
-from common.use_case import use_case_responses
+from common.responses import create_response
 from entities.TodoItem import TodoItem
 from features.todo.exceptions import TodoItemNotFoundError
 from infrastructure.repositories.TodoRepository import TodoRepository
@@ -18,9 +19,9 @@ class GetTodoByIdResponse(BaseModel):
         return GetTodoByIdResponse(id=todo_item.id, title=todo_item.title, is_completed=todo_item.is_completed)
 
 
-@use_case_responses
-def get_todo_by_id_use_case(id: str, todo_item_repository=TodoRepository()) -> Optional[GetTodoByIdResponse]:
+@create_response(JSONResponse)
+def get_todo_by_id_use_case(id: str, todo_item_repository=TodoRepository()) -> dict:
     todo_item = todo_item_repository.get(id)
     if not todo_item:
         raise TodoItemNotFoundError
-    return GetTodoByIdResponse.from_entity(cast(TodoItem, todo_item))
+    return GetTodoByIdResponse.from_entity(cast(TodoItem, todo_item)).dict()
