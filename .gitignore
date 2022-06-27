@@ -1,3 +1,5 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -8,6 +10,13 @@ __pycache__/
 
 # Dependency directories
 web/node_modules
+web/.pnp
+.pnp.js
+web/package-lock.json
+
+# Testing
+/coverage
+/*/coverage
 
 # Editors
 .idea/
@@ -15,6 +24,10 @@ web/node_modules
 
 # misc
 .DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 npm-debug.log*
 yarn-debug.log*
@@ -101,13 +114,6 @@ ipython_config.py
 # pyenv
 .python-version
 
-# pipenv
-#   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
-#   However, in case of collaboration, if having platform-specific dependencies or dependencies
-#   having no cross-platform support, pipenv may install dependencies that don't work, or not
-#   install all needed dependencies.
-#Pipfile.lock
-
 # PEP 582; used by e.g. github.com/David-OConnor/pyflow
 __pypackages__/
 
@@ -121,11 +127,13 @@ celerybeat.pid
 # Environments
 .env
 .venv
+/*/.venv
 env/
 venv/
 ENV/
 env.bak/
 venv.bak/
+/dist
 
 # Spyder project settings
 .spyderproject
