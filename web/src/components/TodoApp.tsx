@@ -59,7 +59,6 @@ export const TodoApp = () => {
     todoAPI
       .getAll()
       .then((response) => setTodos(response.data))
-      .catch((e) => {})
   }, [])
 
   const addItem = (event: any) => {
