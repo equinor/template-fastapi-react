@@ -50,7 +50,7 @@ const ItemTitle = styled.div`
 
 export const TodoApp = () => {
   const { tokenData, token } = useContext(AuthContext)
-  const [todos, setTodos] = useState<GetTodoAllResponse[]>([])
+  const [todos, setTodos] = useState<AddTodoResponse[]>([])
   const [value, setValue] = React.useState('')
 
   const todoAPI = new TodoAPI(token)
@@ -74,7 +74,6 @@ export const TodoApp = () => {
       .then((response) => {
         const item: AddTodoResponse = response.data
         const items = [...todos, item]
-        // @ts-ignore
         setTodos(items)
       })
   }
