@@ -123,7 +123,7 @@ export const TodoApp = () => {
         <ToDoItem
           is_completed={todo.is_completed}
           key={`${index}-${todo.is_completed}`}
-          onClick={() => handleToggle(todo.id, todo.is_completed, index)}
+          onClick={() => handleToggle(todo.id, todo.is_completed as boolean, index)}
         >
           <ItemWrapper>
             <ItemTitle>{todo.title}</ItemTitle>
