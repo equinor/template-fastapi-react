@@ -7,7 +7,7 @@ Documentation
 
 This site was generated from the contents of your `docs` folder using Doctave and we host it on GitHub Pages.
 
-## How it works  
+## How it works
 
 It boils down to having a documentation folder like `docs` with markdown files. The README.md acts as the start page. In the root of your repository, you need a file doctave.yml, containing at least a title. When you have the basics and Doctave installed, you can either `serve` or `build` the site.
 

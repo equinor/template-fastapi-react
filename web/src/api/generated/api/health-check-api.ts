@@ -89,9 +89,8 @@ export const HealthCheckApiAxiosParamCreator = function (
  * @export
  */
 export const HealthCheckApiFp = function (configuration?: Configuration) {
-  const localVarAxiosParamCreator = HealthCheckApiAxiosParamCreator(
-    configuration
-  )
+  const localVarAxiosParamCreator =
+    HealthCheckApiAxiosParamCreator(configuration)
   return {
     /**
      *
@@ -104,9 +103,8 @@ export const HealthCheckApiFp = function (configuration?: Configuration) {
     ): Promise<
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>
     > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.getApiV1HealthCheckGet(
-        options
-      )
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.getApiV1HealthCheckGet(options)
       return createRequestFunction(
         localVarAxiosArgs,
         globalAxios,

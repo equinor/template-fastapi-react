@@ -4,7 +4,6 @@ from unittest import mock
 import pytest
 
 from common.exceptions import EntityNotFoundException
-from entities.TodoItem import TodoItem
 from infrastructure.clients.ClientInterface import ClientInterface
 from infrastructure.repositories.TodoRepository import TodoRepository
 

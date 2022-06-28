@@ -20,9 +20,7 @@ def use_case_responses(func):
             return PlainTextResponse(str(e), status_code=e.response.status_code)
         except ValidationError as e:
             logger.error(e)
-            return PlainTextResponse(
-                str(e), status_code=status.HTTP_422_UNPROCESSABLE_ENTITY
-            )
+            return PlainTextResponse(str(e), status_code=status.HTTP_422_UNPROCESSABLE_ENTITY)
         except EntityNotFoundException as e:
             logger.error(e)
             return PlainTextResponse(str(e), status_code=status.HTTP_404_NOT_FOUND)

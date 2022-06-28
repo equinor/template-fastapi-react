@@ -31,9 +31,7 @@ def fetch_openid_configuration() -> dict:
             "jwks": json_web_key_set_response.json()["keys"],
         }
     except Exception as error:
-        logger.error(
-            f"Failed to fetch OpenId Connect configuration for '{config.OAUTH_WELL_KNOWN}': {error}"
-        )
+        logger.error(f"Failed to fetch OpenId Connect configuration for '{config.OAUTH_WELL_KNOWN}': {error}")
         raise credentials_exception
 
 
@@ -43,16 +41,10 @@ def auth_with_jwt(jwt_token: str = Security(oauth2_scheme)) -> User:
     if not jwt_token:
         raise credentials_exception
     # If TEST_TOKEN is true, we are running tests. Use the self-signed keys. If not, get keys from auth server.
-    key = (
-        mock_rsa_public_key
-        if config.TEST_TOKEN
-        else {"keys": fetch_openid_configuration()["jwks"]}
-    )
+    key = mock_rsa_public_key if config.TEST_TOKEN else {"keys": fetch_openid_configuration()["jwks"]}
 
     try:
-        payload = jwt.decode(
-            jwt_token, key, algorithms=["RS256"], audience=config.AUTH_AUDIENCE
-        )
+        payload = jwt.decode(jwt_token, key, algorithms=["RS256"], audience=config.AUTH_AUDIENCE)
         if config.MICROSOFT_AUTH_PROVIDER in payload["iss"]:
             # Azure AD uses an oid string to uniquely identify users. Each user has a unique oid value.
             user = User(user_id=payload["oid"], **payload)

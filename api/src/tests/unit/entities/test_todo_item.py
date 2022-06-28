@@ -6,10 +6,9 @@ from entities.TodoItem import TodoItem
 def test_todo_item_init():
     id = str(uuid.uuid4())
     todo = TodoItem(id=id, title="title 1", is_completed=False)
-
     assert todo.id == id
     assert todo.title == "title 1"
-    assert todo.is_completed == False
+    assert not todo.is_completed
 
 
 def test_todo_item_from_dict():
@@ -19,7 +18,7 @@ def test_todo_item_from_dict():
 
     assert todo.id == id
     assert todo.title == "title 1"
-    assert todo.is_completed == False
+    assert not todo.is_completed
 
 
 def test_todo_item_comparison():

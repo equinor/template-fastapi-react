@@ -14,9 +14,7 @@ class GetTodoAllResponse(BaseModel):
 
     @staticmethod
     def from_entity(todo_item: TodoItem):
-        return GetTodoAllResponse(
-            id=todo_item.id, title=todo_item.title, is_completed=todo_item.is_completed
-        )
+        return GetTodoAllResponse(id=todo_item.id, title=todo_item.title, is_completed=todo_item.is_completed)
 
 
 @use_case_responses

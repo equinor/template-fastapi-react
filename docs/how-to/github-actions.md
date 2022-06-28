@@ -17,7 +17,7 @@ A reusable workflow is just like any GitHub Actions workflow with one key differ
 
 * The `release.yaml` workflow will automatically create a pull request with an auto-generated changelog everytime code is pushed to the main branch. It will also at the same time bump version with standard-version and create a tagged release that can be used to deploy to production.
   * Missing: How to deploy the project on a live system.
-  
+
 * The `tests.yaml` workflow will automatically run all types of tests.
 
 * The `generate-docs.yaml` workflow will install Doctave on the build agent, and build the documentation. Then it will deploy the documentation (placed in the site folder) to GitHub Pages.
@@ -28,5 +28,5 @@ We trigger the reusable workflow like this:
 
 ![Github Actions](/diagrams/github-actions.svg)
 
-This is work in progress (WIP). The release policy needs to be changed a bit. Since we are gone use trunk based development, all pushes to main needs to trigger a release to a test environment, and release to production (release.yaml) needs to be manually triggered. Also is the docker image creation missing. 
+This is work in progress (WIP). The release policy needs to be changed a bit. Since we are gone use trunk based development, all pushes to main needs to trigger a release to a test environment, and release to production (release.yaml) needs to be manually triggered. Also is the docker image creation missing.
 

@@ -27,22 +27,16 @@ def create_app() -> FastAPI:
     authenticated_routes.include_router(todo_feature.router)
     authenticated_routes.include_router(whoami_feature.router)
     app = FastAPI(title="Awesome Boilerplate", description="")
-    app.include_router(
-        authenticated_routes, prefix=prefix, dependencies=[Security(auth_with_jwt)]
-    )
+    app.include_router(authenticated_routes, prefix=prefix, dependencies=[Security(auth_with_jwt)])
     app.include_router(public_routes, prefix=prefix)
 
     @app.middleware("http")
-    async def add_process_time_header(
-        request: Request, call_next: Callable
-    ) -> Response:
+    async def add_process_time_header(request: Request, call_next: Callable) -> Response:
         start_time = time.time()
         response = await call_next(request)
         process_time = time.time() - start_time
         milliseconds = int(round(process_time * 1000))
-        logger.debug(
-            f"{request.method} {request.url.path} - {milliseconds}ms - {response.status_code}"
-        )
+        logger.debug(f"{request.method} {request.url.path} - {milliseconds}ms - {response.status_code}")
         response.headers["X-Process-Time"] = str(process_time)
         return response
 

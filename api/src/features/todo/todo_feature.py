@@ -25,9 +25,7 @@ def get_todo_by_id(id: str):
     return get_todo_by_id_use_case(id)
 
 
-@router.delete(
-    "/{id}", operation_id="delete_by_id", response_model=DeleteTodoByIdResponse
-)
+@router.delete("/{id}", operation_id="delete_by_id", response_model=DeleteTodoByIdResponse)
 def delete_todo_by_id(id: str):
     return delete_todo_use_case(id)
 

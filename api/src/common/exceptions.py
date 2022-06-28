@@ -25,11 +25,7 @@ class BadRequest(ApplicationException):
 
 class MissingPrivilegeException(Exception):
     def __init__(self, message=None):
-        self.message = (
-            message
-            if message
-            else "Missing privileges to perform operation on the resource"
-        )
+        self.message = message if message else "Missing privileges to perform operation on the resource"
 
 
 credentials_exception = HTTPException(

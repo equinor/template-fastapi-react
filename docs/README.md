@@ -28,19 +28,19 @@ We are structure the software architecture to [scream](http://blog.cleancoder.co
 ├── api/ - backend code
 ├── api/
 |   ├── src/
-|   |   ├── autentication/   
+|   |   ├── autentication/
 |   |   ├── common/
-|   |   ├── entities/ 
+|   |   ├── entities/
 |   |   ├── features/
-|   |   ├── infrastructure/ 
+|   |   ├── infrastructure/
 |   |   ├── tests/
-|   |   │   ├── unit/ 
-|   |   │   ├── integration/ 
+|   |   │   ├── unit/
+|   |   │   ├── integration/
 |   |   └── utils/
 │── web/ - frontend code
 │── docs/ - documentaiton
 ├── docker-compose.override.yml
-├── docker-compose.yml 
+├── docker-compose.yml
 ├── .env-template
 └── ...
 ```
@@ -49,7 +49,7 @@ We are structure the software architecture to [scream](http://blog.cleancoder.co
 - `docker-compose.yml`: common settings
 - `.env-template`:  environment variables
 
-### API 
+### API
 
 - `entities/`: contains all entities, enums, exceptions, interfaces, types and logic specific to the domain layer
 - `features/`: contains use-cases (application logic), repository interfaces, and controllers
