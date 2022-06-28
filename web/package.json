@@ -14,6 +14,7 @@
     "axios": "^0.27.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-oauth2-code-pkce": "^1.2.4",
     "react-scripts": "5.0.1",
     "styled-components": "^5.3.5"
   },
