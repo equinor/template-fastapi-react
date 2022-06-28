@@ -1,0 +1,105 @@
+## more info https://github.com/crazy-max/ghaction-github-labeler
+- # maintaince
+  name: "type: :wrench: maintenance"
+  color: ""
+  description: ""
+- # bug
+  name: "type: :bug: bug"
+  color: "FBCA04"
+  description: ""
+- # documentation
+  name: "type: :memo: documentation"
+  color: "FBCA04"
+  description: ""
+- # duplicate
+  name: "status: :busts_in_silhouette: duplicate"
+  color: "cccccc"
+  description: ""
+- # enhancement
+  name: "type: :sparkles: enhancement"
+  color: "FBCA04"
+  description: ""
+- # feature request
+  name: "type: :bulb: feature request"
+  color: "FBCA04"
+  description: ""
+- # need feedback
+  name: "status: :mega: need feedback"
+  color: "cccccc"
+  description: ""
+- # future maybe
+  name: ":rocket: future maybe"
+  color: "fef2c0"
+  description: ""
+- # good first issue
+  name: ":hatching_chick: good first issue"
+  color: "7057ff"
+  description: ""
+- # help wanted
+  name: "status: :pray: help wanted"
+  color: "cccccc"
+  description: ""
+- # invalid
+  name: "status: :no_entry_sign: invalid"
+  color: "cccccc"
+  description: ""
+- # investigate
+  name: "type: :mag: investigate"
+  color: "FBCA04"
+  description: ""
+- # needs more info
+  name: "status: :thinking: needs more info"
+  color: "cccccc"
+  description: ""
+- # question
+  name: "type: :question: question"
+  color: "FBCA04"
+  description: ""
+- # wont do/fix
+  name: "status: :coffin: wont do/fix"
+  color: "cccccc"
+  description: ""
+- # security
+  name: "type: :lock: security"
+  description: ""
+  color: "B60205"
+- # on hold
+  name: "status: :zzz: on hold"
+  description: ""
+  color: "cccccc"
+- # discussion
+  name: "type: :speech_balloon: discussion"
+  description: ""
+  color: "FBCA04"
+- # blocked
+  name: "status: :scream_cat: blocked"
+  description: ""
+  color: "cccccc"
+- # confirmed
+  name: "status: :writing_hand:	 confirmed"
+  description: ""
+  color: "93D8B2"
+- # refactor
+  name: "type: :neckbeard: refactor"
+  description: ""
+  color: "FBCA04"
+- # build
+  name: "type: :hammer: build"
+  description: ""
+  color: "FBCA04"
+- # ci
+  name: "type: :ship: ci"
+  description: ""
+  color: "FBCA04"
+- # test
+  name: "type: :traffic_light: test"
+  description: ""
+  color: "FBCA04"
+- # chore
+  name: "type: :construction: chore"
+  description: ""
+  color: "FBCA04"
+- # perf
+  name: "type: :speedboat: perf"
+  description: ""
+  color: "FBCA04"

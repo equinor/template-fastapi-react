@@ -1,3 +1,4 @@
+name: "Push to main branch"
 on:
   workflow_dispatch:
   push:
@@ -5,14 +6,55 @@ on:
       - main
     paths-ignore:
       - 'CHANGELOG.md'
-      - '.pre-commit-config.yaml'
 
 jobs:
   tests:
     uses: ./.github/workflows/tests.yaml
 
-  release:
-    uses: ./.github/workflows/release.yaml
+  generate-changelog:
+    needs: tests
+    uses: ./.github/workflows/generate-changelog.yaml
 
   docs:
-    uses: ./.github/workflows/generate-docs.yaml
+    needs: generate-changelog
+    uses: ./.github/workflows/publish-docs.yaml
+    with:
+      message: 'Warning: This is the development version.'
+
+  publish-latest:
+    if: ${{ false }}  # disable for now
+    needs: tests
+    uses: ./.github/workflows/publish.yaml
+    with:
+      image-tag: latest
+      oauth-redirect-url: REPLACE_ME
+
+  set-commit-ref:
+    if: ${{ false }}  # disable for now
+    runs-on: ubuntu-latest
+    outputs:
+      commit-ref: ${{ steps.create-ref.outputs.commit-ref }}
+      oauth-redirect-url: REPLACE_ME
+    steps:
+      - uses: actions/checkout@master
+      - id: create-ref
+        run: |
+          COMMIT_REF=$(git rev-parse --short $GITHUB_SHA)
+          echo "::set-output name=commit-ref::$COMMIT_REF"
+
+  publish-commit-ref:
+    if: ${{ false }}  # disable for now
+    needs: [ set-commit-ref, tests ]
+    uses: ./.github/workflows/publish.yaml
+    with:
+      image-tag: ${{ needs.set-commit-ref.outputs.commit-ref }}
+      oauth-redirect-url: REPLACE_ME
+
+  deploy:
+    if: ${{ false }}  # disable for now
+    needs: publish-latest
+    uses: ./.github/workflows/deploy.yaml
+    with:
+      radix-environment: 'dev'
+    secrets:
+      APP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.APP_SERVICE_ACCOUNT_TOKEN }}

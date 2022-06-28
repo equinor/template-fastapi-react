@@ -1,0 +1,54 @@
+apiVersion: radix.equinor.com/v1
+kind: RadixApplication
+metadata:
+  name: template
+spec:
+  environments:
+    - name: prod
+      build:
+        from: master
+    - name: dev
+      build:
+        from: master
+  components:
+    - name: web
+      image: heracles.azurecr.io/dmt/web:{imageTagName}
+      alwaysPullImageOnDeploy: true
+      environmentConfig:
+        - environment: prod
+          imageTagName: production
+        - environment: dev
+          imageTagName: latest
+      ports:
+        - name: http
+          port: 3000
+
+    - name: api
+      image: heracles.azurecr.io/api:latest
+      alwaysPullImageOnDeploy: true
+      secrets:
+        - SECRET_KEY
+      variables:
+        LOGGING_LEVEL: "debug"
+        AUTH_ENABLED: "True"
+        ENVIRONMENT: production
+        OAUTH_WELL_KNOWN: https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/v2.0/.well-known/openid-configuration
+        OAUTH_TOKEN_ENDPOINT: https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/oauth2/v2.0/token
+        OAUTH_AUTH_ENDPOINT: https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/oauth2/v2.0/authorize
+        OAUTH_CLIENT_ID: "TODO:"
+        OAUTH_AUDIENCE: "TODO: "
+      ports:
+        - name: rest
+          port: 5000
+      publicPort: rest
+
+    - name: proxy
+      image: heracles.azurecr.io/dmt/nginx:latest
+      ports:
+        - name: nginx
+          port: 8080
+      publicPort: nginx
+
+  dnsAppAlias:
+    environment: prod
+    component: proxy

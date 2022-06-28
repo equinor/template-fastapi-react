@@ -223,9 +223,8 @@ export const PersonalAccessTokenApiAxiosParamCreator = function (
 export const PersonalAccessTokenApiFp = function (
   configuration?: Configuration
 ) {
-  const localVarAxiosParamCreator = PersonalAccessTokenApiAxiosParamCreator(
-    configuration
-  )
+  const localVarAxiosParamCreator =
+    PersonalAccessTokenApiAxiosParamCreator(configuration)
   return {
     /**
      *

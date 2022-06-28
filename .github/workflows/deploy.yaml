@@ -1,0 +1,38 @@
+name: "Deploy"
+on:
+  workflow_dispatch:
+  workflow_call: # Workflow is meant to be called from another workflow
+    inputs:
+      radix-environment:
+        description: 'Which radix environment to deploy into'
+        default: 'test'
+        required: true
+        type: string
+    secrets:
+      APP_SERVICE_ACCOUNT_TOKEN:
+        required: true
+
+env:
+  RADIX_APP: heracles
+  RADIX_USER: heracles@equinor.com
+
+jobs:
+  deploy-on-radix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Deploy on Radix
+        uses: equinor/radix-github-actions@master
+        env:
+          APP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.APP_SERVICE_ACCOUNT_TOKEN }}
+        with:
+          args: >
+            create job
+            deploy
+            --application $RADIX_APP
+            --environment ${{ inputs.radix-environment }}
+            --user $RADIX_USER
+            --context production
+            --from-config
+            --token-environment
+            --follow

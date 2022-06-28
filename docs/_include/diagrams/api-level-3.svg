@@ -1180,17 +1180,17 @@ legend right
 |<#B3B3B3> external container |
 endlegend
 
-rectangle "<$person>\n==Application User\n\n A user of the todo application." <<person>> as application_users 
+rectangle "<$person>\n==Application User\n\n A user of the todo application." <<person>> as application_users
 
-rectangle "==Single-Page Application\n\n Provide all the todo functionality to users via their web browser. " <<system>> as web 
+rectangle "==Single-Page Application\n\n Provide all the todo functionality to users via their web browser. " <<system>> as web
 
 application_users - ->> web : **Uses**
 
 rectangle "==REST API\n<size:12>[System]</size>" <<boundary>> as api  {
-   rectangle "==Controllers\n//<size:12>[Function]</size>//\n\nTrigger use cases and returning the result." <<component>> as controllers 
-   rectangle "==Use Cases\n//<size:12>[Class]</size>//\n\nImplement and encapsulate all of the business rules." <<component>> as use_cases 
-   rectangle "==Repositories\n//<size:12>[Interface]</size>//\n\nHandle read and write logic against storage medias." <<component>> as repositories 
-   rectangle "==Entity\n//<size:12>[Class]</size>//\n\nThe domain objects" <<component>> as entities 
+   rectangle "==Controllers\n//<size:12>[Function]</size>//\n\nTrigger use cases and returning the result." <<component>> as controllers
+   rectangle "==Use Cases\n//<size:12>[Class]</size>//\n\nImplement and encapsulate all of the business rules." <<component>> as use_cases
+   rectangle "==Repositories\n//<size:12>[Interface]</size>//\n\nHandle read and write logic against storage medias." <<component>> as repositories
+   rectangle "==Entity\n//<size:12>[Class]</size>//\n\nThe domain objects" <<component>> as entities
 
    controllers - ->> use_cases : **Execute**
    use_cases - ->> repositories : **Uses**
@@ -1199,7 +1199,7 @@ rectangle "==REST API\n<size:12>[System]</size>" <<boundary>> as api  {
 
 web - ->> controllers : **Requests**
 
-database "==Database\n//<size:12>[MongoDB]</size>//\n\nStore todos" <<container>> as database 
+database "==Database\n//<size:12>[MongoDB]</size>//\n\nStore todos" <<container>> as database
 repositories - ->> database : **Read and write to**\n//<size:12>[JDBC]</size>//
 
 @enduml

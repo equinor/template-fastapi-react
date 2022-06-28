@@ -9,7 +9,7 @@
 
 <div align="center">
 
-# Awesome Boilerplate
+# Template Fastapi React
 
 [![License][license-badge]][license]
 [![On push main branch][on-push-main-branch-badge]][on-push-main-branch-action]
@@ -68,7 +68,7 @@ The API documentation can be found at http://localhost:5000/docs
 <a id="development"></a>
 ## :dizzy: Development
 
-See the [development](https://fictional-system-acdaeb8b.pages.github.io/) docs if you want to start developing.
+See the [docs](https://equinor.github.io/template-fastapi-react/) if you want to start developing.
 
 <a id="Contributing"></a>
 ## :+1: Contributing

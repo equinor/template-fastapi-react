@@ -19,7 +19,7 @@ We release directly from a tag on the trunk and do not create a branch for a rel
 
 We push to our branch frequently, at least once per day.
 
-Make small changes to avoid long-lasting branches and avoid merge conflicts (as all developers work on the same branch). 
+Make small changes to avoid long-lasting branches and avoid merge conflicts (as all developers work on the same branch).
 
 Do not to commit directly to the trunk instead one should create a feature branch ( should not last for more than 1-3 days).
 

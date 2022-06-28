@@ -1,12 +1,14 @@
 # Global fixtures can be defined in this file
 
+import os
+
 import pytest
 from starlette.testclient import TestClient
 
 from app import create_app
 from config import config
 
-pytest_plugins = ["integration.mongodb_fixtures"]
+pytest_plugins = ["tests.integration.mongodb_fixtures"]
 
 
 @pytest.fixture(autouse=True)
@@ -16,6 +18,7 @@ def disable_auth():
 
 @pytest.fixture(scope="module")
 def test_app():
+    os.environ["AUTH_ENABLED"] = "False"
     client = TestClient(app=create_app())
     yield client  # testing happens here
 

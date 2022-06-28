@@ -21,7 +21,7 @@ class TodoRepository(TodoRepositoryInterface):
 
     def update(self, todo_item: TodoItem) -> Optional[TodoItem]:
         self.client.update(todo_item.id, to_dict(todo_item))
-        return self.client.find_by_id(todo_item.id)
+        return TodoItem.from_dict(self.client.find_by_id(todo_item.id))
 
     def delete_by_id(self, id: str):
         return self.client.delete(id)
@@ -33,11 +33,11 @@ class TodoRepository(TodoRepositoryInterface):
         return TodoItem.from_dict(todo_item)
 
     def create(self, todo_item: TodoItem) -> Optional[TodoItem]:
-        inserted_id = self.client.create(to_dict(todo_item))
-        return self.client.find_by_id(str(inserted_id))
+        inserted_document = self.client.create(to_dict(todo_item))
+        return TodoItem.from_dict(inserted_document)
 
     def get_all(self) -> list[TodoItem]:
-        bson_list = self.client.get_all()
+        bson_list = self.client.list()
         todo_items = []
         for bson_item in bson_list:
             todo_items.append(TodoItem.from_dict(bson_item))

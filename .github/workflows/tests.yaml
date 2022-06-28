@@ -1,9 +1,19 @@
+name: "Test"
 on:
   # Workflow dispatch is used for manual triggers
   workflow_dispatch:
   # Workflow call is used for called from another workflow
   workflow_call:
+    secrets:
+      CR_SECRET:
+        description: 'Secret to authenticate if using an other container registry than Github'
+        required: false
 
+env:
+  IMAGE_REGISTRY: ghcr.io
+  REGISTRY_USER: $GITHUB_ACTOR
+  API_IMAGE: ghcr.io/equinor/template-fastapi-react/api
+  WEB_IMAGE: ghcr.io/equinor/template-fastapi-react/web
 
 jobs:
   common-checks:
@@ -39,10 +49,14 @@ jobs:
         run: pip install pre-commit
 
       - name: Check valid Python files
+        if: ${{ false }}  # disable for now
         run: pre-commit run check-ast --all-files
 
-      - name: Build API test image
-        run: docker build --target development --tag api-development ./api
+      - name: Build API image
+        run: |
+          echo ${{ secrets.GITHUB_TOKEN }} | docker login $IMAGE_REGISTRY -u $GITHUB_ACTOR --password-stdin
+          docker pull $API_IMAGE
+          docker build --target development --tag api-development ./api # TODO: --cache-from $API_IMAGE
 
       - name: Black Linting
         run: docker run --rm api-development black --check --diff --exclude something .
@@ -59,6 +73,13 @@ jobs:
       - name: Documentation Check
         run: docker run --rm api-development interrogate
 
+      - name: BDD Integration tests
+        if: ${{ false }}  # disable for now
+        run: docker-compose -f docker-compose.yml -f docker-compose.ci.yml run api behave
+
+      - name: Pytest Integration tests
+        run: docker-compose -f docker-compose.yml -f docker-compose.ci.yml run --rm api pytest --integration
+
   test-web:
     runs-on: ubuntu-latest
     steps:
@@ -70,8 +91,8 @@ jobs:
       - name: Run prettier formatting
         run: pre-commit run prettier --all-files
 
-      - name: Build Web test image
-        run: docker build --target development --tag web-development ./web
-
-
-
+      - name: Build Web Image
+        run: |
+          echo ${{ secrets.GITHUB_TOKEN }} | docker login $IMAGE_REGISTRY -u $GITHUB_ACTOR --password-stdin
+          docker pull $WEB_IMAGE
+          docker build --cache-from $WEB_IMAGE --target development --tag web-dev ./web

@@ -1,0 +1,65 @@
+name: "Publish container images"
+on:
+  workflow_dispatch:
+  workflow_call:  # Workflow is meant to be called from another workflow, with the image tag as input
+    inputs:
+      image-tag:
+        description: 'Which tag to set for the produced docker images'
+        default: 'latest'
+        required: true
+        type: string
+      oauth-redirect-url:
+        description: 'Redirect url for oauth. Should be the public url to access the web app'
+        default: 'https://template-fastapi-react.app.radix.equinor.com'
+        required: true
+        type: string
+    secrets:
+      CR_SECRET:
+        description: 'Secret to authenticate if using an other container registry than Github'
+        required: false
+
+
+env:
+  IMAGE_REGISTRY: ghcr.io
+  REGISTRY_USER: $GITHUB_ACTOR
+  API_IMAGE: ghcr.io/equinor/template-fastapi-react/api
+  WEB_IMAGE: ghcr.io/equinor/template-fastapi-react/web
+
+jobs:
+  build-and-publish-web-master:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - name: "Build and Publish Web"
+        run: |
+          echo "Tagging with ${{ inputs.image-tag }}"
+          echo ${{ secrets.GITHUB_TOKEN }} | docker login $IMAGE_REGISTRY -u $GITHUB_ACTOR --password-stdin
+          docker pull $WEB_IMAGE
+          echo $(git log -n 1 --format=format:'%h% %>(12) %cs %>(12,mtrunc)%aN%  %s %D') > ./web/packages/home/public/version.txt
+          docker build \
+          --build-arg REDIRECT_URI=${{inputs.oauth-redirect-url}} \
+          --build-arg AUTH_ENABLED=1 \
+          --build-arg AUTH_SCOPE=REPLACEME \
+          --build-arg CLIENT_ID=REPLACEME \
+          --build-arg TENANT_ID=REPLACEME \
+          --cache-from ${WEB_IMAGE} \
+          --tag ${WEB_IMAGE} \
+          ./web
+          docker tag $WEB_IMAGE $WEB_IMAGE:${{ inputs.image-tag }}
+          docker push $WEB_IMAGE:${{ inputs.image-tag }}
+
+  build-and-publish-api-master:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - name: "Build and Publish API"
+        run: |
+          echo "Tagging with ${{ inputs.image-tag }}"
+          echo ${{ secrets.GITHUB_TOKEN }} | docker login $IMAGE_REGISTRY -u $GITHUB_ACTOR --password-stdin
+          docker pull $API_IMAGE
+          echo $(git log -n 1 --format=format:'%h% %>(12) %cs %>(12,mtrunc)%aN%  %s %D') > ./api/src/version.txt
+          docker build --cache-from $API_IMAGE --target prod --tag $API_IMAGE ./api
+          docker tag $API_IMAGE $API_IMAGE:${{ inputs.image-tag }}
+          docker push $API_IMAGE:${{ inputs.image-tag }}

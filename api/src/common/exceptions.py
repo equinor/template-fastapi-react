@@ -1,9 +1,11 @@
+from typing import Optional
+
 from fastapi import HTTPException
 from starlette import status
 
 
 class ApplicationException(Exception):
-    def __init__(self, message: str):
+    def __init__(self, message: Optional[str] = "Something went wrong"):
         super()
         self.message = message
 
@@ -23,11 +25,7 @@ class BadRequest(ApplicationException):
 
 class MissingPrivilegeException(Exception):
     def __init__(self, message=None):
-        self.message = (
-            message
-            if message
-            else "Missing privileges to perform operation on the resource"
-        )
+        self.message = message if message else "Missing privileges to perform operation on the resource"
 
 
 credentials_exception = HTTPException(

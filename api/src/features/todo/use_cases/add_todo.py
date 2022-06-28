@@ -1,10 +1,10 @@
 import uuid
-from typing import Optional, cast
+from typing import Optional
 
 from pydantic import BaseModel, Field
 
+from common.use_case import use_case_responses
 from entities.TodoItem import TodoItem
-from features.todo.interfaces import TodoRepositoryInterface
 from infrastructure.repositories.TodoRepository import TodoRepository
 
 
@@ -25,15 +25,14 @@ class AddTodoResponse(BaseModel):
 
     @staticmethod
     def from_entity(todo_item: TodoItem) -> "AddTodoResponse":
-        return AddTodoResponse(
-            id=todo_item.id, title=todo_item.title, is_completed=todo_item.is_completed
-        )
+        return AddTodoResponse(id=todo_item.id, title=todo_item.title, is_completed=todo_item.is_completed)
 
 
+@use_case_responses
 def add_todo_use_case(
     data: AddTodoRequest,
-    todo_item_repository: TodoRepositoryInterface = TodoRepository(),
+    todo_item_repository=TodoRepository(),
 ) -> Optional[AddTodoResponse]:
     todo_item = TodoItem(id=str(uuid.uuid4()), title=data.title)
     todo_item_repository.create(todo_item)
-    return AddTodoResponse.from_entity(cast(TodoItem, todo_item))
+    return AddTodoResponse.from_entity(todo_item)
