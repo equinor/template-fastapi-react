@@ -146,3 +146,12 @@ dmypy.json
 .pyre/
 .idea
 data
+
+# Yarn stuff
+web/.pnp.*
+web/.yarn/*
+!web/.yarn/patches
+!web/.yarn/plugins
+!web/.yarn/releases
+!web/.yarn/sdks
+!web/.yarn/versions
