@@ -16,7 +16,7 @@ ENV REACT_APP_AUTH_REDIRECT_URI=$REDIRECT_URI
 
 WORKDIR /code
 ADD package.json yarn.lock /code/
-RUN yarn install --frozen-lockfile
+RUN yarn install --immutable
 ADD ./ /code/
 # To be able to call node modules binaries
 ENV PATH=$PATH:./node_modules/.bin/
