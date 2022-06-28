@@ -1,5 +1,3 @@
-import os
-
 from pydantic import BaseSettings, Field
 
 from authentication.models import User
@@ -23,12 +21,8 @@ class Config(BaseSettings):
     # Authentication
     SECRET_KEY: str = Field(None, env="SECRET_KEY")
     AUTH_ENABLED: bool = Field(False, env="AUTH_ENABLED")
-    JWT_SELF_SIGNING_ISSUER: str = (
-        "APPLICATION"  # Which value will be used to sign self-signed JWT's
-    )
-    TEST_TOKEN: bool = (
-        False  # This value should only be changed at runtime by test setup
-    )
+    JWT_SELF_SIGNING_ISSUER: str = "APPLICATION"  # Which value will be used to sign self-signed JWT's
+    TEST_TOKEN: bool = False  # This value should only be changed at runtime by test setup
     OAUTH_WELL_KNOWN: str = Field(None, env="OAUTH_WELL_KNOWN")
     OAUTH_TOKEN_ENDPOINT: str = Field("", env="OAUTH_TOKEN_ENDPOINT")
     OAUTH_AUTH_ENDPOINT: str = Field("", env="OAUTH_AUTH_ENDPOINT")

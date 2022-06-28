@@ -13,12 +13,8 @@ def access_control(acl: ACL, access_level_required: AccessLevel, user: User):
     if not config.AUTH_ENABLED:
         return True
 
-    if not user.scope.check_privilege(
-        access_level_required
-    ):  # The user object has a limited scope set in PAT.
-        raise MissingPrivilegeException(
-            f"The requested operation requires '{access_level_required.name}' privileges"
-        )
+    if not user.scope.check_privilege(access_level_required):  # The user object has a limited scope set in PAT.
+        raise MissingPrivilegeException(f"The requested operation requires '{access_level_required.name}' privileges")
 
     # Starting with the 'others' access level should reduce the amount of checks being done the most
     if acl.others.check_privilege(access_level_required):
@@ -37,9 +33,7 @@ def access_control(acl: ACL, access_level_required: AccessLevel, user: User):
             return True
 
     # No access high enough granted neither as 'owner', 'roles', 'users', nor 'others'.
-    raise MissingPrivilegeException(
-        f"The requested operation requires '{access_level_required.name}' privileges"
-    )
+    raise MissingPrivilegeException(f"The requested operation requires '{access_level_required.name}' privileges")
 
 
 def create_acl(user: User) -> ACL:

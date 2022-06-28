@@ -7,7 +7,7 @@ API documentation
 
 FastAPI is carefully built around the [OpenAPI Specification](https://github.com/OAI/OpenAPI-Specification) (formerly
 known as swagger) standards. In FastAPI, by coding your endpoints, you are automatically writing your API documentation.
-Under the hood, FastAPI maps your endpoint details to a [JSON Schema](https://json-schema.org/) document.  
+Under the hood, FastAPI maps your endpoint details to a [JSON Schema](https://json-schema.org/) document.
 
 The generated documentation can (if given enough detail) display:
 

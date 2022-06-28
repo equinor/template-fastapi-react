@@ -4,6 +4,7 @@ from typing import Dict, List, Optional
 from pymongo import MongoClient
 from pymongo.errors import DuplicateKeyError
 
+from common.exceptions import EntityNotFoundException
 from config import config
 from infrastructure.clients.ClientInterface import ClientInterface
 
@@ -19,7 +20,7 @@ class MongoDatabaseClient(ClientInterface, ABC):
         tls: bool,
         port: int,
     ):
-        client = MongoClient(
+        client: MongoClient = MongoClient(
             host=host,
             port=port,
             username=username,
@@ -37,9 +38,7 @@ class MongoDatabaseClient(ClientInterface, ABC):
     def wipe_db(self):
         databases = self.handler.client.list_database_names()
         databases = [
-            database_name
-            for database_name in databases
-            if database_name not in ("admin", "config", "local")
+            database_name for database_name in databases if database_name not in ("admin", "config", "local")
         ]  # Don't delete the mongo admin or local database
         for database_name in databases:
             self.handler.client.drop_database(database_name)
@@ -52,10 +51,14 @@ class MongoDatabaseClient(ClientInterface, ABC):
             raise Exception
 
     def list(self) -> List[dict]:
-        return self.handler[self.collection].find()
+        return list(self.handler[self.collection].find())
 
     def find_by_id(self, uid: str) -> Dict:
-        return self.handler[self.collection].find_one(filter={"_id": uid})
+        document = self.handler[self.collection].find_one(filter={"_id": uid})
+        if document is None:
+            raise EntityNotFoundException
+        else:
+            return dict(document)
 
     def update(self, uid: str, document: Dict) -> Dict:
         self.handler[self.collection].replace_one({"_id": uid}, document)
@@ -66,7 +69,7 @@ class MongoDatabaseClient(ClientInterface, ABC):
         return None
 
     def find(self, filters: Dict) -> Optional[List[Dict]]:
-        return self.handler[self.collection].find(filter=filters)
+        return list(self.handler[self.collection].find(filter=filters))
 
     def find_one(self, filters: Dict) -> Optional[Dict]:
         return self.handler[self.collection].find_one(filter=filters)

@@ -1,5 +1,5 @@
 from abc import abstractmethod
-from typing import Any, Dict, Generic, List, TypeVar
+from typing import List
 
 
 class ClientInterface:
