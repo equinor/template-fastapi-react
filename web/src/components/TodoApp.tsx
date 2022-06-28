@@ -96,7 +96,7 @@ export const TodoApp = () => {
       })
       .then((response) => {
         const items = todos
-        let item = items[index]
+        const item = items[index]
         item.is_completed = !is_completed
         items[index] = item
         setTodos([...items])
