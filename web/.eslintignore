@@ -1,6 +1,6 @@
 **/gen/*
-src/api/generated
+web/src/api/generated
 
 build
 coverage
-src/components/TodoApp.tsx
+web/src/components/TodoApp.tsx
