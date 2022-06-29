@@ -7,7 +7,7 @@ spec:
     - name: prod
       build:
         from: master
-    - name: dev
+    - name: test
       build:
         from: master
   components:
@@ -17,15 +17,20 @@ spec:
       environmentConfig:
         - environment: prod
           imageTagName: production
-        - environment: dev
+        - environment: test
           imageTagName: latest
       ports:
         - name: http
           port: 3000
 
     - name: api
-      image: heracles.azurecr.io/api:latest
+      image: heracles.azurecr.io/api:{imageTagName}
       alwaysPullImageOnDeploy: true
+      environmentConfig:
+        - environment: prod
+          imageTagName: production
+        - environment: test
+          imageTagName: latest
       secrets:
         - SECRET_KEY
       variables:
@@ -43,7 +48,13 @@ spec:
       publicPort: rest
 
     - name: proxy
-      image: heracles.azurecr.io/dmt/nginx:latest
+      image: heracles.azurecr.io/dmt/nginx:{imageTagName}
+      alwaysPullImageOnDeploy: true
+      environmentConfig:
+        - environment: prod
+          imageTagName: production
+        - environment: test
+          imageTagName: latest
       ports:
         - name: nginx
           port: 8080
