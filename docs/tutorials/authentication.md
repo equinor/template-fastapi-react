@@ -23,7 +23,7 @@ In Equinor, Azure AD is the _go-to_ auth provider.
 
 ## Single Page Web Application
 
-Clients that has a goal of uptaining an access token (JWT), has many different _flows_/methods  to chose from. For Single Page Web Application the recommended flow is  the _Authorization Code flow with PKCE_.  
+Clients that has a goal of obtaining an access token (JWT), has many different _flows_/methods  to chose from. For Single Page Web Application the recommended flow is  the _Authorization Code flow with PKCE_.  
 There are no resources to protect in the web app, therefore the job for the SPA in regards to authentication is simple;
 
   1. Is the user logged in?  
