@@ -15,11 +15,8 @@ ENV REACT_APP_LOGOUT_ENDPOINT=https://login.microsoftonline.com/${REACT_APP_AUTH
 ENV REACT_APP_AUTH_REDIRECT_URI=$REDIRECT_URI
 
 WORKDIR /code
-ADD package.json yarn.lock /code/
+COPY ./ ./
 RUN yarn install --immutable
-ADD ./ /code/
-# To be able to call node modules binaries
-ENV PATH=$PATH:./node_modules/.bin/
 
 FROM base as development
 CMD ["yarn", "start"]
