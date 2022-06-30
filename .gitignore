@@ -147,8 +147,8 @@ dmypy.json
 data
 
 # Yarn stuff
-web/.pnp.*
 web/.yarn/*
+!web/.yarn/cache
 !web/.yarn/patches
 !web/.yarn/plugins
 !web/.yarn/releases
