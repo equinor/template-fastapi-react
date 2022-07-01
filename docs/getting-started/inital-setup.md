@@ -84,4 +84,4 @@ To let the IDE know that dependencies can be found in `.yarn` instead of `node_m
 
 #### Yarn PnP in VSCode
 
-The committed .vscode folder should contain all need configuration
+You'll might need to add `"typescript.tsdk": "./template-fastapi-react/web/.yarn/sdks/typescript/lib"` to your workspace settings to make typescript work. Other than that, the committed .vscode folder should contain all the configurations you'll need.
