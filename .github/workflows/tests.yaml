@@ -32,7 +32,7 @@ jobs:
       - name: Set up venv
         run: |
           pip install poetry
-          poetry config virtualenvs.in-project = true
+          poetry config virtualenvs.in-project true
           cd api
           poetry install
 
