@@ -29,6 +29,13 @@ jobs:
       - name: Install pre-commit
         run: pip install pre-commit
 
+      - name: Set up venv
+        run: |
+          pip install poetry
+          poetry config virtualenvs.in-project = true
+          cd api
+          poetry install
+
       - name: Run pre-commit
         run: pre-commit run --all-files
 
