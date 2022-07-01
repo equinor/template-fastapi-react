@@ -68,18 +68,20 @@ $ poetry install
 
 From inside the /web folder.
 
-### Install Yarn
+### Package management
 
-This project uses yarn to manage web package dependencies.
+This project uses __Yarn 2 Plug'n'Play__ to manage web package dependencies.  
+That means there is no need to run npm/yarn install.  
+However, if you want to add/remove/update packages, you need yarn installed locally.
 
 ```shell
 $ npm install -g yarn
 ```
 
-The installation instructions can be found [here](https://classic.yarnpkg.com/en/docs/install).
+#### Yarn PnP in Jetbrains IDEs
 
-### Install packages
+To let the IDE know that dependencies can be found in `.yarn` instead of `node_modules`, follow these steps; https://www.jetbrains.com/help/idea/installing-and-removing-external-software-using-node-package-manager.html#ws_npm_yarn_set_up_yarn2 
 
-```shell
-$ yarn install
-```
+#### Yarn PnP in VSCode
+
+You'll might need to add `"typescript.tsdk": "./template-fastapi-react/web/.yarn/sdks/typescript/lib"` to your workspace settings to make typescript work. Other than that, the committed .vscode folder should contain all the configurations you'll need.
