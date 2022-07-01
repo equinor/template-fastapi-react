@@ -48,7 +48,7 @@ spec:
       publicPort: rest
 
     - name: proxy
-      image: heracles.azurecr.io/dmt/nginx:{imageTagName}
+      image: ghcr.io/equinor/template-fastapi-react/nginx:{imageTagName}
       alwaysPullImageOnDeploy: true
       environmentConfig:
         - environment: prod
