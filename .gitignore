@@ -154,3 +154,4 @@ web/.yarn/*
 !web/.yarn/releases
 !web/.yarn/sdks
 !web/.yarn/versions
+/web/node_modules/
