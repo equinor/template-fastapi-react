@@ -12,7 +12,7 @@ spec:
         from: main
   components:
     - name: web
-      image: heracles.azurecr.io/dmt/web:{imageTagName}
+      image: ghcr.io/equinor/template-fastapi-react/web:{imageTagName}
       alwaysPullImageOnDeploy: true
       environmentConfig:
         - environment: prod
@@ -24,7 +24,7 @@ spec:
           port: 3000
 
     - name: api
-      image: heracles.azurecr.io/api:{imageTagName}
+      image: ghcr.io/equinor/template-fastapi-react/api:{imageTagName}
       alwaysPullImageOnDeploy: true
       environmentConfig:
         - environment: prod
