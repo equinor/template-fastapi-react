@@ -7,10 +7,10 @@ spec:
   environments:
     - name: prod
       build:
-        from: master
+        from: main
     - name: test
       build:
-        from: master
+        from: main
   components:
     - name: web
       image: heracles.azurecr.io/dmt/web:{imageTagName}
