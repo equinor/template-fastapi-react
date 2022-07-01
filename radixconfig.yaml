@@ -1,7 +1,7 @@
 apiVersion: radix.equinor.com/v1
 kind: RadixApplication
 metadata:
-  name: template
+  name: template-fastapi-react
 spec:
   environments:
     - name: prod
