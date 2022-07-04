@@ -80,3 +80,6 @@ ignore_missing_imports = true
 warn_return_any = true
 warn_unused_configs = true
 namespace_packages = true
+
+[tool.pycln]
+all=true

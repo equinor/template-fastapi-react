@@ -44,6 +44,12 @@ repos:
         types: [python]
         args: [--config=api/pyproject.toml]
         files: ^api/.*\.py$
+  
+  - repo: https://github.com/hadialqattan/pycln
+    rev: v1.3.5
+    hooks:
+      - id: pycln
+        args: [--config=api/pyproject.toml]
 
   - repo: https://github.com/pycqa/isort
     rev: 5.10.1
@@ -67,21 +73,22 @@ repos:
         files: ^api/src/.*\.py$
         args: [ '--max-line-length=119', '--max-complexity=18', '--select=B,C,E,F,W,T4,B9', '--ignore=E203,E266,E501,W503' ]
 
+# The path to the venv python interpreter differ between linux and windows. An if/else is used to find it on either.
   - repo: local
     hooks:
       - id: safety
         name: safety-check
-        entry: sh -c "api/.venv/bin/python -m safety check"
+        entry: sh -c "if [ -f api/.venv/bin/python ]; then var=api/.venv/bin/python; else var=api/.venv/Scripts/python; fi; $var -m safety check"
         language: system
       - id: mypy
         name: Python type checking
         pass_filenames: false
         files: ^api/.*\.py$
-        entry: sh -c "api/.venv/bin/python -m mypy --namespace-packages --ignore-missing-imports api/src/app.py"
+        entry: sh -c "if [ -f api/.venv/bin/python ]; then var=api/.venv/bin/python; else var=api/.venv/Scripts/python; fi; $var -m mypy --namespace-packages --ignore-missing-imports api/src/app.py"
         language: system
       - id: pytest
         name: pytest-check
-        entry: sh -c "api/.venv/bin/python -m pytest api/src/tests"
+        entry: sh -c "if [ -f api/.venv/bin/python ]; then var=api/.venv/bin/python; else var=api/.venv/Scripts/python; fi; $var -m pytest api/src/tests"
         language: system
         pass_filenames: false
         always_run: true
