@@ -71,7 +71,7 @@ repos:
     hooks:
       - id: safety
         name: safety-check
-        entry: sh -c "export PYTHONPATH=./src && api/.venv/bin/python -m safety check"
+        entry: sh -c "api/.venv/bin/python -m safety check"
         language: system
       - id: mypy
         name: Python type checking
@@ -81,7 +81,7 @@ repos:
         language: system
       - id: pytest
         name: pytest-check
-        entry: sh -c "export PYTHONPATH=./src && api/.venv/bin/python -m pytest api/src/tests"
+        entry: sh -c "api/.venv/bin/python -m pytest api/src/tests"
         language: system
         pass_filenames: false
         always_run: true
