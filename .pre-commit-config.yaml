@@ -45,11 +45,11 @@ repos:
         args: [--config=api/pyproject.toml]
         files: ^api/.*\.py$
   
-  - repo: https://github.com/pycqa/autoflake
-    rev: v1.4
+  - repo: https://github.com/hadialqattan/pycln
+    rev: v1.3.5
     hooks:
-      - id: autoflake
-        args: ['--in-place', '--remove-all-unused-imports', '--remove-unused-variable', '--verbose']
+      - id: pycln
+        args: [--config=api/pyproject.toml]
 
   - repo: https://github.com/pycqa/isort
     rev: 5.10.1
