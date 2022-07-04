@@ -44,6 +44,12 @@ repos:
         types: [python]
         args: [--config=api/pyproject.toml]
         files: ^api/.*\.py$
+  
+  - repo: https://github.com/pycqa/autoflake
+    rev: v1.4
+    hooks:
+      - id: autoflake
+        args: ['--in-place', '--remove-all-unused-imports', '--remove-unused-variable', '--verbose']
 
   - repo: https://github.com/pycqa/isort
     rev: 5.10.1
@@ -59,12 +65,6 @@ repos:
         files: ^web/.*\.(ts|tsx|js|css|html|json)$
         args:
           ["--config=web/.prettierrc.js", "--ignore-path=web/.prettierignore"]
-  
-  - repo: https://github.com/myint/autoflake
-    rev: v1.4
-    hooks:
-      - id: autoflake
-        args: ['--in-place', '--remove-all-unused-imports', '--remove-unused-variable', '--verbose']
 
   - repo: https://gitlab.com/pycqa/flake8
     rev: 4.0.1
@@ -73,6 +73,7 @@ repos:
         files: ^api/src/.*\.py$
         args: [ '--max-line-length=119', '--max-complexity=18', '--select=B,C,E,F,W,T4,B9', '--ignore=E203,E266,E501,W503' ]
 
+# The path to the venv python interpreter differ between linux and windows. An if/else is used to find it on either.
   - repo: local
     hooks:
       - id: safety
