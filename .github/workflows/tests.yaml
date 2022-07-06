@@ -16,7 +16,7 @@ env:
   WEB_IMAGE: ghcr.io/equinor/template-fastapi-react/web
 
 jobs:
-  common-checks:
+  pre-commit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -24,54 +24,31 @@ jobs:
       - name: Set up python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.8
+          python-version: '3.10'
 
       - name: Install pre-commit
         run: pip install pre-commit
 
-      - name: Check JSON
-        run: pre-commit run check-json --all-files
+      - name: Set up venv
+        run: |
+          pip install poetry
+          poetry config virtualenvs.in-project true
+          cd api
+          poetry install
 
-      - name: Check YAML
-        run: pre-commit run check-yaml --all-files
+      - name: Run pre-commit
+        run: pre-commit run --all-files
 
   test-api:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
 
-      - name: Set up python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-
-      - name: Install pre-commit
-        run: pip install pre-commit
-
-      - name: Check valid Python files
-        if: ${{ false }}  # disable for now
-        run: pre-commit run check-ast --all-files
-
       - name: Build API image
         run: |
           echo ${{ secrets.GITHUB_TOKEN }} | docker login $IMAGE_REGISTRY -u $GITHUB_ACTOR --password-stdin
           docker pull $API_IMAGE
           docker build --target development --tag api-development ./api # TODO: --cache-from $API_IMAGE
-
-      - name: Black Linting
-        run: docker run --rm api-development black --check --diff --exclude something .
-
-      - name: Bandit Static Code Security Analysis
-        run: docker run --rm api-development bandit --recursive . --exclude ./tests
-
-      - name: Safety - Dependencies CVE Check
-        run: docker run --rm api-development safety check
-
-      - name: API Unit Tests
-        run: docker run --rm api-development pytest tests
-
-      - name: Documentation Check
-        run: docker run --rm api-development interrogate
 
       - name: BDD Integration tests
         if: ${{ false }}  # disable for now
@@ -84,12 +61,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-
-      - name: Install Precommit
-        run: pip install pre-commit
-
-      - name: Run prettier formatting
-        run: pre-commit run prettier --all-files
 
       - name: Build Web Image
         run: |

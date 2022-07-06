@@ -21,7 +21,7 @@ class TodoRepository(TodoRepositoryInterface):
 
     def update(self, todo_item: TodoItem) -> Optional[TodoItem]:
         self.client.update(todo_item.id, to_dict(todo_item))
-        return TodoItem.from_dict(self.client.find_by_id(todo_item.id))
+        return todo_item
 
     def delete_by_id(self, id: str):
         return self.client.delete(id)

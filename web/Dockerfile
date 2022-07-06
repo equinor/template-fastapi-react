@@ -1,4 +1,4 @@
-FROM node:14 as base
+FROM node:18 as base
 ARG AUTH_ENABLED=0
 ARG REDIRECT_URI=http://localhost/
 # Azure AD requires a scope.
@@ -15,11 +15,8 @@ ENV REACT_APP_LOGOUT_ENDPOINT=https://login.microsoftonline.com/${REACT_APP_AUTH
 ENV REACT_APP_AUTH_REDIRECT_URI=$REDIRECT_URI
 
 WORKDIR /code
-ADD package.json yarn.lock /code/
-RUN yarn install --frozen-lockfile
-ADD ./ /code/
-# To be able to call node modules binaries
-ENV PATH=$PATH:./node_modules/.bin/
+COPY ./ ./
+RUN yarn install --immutable --immutable-cache
 
 FROM base as development
 CMD ["yarn", "start"]
@@ -27,7 +24,7 @@ CMD ["yarn", "start"]
 FROM base as build
 RUN yarn build
 
-FROM node:12-alpine as prod
+FROM node:18-alpine as prod
 RUN npm install -g serve
 COPY --from=build /code/build /code/build
 USER 1000

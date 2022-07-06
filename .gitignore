@@ -20,7 +20,6 @@ web/package-lock.json
 
 # Editors
 .idea/
-.vscode/
 
 # misc
 .DS_Store
@@ -154,3 +153,12 @@ dmypy.json
 .pyre/
 .idea
 data
+
+# Yarn stuff
+web/.yarn/*
+!web/.yarn/cache
+!web/.yarn/patches
+!web/.yarn/plugins
+!web/.yarn/releases
+!web/.yarn/sdks
+!web/.yarn/versions
