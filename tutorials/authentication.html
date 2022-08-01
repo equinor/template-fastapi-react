@@ -1,0 +1,262 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Authentication and Authorization</title>
+    <meta name="description" content="Documentation for Template Fastapi React">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Source+Sans+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="/template-fastapi-react/assets/normalize.css?v=1659343822"
+        media="screen" />
+    <link rel="stylesheet" type="text/css" href="/template-fastapi-react/assets/doctave-style.css?v=1659343822"
+        media="screen" />
+    <link rel="stylesheet" type="text/css" href="/template-fastapi-react/assets/katex.css?v=1659343822" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/template-fastapi-react/assets/prism-ghcolors.css?v=1659343822"
+        media="screen" />
+
+    <script>
+        var DOCTAVE_TIMESTAMP = "1659343822";
+        var BASE_PATH = "/template-fastapi-react/";
+        var color = localStorage.getItem('doctave-color')
+
+        if (color === 'dark') {
+            document.getElementsByTagName('html')[0].classList.remove('light');
+            document.getElementsByTagName('html')[0].classList.add('dark');
+        } else {
+            document.getElementsByTagName('html')[0].classList.remove('dark');
+            document.getElementsByTagName('html')[0].classList.add('light');
+        }
+    </script>
+
+    
+</head>
+
+<body>
+    <label for='menu-toggle-switch' class='menu-toggle-button'>
+        ☰
+    </label>
+    <input type="checkbox" id="menu-toggle-switch" value='0' />
+    <div class='page'>
+        <div class='header'>
+            <div class='logo'>
+                
+                <h2 class='project-name'>
+                    <a href="/template-fastapi-react/">
+                        Template Fastapi React
+                    </a>
+                </h2>
+            </div>
+            <div class='search'>
+                <form id='search-form'>
+    <input type='text' id='search-box' autocomplete="off" placeholder="Search..."></input>
+    <span class='search-icon'>S</span>
+    <ul id='search-results'></ul>
+</form>
+
+            </div>
+            <div class='header-dummy-right'>
+            </div>
+        </div>
+        <div class='container'>
+            <div class='sidebar-left'>
+                <nav class='site-nav'>
+    <ul>
+        
+            <li><a href="/template-fastapi-react/Changelog">Changelog</a></li>
+            
+        
+            <li><a href="/template-fastapi-react/getting-started">getting-started</a></li>
+            
+                <ul>
+    
+        <li><a href="/template-fastapi-react/getting-started/prerequisites">1 Prerequisites</a></li>
+        
+    
+        <li><a href="/template-fastapi-react/getting-started/inital-setup">2 Initial setup</a></li>
+        
+    
+        <li><a href="/template-fastapi-react/getting-started/configuration">3 Configuration</a></li>
+        
+    
+        <li><a href="/template-fastapi-react/getting-started/running">4 Running</a></li>
+        
+    
+</ul>
+
+            
+        
+            <li><a href="/template-fastapi-react/how-to">how-to</a></li>
+            
+                <ul>
+    
+        <li><a href="/template-fastapi-react/how-to/api-documentation">API documentation</a></li>
+        
+    
+        <li><a href="/template-fastapi-react/how-to/access-control">Access control</a></li>
+        
+    
+        <li><a href="/template-fastapi-react/how-to/changelogs">Changelogs</a></li>
+        
+    
+        <li><a href="/template-fastapi-react/how-to/commit-code">Commit code</a></li>
+        
+    
+        <li><a href="/template-fastapi-react/how-to/documentation">Documentation</a></li>
+        
+    
+        <li><a href="/template-fastapi-react/how-to/github-actions">Github actions</a></li>
+        
+    
+        <li><a href="/template-fastapi-react/how-to/openapi-generator">OpenAPI generator</a></li>
+        
+    
+        <li><a href="/template-fastapi-react/how-to/personal-access-token">Personal access token</a></li>
+        
+    
+        <li><a href="/template-fastapi-react/how-to/pre-commit">Pre-commit</a></li>
+        
+    
+        <li><a href="/template-fastapi-react/how-to/testing">Testing</a></li>
+        
+    
+        <li><a href="/template-fastapi-react/how-to/upgrading">Upgrading</a></li>
+        
+    
+</ul>
+
+            
+        
+            <li><a href="/template-fastapi-react/tutorials">tutorials</a></li>
+            
+                <ul>
+    
+        <li><a href="/template-fastapi-react/tutorials/api-architecture">API architecture</a></li>
+        
+    
+        <li><a class="active" href="/template-fastapi-react/tutorials/authentication">Authentication and Authorization</a></li>
+        
+    
+</ul>
+
+            
+        
+    </ul>
+    <span id='light-dark-mode-switch'>
+        <svg xmlns="http://www.w3.org/2000/svg" id="dark-mode-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+        </svg>
+
+        <svg xmlns="http://www.w3.org/2000/svg" id="light-mode-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd" />
+        </svg>
+    </span>
+</nav>
+
+            </div>
+            <div class='doctave-content'>
+                <h1 id="authentication-and-authorization">Authentication and Authorization</h1>
+<p><strong>Authentication</strong> is the act of validating that users are whom they claim to be.<br>
+<strong>Authorization</strong> is the process of giving the user permission to access a specific resource or function.</p>
+<p>The template demo app is set up with OAuth2 authentication and no authorization (Any authenticated user can do anything).</p>
+<p>There are 3 main parts that are important to understand in this authentication setup. The OAuth2 authentication server, the SPA web app, and the REST-API.</p>
+<h2 id="the-authentication-server">The Authentication Server</h2>
+<p>There are many different <em>authentication providers</em> (Keycloak, Azure, Google, Facebook, etc.), running their own implementation of the OAuth2 protocol. It is these servers' responsibility to have the user login and authenticate themselves. The authentication servers authenticate the users against their connected user database (e.g. Azure Active Directory).</p>
+<p>If the user authenticate successfully, the auth server returns a <strong>signed JSON Web Token</strong> (JWT).</p>
+<p>In Equinor, Azure AD is the <em>go-to</em> auth provider.
+<a href="https://docs.microsoft.com/en-us/azure/active-directory-b2c/tutorial-register-spa">This guide</a> helps you register an "App" on Azure and configure it for use with a Web App.</p>
+<h2 id="single-page-web-application">Single Page Web Application</h2>
+<p>Clients that has a goal of obtaining an access token (JWT), has many different <em>flows</em>/methods  to chose from. For Single Page Web Application the recommended flow is  the <em>Authorization Code flow with PKCE</em>.<br>
+There are no resources to protect in the web app, therefore the job for the SPA in regards to authentication is simple;</p>
+<ol>
+<li>Is the user logged in?<br>
+a) No - Redirect user to authentication server for authentication<br>
+b) Yes - Add the JWT to every request to the API</li>
+</ol>
+<p>Details needed to implement this can be found here; https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow</p>
+<p>We use the <a href="https://github.com/soofstad/react-oauth2-pkce">react-oauth2-pkce</a> library to handle this for us.</p>
+<h2 id="rest-api">REST API</h2>
+<p>The REST API (e.g python FastAPI server) has access to, and is responsible for serving, data that could be private. Therefore we need to validate that the request is coming from an authenticated client.</p>
+<p>We do that in these steps;</p>
+<ol>
+<li>Require a JWT on each request</li>
+<li>Fetch the RSA public keys from the authentication server.</li>
+<li>Validate the JWT signature with the auth server's public key</li>
+</ol>
+<p>FastAPI has system called <a href="https://fastapi.tiangolo.com/tutorial/dependencies"><strong>dependencies</strong></a> that is well suited for running a specific function before every request.</p>
+<p>Here is an example;</p>
+<pre><code class="language-python">app = FastAPI(title="Awesome Boilerplate")  # Create the FastAPI app
+routes.include_router(report_router)  # Add a route/controller to the app
+# Add the 'auth_with_jwt()' function as a dependency
+# This function will do the actual JWT validation with step 2 and 3
+app.include_router(routes, dependencies=[Security(auth_with_jwt)])
+</code></pre>
+<p>That's it! Now every route added like this will require a successfull JWT validation before the request will be processed.</p>
+<p>Dependencies can also return values, useful if you need to do some kind of <strong>authorization</strong>.<br>
+Here is one example;</p>
+<pre><code class="language-python">@router.delete("/{id}", operation_id="delete-report")
+def delete_report(id: str, user: User = Depends(auth_with_jwt)):
+    if has_permission(user):
+      delete_report(id)
+      return "OK"
+    else:
+      return PlainTextResponse("Permission denied", status_code=402)
+</code></pre>
+
+            </div>
+            <div class='sidebar-right'>
+                <div class='page-nav' id='page-nav'>
+                    <p class='page-nav-header'>On this page</p>
+                    <ul>
+                        
+                        <li class='page-nav-level-1'>
+                            <a href='#authentication-and-authorization'>Authentication and Authorization</a>
+                        </li>
+                        
+                        <li class='page-nav-level-2'>
+                            <a href='#the-authentication-server'>The Authentication Server</a>
+                        </li>
+                        
+                        <li class='page-nav-level-2'>
+                            <a href='#single-page-web-application'>Single Page Web Application</a>
+                        </li>
+                        
+                        <li class='page-nav-level-2'>
+                            <a href='#rest-api'>REST API</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+            <div class='wave-container'>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                    <path fill-opacity="0.35"
+                        d="M0,192L60,213.3C120,235,240,277,360,277.3C480,277,600,235,720,192C840,149,960,107,1080,122.7C1200,139,1320,213,1380,250.7L1440,288L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z">
+                    </path>
+                    <path fill-opacity="0.5"
+                        d="M0,160L60,181.3C120,203,240,245,360,229.3C480,213,600,139,720,138.7C840,139,960,213,1080,229.3C1200,245,1320,203,1380,181.3L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z">
+                    </path>
+                    <path fill-opacity="0.2"
+                        d="M0,224L60,197.3C120,171,240,117,360,117.3C480,117,600,171,720,186.7C840,203,960,181,1080,186.7C1200,192,1320,224,1380,240L1440,256L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z">
+                    </path>
+                </svg>
+                <p>Powered by <a href='https://cli.doctave.com' target='_blank'>Doctave</a></p>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="/template-fastapi-react/assets/katex.js?v=1659343822"></script>
+    <script type="text/javascript" src="/template-fastapi-react/assets/mermaid.js?v=1659343822"></script>
+    <script type="text/javascript" src="/template-fastapi-react/assets/elasticlunr.js?v=1659343822"></script>
+    <script type="text/javascript" src="/template-fastapi-react/assets/prism.js?v=1659343822"></script>
+    <script type="text/javascript" src="/template-fastapi-react/assets/doctave-app.js?v=1659343822"></script>
+
+    
+</body>
+
+</html>

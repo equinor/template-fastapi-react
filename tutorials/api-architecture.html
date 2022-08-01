@@ -1,0 +1,330 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>API architecture</title>
+    <meta name="description" content="Documentation for Template Fastapi React">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Source+Sans+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="/template-fastapi-react/assets/normalize.css?v=1659343822"
+        media="screen" />
+    <link rel="stylesheet" type="text/css" href="/template-fastapi-react/assets/doctave-style.css?v=1659343822"
+        media="screen" />
+    <link rel="stylesheet" type="text/css" href="/template-fastapi-react/assets/katex.css?v=1659343822" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/template-fastapi-react/assets/prism-ghcolors.css?v=1659343822"
+        media="screen" />
+
+    <script>
+        var DOCTAVE_TIMESTAMP = "1659343822";
+        var BASE_PATH = "/template-fastapi-react/";
+        var color = localStorage.getItem('doctave-color')
+
+        if (color === 'dark') {
+            document.getElementsByTagName('html')[0].classList.remove('light');
+            document.getElementsByTagName('html')[0].classList.add('dark');
+        } else {
+            document.getElementsByTagName('html')[0].classList.remove('dark');
+            document.getElementsByTagName('html')[0].classList.add('light');
+        }
+    </script>
+
+    
+</head>
+
+<body>
+    <label for='menu-toggle-switch' class='menu-toggle-button'>
+        ☰
+    </label>
+    <input type="checkbox" id="menu-toggle-switch" value='0' />
+    <div class='page'>
+        <div class='header'>
+            <div class='logo'>
+                
+                <h2 class='project-name'>
+                    <a href="/template-fastapi-react/">
+                        Template Fastapi React
+                    </a>
+                </h2>
+            </div>
+            <div class='search'>
+                <form id='search-form'>
+    <input type='text' id='search-box' autocomplete="off" placeholder="Search..."></input>
+    <span class='search-icon'>S</span>
+    <ul id='search-results'></ul>
+</form>
+
+            </div>
+            <div class='header-dummy-right'>
+            </div>
+        </div>
+        <div class='container'>
+            <div class='sidebar-left'>
+                <nav class='site-nav'>
+    <ul>
+        
+            <li><a href="/template-fastapi-react/Changelog">Changelog</a></li>
+            
+        
+            <li><a href="/template-fastapi-react/getting-started">getting-started</a></li>
+            
+                <ul>
+    
+        <li><a href="/template-fastapi-react/getting-started/prerequisites">1 Prerequisites</a></li>
+        
+    
+        <li><a href="/template-fastapi-react/getting-started/inital-setup">2 Initial setup</a></li>
+        
+    
+        <li><a href="/template-fastapi-react/getting-started/configuration">3 Configuration</a></li>
+        
+    
+        <li><a href="/template-fastapi-react/getting-started/running">4 Running</a></li>
+        
+    
+</ul>
+
+            
+        
+            <li><a href="/template-fastapi-react/how-to">how-to</a></li>
+            
+                <ul>
+    
+        <li><a href="/template-fastapi-react/how-to/api-documentation">API documentation</a></li>
+        
+    
+        <li><a href="/template-fastapi-react/how-to/access-control">Access control</a></li>
+        
+    
+        <li><a href="/template-fastapi-react/how-to/changelogs">Changelogs</a></li>
+        
+    
+        <li><a href="/template-fastapi-react/how-to/commit-code">Commit code</a></li>
+        
+    
+        <li><a href="/template-fastapi-react/how-to/documentation">Documentation</a></li>
+        
+    
+        <li><a href="/template-fastapi-react/how-to/github-actions">Github actions</a></li>
+        
+    
+        <li><a href="/template-fastapi-react/how-to/openapi-generator">OpenAPI generator</a></li>
+        
+    
+        <li><a href="/template-fastapi-react/how-to/personal-access-token">Personal access token</a></li>
+        
+    
+        <li><a href="/template-fastapi-react/how-to/pre-commit">Pre-commit</a></li>
+        
+    
+        <li><a href="/template-fastapi-react/how-to/testing">Testing</a></li>
+        
+    
+        <li><a href="/template-fastapi-react/how-to/upgrading">Upgrading</a></li>
+        
+    
+</ul>
+
+            
+        
+            <li><a href="/template-fastapi-react/tutorials">tutorials</a></li>
+            
+                <ul>
+    
+        <li><a class="active" href="/template-fastapi-react/tutorials/api-architecture">API architecture</a></li>
+        
+    
+        <li><a href="/template-fastapi-react/tutorials/authentication">Authentication and Authorization</a></li>
+        
+    
+</ul>
+
+            
+        
+    </ul>
+    <span id='light-dark-mode-switch'>
+        <svg xmlns="http://www.w3.org/2000/svg" id="dark-mode-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+        </svg>
+
+        <svg xmlns="http://www.w3.org/2000/svg" id="light-mode-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd" />
+        </svg>
+    </span>
+</nav>
+
+            </div>
+            <div class='doctave-content'>
+                <h1 id="api-architecture">API architecture</h1>
+<p>We follow the <a href="https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html">the Clean Architecture</a> style and structure the codebase accordingly for our API's.</p>
+<p>We are using <a href="https://c4model.com">c4model</a> for showing architecture diagrams.</p>
+<h2 id="what-is-clean-architecture?">What is Clean Architecture?</h2>
+<p>It is a layered approach for a <a href="https://www.youtube.com/watch?v=wtCQalq7L-E">more civilized age</a>.</p>
+<p><img src="/template-fastapi-react/diagrams/clean-architecture.png" alt="Clean Architecture"></p>
+<h3 id="the-most-important-rule">The most important rule</h3>
+<p>Source code dependencies can only point inwards. Nothing in an inner circle can know anything at all about something in an outer circle. In particular, the name of something declared in an outer circle must not be mentioned by the code in the an inner circle. That includes, functions, classes. variables, or any other named software entity.</p>
+<h3 id="the-golden-rule">The golden rule</h3>
+<p>Talk inward with simple structures (dictionaries or classes) and talk outwards through interfaces.</p>
+<h2 id="why-clean-architecture?">Why Clean Architecture?</h2>
+<ul>
+<li><code>Loose coupling between the code</code> – The code can easily be modified without affecting any or a large part of the app’s codebase thus easier to scale the application later on.</li>
+<li>Easier to <code>test</code> code. It is designed so that every part of the architecture is easy testable. Our tests can be simpler to write, faster and cheaper to maintain.</li>
+<li><code>Separation of Concern</code> – Different modules have specific responsibilities making it easier for modification and maintenance.</li>
+<li><code>Framework independent</code> - This architecture is framework independent. This means it doesn’t matter which database, frameworks, UI, external services you are using, the entities and the business logic of the application will always stay the same. When any of the external parts of the system become obsolete, like the database, or the web framework, you can replace those obsolete elements with a minimum of effort.</li>
+</ul>
+<h2 id="s.o.l.i.d-principles">S.O.L.I.D Principles</h2>
+<ul>
+<li>
+<p>Single Responsibility: Each software component should have only one reason to change – one responsibility.</p>
+</li>
+<li>
+<p>Open-Closed: You should be able to extend the behavior of a component, without breaking its usage, or modifying its extensions.</p>
+</li>
+<li>
+<p>Liskov Substitution: If you have a class of one type, and any subclasses of that class, you should be able to represent the base class usage with the subclass, without breaking the app.</p>
+</li>
+<li>
+<p>Interface Segregation: It’s better to have many smaller interfaces than a large one, to prevent the class from implementing the methods that it doesn’t need.</p>
+</li>
+<li>
+<p>Dependency Inversion: Components should depend on abstractions rather than concrete implementations. Also higher level modules shouldn’t depend on lower level modules.</p>
+</li>
+</ul>
+<h2 id="level-1---system-context-diagram">Level 1 - System Context diagram</h2>
+<p>The Context diagram is a good starting point for diagramming and documenting a software system, allowing you to step back and see the big picture. Here we draw a diagram showing the system as a box in the centre, surrounded by its users and the other systems that it interacts with.</p>
+<h2 id="level-2---container-diagram">Level 2 - Container diagram</h2>
+<p>Once you understand how your system fits in to the overall IT environment, a really useful next step is to zoom-in to the system boundary with a Container diagram. A container is something like a server-side web application, single-page application, desktop application, mobile app, database schema, file system, etc. Essentially, a container is a separately runnable/deployable unit (e.g. a separate process space) that executes code or stores data.</p>
+<p><img src="/template-fastapi-react/diagrams/api-level-2.svg" alt="Container diagram"></p>
+<p>The use cases and entities are the heart of our application and should have a minimal set of external library dependencies.</p>
+<h2 id="level-3---component-diagram">Level 3 - Component diagram</h2>
+<p>Following on from a Container Diagram, next you can zoom in and decompose each container further to identify the major structural building blocks and their interactions.</p>
+<p>The Component diagram shows how a container is made up of a number of components, what each of those components are, their responsibilities and the technology/implementation details.</p>
+<p><img src="/template-fastapi-react/diagrams/api-level-3.svg" alt="Container diagram"></p>
+<p>The components:</p>
+<ul>
+<li><code>Entities</code>- are the enterprise business objects of our application. These should not be affected by any change external to them, and these should be the most stable code within your application. An entity can be an object with methods, or it can be a set of data structures and functions. Should be a regular class, dataclasses, or value objects (if all the properties are the same, the objects are identical). Entity does not depend on anything except possibly other entities. It holds data (state) and logic reusable for various applications.</li>
+<li><code>Use cases</code> - implements and encapsulates all the application business rules. Each use case orchestrates all of the logic for a specific application business use case. Logic that defines the actual features of our app. Changes to use cases should not impact the entities. Inside use cases we should have every right to expect that arguments are valid in terms of type. The only thing you can do with a use case is to execute it. Use cases interact with entities (thus depend on them) and hold logic of the specific application (and typically execute that logic via various repositories or data access layer(s) gateway(s).</li>
+<li><code>Controllers</code> - you can think of them as an entry and exit gates to the use cases. It receives a request and return a response. The controller takes the user input (the request), converts it into the request object defined by the use case and passes the request objects to the use case, and at the end return the response objects.</li>
+<li><code>Repositories</code> - takes entities and returns entities, hides storage details. Can work against local, remote, data services or third party services.</li>
+</ul>
+<p>Dependency injection:</p>
+<ul>
+<li>The concrete implementation of a repository is injected into the use-case as run-time. The use-case should only know of the repository interface (abstract class) before run-time.</li>
+</ul>
+<p>Dedicated request and response models for each use-case:</p>
+<ul>
+<li>In FastAPI you can set response_model and request_model, and then the API documentation can be generated and validated (in controllers). Each use-case have own read- and write- model to handle custom requests inputs and outputs for each use-case.</li>
+</ul>
+<h2 id="enterprise-business-logic-(entities)-vs.-application-business-logic-(use-cases)">Enterprise business logic (entities) vs. application business logic (use-cases)</h2>
+<p>The business logic are divided between two layers: the domain layer (aka entities) and the application layer (aka use cases). The domain layer contains the enterprise business logic, and the application layer contains the application business logic. The difference being that enterprise logic could be shared with other systems whereas application logic would typically be specific to single system.</p>
+<h3 id="example:-bank-application">Example: Bank application</h3>
+<p>For example let's say we have a banking app with three functionalities: login, view balance and transfer funds.</p>
+<p>So, to be able to transfer funds the user must be logged in and should have sufficient balance.</p>
+<p>Entities:</p>
+<ul>
+<li>User (holds user name, hashed&amp;salted password; logic like validate user name, hash plain-text password)</li>
+<li>Balance (holds user dependency, amount, limits, logic like verify if given transfer amount is OK)</li>
+</ul>
+<p>Use cases:</p>
+<ul>
+<li>Authenticate (based on user-name/password input, validate it and (using some sort of repository or gateway to data) pull user entity from backend, along with some token likely), likely cache it if success or report errors if any</li>
+<li>View Balance (based on user entity input, pull balance entity from backend (same as above...), report errors if any</li>
+<li>Transfer Funds (based on user entity and amount input, pull balance entity, verify if transfer permitted, perform if so or report error if not)</li>
+</ul>
+<h2 id="glossary-of-terms">Glossary of terms</h2>
+<p>Some important terms in Clean Architecture.</p>
+<ul>
+<li><code>Èntity</code>- This is your business objects.</li>
+<li><code>Enterprise business logic</code> - This is the implementations of enterprise business rules.  Enterprise business rules is your business policy in the real world.</li>
+<li><code>Application business logic</code> - The implementation of your application business rules. The application business rules is the features of your app, the todo List that your app need to get done to be your app, it’s like enterprise business rules but it is specific for your application.</li>
+</ul>
+
+            </div>
+            <div class='sidebar-right'>
+                <div class='page-nav' id='page-nav'>
+                    <p class='page-nav-header'>On this page</p>
+                    <ul>
+                        
+                        <li class='page-nav-level-1'>
+                            <a href='#api-architecture'>API architecture</a>
+                        </li>
+                        
+                        <li class='page-nav-level-2'>
+                            <a href='#what-is-clean-architecture?'>What is Clean Architecture?</a>
+                        </li>
+                        
+                        <li class='page-nav-level-3'>
+                            <a href='#the-most-important-rule'>The most important rule</a>
+                        </li>
+                        
+                        <li class='page-nav-level-3'>
+                            <a href='#the-golden-rule'>The golden rule</a>
+                        </li>
+                        
+                        <li class='page-nav-level-2'>
+                            <a href='#why-clean-architecture?'>Why Clean Architecture?</a>
+                        </li>
+                        
+                        <li class='page-nav-level-2'>
+                            <a href='#s.o.l.i.d-principles'>S.O.L.I.D Principles</a>
+                        </li>
+                        
+                        <li class='page-nav-level-2'>
+                            <a href='#level-1---system-context-diagram'>Level 1 - System Context diagram</a>
+                        </li>
+                        
+                        <li class='page-nav-level-2'>
+                            <a href='#level-2---container-diagram'>Level 2 - Container diagram</a>
+                        </li>
+                        
+                        <li class='page-nav-level-2'>
+                            <a href='#level-3---component-diagram'>Level 3 - Component diagram</a>
+                        </li>
+                        
+                        <li class='page-nav-level-2'>
+                            <a href='#enterprise-business-logic-(entities)-vs.-application-business-logic-(use-cases)'>Enterprise business logic (entities) vs. application business logic (use-cases)</a>
+                        </li>
+                        
+                        <li class='page-nav-level-3'>
+                            <a href='#example:-bank-application'>Example: Bank application</a>
+                        </li>
+                        
+                        <li class='page-nav-level-2'>
+                            <a href='#glossary-of-terms'>Glossary of terms</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+            <div class='wave-container'>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                    <path fill-opacity="0.35"
+                        d="M0,192L60,213.3C120,235,240,277,360,277.3C480,277,600,235,720,192C840,149,960,107,1080,122.7C1200,139,1320,213,1380,250.7L1440,288L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z">
+                    </path>
+                    <path fill-opacity="0.5"
+                        d="M0,160L60,181.3C120,203,240,245,360,229.3C480,213,600,139,720,138.7C840,139,960,213,1080,229.3C1200,245,1320,203,1380,181.3L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z">
+                    </path>
+                    <path fill-opacity="0.2"
+                        d="M0,224L60,197.3C120,171,240,117,360,117.3C480,117,600,171,720,186.7C840,203,960,181,1080,186.7C1200,192,1320,224,1380,240L1440,256L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z">
+                    </path>
+                </svg>
+                <p>Powered by <a href='https://cli.doctave.com' target='_blank'>Doctave</a></p>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="/template-fastapi-react/assets/katex.js?v=1659343822"></script>
+    <script type="text/javascript" src="/template-fastapi-react/assets/mermaid.js?v=1659343822"></script>
+    <script type="text/javascript" src="/template-fastapi-react/assets/elasticlunr.js?v=1659343822"></script>
+    <script type="text/javascript" src="/template-fastapi-react/assets/prism.js?v=1659343822"></script>
+    <script type="text/javascript" src="/template-fastapi-react/assets/doctave-app.js?v=1659343822"></script>
+
+    
+</body>
+
+</html>

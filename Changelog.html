@@ -1,0 +1,249 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Changelog</title>
+    <meta name="description" content="Documentation for Template Fastapi React">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Source+Sans+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="/template-fastapi-react/assets/normalize.css?v=1659343822"
+        media="screen" />
+    <link rel="stylesheet" type="text/css" href="/template-fastapi-react/assets/doctave-style.css?v=1659343822"
+        media="screen" />
+    <link rel="stylesheet" type="text/css" href="/template-fastapi-react/assets/katex.css?v=1659343822" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/template-fastapi-react/assets/prism-ghcolors.css?v=1659343822"
+        media="screen" />
+
+    <script>
+        var DOCTAVE_TIMESTAMP = "1659343822";
+        var BASE_PATH = "/template-fastapi-react/";
+        var color = localStorage.getItem('doctave-color')
+
+        if (color === 'dark') {
+            document.getElementsByTagName('html')[0].classList.remove('light');
+            document.getElementsByTagName('html')[0].classList.add('dark');
+        } else {
+            document.getElementsByTagName('html')[0].classList.remove('dark');
+            document.getElementsByTagName('html')[0].classList.add('light');
+        }
+    </script>
+
+    
+</head>
+
+<body>
+    <label for='menu-toggle-switch' class='menu-toggle-button'>
+        ☰
+    </label>
+    <input type="checkbox" id="menu-toggle-switch" value='0' />
+    <div class='page'>
+        <div class='header'>
+            <div class='logo'>
+                
+                <h2 class='project-name'>
+                    <a href="/template-fastapi-react/">
+                        Template Fastapi React
+                    </a>
+                </h2>
+            </div>
+            <div class='search'>
+                <form id='search-form'>
+    <input type='text' id='search-box' autocomplete="off" placeholder="Search..."></input>
+    <span class='search-icon'>S</span>
+    <ul id='search-results'></ul>
+</form>
+
+            </div>
+            <div class='header-dummy-right'>
+            </div>
+        </div>
+        <div class='container'>
+            <div class='sidebar-left'>
+                <nav class='site-nav'>
+    <ul>
+        
+            <li><a class="active" href="/template-fastapi-react/Changelog">Changelog</a></li>
+            
+        
+            <li><a href="/template-fastapi-react/getting-started">getting-started</a></li>
+            
+                <ul>
+    
+        <li><a href="/template-fastapi-react/getting-started/prerequisites">1 Prerequisites</a></li>
+        
+    
+        <li><a href="/template-fastapi-react/getting-started/inital-setup">2 Initial setup</a></li>
+        
+    
+        <li><a href="/template-fastapi-react/getting-started/configuration">3 Configuration</a></li>
+        
+    
+        <li><a href="/template-fastapi-react/getting-started/running">4 Running</a></li>
+        
+    
+</ul>
+
+            
+        
+            <li><a href="/template-fastapi-react/how-to">how-to</a></li>
+            
+                <ul>
+    
+        <li><a href="/template-fastapi-react/how-to/api-documentation">API documentation</a></li>
+        
+    
+        <li><a href="/template-fastapi-react/how-to/access-control">Access control</a></li>
+        
+    
+        <li><a href="/template-fastapi-react/how-to/changelogs">Changelogs</a></li>
+        
+    
+        <li><a href="/template-fastapi-react/how-to/commit-code">Commit code</a></li>
+        
+    
+        <li><a href="/template-fastapi-react/how-to/documentation">Documentation</a></li>
+        
+    
+        <li><a href="/template-fastapi-react/how-to/github-actions">Github actions</a></li>
+        
+    
+        <li><a href="/template-fastapi-react/how-to/openapi-generator">OpenAPI generator</a></li>
+        
+    
+        <li><a href="/template-fastapi-react/how-to/personal-access-token">Personal access token</a></li>
+        
+    
+        <li><a href="/template-fastapi-react/how-to/pre-commit">Pre-commit</a></li>
+        
+    
+        <li><a href="/template-fastapi-react/how-to/testing">Testing</a></li>
+        
+    
+        <li><a href="/template-fastapi-react/how-to/upgrading">Upgrading</a></li>
+        
+    
+</ul>
+
+            
+        
+            <li><a href="/template-fastapi-react/tutorials">tutorials</a></li>
+            
+                <ul>
+    
+        <li><a href="/template-fastapi-react/tutorials/api-architecture">API architecture</a></li>
+        
+    
+        <li><a href="/template-fastapi-react/tutorials/authentication">Authentication and Authorization</a></li>
+        
+    
+</ul>
+
+            
+        
+    </ul>
+    <span id='light-dark-mode-switch'>
+        <svg xmlns="http://www.w3.org/2000/svg" id="dark-mode-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+        </svg>
+
+        <svg xmlns="http://www.w3.org/2000/svg" id="light-mode-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd" />
+        </svg>
+    </span>
+</nav>
+
+            </div>
+            <div class='doctave-content'>
+                <p>Warning: This is the development version.</p>
+<h1 id="changelog">Changelog</h1>
+<p>All notable changes to this project will be documented in this file. See <a href="https://github.com/conventional-changelog/standard-version">standard-version</a> for commit guidelines.</p>
+<h2 id="1.1.0-(2022-08-01)">1.1.0 (2022-08-01)</h2>
+<h3 id="features">Features</h3>
+<ul>
+<li>Add extra checks to pre-commit and run safety in venv (<a href="https://github.com/equinor/boilerplate-clean-architecture/commit/27a6cbe7bea4843a70947fdcf5ba73f1dd5af871">27a6cbe</a>)</li>
+<li>add flake8, safety and pytests to pre-commit (<a href="https://github.com/equinor/boilerplate-clean-architecture/commit/1917997411b7a1f1844c3463388005576d8acc77">1917997</a>)</li>
+<li>add mypy type checking to pre-commit (<a href="https://github.com/equinor/boilerplate-clean-architecture/commit/437cedd17cb86165448526fd8011730f4dbe03b6">437cedd</a>)</li>
+<li>build and push images in ci (<a href="https://github.com/equinor/boilerplate-clean-architecture/commit/477ad8564bc92105b990715cc0bebeb5c7aff4d8">477ad85</a>)</li>
+<li>init todo example (<a href="https://github.com/equinor/boilerplate-clean-architecture/commit/8beaf084352f16c8715ebe6f77b40d30450d2e04">8beaf08</a>)</li>
+<li>official nginx image running unprivileged (<a href="https://github.com/equinor/boilerplate-clean-architecture/commit/fab0c1445920ae5c0cb0eb05308b6a223aed3de8">fab0c14</a>)</li>
+<li>pre-commit in CI from pre-commit-config.yaml (<a href="https://github.com/equinor/boilerplate-clean-architecture/commit/5d806b5bd1ceda039670dd3b30ef19de49519a16">5d806b5</a>)</li>
+<li>response decorator takes Response type as parameter (<a href="https://github.com/equinor/boilerplate-clean-architecture/commit/9a7f2287f9bac7e0f68f916c37b4273dc8b95d9b">9a7f228</a>)</li>
+<li>reusable gh actions workflows (<a href="https://github.com/equinor/boilerplate-clean-architecture/commit/d557ebc8438a4b28d83d2f40d8a7aa2991db1197">d557ebc</a>)</li>
+<li>show changelog in documentation (<a href="https://github.com/equinor/boilerplate-clean-architecture/commit/6da9b86770ffca6431f16b945680a87637268497">6da9b86</a>)</li>
+<li>tutorial on authentication (<a href="https://github.com/equinor/boilerplate-clean-architecture/commit/fd789c0d7bd3dda1e1ce0ee78ee9c73c4670fe41">fd789c0</a>)</li>
+</ul>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<ul>
+<li>add missing decorators (<a href="https://github.com/equinor/boilerplate-clean-architecture/commit/54fd2f8a3826d2a5bc5bbc7419cbdd83de4811f1">54fd2f8</a>)</li>
+<li>add venv (<a href="https://github.com/equinor/boilerplate-clean-architecture/commit/d682b0817d735547f3a3cd7391d942983cbf666c">d682b08</a>)</li>
+<li><strong>dev:</strong> env_file in docker-compose.override.yml (PR <a href="https://github.com/equinor/boilerplate-clean-architecture/issues/39">#39</a>) (<a href="https://github.com/equinor/boilerplate-clean-architecture/commit/2aa80bdfc211f44d624f1cdad4f8b0844164c4bf">2aa80bd</a>)</li>
+<li>fix mypy errors (<a href="https://github.com/equinor/boilerplate-clean-architecture/commit/d9543c187859de7fad59f91b79eaa4f63a56a1c6">d9543c1</a>)</li>
+<li>fix pytest_plugin import error (<a href="https://github.com/equinor/boilerplate-clean-architecture/commit/b5218196028c904e6a51d9a0971d7637264c87a2">b521819</a>)</li>
+<li>lock cryptography dependency since a bad new release. Set authentication scheme to allow for no tokens. Exclude some file from pre-commit (<a href="https://github.com/equinor/boilerplate-clean-architecture/commit/ea6a9314482ca75d8d79c999959460b17ceec754">ea6a931</a>)</li>
+<li>move Response decorator to controllers (<a href="https://github.com/equinor/boilerplate-clean-architecture/commit/bd36b4a316f6a2c1216584235eb5dd462f6d0707">bd36b4a</a>)</li>
+<li>poetry command (<a href="https://github.com/equinor/boilerplate-clean-architecture/commit/ccbb2e10845f9cf3215e5e95fd07f21c3b108249">ccbb2e1</a>)</li>
+<li>pre-commit (<a href="https://github.com/equinor/boilerplate-clean-architecture/commit/5192d0e79e433cf925d0569a237a101f77b68c5b">5192d0e</a>)</li>
+<li>python-version (<a href="https://github.com/equinor/boilerplate-clean-architecture/commit/a9341092771e81aced0ed4481eb582785dd08113">a934109</a>)</li>
+<li>remove encryption.py (<a href="https://github.com/equinor/boilerplate-clean-architecture/commit/a500444b936bcc99bdcd73ebdc6eb9eeb5de2ac3">a500444</a>)</li>
+<li>set correct base path for docs (<a href="https://github.com/equinor/boilerplate-clean-architecture/commit/0dda0b23b94155f1eb6cd194d31af1f9265ecd2b">0dda0b2</a>)</li>
+<li>typo (<a href="https://github.com/equinor/boilerplate-clean-architecture/commit/fb557b8adb56fc0d5aa430a1d505d1066be1ed13">fb557b8</a>)</li>
+</ul>
+
+            </div>
+            <div class='sidebar-right'>
+                <div class='page-nav' id='page-nav'>
+                    <p class='page-nav-header'>On this page</p>
+                    <ul>
+                        
+                        <li class='page-nav-level-1'>
+                            <a href='#changelog'>Changelog</a>
+                        </li>
+                        
+                        <li class='page-nav-level-2'>
+                            <a href='#1.1.0-(2022-08-01)'>1.1.0 (2022-08-01)</a>
+                        </li>
+                        
+                        <li class='page-nav-level-3'>
+                            <a href='#features'>Features</a>
+                        </li>
+                        
+                        <li class='page-nav-level-3'>
+                            <a href='#bug-fixes'>Bug Fixes</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+            <div class='wave-container'>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                    <path fill-opacity="0.35"
+                        d="M0,192L60,213.3C120,235,240,277,360,277.3C480,277,600,235,720,192C840,149,960,107,1080,122.7C1200,139,1320,213,1380,250.7L1440,288L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z">
+                    </path>
+                    <path fill-opacity="0.5"
+                        d="M0,160L60,181.3C120,203,240,245,360,229.3C480,213,600,139,720,138.7C840,139,960,213,1080,229.3C1200,245,1320,203,1380,181.3L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z">
+                    </path>
+                    <path fill-opacity="0.2"
+                        d="M0,224L60,197.3C120,171,240,117,360,117.3C480,117,600,171,720,186.7C840,203,960,181,1080,186.7C1200,192,1320,224,1380,240L1440,256L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z">
+                    </path>
+                </svg>
+                <p>Powered by <a href='https://cli.doctave.com' target='_blank'>Doctave</a></p>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="/template-fastapi-react/assets/katex.js?v=1659343822"></script>
+    <script type="text/javascript" src="/template-fastapi-react/assets/mermaid.js?v=1659343822"></script>
+    <script type="text/javascript" src="/template-fastapi-react/assets/elasticlunr.js?v=1659343822"></script>
+    <script type="text/javascript" src="/template-fastapi-react/assets/prism.js?v=1659343822"></script>
+    <script type="text/javascript" src="/template-fastapi-react/assets/doctave-app.js?v=1659343822"></script>
+
+    
+</body>
+
+</html>
