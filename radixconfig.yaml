@@ -1,31 +1,36 @@
 apiVersion: radix.equinor.com/v1
 kind: RadixApplication
 metadata:
-  name: template
+  name: template-fastapi-react
 spec:
   environments:
     - name: prod
       build:
-        from: master
-    - name: dev
+        from: main
+    - name: test
       build:
-        from: master
+        from: main
   components:
     - name: web
-      image: heracles.azurecr.io/dmt/web:{imageTagName}
+      image: ghcr.io/equinor/template-fastapi-react/web:{imageTagName}
       alwaysPullImageOnDeploy: true
       environmentConfig:
         - environment: prod
           imageTagName: production
-        - environment: dev
+        - environment: test
           imageTagName: latest
       ports:
         - name: http
           port: 3000
 
     - name: api
-      image: heracles.azurecr.io/api:latest
+      image: ghcr.io/equinor/template-fastapi-react/api:{imageTagName}
       alwaysPullImageOnDeploy: true
+      environmentConfig:
+        - environment: prod
+          imageTagName: production
+        - environment: test
+          imageTagName: latest
       secrets:
         - SECRET_KEY
       variables:
@@ -43,7 +48,13 @@ spec:
       publicPort: rest
 
     - name: proxy
-      image: heracles.azurecr.io/dmt/nginx:latest
+      image: ghcr.io/equinor/template-fastapi-react/nginx:{imageTagName}
+      alwaysPullImageOnDeploy: true
+      environmentConfig:
+        - environment: prod
+          imageTagName: production
+        - environment: test
+          imageTagName: latest
       ports:
         - name: nginx
           port: 8080
