@@ -73,9 +73,7 @@ See the [docs](https://equinor.github.io/template-fastapi-react/) if you want to
 <a id="Contributing"></a>
 ## :+1: Contributing
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-Please make sure to update tests as appropriate.
+Thanks for your interest in contributing! There are many ways to contribute to this project. Get started [here](CONTRIBUTING.md).
 
 [license-badge]: https://img.shields.io/badge/License-MIT-yellow.svg
 [license]: https://github.com/equinor/boilerplate-clean-architecture/blob/main/LICENSE
