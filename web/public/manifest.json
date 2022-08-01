@@ -1,11 +1,16 @@
 {
   "short_name": "React App",
-  "name": "Create React App Sample",
+  "name": "Template React App",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "Equinor_Diamond_Favicon_RED_32x32px.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "Equinor_Symbol_Favicon_RED_64x64px.png",
+      "type": "image/png",
+      "sizes": "64x64"
     }
   ],
   "start_url": ".",
