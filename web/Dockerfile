@@ -1,4 +1,5 @@
-FROM node:18 as base
+# Fails to build styled-components with node 18
+FROM node:16 as base
 ARG AUTH_ENABLED=0
 ARG REDIRECT_URI=http://localhost/
 # Azure AD requires a scope.
@@ -28,5 +29,5 @@ FROM node:18-alpine as prod
 RUN npm install -g serve
 COPY --from=build /code/build /code/build
 USER 1000
-CMD ["serve", "--single", "/code/build", "--listen", "8001"]
-EXPOSE 8001
+CMD ["serve", "--single", "/code/build", "--listen", "3000"]
+EXPOSE 3000
