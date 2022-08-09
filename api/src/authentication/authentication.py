@@ -51,7 +51,7 @@ def auth_with_jwt(jwt_token: str = Security(oauth2_scheme)) -> User:
         else:
             user = User(user_id=payload["sub"], **payload)
     except JWTError as error:
-        logger.warning(error)
+        logger.warning(f"Faild to decode JWT: {error}")
         raise credentials_exception
 
     if user is None:
