@@ -109,6 +109,7 @@ repos:
         name: safety-check
         entry: sh -c "if [ -f api/.venv/bin/python ]; then var=api/.venv/bin/python; else var=api/.venv/Scripts/python; fi; $var -m safety check"
         language: system
+        pass_filenames: false
       - id: mypy
         name: Python type checking
         pass_filenames: false
