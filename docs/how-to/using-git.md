@@ -16,7 +16,7 @@ Ideally, each PR will do one thing (one new feature, fix one bug, etc). Keeping 
 
 Tip: on Github, if you write the syntax "closes #XXX" (XXX is the issue number) in the PR description, the connected issue will be automatically closed when the PR is merged.
 
-When a branch (feature) is done, the developers creates a PR and asks for review. When a PR is approved, the branch is merged to main. At least one person should approve the PR before merging to main. Merge to main will trigger the [github actions workflow](github-actions.md) which automatically tests and deploys.
+When a branch (feature) is done, the developers create a PR and asks for review. When a PR is approved, the branch is merged to main. At least one person should approve the PR before merging to main. Merging will trigger the [github actions workflow](github-actions.md) which automatically tests and deploys.
 
 
 ## Branch naming
