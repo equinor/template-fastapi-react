@@ -99,12 +99,12 @@ If you are using PyCharm, you can set up debuggers for both Javascript and Pytho
    2) Configuration files: select docker-compose.yml and docker-compose.override.yml
    3) Service: api
    Click "OK" and "Apply"
-5) Click on "Add Configutarion..." in top right corner in PyCharm
+5) Click on "Add Configuration..." in top right corner in PyCharm
 6) Click on + and select Python and enter the following settings
    1) Script path: api/src/app.py
    2) parameters: run
    3) python interpreter: the newly created docker compose interpreter (step 4)
-   4) working directiory. api/src
+   4) working directory: api/src
 
 Now, you can set breakpoints anywhere in the python code. Start the debugger with Shift + F9 or clicking on the debugger icon in the top right corner in PyCharm.
 

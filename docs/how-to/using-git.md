@@ -10,7 +10,7 @@ Git is used as version control system for the source code in the project.
 
 
 ## Basic principles
-Whenever the devleoper makes any code changes, a new Pull Request (PR) should be created. The new PR should branch out from the main branch.
+Whenever a developer makes changes to the code, a new Pull Request (PR) should be created. The new PR should branch out from the main branch.
 Ideally, each PR will do one thing (one new feature, fix one bug, etc). Keeping PRs small will simplify the code review process significantly. Also, a PR should be connected to an active issue from the project board.
 
 
@@ -37,14 +37,14 @@ The type can be one of these types:
 * chore: updating build tasks, package manager configs, etc; no production code change
 * perf: a code change that improves performance
 
-## Commits
+##Commits
 Keep commit messages informative.
-Here is a template for commit messages:
+Here is a template for commit messages (Note: <type> refers to same types as in [Commits](##Commits)):
 
 ```
-<type>(<optional scope>): imperative tense summary, <= 50 chars
+<type>: imperative tense summary, <= 50 chars
 
-When necessarry, mote details can come here, until 72 chars each line.
+If necessary, more details can come here, up to 72 chars per line.
 
 Refs/Resolves #<issue id>
 
@@ -65,5 +65,5 @@ Also, remember to set up [Pre-commit](pre-commit.md).
 * Readability: Would another developer be able to easily understand and work with the code? Are there none-idiomatic patterns?
 * Tests: Does the PR have correct and well-designed automated tests?
 * Naming: Are names for variables, functions, etc. descriptive?
-* Comments: Are the comments clear and useful?
+* Comments: Are comments understandable and useful?
 * Documentation: Did the author also update relevant documentation?
