@@ -39,7 +39,7 @@ The type can be one of these types:
 
 ##Commits
 Keep commit messages informative.
-Here is a template for commit messages (Note: <type> refers to same types as in [Commits](##Commits)):
+Commit messages should follow the [conventional commit](https://www.conventionalcommits.org/en/v1.0.0/) message specification (Note: <type> refers to same types as in [Commits](##Commits)):
 
 ```
 <type>: imperative tense summary, <= 50 chars
