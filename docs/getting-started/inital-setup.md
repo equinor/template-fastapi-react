@@ -103,7 +103,7 @@ If you are using PyCharm, you can set up debuggers for both Javascript and Pytho
 6) Click on + and select Python and enter the following settings
    1) Script path: api/src/app.py
    2) parameters: run
-   3) python interpreter: the newly created remove docker compose interpreter (step 4)
+   3) python interpreter: the newly created docker compose interpreter (step 4)
    4) working directiory. api/src
 
 Now, you can set breakpoints anywhere in the python code. Start the debugger with Shift + F9 or clicking on the debugger icon in the top right corner in PyCharm.

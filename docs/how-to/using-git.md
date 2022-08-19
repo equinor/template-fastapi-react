@@ -56,14 +56,13 @@ Also, remember to set up [Pre-commit](pre-commit.md).
 
 ## What to check before you send a PR to code review
 * You use conventional commit messages
-* Unit tests passes
-* Other automatic tests passes, given it is feasible to execute them before code review 
+* all tests pass
 * Naming conventions
 
 ## What to check in code reviews
 * Functionality: Does the code behave as the PR author likely intended? Does the code behave as users would expect?
 * Software design: Is the code well-designed and fitted to the surrounding architecture?
-* Complexity: Would another developer be able to easily understand and use the code?
+* Readability: Would another developer be able to easily understand and work with the code? Are there none-idiomatic patterns?
 * Tests: Does the PR have correct and well-designed automated tests?
 * Naming: Are names for variables, functions, etc. descriptive?
 * Comments: Are the comments clear and useful?
