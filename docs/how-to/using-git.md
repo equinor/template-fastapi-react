@@ -10,13 +10,12 @@ Git is used as version control system for the source code in the project.
 
 
 ## Basic principles
-Whenever a developer makes changes to the code, a new Pull Request (PR) should be created. The new PR should branch out from the main branch.
-Ideally, each PR will do one thing (one new feature, fix one bug, etc). Keeping PRs small will simplify the code review process significantly. Also, a PR should be connected to an active issue from the project board.
+Whenever a developer makes changes to the code, a new Pull Request (PR) should be created. Ideally, each PR will do one thing (one new feature, fix one bug, etc). Keeping PRs small will simplify the code review process significantly. Also, a PR should be connected to an active issue from the project board.
 
 
 Tip: on Github, if you write the syntax "closes #XXX" (XXX is the issue number) in the PR description, the connected issue will be automatically closed when the PR is merged.
 
-When a branch (feature) is done, the developers creates a PR and asks for review. When a PR is approved, the branch is merged to main. At least one person should approve the PR before merging to main. Merge to main will trigger the [github actions workflow](github-actions.md) which automatically tests and deploys.
+When a branch (feature) is done, the developers creates a PR and asks for review. When a PR is approved, the branch is merged. At least one person should approve the PR before merging. If merging to main, a [github actions workflow](github-actions.md) will be triggered which automatically tests and deploys.
 
 
 ## Branch naming
