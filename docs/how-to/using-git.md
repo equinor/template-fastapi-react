@@ -15,7 +15,7 @@ Whenever a developer makes changes to the code, a new Pull Request (PR) should b
 
 Tip: on Github, if you write the syntax "closes #XXX" (XXX is the issue number) in the PR description, the connected issue will be automatically closed when the PR is merged.
 
-When a branch (feature) is done, the developers creates a PR and asks for review. When a PR is approved, the branch is merged. At least one person should approve the PR before merging. If merging to main, a [github actions workflow](github-actions.md) will be triggered which automatically tests and deploys.
+When a branch (feature) is done, the developers create a PR and asks for review. When a PR is approved, the branch is merged. At least one person should approve the PR before merging. If merging to main, a [github actions workflow](github-actions.md) will be triggered which automatically tests and deploys.
 
 
 ## Branch naming
@@ -59,7 +59,7 @@ Also, remember to set up [Pre-commit](pre-commit.md).
 * Naming conventions
 
 ## What to check in code reviews
-* Functionality: Does the code behave as the PR author likely intended? Does the code behave as users would expect?
+* Functionality: Does the code behave as the PR author likely intended? Does the code behave as users would expect? If relevant, test the new feature manually on your local machine and try edge cases that might break the code.
 * Software design: Is the code well-designed and fitted to the surrounding architecture?
 * Readability: Would another developer be able to easily understand and work with the code? Are there none-idiomatic patterns?
 * Tests: Does the PR have correct and well-designed automated tests?
