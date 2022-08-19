@@ -61,6 +61,7 @@ Also, remember to set up [Pre-commit](pre-commit.md).
 * Naming conventions
 
 ## What to check in code reviews
+* If relevant, test the new feature manually on your local machine and try edge cases that might break the code.
 * Functionality: Does the code behave as the PR author likely intended? Does the code behave as users would expect?
 * Software design: Is the code well-designed and fitted to the surrounding architecture?
 * Complexity: Would another developer be able to easily understand and use the code?
