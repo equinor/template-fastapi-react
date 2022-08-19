@@ -85,3 +85,34 @@ To let the IDE know that dependencies can be found in `.yarn` instead of `node_m
 #### Yarn PnP in VSCode
 
 You'll might need to add `"typescript.tsdk": "./template-fastapi-react/web/.yarn/sdks/typescript/lib"` to your workspace settings to make typescript work. Other than that, the committed .vscode folder should contain all the configurations you'll need.
+
+
+## Debugger in PyCharm
+If you are using PyCharm, you can set up debuggers for both Javascript and Python
+
+### Python
+1) Open settings in PyCharm
+2) Open Python interpreter
+3) Click on cogwheel and "Add..."
+4) Select Docker compose in the left menu and Choose the following settings:
+   1) Server: Docker
+   2) Configuration files: select docker-compose.yml and docker-compose.override.yml
+   3) Service: api
+   Click "OK" and "Apply"
+5) Click on "Add Configutarion..." in top right corner in PyCharm
+6) Click on + and select Python and enter the following settings
+   1) Script path: api/src/app.py
+   2) parameters: run
+   3) python interpreter: the newly created remove docker compose interpreter (step 4)
+   4) working directiory. api/src
+
+Now, you can set breakpoints anywhere in the python code. Start the debugger with Shift + F9 or clicking on the debugger icon in the top right corner in PyCharm.
+
+### JavaScript
+
+
+1) Click on "Edit Configurations" in the top right corner in PyCharm.
+2) Click on + and JavaScript debug
+3) enter the url: http://localhost and choose your favorite browser.
+
+Now, you can set breakpoints anywhere in the JavaScript code. Start the debugger with Shift + F9 or clicking on the debugger icon in the top right corner in PyCharm.
