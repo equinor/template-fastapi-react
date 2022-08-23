@@ -13,7 +13,7 @@ class GetTodoByIdResponse(BaseModel):
     is_completed: bool = False
 
     @staticmethod
-    def from_entity(todo_item: TodoItem):
+    def from_entity(todo_item: TodoItem) -> "GetTodoByIdResponse":
         return GetTodoByIdResponse(id=todo_item.id, title=todo_item.title, is_completed=todo_item.is_completed)
 
 

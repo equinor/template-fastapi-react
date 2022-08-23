@@ -9,7 +9,7 @@ from infrastructure.repositories.TodoRepository import TodoRepository
 
 
 @pytest.fixture(scope="function")
-def todo_test_data():
+def todo_test_data() -> Dict[str, dict]:
     return {
         "dh2109": {"id": "dh2109", "title": "item 1", "is_completed": False},
         "1417b8": {"id": "1417b8", "title": "item 2", "is_completed": True},
@@ -17,7 +17,7 @@ def todo_test_data():
     }
 
 
-def mock_client(test_data):
+def mock_client(test_data: Dict[str, dict]):
     client: ClientInterface = mock.Mock()
 
     def mock_create(document: Dict) -> Dict:
@@ -26,6 +26,7 @@ def mock_client(test_data):
     def mock_find_by_id(id: str) -> Dict:
         if id in test_data.keys():
             return test_data[id]
+        return {}
 
     def mock_get_all():
         document_list = []
