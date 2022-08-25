@@ -11,7 +11,7 @@ In order to run you need to have installed:
 - [Docker Compose](https://docs.docker.com/compose/)
 - Git
 
-If you want to run locally, you also need:
+If you want to run tests, pre-commit etc. outside of docker, you also need:
 
 - [Python](https://www.python.org/) (3.10 or newer)
 - [Poetry](https://python-poetry.org/)
