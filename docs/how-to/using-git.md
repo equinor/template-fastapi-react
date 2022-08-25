@@ -61,6 +61,7 @@ Also, remember to set up [Pre-commit](pre-commit.md).
 ## What to check in code reviews
 * Functionality: Does the code behave as the PR author likely intended? Does the code behave as users would expect? If relevant, test the new feature manually on your local machine and try edge cases that might break the code.
 * Software design: Is the code well-designed and fitted to the surrounding architecture?
+  * Follow the [SOLID principles](https://www.digitalocean.com/community/conceptual_articles/s-o-l-i-d-the-first-five-principles-of-object-oriented-design): Single responsibility, Open-closed, Liskov substitution, Interface segregation and Dependency inversion 
 * Readability: Would another developer be able to easily understand and work with the code? Are there none-idiomatic patterns?
 * Tests: Does the PR have correct and well-designed automated tests?
 * Naming: Are names for variables, functions, etc. descriptive?
