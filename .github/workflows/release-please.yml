@@ -3,7 +3,8 @@ on:
     branches:
       - main
       - test
-      
+      - something
+
 name: release-please
 jobs:
   release-please:
