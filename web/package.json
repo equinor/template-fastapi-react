@@ -17,6 +17,8 @@
     "styled-components": "^5.3.5"
   },
   "devDependencies": {
+    "@types/jest": "^27.4.0",
+    "@types/node": "^16.11.25",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/react": "^18.0.14",
