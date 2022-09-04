@@ -24,6 +24,7 @@ env:
   REGISTRY_USER: $GITHUB_ACTOR
   API_IMAGE: ghcr.io/equinor/template-fastapi-react/api
   WEB_IMAGE: ghcr.io/equinor/template-fastapi-react/web
+  NGINX_IMAGE: ghcr.io/equinor/template-fastapi-react/nginx
 
 jobs:
   build-and-publish-web-master:
@@ -63,3 +64,16 @@ jobs:
           docker build --cache-from $API_IMAGE --target prod --tag $API_IMAGE ./api
           docker tag $API_IMAGE $API_IMAGE:${{ inputs.image-tag }}
           docker push $API_IMAGE:${{ inputs.image-tag }}
+
+  build-and-publish-nginx:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: "Build and Publish nginx"
+        run: |
+          echo "Tagging with ${{ inputs.image-tag }}"
+          echo ${{ secrets.GITHUB_TOKEN }} | docker login $IMAGE_REGISTRY -u $GITHUB_ACTOR --password-stdin
+          docker pull $NGINX_IMAGE
+          docker build --cache-from $NGINX_IMAGE --tag $NGINX_IMAGE ./nginx
+          docker tag $NGINX_IMAGE $NGINX_IMAGE:${{ inputs.image-tag }}
+          docker push $NGINX_IMAGE:${{ inputs.image-tag }}
