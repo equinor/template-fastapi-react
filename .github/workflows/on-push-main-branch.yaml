@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - publish-nginx-image
     paths-ignore:
       - 'CHANGELOG.md'
 
@@ -22,12 +23,11 @@ jobs:
       message: 'Warning: This is the development version.'
 
   publish-latest:
-    if: ${{ false }}  # disable for now
     needs: tests
     uses: ./.github/workflows/publish.yaml
     with:
       image-tag: latest
-      oauth-redirect-url: REPLACE_ME
+      oauth-redirect-url: 'https://template-fastapi-react.app.radix.equinor.com'
 
   set-commit-ref:
     if: ${{ false }}  # disable for now
