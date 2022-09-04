@@ -54,6 +54,6 @@ jobs:
     needs: publish-latest
     uses: ./.github/workflows/deploy.yaml
     with:
-      radix-environment: 'dev'
+      radix-environment: 'test'
     secrets:
       APP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.APP_SERVICE_ACCOUNT_TOKEN }}
