@@ -37,7 +37,7 @@ jobs:
           echo "Tagging with ${{ inputs.image-tag }}"
           echo ${{ secrets.GITHUB_TOKEN }} | docker login $IMAGE_REGISTRY -u $GITHUB_ACTOR --password-stdin
           docker pull $WEB_IMAGE
-          echo $(git log -n 1 --format=format:'%h% %>(12) %cs %>(12,mtrunc)%aN%  %s %D') > ./web/packages/home/public/version.txt
+          echo $(git log -n 1 --format=format:'%h% %>(12) %cs %>(12,mtrunc)%aN%  %s %D') > ./web/public/version.txt
           docker build \
           --build-arg REDIRECT_URI=${{inputs.oauth-redirect-url}} \
           --build-arg AUTH_ENABLED=1 \
