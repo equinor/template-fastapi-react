@@ -1,5 +1,5 @@
 # Fails to build styled-components with node 18
-FROM node:16 as base
+FROM node:14 as base
 ARG AUTH_ENABLED=0
 ARG REDIRECT_URI=http://localhost/
 # Azure AD requires a scope.
@@ -17,7 +17,7 @@ ENV REACT_APP_AUTH_REDIRECT_URI=$REDIRECT_URI
 
 WORKDIR /code
 COPY ./ ./
-RUN yarn install --immutable --immutable-cache
+RUN yarn install
 
 FROM base as development
 CMD ["yarn", "start"]
