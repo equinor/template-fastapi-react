@@ -2,6 +2,10 @@ FROM nginx:1.22.0-alpine
 
 RUN apk upgrade --update-cache
 
+# Run as non-root
+RUN deluser nginx
+RUN adduser --disabled-password --no-create-home --gecos "" --uid 1000  nginx
+
 # Copy configs
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY config/ /etc/nginx/config
@@ -24,5 +28,5 @@ RUN mkdir -p /tmp/nginx && \
 RUN touch /var/run/nginx.pid && \
     chown -R nginx:nginx /var/run/nginx.pid
 
-# Run master process as user nginx
-USER nginx
+# Run master process as non-root user
+USER 1000
