@@ -41,9 +41,9 @@ jobs:
           docker build \
           --build-arg REDIRECT_URI=${{inputs.oauth-redirect-url}} \
           --build-arg AUTH_ENABLED=1 \
-          --build-arg AUTH_SCOPE=REPLACEME \
-          --build-arg CLIENT_ID=REPLACEME \
-          --build-arg TENANT_ID=REPLACEME \
+          --build-arg AUTH_SCOPE=api://4a761bec-628d-4c4b-860a-4903cbecc963/api \
+          --build-arg CLIENT_ID=4a761bec-628d-4c4b-860a-4903cbecc963 \
+          --build-arg TENANT_ID=3aa4a235-b6e2-48d5-9195-7fcf05b459b0 \
           --cache-from ${WEB_IMAGE} \
           --tag ${WEB_IMAGE} \
           ./web
