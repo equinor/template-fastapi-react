@@ -27,7 +27,7 @@ jobs:
     uses: ./.github/workflows/publish.yaml
     with:
       image-tag: latest
-      oauth-redirect-url: 'https://template-fastapi-react.app.radix.equinor.com'
+      oauth-redirect-url: 'https://proxy-template-fastapi-react-test.radix.equinor.com/'
 
   set-commit-ref:
     if: ${{ false }}  # disable for now
