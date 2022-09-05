@@ -29,27 +29,6 @@ jobs:
       image-tag: latest
       oauth-redirect-url: 'https://proxy-template-fastapi-react-test.radix.equinor.com/'
 
-  set-commit-ref:
-    if: ${{ false }}  # disable for now
-    runs-on: ubuntu-latest
-    outputs:
-      commit-ref: ${{ steps.create-ref.outputs.commit-ref }}
-      oauth-redirect-url: REPLACE_ME
-    steps:
-      - uses: actions/checkout@master
-      - id: create-ref
-        run: |
-          COMMIT_REF=$(git rev-parse --short $GITHUB_SHA)
-          echo "::set-output name=commit-ref::$COMMIT_REF"
-
-  publish-commit-ref:
-    if: ${{ false }}  # disable for now
-    needs: [ set-commit-ref, tests ]
-    uses: ./.github/workflows/publish.yaml
-    with:
-      image-tag: ${{ needs.set-commit-ref.outputs.commit-ref }}
-      oauth-redirect-url: REPLACE_ME
-
   deploy:
     needs: publish-latest
     uses: ./.github/workflows/deploy.yaml
