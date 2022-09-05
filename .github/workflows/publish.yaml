@@ -73,7 +73,7 @@ jobs:
         run: |
           echo "Tagging with ${{ inputs.image-tag }}"
           echo ${{ secrets.GITHUB_TOKEN }} | docker login $IMAGE_REGISTRY -u $GITHUB_ACTOR --password-stdin
-          # docker pull $NGINX_IMAGE
+          docker pull $NGINX_IMAGE
           docker build --cache-from $NGINX_IMAGE --tag $NGINX_IMAGE ./nginx
           docker tag $NGINX_IMAGE $NGINX_IMAGE:${{ inputs.image-tag }}
           docker push $NGINX_IMAGE:${{ inputs.image-tag }}

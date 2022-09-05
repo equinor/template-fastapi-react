@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - publish-nginx-image
     paths-ignore:
       - 'CHANGELOG.md'
 
@@ -29,7 +28,7 @@ jobs:
       image-tag: latest
       oauth-redirect-url: 'https://proxy-template-fastapi-react-test.radix.equinor.com/'
 
-  deploy:
+  deploy-test:
     needs: publish-latest
     uses: ./.github/workflows/deploy.yaml
     with:
