@@ -72,6 +72,7 @@ spec:
         MONGODB_DATABASE: test
       secrets:
         - MONGODB_PASSWORD
+        - MONGODB_ROOT_PASSWORD
       ports:
         - name: dbport
           port: 27017
