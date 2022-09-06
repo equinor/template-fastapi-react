@@ -17,7 +17,7 @@ ENV REACT_APP_AUTH_REDIRECT_URI=$REDIRECT_URI
 
 WORKDIR /code
 COPY ./ ./
-RUN yarn install --immutable --immutable-cache
+RUN yarn install  --immutable --immutable-cache
 
 FROM base as development
 CMD ["yarn", "start"]

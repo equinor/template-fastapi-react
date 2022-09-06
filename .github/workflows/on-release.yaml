@@ -1,0 +1,27 @@
+name: "Releases"
+
+# This action works when creating a release
+
+on:
+  workflow_dispatch:
+  release:
+    types:
+      - "released"
+
+jobs:
+  tests:
+    uses: ./.github/workflows/tests.yaml
+    
+  publish-production:
+    needs: tests
+    uses: ./.github/workflows/publish.yaml
+    with:
+      image-tag: production
+
+  deploy-prod:
+    needs: publish-production
+    uses: ./.github/workflows/deploy.yaml
+    with:
+      radix-environment: 'prod'
+    secrets:
+      APP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.APP_SERVICE_ACCOUNT_TOKEN }}

@@ -13,4 +13,5 @@ class TodoItem:
     @classmethod
     def from_dict(cls, dict_) -> "TodoItem":
         class_fields = {f.name for f in fields(cls)}
-        return TodoItem(**{k: v for k, v in dict_.items() if k in class_fields})
+        data = {k: v for k, v in dict_.items() if k in class_fields}
+        return TodoItem(**data)

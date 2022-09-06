@@ -2,7 +2,6 @@ import time
 from typing import Callable
 
 import click
-import uvicorn
 from fastapi import APIRouter, FastAPI, Security
 from starlette.requests import Request
 from starlette.responses import Response
@@ -50,6 +49,8 @@ def cli():
 
 @cli.command()
 def run():
+    import uvicorn
+
     uvicorn.run(
         "app:create_app",
         host="0.0.0.0",  # nosec

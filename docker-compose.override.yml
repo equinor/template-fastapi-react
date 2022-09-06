@@ -57,15 +57,15 @@ services:
       MONGO_INITDB_ROOT_USERNAME: $MONGODB_USERNAME
       MONGO_INITDB_ROOT_PASSWORD: $MONGODB_PASSWORD
 
-  db-ui:
-    image: mongo-express:0.49
-    restart: unless-stopped
-    ports:
-      - "8081:8081"
-    env_file:
-      - .env
-    environment:
-      ME_CONFIG_MONGODB_SERVER: db
-      ME_CONFIG_MONGODB_ADMINUSERNAME: $MONGODB_USERNAME
-      ME_CONFIG_MONGODB_ADMINPASSWORD: $MONGODB_PASSWORD
-      ME_CONFIG_MONGODB_ENABLE_ADMIN: "true"
+  # db-ui:
+  #   image: mongo-express:0.49
+  #   restart: unless-stopped
+  #   ports:
+  #     - "8081:8081"
+  #   env_file:
+  #     - .env
+  #   environment:
+  #     ME_CONFIG_MONGODB_SERVER: db
+  #     ME_CONFIG_MONGODB_ADMINUSERNAME: $MONGODB_USERNAME
+  #     ME_CONFIG_MONGODB_ADMINPASSWORD: $MONGODB_PASSWORD
+  #     ME_CONFIG_MONGODB_ENABLE_ADMIN: "true"
