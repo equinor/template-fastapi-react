@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useState } from 'react'
-import { AuthContext, AuthProvider, TAuthConfig } from 'react-oauth2-code-pkce'
+import { AuthContext  } from 'react-oauth2-code-pkce'
 import TodoAPI from '../api/TodoAPI'
-import { AddTodoResponse, GetTodoAllResponse } from '../api/generated'
+import { AddTodoResponse } from '../api/generated'
 import styled from 'styled-components'
 
 export const ToDoContainer = styled.div`

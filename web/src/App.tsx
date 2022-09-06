@@ -1,4 +1,5 @@
 import { TodoApp } from './components/TodoApp'
+// @ts-ignore
 import { AuthProvider } from 'react-oauth2-code-pkce'
 import { authConfig } from './auth'
 
