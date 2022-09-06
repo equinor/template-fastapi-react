@@ -35,6 +35,7 @@ spec:
           imageTagName: latest
       secrets:
         - SECRET_KEY
+        - MONGODB_PASSWORD
       variables:
         LOGGING_LEVEL: "debug"
         AUTH_ENABLED: "True"
@@ -61,6 +62,15 @@ spec:
         - name: nginx
           port: 8080
       publicPort: nginx
+
+    - name: db
+      image: mongo:5.0.9
+      alwaysPullImageOnDeploy: true
+      command: --auth --quiet
+      variables:
+        MONGO_INITDB_ROOT_USERNAME: root
+      secrets:
+        - MONGO_INITDB_ROOT_PASSWORD
 
   dnsAppAlias:
     environment: prod
