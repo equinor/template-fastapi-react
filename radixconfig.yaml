@@ -19,6 +19,8 @@ spec:
           imageTagName: production
         - environment: test
           imageTagName: latest
+      variables:
+        AUTH_ENABLED: "True"
       ports:
         - name: http
           port: 3000
