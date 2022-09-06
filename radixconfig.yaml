@@ -64,13 +64,14 @@ spec:
       publicPort: nginx
 
     - name: db
-      image: mongo:5.0.9
+      image: bitnami/mongodb:5.0.12
       alwaysPullImageOnDeploy: true
       command: --auth --quiet
       variables:
-        MONGO_INITDB_ROOT_USERNAME: root
+        MONGODB_USERNAME: root
+        MONGODB_DATABASE: test
       secrets:
-        - MONGO_INITDB_ROOT_PASSWORD
+        - MONGODB_PASSWORD
       ports:
         - name: dbport
           port: 27017
