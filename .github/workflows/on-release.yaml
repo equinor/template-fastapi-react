@@ -4,19 +4,20 @@ name: "Releases"
 
 on:
   workflow_dispatch:
-  release:
-    types:
-      - "released"
+  push:
+    tags:
+      - v*
 
 jobs:
   tests:
     uses: ./.github/workflows/tests.yaml
-    
+
   publish-production:
     needs: tests
     uses: ./.github/workflows/publish.yaml
     with:
       image-tag: production
+      oauth-redirect-url: 'https://template-fastapi-react.app.radix.equinor.com'
 
   deploy-prod:
     needs: publish-production
