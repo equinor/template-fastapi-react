@@ -3,7 +3,8 @@ import { Configuration, TodosApi } from './generated'
 export class TodoAPI extends TodosApi {
   constructor(token: string) {
     const configuration = new Configuration({
-      basePath: 'http://localhost',
+      // @ts-ignore
+      basePath: window.location.origin,
       accessToken: token,
     })
     super(configuration)
