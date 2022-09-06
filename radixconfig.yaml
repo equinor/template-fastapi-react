@@ -28,6 +28,13 @@ spec:
     - name: api
       image: ghcr.io/equinor/template-fastapi-react/api:{imageTagName}
       alwaysPullImageOnDeploy: true
+      resources:
+        requests:
+          memory: "256Mi"
+          cpu: "100m"
+        limits:
+          memory: "4Gi"
+          cpu: "4000m"
       environmentConfig:
         - environment: prod
           imageTagName: production
