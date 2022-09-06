@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - correct-base-path
     paths-ignore:
       - 'CHANGELOG.md'
 
