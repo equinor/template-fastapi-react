@@ -71,6 +71,10 @@ spec:
         MONGO_INITDB_ROOT_USERNAME: root
       secrets:
         - MONGO_INITDB_ROOT_PASSWORD
+      ports:
+        - name: dbport
+          port: 27017
+      publicPort: dbport
 
   dnsAppAlias:
     environment: prod
