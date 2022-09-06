@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - api-crashes
     paths-ignore:
       - 'CHANGELOG.md'
 
