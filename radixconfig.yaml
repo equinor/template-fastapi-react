@@ -43,7 +43,7 @@ spec:
         OAUTH_TOKEN_ENDPOINT: https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/oauth2/v2.0/token
         OAUTH_AUTH_ENDPOINT: https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/oauth2/v2.0/authorize
         OAUTH_CLIENT_ID: 4a761bec-628d-4c4b-860a-4903cbecc963
-        OAUTH_AUDIENCE: api://4a761bec-628d-4c4b-860a-4903cbecc963/api
+        OAUTH_AUDIENCE: api://4a761bec-628d-4c4b-860a-4903cbecc963
       ports:
         - name: rest
           port: 5000
