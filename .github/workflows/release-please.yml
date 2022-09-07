@@ -1,13 +1,25 @@
+name: release-please
+
 on:
   push:
     branches:
       - main
-name: release-please
+
 jobs:
   release-please:
     runs-on: ubuntu-latest
     steps:
       - uses: google-github-actions/release-please-action@v3
+        id: release
         with:
           release-type: simple
           package-name: release-please-action
+    outputs:
+       release_created: ${{ steps.release.outputs.release_created }}
+
+  deploy-prod:
+    needs: release-please
+    uses: ./.github/workflows/release-production.yaml
+    if: ${{ needs.release-please.outputs.release_created }}
+    secrets:
+      APP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.APP_SERVICE_ACCOUNT_TOKEN }}

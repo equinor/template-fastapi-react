@@ -1,22 +1,22 @@
-name: "Releases"
-
-# This action works when creating a release
+name: release-to-production
 
 on:
   workflow_dispatch:
-  release:
-    types:
-      - "released"
+  workflow_call:
+    secrets:
+      APP_SERVICE_ACCOUNT_TOKEN:
+        required: true
 
 jobs:
   tests:
     uses: ./.github/workflows/tests.yaml
-    
+
   publish-production:
     needs: tests
     uses: ./.github/workflows/publish.yaml
     with:
       image-tag: production
+      oauth-redirect-url: 'https://template-fastapi-react.app.radix.equinor.com'
 
   deploy-prod:
     needs: publish-production
