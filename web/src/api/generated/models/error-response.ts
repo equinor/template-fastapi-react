@@ -17,27 +17,39 @@
 /**
  * 
  * @export
- * @interface AddTodoResponse
+ * @interface ErrorResponse
  */
-export interface AddTodoResponse {
+export interface ErrorResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof ErrorResponse
+     */
+    status?: number;
     /**
      * 
      * @type {string}
-     * @memberof AddTodoResponse
+     * @memberof ErrorResponse
      */
-    id: string;
+    type?: string;
     /**
      * 
      * @type {string}
-     * @memberof AddTodoResponse
+     * @memberof ErrorResponse
      */
-    title: string;
+    message?: string;
     /**
      * 
-     * @type {boolean}
-     * @memberof AddTodoResponse
+     * @type {string}
+     * @memberof ErrorResponse
      */
-    is_completed?: boolean;
+    debug?: string;
+    /**
+     * 
+     * @type {object}
+     * @memberof ErrorResponse
+     */
+    data?: object;
 }
 
 

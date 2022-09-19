@@ -7,7 +7,7 @@ from jose import JWTError, jwt
 from authentication.mock_token_generator import mock_rsa_public_key
 from authentication.models import User
 from common.exceptions import credentials_exception
-from common.utils.logger import logger
+from common.logger import logger
 from config import config, default_user
 
 oauth2_scheme = OAuth2AuthorizationCodeBearer(
