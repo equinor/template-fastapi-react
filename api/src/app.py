@@ -1,17 +1,11 @@
-import time
-from typing import Callable
-
 import click
 from fastapi import APIRouter, FastAPI, Security
-from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import RequestValidationError
-from starlette import status
-from starlette.requests import Request
-from starlette.responses import JSONResponse, Response
+from starlette.middleware import Middleware
 
 from authentication.authentication import auth_with_jwt
-from common.exceptions import ErrorResponse
-from common.logger import logger
+from common.exception_handlers import validation_exception_handler
+from common.middleware import TimerHeaderMiddleware
 from common.responses import responses
 from config import config
 from features.health_check import health_check_feature
@@ -30,33 +24,20 @@ def create_app() -> FastAPI:
     authenticated_routes = APIRouter()
     authenticated_routes.include_router(todo_feature.router)
     authenticated_routes.include_router(whoami_feature.router)
-    app = FastAPI(title="Awesome Boilerplate", description="", responses=responses)
+
+    middleware = [Middleware(TimerHeaderMiddleware)]
+
+    exception_handlers = {RequestValidationError: validation_exception_handler}
+
+    app = FastAPI(
+        title="Awesome Boilerplate",
+        responses=responses,
+        middleware=middleware,
+        exception_handlers=exception_handlers,  # type: ignore
+    )
+
     app.include_router(authenticated_routes, prefix=prefix, dependencies=[Security(auth_with_jwt)])
     app.include_router(public_routes, prefix=prefix)
-
-    @app.middleware("http")
-    async def add_process_time_header(request: Request, call_next: Callable) -> Response:
-        start_time = time.time()
-        response: Response = await call_next(request)
-        process_time = time.time() - start_time
-        milliseconds = int(round(process_time * 1000))
-        logger.debug(f"{request.method} {request.url.path} - {milliseconds}ms - {response.status_code}")
-        response.headers["X-Process-Time"] = str(process_time)
-        return response
-
-    # Intercept FastAPI builtin validation errors, so they can be returned on our standardized format.
-    @app.exception_handler(RequestValidationError)
-    async def validation_exception_handler(request: Request, exc: RequestValidationError):
-        return JSONResponse(
-            ErrorResponse(
-                status=status.HTTP_422_UNPROCESSABLE_ENTITY,
-                type="RequestValidationError",
-                message="The received values are invalid",
-                debug="The received values are invalid according to the endpoints model definition",
-                extra=jsonable_encoder({"detail": exc.errors(), "body": exc.body}),
-            ).dict(),
-            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-        )
 
     return app
 

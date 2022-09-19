@@ -26,4 +26,4 @@ services:
   db:
     image: mongo:5.0.9
     restart: unless-stopped
-    command: --auth --quiet
+    command: mongod --auth --quiet

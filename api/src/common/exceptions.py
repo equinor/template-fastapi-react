@@ -19,9 +19,13 @@ class ApplicationException(Exception):
     debug: str = "An unknown and unhandled exception occurred in the API"
     extra: dict | None = None
 
-    def __init__(self, message: str = "The requested operation failed",
-                 debug: str = "An unknown and unhandled exception occurred in the API", extra: dict = None,
-                 status: int = 500, ):
+    def __init__(
+        self,
+        message: str = "The requested operation failed",
+        debug: str = "An unknown and unhandled exception occurred in the API",
+        extra: dict = None,
+        status: int = 500,
+    ):
         self.status = status
         self.type = self.__class__.__name__
         self.message = message
@@ -29,38 +33,61 @@ class ApplicationException(Exception):
         self.extra = extra
 
     def dict(self):
-        return {"status": self.status, "type": self.type, "message": self.message, "debug": self.debug,
-            "extra": self.extra, }
+        return {
+            "status": self.status,
+            "type": self.type,
+            "message": self.message,
+            "debug": self.debug,
+            "extra": self.extra,
+        }
 
 
 class MissingPrivilegeException(ApplicationException):
-    def __init__(self, message: str = "You do not have the required permissions",
-            debug: str = "Action denied because of insufficient permissions", extra: dict = None, ):
+    def __init__(
+        self,
+        message: str = "You do not have the required permissions",
+        debug: str = "Action denied because of insufficient permissions",
+        extra: dict = None,
+    ):
         super().__init__(message, debug, extra, request_status.HTTP_403_FORBIDDEN)
         self.type = self.__class__.__name__
 
 
 class NotFoundException(ApplicationException):
-    def __init__(self, message: str = "The requested resource could not be found",
-            debug: str = "The requested resource could not be found", extra: dict = None, ):
+    def __init__(
+        self,
+        message: str = "The requested resource could not be found",
+        debug: str = "The requested resource could not be found",
+        extra: dict = None,
+    ):
         super().__init__(message, debug, extra, request_status.HTTP_404_NOT_FOUND)
         self.type = self.__class__.__name__
 
 
 class BadRequestException(ApplicationException):
-    def __init__(self, message: str = "Invalid data for the operation",
-            debug: str = "Unable to complete the requested operation with the given input values.",
-            extra: dict = None, ):
+    def __init__(
+        self,
+        message: str = "Invalid data for the operation",
+        debug: str = "Unable to complete the requested operation with the given input values.",
+        extra: dict = None,
+    ):
         super().__init__(message, debug, extra, request_status.HTTP_400_BAD_REQUEST)
         self.type = self.__class__.__name__
 
 
 class ValidationException(ApplicationException):
-    def __init__(self, message: str = "The received data is invalid",
-            debug: str = "Values are invalid for requested operation.", extra: dict = None, ):
+    def __init__(
+        self,
+        message: str = "The received data is invalid",
+        debug: str = "Values are invalid for requested operation.",
+        extra: dict = None,
+    ):
         super().__init__(message, debug, extra, request_status.HTTP_422_UNPROCESSABLE_ENTITY)
         self.type = self.__class__.__name__
 
 
-credentials_exception = HTTPException(status_code=request_status.HTTP_401_UNAUTHORIZED,
-    detail="Token validation failed", headers={"WWW-Authenticate": "Bearer"}, )
+credentials_exception = HTTPException(
+    status_code=request_status.HTTP_401_UNAUTHORIZED,
+    detail="Token validation failed",
+    headers={"WWW-Authenticate": "Bearer"},
+)
