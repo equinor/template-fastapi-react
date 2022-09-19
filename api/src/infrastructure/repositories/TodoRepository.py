@@ -1,7 +1,7 @@
 from typing import Optional
 
+from common.exceptions import NotFoundException
 from entities.TodoItem import TodoItem
-from features.todo.exceptions import TodoItemNotFoundError
 from features.todo.interfaces.TodoRepositoryInterface import TodoRepositoryInterface
 from infrastructure.clients.ClientInterface import ClientInterface
 from infrastructure.clients.mongodb.MongoClient import get_mongo_client
@@ -29,7 +29,7 @@ class TodoRepository(TodoRepositoryInterface):
     def get(self, id: str) -> TodoItem:
         todo_item = self.client.find_by_id(id)
         if todo_item is None:
-            raise TodoItemNotFoundError
+            raise NotFoundException
         return TodoItem.from_dict(todo_item)
 
     def create(self, todo_item: TodoItem) -> Optional[TodoItem]:

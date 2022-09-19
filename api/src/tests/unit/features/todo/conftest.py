@@ -3,8 +3,7 @@ from unittest import mock
 
 import pytest
 
-from common.exceptions import EntityNotFoundException
-from features.todo.exceptions import TodoItemNotFoundError
+from common.exceptions import NotFoundException
 from infrastructure.clients.ClientInterface import ClientInterface
 from infrastructure.repositories.TodoRepository import TodoRepository
 
@@ -27,7 +26,7 @@ def mock_client(test_data: Dict[str, dict]):
     def mock_find_by_id(id: str) -> Dict:
         if id in test_data.keys():
             return test_data[id]
-        raise TodoItemNotFoundError()
+        raise NotFoundException()
 
     def mock_get_all():
         document_list = []
@@ -43,7 +42,7 @@ def mock_client(test_data: Dict[str, dict]):
 
     def mock_update(id: str, document: Dict):
         if id not in list(test_data.keys()):
-            raise EntityNotFoundException()
+            raise NotFoundException()
         test_data[id] = document
         return test_data[id]
 

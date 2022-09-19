@@ -1,7 +1,8 @@
 import React, { useEffect, useContext, useState } from 'react'
 import { AuthContext  } from 'react-oauth2-code-pkce'
 import TodoAPI from '../api/TodoAPI'
-import { AddTodoResponse } from '../api/generated'
+import { AxiosError, AxiosPromise } from 'axios'
+import {AddTodoResponse, ErrorResponse} from '../api/generated'
 import styled from 'styled-components'
 
 export const ToDoContainer = styled.div`
@@ -71,10 +72,14 @@ export const TodoApp = () => {
           title: value,
         },
       })
-      .then((response) => {
+      .then((response: AxiosPromise<AddTodoResponse>) => {
         const item: AddTodoResponse = response.data
         const items = [...todos, item]
         setTodos(items)
+      })
+      .catch((error: AxiosError<ErrorResponse>)=>{
+        console.error(error.response)
+        alert(`Error: ${error.response?.data.message}`)
       })
   }
 

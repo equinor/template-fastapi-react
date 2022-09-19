@@ -4,7 +4,7 @@ from typing import Dict, List, Optional
 from pymongo import MongoClient
 from pymongo.errors import DuplicateKeyError
 
-from common.exceptions import EntityNotFoundException
+from common.exceptions import NotFoundException
 from config import config
 from infrastructure.clients.ClientInterface import ClientInterface
 
@@ -56,7 +56,7 @@ class MongoDatabaseClient(ClientInterface, ABC):
     def find_by_id(self, uid: str) -> Dict:
         document = self.handler[self.collection].find_one(filter={"_id": uid})
         if document is None:
-            raise EntityNotFoundException
+            raise NotFoundException
         else:
             return dict(document)
 
