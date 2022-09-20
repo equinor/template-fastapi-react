@@ -3,13 +3,19 @@ name: Generate documentation
 on:
   # Workflow dispatch is used for manual triggers
   workflow_dispatch:
+    inputs:
+      message:
+        description: 'A message to shown in the changelog'
+        default: ''
+        required: false
+        type: string
   # Workflow call is used for called from another workflow
   workflow_call:
     inputs:
       message:
         description: 'A message to shown in the changelog'
         default: ''
-        required: true
+        required: false
         type: string
 
 env:
@@ -23,21 +29,12 @@ jobs:
     - name: 'Checkout GitHub Action'
       uses: actions/checkout@main
 
-    - uses: actions/setup-java@v3
+    - name: 'Setup node'
+      uses: actions/setup-node@v3
       with:
-         # See https://github.com/actions/setup-java for available options
-        distribution: 'temurin'
-        java-version: '17'
-
-    - name: "Install dependencies for plantuml"
-      run: sudo apt-get update && sudo apt-get install -y graphviz plantuml fonts-ipafont fonts-ipaexfont
-
-    # Taken from https://gist.github.com/thedmeyer/8b50362ae71ecbadabb17f8683c70ece
-    #- name: "Process diagrams"
-    #  run: plantuml -Djava.awt.headless=true -v -tsvg -r -o "${{ github.workspace }}/diagrams/" "${{ github.workspace }}/docs/**.puml"
-
-    #- name: Display Diagrams
-    #  run: pwd && ls ${{ github.workspace }}/diagrams
+        node-version: 18
+        cache: yarn
+        cache-dependency-path: documentation/yarn.lock
 
     - name: Download CHANGELOG
       uses: actions/download-artifact@v3
@@ -48,18 +45,18 @@ jobs:
       shell: bash
       run: |
         sed -i -e '1i${{ inputs.message }}\' CHANGELOG.md
-        cp CHANGELOG.md docs/Changelog.md
-
-    - name: 'Build and deploy'
-      shell: bash
+        cp CHANGELOG.md documentation/src/pages/changelog.md
+    
+    - name: Install dependencies and build website
       run: |
-        brew install doctave/doctave/doctave
-        doctave build --release --allow-failed-checks
+        cd documentation
+        yarn install --frozen-lockfile
+        yarn build
 
     - name: GitHub Pages
       # if: github.ref == 'refs/heads/main'
       uses: crazy-max/ghaction-github-pages@v2.6.0
       with:
-        build_dir: site/
+        build_dir: documentation/build/
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

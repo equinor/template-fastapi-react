@@ -92,7 +92,7 @@ async function createConfig() {
               title: 'More',
               items: [
                 {
-                  label: 'Team Hera Homepage',
+                  label: 'Team Hermes Homepage',
                   href: 'https://verbose-eureka-374aa4f5.pages.github.io',
                 },
                 {
