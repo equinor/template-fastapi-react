@@ -10,7 +10,7 @@ async function createConfig() {
     title: 'Template FastAPI React',
     tagline: 'Documentation for the FastAPI React Template',
     url: 'https://template-fastapi-react.app.radix.equinor.com/',
-    baseUrl: '/',
+    baseUrl: '/template-fastapi-react/',
     onBrokenLinks: 'throw',
     onBrokenMarkdownLinks: 'warn',
     favicon: 'img/favicon.png',
