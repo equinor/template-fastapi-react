@@ -21,3 +21,10 @@
   align-items: center;
   justify-content: center;
 }
+
+.description {
+  text-align: center;
+  font-size: 22px;
+  margin: 20px auto;
+  width: 65%;
+}
