@@ -20,7 +20,7 @@ A reusable workflow is just like any GitHub Actions workflow with one key differ
 
 * The `tests.yaml` workflow will automatically run all types of tests.
 
-* The `generate-docs.yaml` workflow will install Doctave on the build agent, and build the documentation. Then it will deploy the documentation (placed in the site folder) to GitHub Pages.
+* The `publish-docs.yaml` workflow will build the documentation. Then it will deploy the documentation (placed in the site folder) to GitHub Pages.
 
 ## Triggering reusable workflows
 
