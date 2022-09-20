@@ -1,8 +1,0 @@
-@startmindmap
-* on push to
-** all branches
-***_ tests.yaml
-** only main
-***_ release.yaml
-***_ generate-docs.yaml
-@endmindmap
