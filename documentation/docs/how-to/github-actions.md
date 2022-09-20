@@ -26,7 +26,7 @@ A reusable workflow is just like any GitHub Actions workflow with one key differ
 
 We trigger the reusable workflow like this:
 
-![Github Actions](/diagrams/github-actions.svg)
+![Github Actions](/img/github-actions.svg)
 
 This is work in progress (WIP). The release policy needs to be changed a bit. Since we are gone use trunk based development, all pushes to main needs to trigger a release to a test environment, and release to production (release.yaml) needs to be manually triggered. Also is the docker image creation missing.
 

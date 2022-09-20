@@ -1,5 +1,6 @@
 ---
 title: 2 Initial setup
+sidebar_position: 2
 ---
 
 Initial setup

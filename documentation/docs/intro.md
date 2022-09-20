@@ -2,46 +2,59 @@
 sidebar_position: 1
 ---
 
-# Tutorial Intro
+Welcome
+=============
 
-Let's discover **Docusaurus in less than 5 minutes**.
+How to get the boilerplate up and running on your local machine for development and testing purposes.
 
-## Getting Started
+## The application
 
-Get started by **creating a new site**.
+![web](/img/web-application.png)
 
-Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
+A todo demo implementation of a clean architecture in Python. The demo application exposes a REST API and works with one types of storage system: MongoDB. You can however add other databases such as in-memory database or Postgres.
 
-### What you'll need
+![api](/img/rest-api-documentation.png)
 
-- [Node.js](https://nodejs.org/en/download/) version 16.14 or above:
-  - When installing Node.js, you are recommended to check all checkboxes related to dependencies.
+## Key technologies
 
-## Generate a new site
+Built with:
 
-Generate a new Docusaurus site using the **classic template**.
+- FastAPI - the backend framework used
+  - Using Clean Architecture
+- React - the web framework used
+  - Bootstrapped with create react app.
 
-The classic template will automatically be added to your project after you run the command:
+## Repository content
 
-```bash
-npm init docusaurus@latest my-website classic
+We are structure the software architecture to [scream](http://blog.cleancoder.com/uncle-bob/2011/09/30/Screaming-Architecture.html) the intent of the system therefore this project structure keeping most of the code inside the features folder.
+
+```
+├── api/ - backend code
+├── api/
+|   ├── src/
+|   |   ├── autentication/
+|   |   ├── common/
+|   |   ├── entities/
+|   |   ├── features/
+|   |   ├── infrastructure/
+|   |   ├── tests/
+|   |   │   ├── unit/
+|   |   │   ├── integration/
+|   |   └── utils/
+│── web/ - frontend code
+│── docs/ - documentaiton
+├── docker-compose.override.yml
+├── docker-compose.yml
+├── .env-template
+└── ...
 ```
 
-You can type this command into Command Prompt, Powershell, Terminal, or any other integrated terminal of your code editor.
+- `docker-compose.override.yml`-  for running in development mode locally
+- `docker-compose.yml`: common settings
+- `.env-template`:  environment variables
 
-The command also installs all necessary dependencies you need to run Docusaurus.
+### API
 
-## Start your site
-
-Run the development server:
-
-```bash
-cd my-website
-npm run start
-```
-
-The `cd` command changes the directory you're working with. In order to work with your newly created Docusaurus site, you'll need to navigate the terminal there.
-
-The `npm run start` command builds your website locally and serves it through a development server, ready for you to view at http://localhost:3000/.
-
-Open `docs/intro.md` (this page) and edit some lines: the site **reloads automatically** and displays your changes.
+- `entities/`: contains all entities, enums, exceptions, interfaces, types and logic specific to the domain layer
+- `features/`: contains use-cases (application logic), repository interfaces, and controllers
+- `infrastructure/`: contains classes for accessing external resources such as databases, file systems, web services, and repository implementations

@@ -13,7 +13,7 @@ We are using [c4model](https://c4model.com) for showing architecture diagrams.
 
 It is a layered approach for a [more civilized age](https://www.youtube.com/watch?v=wtCQalq7L-E).
 
-![Clean Architecture](/diagrams/clean-architecture.png)
+![Clean Architecture](/img/clean-architecture.png)
 
 ### The most important rule
 
@@ -50,7 +50,7 @@ The Context diagram is a good starting point for diagramming and documenting a s
 
 Once you understand how your system fits in to the overall IT environment, a really useful next step is to zoom-in to the system boundary with a Container diagram. A container is something like a server-side web application, single-page application, desktop application, mobile app, database schema, file system, etc. Essentially, a container is a separately runnable/deployable unit (e.g. a separate process space) that executes code or stores data.
 
-![Container diagram](/diagrams/api-level-2.svg)
+![Container diagram](/img/api-level-2.svg)
 
 The use cases and entities are the heart of our application and should have a minimal set of external library dependencies.
 
@@ -60,7 +60,7 @@ Following on from a Container Diagram, next you can zoom in and decompose each c
 
 The Component diagram shows how a container is made up of a number of components, what each of those components are, their responsibilities and the technology/implementation details.
 
-![Container diagram](/diagrams/api-level-3.svg)
+![Container diagram](/img/api-level-3.svg)
 
 
 The components:
