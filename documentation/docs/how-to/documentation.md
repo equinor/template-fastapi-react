@@ -15,7 +15,7 @@ This whole process is documented nicely on their [website](https://cli.doctave.c
 
 ## Publishing
 
-We are using the Github Action  [`generate-docs.yaml`](../.github/workflows/generate-docs.yaml) to build and publish the documentation website.
+We are using the Github Action  [`generate-docs.yaml`](https://github.com/equinor/template-fastapi-react/blob/main/.github/workflows/publish-docs.yaml) to build and publish the documentation website.
 
 This will checkout the code, install Doctave on the build agent, and build the documentation. Then it will deploy the documentation (placed in the site folder) to GitHub Pages.
 

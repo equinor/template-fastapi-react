@@ -9,7 +9,7 @@ async function createConfig() {
   return {
     title: 'Template FastAPI React',
     tagline: 'Documentation for the FastAPI React Template',
-    url: 'https://github.com/equinor/template-fastapi-react',
+    url: 'https://template-fastapi-react.app.radix.equinor.com/',
     baseUrl: '/',
     onBrokenLinks: 'throw',
     onBrokenMarkdownLinks: 'warn',
@@ -98,6 +98,10 @@ async function createConfig() {
                 {
                   label: 'GitHub',
                   href: 'https://github.com/equinor/template-fastapi-react',
+                },
+                {
+                  label: 'Template FastAPI React',
+                  href: 'https://template-fastapi-react.app.radix.equinor.com/',
                 },
               ],
             },
