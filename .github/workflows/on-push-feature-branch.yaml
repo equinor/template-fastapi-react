@@ -10,13 +10,3 @@ on:
 jobs:
   tests:
     uses: ./.github/workflows/tests.yaml
-
-  generate-changelog:
-    needs: tests
-    uses: ./.github/workflows/generate-changelog.yaml
-
-  docs:
-    needs: generate-changelog
-    uses: ./.github/workflows/publish-docs.yaml
-    with:
-      message: 'Warning: This is the development version.'
