@@ -22,7 +22,7 @@ This will checkout the code, download the changelog from the `generate-changelog
 
 ## Initial settings
 
-When deployed to GitHub Pages, you do need to configure your site under the settings. Pick the gh-pages branch and select either a private url or a public one. It will show you the site’s url, which should now contain your generated documentation site. Every change you make to your docs is built, and when run on main, it is deployed as well.
+When deployed to GitHub Pages, you do need to configure your site under the settings. Pick the gh-pages branch and select either a private url or a public one. It will show you the site’s url, which should now contain your generated documentation site.
 
 ## Assets
 
