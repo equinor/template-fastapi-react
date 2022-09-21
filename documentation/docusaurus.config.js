@@ -62,7 +62,7 @@ async function createConfig() {
               type: 'doc',
               docId: 'intro',
               position: 'left',
-              label: 'Tutorial',
+              label: 'Docs',
             },
             {to: '/changelog', label: 'Changelog', position: 'left'},
             {
@@ -79,7 +79,7 @@ async function createConfig() {
               title: 'Docs',
               items: [
                 {
-                  label: 'Tutorial',
+                  label: 'Docs',
                   to: '/docs/intro',
                 },
                 {
