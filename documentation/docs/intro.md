@@ -1,3 +1,7 @@
+---
+sidebar_position: 1
+---
+
 Welcome
 =============
 
@@ -5,11 +9,11 @@ How to get the boilerplate up and running on your local machine for development 
 
 ## The application
 
-![web](/diagrams/web-application.png)
+![web](/img/web-application.png)
 
 A todo demo implementation of a clean architecture in Python. The demo application exposes a REST API and works with one types of storage system: MongoDB. You can however add other databases such as in-memory database or Postgres.
 
-![api](/diagrams/rest-api-documentation.png)
+![api](/img/rest-api-documentation.png)
 
 ## Key technologies
 

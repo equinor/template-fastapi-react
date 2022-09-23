@@ -1,5 +1,6 @@
 ---
 title: 3 Configuration
+sidebar_position: 3
 ---
 
 Configuration
