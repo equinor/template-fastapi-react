@@ -1,9 +1,8 @@
 ---
-title: Authentication and Authorization
+sidebar_position: 3
 ---
 
-Authentication and Authorization
-=============
+# Authentication
 
 __Authentication__ is the act of validating that users are whom they claim to be.  
 __Authorization__ is the process of giving the user permission to access a specific resource or function.

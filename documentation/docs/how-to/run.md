@@ -1,10 +1,8 @@
 ---
-title: 4 Running
-sidebar_position: 4
+title: Run
 ---
 
-Running
-=============
+# Running
 
 You can start running:
 

@@ -1,9 +1,8 @@
 ---
-title: API architecture
+title: Clean architecture
 ---
 
-API architecture
-=============
+# Clean architecture
 
 We follow the [the Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) style and structure the codebase accordingly for our API's.
 

@@ -1,10 +1,8 @@
 ---
-title: 1 Prerequisites
 sidebar_position: 1
 ---
 
-Prerequisites
-=============
+# Prerequisites
 
 In order to run you need to have installed:
 

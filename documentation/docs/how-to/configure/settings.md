@@ -1,10 +1,8 @@
 ---
-title: 3 Configuration
-sidebar_position: 3
+sidebar_position: 2
 ---
 
-Configuration
-=============
+# Settings
 
 This document goes through all the different configuration options available.
 
