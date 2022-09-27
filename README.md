@@ -28,10 +28,10 @@ This is a **solution template** for creating a Single Page App (SPA) with React 
 
 - Clean architecture
 - Screaming architecture
-- Auto-generate changelogs
+- Auto-generated changelogs
 - Auto-generated OpenAPI specification
 - Automatic documentation of REST API
-- Auto-generate REST API clients
+- Auto-generated REST API clients
 - Pre-commit hooks
 - Pydantic data validation
 

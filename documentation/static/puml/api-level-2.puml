@@ -11,6 +11,6 @@ System(rest_api, "REST API", "Provides todo functionality via a JSON/HTTPS API."
 Rel(application_users, web_application, "Uses")
 Rel(web_application, rest_api, "Makes API calls to", "JSON/HTTPS")
 ContainerDb(database, "Database", "MongoDB", "Store todos")
-Rel(rest_api, database, "Read and write to", "JDBC")
+Rel(rest_api, database, "Read and write to", "")
 
 @enduml

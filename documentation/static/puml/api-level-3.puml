@@ -13,7 +13,7 @@ Rel(application_users, web, "Uses")
 
 System_Boundary(api, "REST API") {
    Component(controllers, "Controllers", "Function", "Trigger use cases and returning the result.")
-   Component(use_cases, "Use Cases", "Class", "Implement and encapsulate all of the business rules.")
+   Component(use_cases, "Use Cases", "Function", "Implement and encapsulate all of the business rules.")
    Component(repositories, "Repositories", "Interface", "Handle read and write logic against storage medias.")
    Component(entities, "Entity", "Class", "The domain objects")
 
@@ -25,6 +25,6 @@ System_Boundary(api, "REST API") {
 Rel(web, controllers, "Requests")
 
 ContainerDb(database, "Database", "MongoDB", "Store todos")
-Rel(repositories, database, "Read and write to", "JDBC")
+Rel(repositories, database, "Read and write to")
 
 @enduml
