@@ -98,11 +98,6 @@ repos:
 # The path to the venv python interpreter differ between linux and windows. An if/else is used to find it on either.
   - repo: local
     hooks:
-      - id: safety
-        name: safety-check
-        entry: sh -c "if [ -f api/.venv/bin/python ]; then var=api/.venv/bin/python; else var=api/.venv/Scripts/python; fi; $var -m safety check"
-        language: system
-        pass_filenames: false
       - id: mypy
         name: Python type checking
         pass_filenames: false
