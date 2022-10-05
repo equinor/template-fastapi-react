@@ -3,7 +3,7 @@ from typing import List
 from pydantic import BaseModel, Field
 
 from entities.TodoItem import TodoItem
-from infrastructure.repositories.TodoRepository import TodoRepository
+from features.todo.interfaces.TodoRepositoryInterface import TodoRepositoryInterface
 
 
 class GetTodoAllResponse(BaseModel):
@@ -17,10 +17,10 @@ class GetTodoAllResponse(BaseModel):
 
 
 def get_todo_all_use_case(
-    todo_item_repository=TodoRepository(),
+    todo_repository: TodoRepositoryInterface,
 ) -> List[GetTodoAllResponse]:
     response: List[GetTodoAllResponse] = []
-    todo_items: List[TodoItem] = todo_item_repository.get_all()
+    todo_items: List[TodoItem] = todo_repository.get_all()
 
     for todo_item in todo_items:
         response.append(GetTodoAllResponse.from_entity(todo_item))

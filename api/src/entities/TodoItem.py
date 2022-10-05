@@ -13,5 +13,7 @@ class TodoItem:
     @classmethod
     def from_dict(cls, dict_) -> "TodoItem":
         class_fields = {f.name for f in fields(cls)}
+        if "_id" in dict_:
+            dict_["id"] = dict_.pop("_id")
         data = {k: v for k, v in dict_.items() if k in class_fields}
         return TodoItem(**data)

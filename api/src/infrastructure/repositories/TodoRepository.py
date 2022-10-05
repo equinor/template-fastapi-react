@@ -3,7 +3,6 @@ from typing import Optional
 from entities.TodoItem import TodoItem
 from features.todo.interfaces.TodoRepositoryInterface import TodoRepositoryInterface
 from infrastructure.clients.ClientInterface import ClientInterface
-from infrastructure.clients.mongodb.MongoDatabaseClient import MongoDatabaseClient
 
 
 def to_dict(todo_item: TodoItem):
@@ -15,7 +14,7 @@ def to_dict(todo_item: TodoItem):
 class TodoRepository(TodoRepositoryInterface):
     client: ClientInterface
 
-    def __init__(self, client: ClientInterface = MongoDatabaseClient(collection_name="todo")):
+    def __init__(self, client: ClientInterface):
         self.client = client
 
     def update(self, todo_item: TodoItem) -> TodoItem:
@@ -24,6 +23,9 @@ class TodoRepository(TodoRepositoryInterface):
 
     def delete(self, todo_item_id: str) -> None:
         self.client.delete(todo_item_id)
+
+    def delete_all(self) -> None:
+        self.client.delete_collection(self.client.collection_name)
 
     def get(self, todo_item_id: str) -> TodoItem:
         todo_item = self.client.get(todo_item_id)
@@ -38,3 +40,9 @@ class TodoRepository(TodoRepositoryInterface):
         for item in self.client.list():
             todo_items.append(TodoItem.from_dict(item))
         return todo_items
+
+    def find_one(self, filter: dict) -> Optional[TodoItem]:
+        todo_item = self.client.find_one(filter)
+        if todo_item:
+            return TodoItem.from_dict(todo_item)
+        return None

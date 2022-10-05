@@ -28,3 +28,7 @@ class ClientInterface(Generic[M, K]):
     @abstractmethod
     def update(self, id: K, instance: M) -> M:
         pass
+
+    @abstractmethod
+    def insert_many(self, instances: List[M]):
+        pass
