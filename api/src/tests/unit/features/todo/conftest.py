@@ -23,7 +23,7 @@ def mock_client(test_data: Dict[str, dict]):
     def mock_create(document: Dict) -> Dict:
         return document
 
-    def mock_find_by_id(id: str) -> Dict:
+    def mock_get(id: str) -> Dict:
         if id in test_data.keys():
             return test_data[id]
         raise NotFoundException()
@@ -47,7 +47,7 @@ def mock_client(test_data: Dict[str, dict]):
         return test_data[id]
 
     client.create = mock_create
-    client.find_by_id.side_effect = mock_find_by_id
+    client.get.side_effect = mock_get
     client.list = mock_get_all
     client.delete = mock_delete
     client.update = mock_update

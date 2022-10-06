@@ -10,15 +10,15 @@ class TodoRepositoryInterface(metaclass=ABCMeta):
         raise NotImplementedError
 
     @abstractmethod
-    def get(self, id: str) -> Optional[TodoItem]:
+    def get(self, todo_item_id: str) -> TodoItem:
         raise NotImplementedError
 
     @abstractmethod
-    def update(self, todo_item: TodoItem) -> Optional[TodoItem]:
+    def update(self, todo_item: TodoItem) -> TodoItem:
         raise NotImplementedError
 
     @abstractmethod
-    def delete_by_id(self, id: str):
+    def delete(self, todo_item_id: str):
         raise NotImplementedError
 
     @abstractmethod

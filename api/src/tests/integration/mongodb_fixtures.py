@@ -1,14 +1,14 @@
 import pytest
 
-from infrastructure.clients.mongodb.MongoClient import get_mongo_client
+from infrastructure.clients.mongodb.MongoDatabaseClient import MongoDatabaseClient
 
 
 @pytest.fixture(scope="session")
 def mongo_session():
-    client = get_mongo_client(collection="todo")
+    client = MongoDatabaseClient(collection_name="todo")
     yield client
     client.wipe_db()
-    client.client.close()
+    client.handler.client.close()
 
 
 @pytest.fixture(scope="function")
