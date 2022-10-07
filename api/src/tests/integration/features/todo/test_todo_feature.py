@@ -6,8 +6,8 @@ pytestmark = pytest.mark.integration
 
 class TestTodo:
     @pytest.fixture(autouse=True)
-    def setup_database(self, database):
-        database.insert_many(
+    def setup_database(self, test_client):
+        test_client.insert_many(
             [
                 {"_id": "1", "id": "1", "title": "title 1"},
                 {"_id": "2", "id": "2", "title": "title 2"},

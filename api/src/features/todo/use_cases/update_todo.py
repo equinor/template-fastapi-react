@@ -1,7 +1,7 @@
 from pydantic import BaseModel, Field
 
 from entities.TodoItem import TodoItem
-from infrastructure.repositories.TodoRepository import TodoRepository
+from features.todo.interfaces.TodoRepositoryInterface import TodoRepositoryInterface
 
 
 class UpdateTodoRequest(BaseModel):
@@ -21,10 +21,10 @@ class UpdateTodoResponse(BaseModel):
 def update_todo_use_case(
     id: str,
     data: UpdateTodoRequest,
-    todo_item_repository=TodoRepository(),
+    todo_repository: TodoRepositoryInterface,
 ) -> UpdateTodoResponse:
-    todo_item = todo_item_repository.get(id)
+    todo_item = todo_repository.get(id)
     updated_todo_item = TodoItem(id=todo_item.id, title=data.title, is_completed=data.is_completed)
-    if todo_item_repository.update(updated_todo_item):
+    if todo_repository.update(updated_todo_item):
         return UpdateTodoResponse(success=True)
     return UpdateTodoResponse(success=False)

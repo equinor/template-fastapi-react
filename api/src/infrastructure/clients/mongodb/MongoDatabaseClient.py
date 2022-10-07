@@ -1,38 +1,31 @@
 from typing import Dict, List, Optional
 
 from pymongo import MongoClient
-from pymongo.collection import Collection, Cursor
+from pymongo.collection import Cursor
+from pymongo.database import Database
 from pymongo.errors import DuplicateKeyError
 
 from common.exceptions import NotFoundException, ValidationException
-from config import config
 from infrastructure.clients.ClientInterface import ClientInterface
-
-DEFAULT_MONGO_CLIENT: MongoClient = MongoClient(
-    host=config.MONGODB_HOSTNAME,
-    port=config.MONGODB_PORT,
-    username=config.MONGODB_USERNAME,
-    password=config.MONGODB_PASSWORD,
-    authSource="admin",  # database, config.MONGODB_DATABASE
-    tls=False,
-    connectTimeoutMS=5000,
-    serverSelectionTimeoutMS=5000,
-    retryWrites=False,
-)
 
 
 class MongoDatabaseClient(ClientInterface[Dict, str]):
-    def __init__(self, collection_name: str, client: MongoClient = DEFAULT_MONGO_CLIENT):
-        self.handler = client[config.MONGODB_DATABASE]
-        self.collection: Collection = self.handler[collection_name]
+    def __init__(self, collection_name: str, database_name: str, client: MongoClient):
+        database: Database = client[database_name]
+        self.database = database
+        self.collection_name = collection_name
+        self.collection = database[collection_name]
 
     def wipe_db(self):
-        databases = self.handler.client.list_database_names()
+        databases = self.database.client.list_database_names()
         databases_to_delete = [
             database_name for database_name in databases if database_name not in ("admin", "config", "local")
         ]  # Don't delete the mongo admin or local database
         for database_name in databases_to_delete:
-            self.handler.client.drop_database(database_name)
+            self.database.client.drop_database(database_name)
+
+    def delete_collection(self, collection: str):
+        self.database[collection].drop()
 
     def create(self, document: Dict) -> Dict:
         try:

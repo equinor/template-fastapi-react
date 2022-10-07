@@ -3,7 +3,7 @@ import uuid
 from pydantic import BaseModel, Field
 
 from entities.TodoItem import TodoItem
-from infrastructure.repositories.TodoRepository import TodoRepository
+from features.todo.interfaces.TodoRepositoryInterface import TodoRepositoryInterface
 
 
 class AddTodoRequest(BaseModel):
@@ -28,8 +28,8 @@ class AddTodoResponse(BaseModel):
 
 def add_todo_use_case(
     data: AddTodoRequest,
-    todo_item_repository=TodoRepository(),
+    todo_repository: TodoRepositoryInterface,
 ) -> AddTodoResponse:
     todo_item = TodoItem(id=str(uuid.uuid4()), title=data.title)
-    todo_item_repository.create(todo_item)
+    todo_repository.create(todo_item)
     return AddTodoResponse.from_entity(todo_item)
