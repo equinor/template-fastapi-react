@@ -14,6 +14,7 @@ The Context diagram is a good starting point for diagramming and documenting a s
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
+left to right direction
 LAYOUT_WITH_LEGEND()
 
 Person(application_users, "Application User", "A user of the todo application.")
@@ -34,6 +35,7 @@ Once you understand how your system interacts with users and external systems, a
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
+left to right direction
 LAYOUT_WITH_LEGEND()
 
 Person(application_users, "Application User", "A user of the todo application.")
@@ -61,6 +63,7 @@ The Component diagram shows how a container is made up of a number of components
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
+left to right direction
 LAYOUT_WITH_LEGEND()
 
 Person(application_users, "Application User", "A user of the todo application.")
