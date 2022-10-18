@@ -8,13 +8,43 @@ We are using [c4model](https://c4model.com) for showing architecture diagrams.
 
 The Context diagram is a good starting point for diagramming and documenting a software system, allowing you to step back and see the big picture. Here we draw a diagram showing the system as a box in the centre, surrounded by its users and the other systems that it interacts with.
 
-![System context diagram](/img/api-level-1.svg)
+```plantuml System context diagram
+@startuml
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+LAYOUT_WITH_LEGEND()
+
+Person(application_users, "Application User", "A user of the todo application.")
+System(application, "Todo Application", "Provides todo functionality")
+System_Ext(azure_active_directory, "Oauth2 Authorization Server", "Provides authentication and provides userid and roles for access control")
+Rel(application_users, application, "Uses")
+Rel(application, azure_active_directory, "Uses")
+@enduml
+```
 
 ### Level 2 - Container diagram
 
 Once you understand how your system interacts with users and external systems, a useful next step is to zoom-in to the system boundary with a Container diagram. A container is something like a server-side web application, single-page application, desktop application, mobile app, database schema, file system, etc. Essentially, a container is a separately runnable/deployable unit (e.g. a separate process space) that executes code or stores data.
 
-![Container diagram](/img/api-level-2.svg)
+```plantuml Container diagram
+@startuml
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+LAYOUT_WITH_LEGEND()
+
+Person(application_users, "Application User", "A user of the todo application.")
+System(web_application, "Single-Page Application", "Provide all the todo functionality to users via their web browser. ")
+System(rest_api, "REST API", "Provides todo functionality via a JSON/HTTPS API.")
+Rel(application_users, web_application, "Uses")
+Rel(web_application, rest_api, "Makes API calls to", "JSON/HTTPS")
+ContainerDb(database, "Database", "MongoDB", "Store todos")
+Rel(rest_api, database, "Read and write to", "")
+@enduml
+```
 
 The use cases and entities are the heart of our application and should have a minimal set of external library dependencies.
 
@@ -24,7 +54,38 @@ Next you can zoom in and decompose each container further to identify the major 
 
 The Component diagram shows how a container is made up of a number of components, what each of those components are, their responsibilities and the technology/implementation details.
 
-![Container diagram](/img/api-level-3.svg)
+
+```plantuml Component diagram
+@startuml
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+LAYOUT_WITH_LEGEND()
+
+Person(application_users, "Application User", "A user of the todo application.")
+
+System(web, "Single-Page Application", "Provide all the todo functionality to users via their web browser. ")
+
+Rel(application_users, web, "Uses")
+
+System_Boundary(api, "REST API") {
+  Component(controllers, "Controllers", "Function", "Trigger use cases and returning the result.")
+  Component(use_cases, "Use Cases", "Function", "Implement and encapsulate all of the business rules.")
+  Component(repositories, "Repositories", "Interface", "Handle read and write logic against storage medias.")
+  Component(entities, "Entity", "Class", "The domain objects")
+
+  Rel(controllers, use_cases, "Execute")
+  Rel(use_cases, repositories, "Uses")
+  Rel(repositories, entities, "Instantiate")
+}
+
+Rel(web, controllers, "Requests")
+
+ContainerDb(database, "Database", "MongoDB", "Store todos")
+Rel(repositories, database, "Read and write to")
+@enduml
+```
 
 ## Clean architecture
 

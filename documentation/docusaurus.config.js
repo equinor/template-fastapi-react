@@ -3,6 +3,7 @@
 
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const simplePlantUML = require('@akebifiky/remark-simple-plantuml');
 
 async function createConfig() {
   const mdxMermaid = await import('mdx-mermaid')
@@ -49,7 +50,7 @@ async function createConfig() {
             sidebarPath: require.resolve('./sidebars.js'),
             editUrl:
               'https://github.com/equinor/template-fastapi-react/tree/main/documentation/',
-              remarkPlugins: [mdxMermaid.default],
+              remarkPlugins: [mdxMermaid.default, simplePlantUML],
           },
           blog: false,
           theme: {
