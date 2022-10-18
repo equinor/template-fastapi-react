@@ -10,8 +10,16 @@ All the heavy lifting is done by GitHub. GitHub will simply use the files define
 
 We trigger the reusable workflow like this:
 
-![Github Actions](/img/github-actions.svg)
-
+```plantuml Github Actions
+@startmindmap
+* on push to
+** all branches
+***_ tests.yaml
+** only main
+***_ release.yaml
+***_ generate-docs.yaml
+@endmindmap
+```
 
 Since we are using trunk based development, all pushes to main trigger a release to a test environment.
 
