@@ -1,7 +1,6 @@
 FROM python:3.10 as base
 WORKDIR /code
-ENTRYPOINT ["/code/init.sh"]
-CMD ["api"]
+CMD ["/code/init.sh", "api"]
 EXPOSE 5000
 
 ENV PYTHONUNBUFFERED=1
