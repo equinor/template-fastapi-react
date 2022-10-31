@@ -12,9 +12,19 @@ from features.health_check import health_check_feature
 from features.todo import todo_feature
 from features.whoami import whoami_feature
 
-server_root = "/api"
-version = "v1"
-prefix = f"{server_root}/{version}"
+description_md = """
+### Description
+A RESTful API for handling todo items.
+
+Anyone in Equinor are authorized to run these calculations.
+ * Click **Authorize** to login and start testing.
+
+### Resources
+ * [Docs](https://equinor.github.io/template-fastapi-react/)
+ * [Github](https://github.com/equinor/template-fastapi-react)
+
+ For questions about usage or expanding the service with new simulations, create issue on Github.
+"""
 
 
 def create_app() -> FastAPI:
@@ -30,14 +40,26 @@ def create_app() -> FastAPI:
     exception_handlers = {RequestValidationError: validation_exception_handler}
 
     app = FastAPI(
-        title="Awesome Boilerplate",
+        root_path="/api",
+        title="Template FastAPI React",
+        description=description_md,
         responses=responses,
         middleware=middleware,
+        license_info={"name": "MIT", "url": "https://github.com/equinor/template-fastapi-react/blob/main/LICENSE.md"},
+        docs_url="/",
+        openapi_url="/openapi.json",
         exception_handlers=exception_handlers,  # type: ignore
+        swagger_ui_init_oauth={
+            "clientId": config.OAUTH_CLIENT_ID,
+            "appName": "TemplateFastAPIReact",
+            "usePkceWithAuthorizationCodeGrant": True,
+            "scopes": config.OAUTH_AUTH_SCOPE,
+            "useBasicAuthenticationWithAccessCodeGrant": True,
+        },
     )
 
-    app.include_router(authenticated_routes, prefix=prefix, dependencies=[Security(auth_with_jwt)])
-    app.include_router(public_routes, prefix=prefix)
+    app.include_router(authenticated_routes, dependencies=[Security(auth_with_jwt)])
+    app.include_router(public_routes)
 
     return app
 
