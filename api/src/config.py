@@ -1,4 +1,5 @@
 from pydantic import BaseSettings, Field
+from pydantic.env_settings import SettingsError
 
 from authentication.models import User
 
@@ -27,11 +28,20 @@ class Config(BaseSettings):
     OAUTH_TOKEN_ENDPOINT: str = Field("", env="OAUTH_TOKEN_ENDPOINT")
     OAUTH_AUTH_ENDPOINT: str = Field("", env="OAUTH_AUTH_ENDPOINT")
     OAUTH_CLIENT_ID = Field("", env="OAUTH_CLIENT_ID")
+    OAUTH_AUTH_SCOPE = Field("", env="OAUTH_AUTH_SCOPE")
     AUTH_AUDIENCE: str = Field("", env="OAUTH_AUDIENCE")
     MICROSOFT_AUTH_PROVIDER: str = "login.microsoftonline.com"
 
 
 config = Config()
+
+if config.AUTH_ENABLED and not all((config.OAUTH_AUTH_ENDPOINT, config.OAUTH_TOKEN_ENDPOINT, config.OAUTH_WELL_KNOWN)):
+    raise SettingsError("Authentication was enabled, but some auth configuration parameters are missing")
+
+if not config.AUTH_ENABLED:
+    print("################ WARNING ################")
+    print("#       Authentication is disabled      #")
+    print("################ WARNING ################\n")
 
 default_user: User = User(
     **{
