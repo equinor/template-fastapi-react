@@ -3,8 +3,10 @@ from typing import cast
 from pydantic import BaseModel, Field
 
 from common.exceptions import NotFoundException
+from data_providers.repository_interfaces.TodoRepositoryInterface import (
+    TodoRepositoryInterface,
+)
 from entities.TodoItem import TodoItem
-from features.todo.interfaces.TodoRepositoryInterface import TodoRepositoryInterface
 
 
 class GetTodoByIdResponse(BaseModel):

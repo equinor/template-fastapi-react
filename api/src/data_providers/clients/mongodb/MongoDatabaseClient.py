@@ -6,7 +6,7 @@ from pymongo.database import Database
 from pymongo.errors import DuplicateKeyError
 
 from common.exceptions import NotFoundException, ValidationException
-from infrastructure.clients.ClientInterface import ClientInterface
+from data_providers.clients.ClientInterface import ClientInterface
 
 
 class MongoDatabaseClient(ClientInterface[Dict, str]):

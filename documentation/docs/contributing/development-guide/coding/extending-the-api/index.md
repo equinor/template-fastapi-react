@@ -22,7 +22,7 @@ The API has a feature-based folder structure following the principles of [Clean 
 │       │   ├── todo/
 │       │   ├── whoami/
 │       │   └── ...
-│       ├── data-providers/
+│       ├── data_providers/
 │       └── tests/
 │           ├── unit/
 │           └── integration/       

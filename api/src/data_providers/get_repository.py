@@ -1,8 +1,8 @@
 from pymongo import MongoClient
 
 from config import config
-from infrastructure.clients.mongodb.MongoDatabaseClient import MongoDatabaseClient
-from infrastructure.repositories.TodoRepository import TodoRepository
+from data_providers.clients.mongodb.MongoDatabaseClient import MongoDatabaseClient
+from data_providers.repositories.TodoRepository import TodoRepository
 
 MONGO_CLIENT: MongoClient = MongoClient(
     host=config.MONGODB_HOSTNAME,

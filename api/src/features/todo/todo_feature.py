@@ -4,8 +4,10 @@ from fastapi import APIRouter, Depends
 from starlette.responses import JSONResponse
 
 from common.responses import create_response
-from features.todo.interfaces.TodoRepositoryInterface import TodoRepositoryInterface
-from infrastructure.get_repository import get_todo_repository
+from data_providers.get_repository import get_todo_repository
+from data_providers.repository_interfaces.TodoRepositoryInterface import (
+    TodoRepositoryInterface,
+)
 
 from .use_cases.add_todo import AddTodoRequest, AddTodoResponse, add_todo_use_case
 from .use_cases.delete_todo_by_id import DeleteTodoByIdResponse, delete_todo_use_case

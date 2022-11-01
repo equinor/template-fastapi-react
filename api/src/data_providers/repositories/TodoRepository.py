@@ -1,8 +1,10 @@
 from typing import Optional
 
+from data_providers.clients.ClientInterface import ClientInterface
+from data_providers.repository_interfaces.TodoRepositoryInterface import (
+    TodoRepositoryInterface,
+)
 from entities.TodoItem import TodoItem
-from features.todo.interfaces.TodoRepositoryInterface import TodoRepositoryInterface
-from infrastructure.clients.ClientInterface import ClientInterface
 
 
 def to_dict(todo_item: TodoItem):

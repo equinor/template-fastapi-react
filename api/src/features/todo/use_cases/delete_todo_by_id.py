@@ -1,6 +1,8 @@
 from pydantic import BaseModel, Field
 
-from features.todo.interfaces.TodoRepositoryInterface import TodoRepositoryInterface
+from data_providers.repository_interfaces.TodoRepositoryInterface import (
+    TodoRepositoryInterface,
+)
 
 
 class DeleteTodoByIdResponse(BaseModel):
