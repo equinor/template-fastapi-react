@@ -4,8 +4,8 @@ from unittest import mock
 import pytest
 
 from common.exceptions import NotFoundException
-from infrastructure.clients.ClientInterface import ClientInterface
-from infrastructure.repositories.TodoRepository import TodoRepository
+from data_providers.clients.ClientInterface import ClientInterface
+from data_providers.repositories.TodoRepository import TodoRepository
 
 
 @pytest.fixture(scope="function")

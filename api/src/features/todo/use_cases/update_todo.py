@@ -1,7 +1,9 @@
 from pydantic import BaseModel, Field
 
+from data_providers.repository_interfaces.TodoRepositoryInterface import (
+    TodoRepositoryInterface,
+)
 from entities.TodoItem import TodoItem
-from features.todo.interfaces.TodoRepositoryInterface import TodoRepositoryInterface
 
 
 class UpdateTodoRequest(BaseModel):

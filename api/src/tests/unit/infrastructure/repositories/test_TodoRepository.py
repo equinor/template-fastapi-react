@@ -1,9 +1,9 @@
 import pytest
 
 from common.exceptions import NotFoundException, ValidationException
+from data_providers.clients.mongodb.MongoDatabaseClient import MongoDatabaseClient
+from data_providers.repositories.TodoRepository import TodoRepository
 from entities.TodoItem import TodoItem
-from infrastructure.clients.mongodb.MongoDatabaseClient import MongoDatabaseClient
-from infrastructure.repositories.TodoRepository import TodoRepository
 
 
 class TestTodoRepository:

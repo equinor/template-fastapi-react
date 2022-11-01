@@ -8,9 +8,9 @@ from starlette.testclient import TestClient
 
 from app import create_app
 from config import config
-from infrastructure.clients.mongodb.MongoDatabaseClient import MongoDatabaseClient
-from infrastructure.get_repository import get_todo_repository
-from infrastructure.repositories.TodoRepository import TodoRepository
+from data_providers.clients.mongodb.MongoDatabaseClient import MongoDatabaseClient
+from data_providers.get_repository import get_todo_repository
+from data_providers.repositories.TodoRepository import TodoRepository
 
 
 @pytest.fixture(scope="function")
