@@ -1,6 +1,6 @@
 FROM python:3.10 as base
 WORKDIR /code
-CMD ["/code/init.sh", "api"]
+CMD ["/code/src/init.sh", "api"]
 EXPOSE 5000
 
 ENV PYTHONUNBUFFERED=1
@@ -15,11 +15,13 @@ COPY poetry.lock poetry.lock
 
 FROM base as development
 RUN poetry install
+WORKDIR /code/src
 COPY .flake8 ./
 COPY src .
 USER 1000
 
 FROM base as prod
 RUN poetry install --no-dev
+WORKDIR /code/src
 COPY src .
 USER 1000

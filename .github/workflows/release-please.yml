@@ -14,6 +14,8 @@ jobs:
         with:
           release-type: simple
           package-name: release-please-action
+          extra-files: |
+            api/pyproject.toml
     outputs:
        release_created: ${{ steps.release.outputs.release_created }}
 

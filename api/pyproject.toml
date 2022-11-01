@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "api"
-version = "0.1.0"
+version = "0.1.0" # x-release-please-version
 description = "API for Template Fastapi React"
 authors = []
 license = ""
@@ -17,6 +17,7 @@ cryptography = "37.0.2"  # Locked because of a bad 37.0.3 release. (https://cryp
 # Not a direct dependecy, but needed to get certificates
 certifi = "^2022.6.15"
 requests = "^2.27.1"
+toml = "^0.10.2"
 
 [tool.poetry.dev-dependencies]
 pre-commit = "^2.19.0"
@@ -31,6 +32,7 @@ mypy = "^0.961"
 types-cachetools = "^5.2.0"
 types-requests = "^2.27.30"
 types-ujson = "^5.3.0"
+types-toml = "^0.10.8"
 
 [tool.black]
 line-length = 119
