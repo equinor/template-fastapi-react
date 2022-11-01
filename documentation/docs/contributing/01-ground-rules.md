@@ -21,7 +21,7 @@ Please try to make your pull request easy to review for us.
 
 While you're writing up the pull request, you can add Closes #XXX in the message body where #XXX is the issue you're fixing. Therefore, an example would be Closes #42 would close issue #42.
 
-## Git commit 
+## Git commit format
 
 We have very precise rules over how our git commit messages can be formatted. 
 
@@ -39,7 +39,63 @@ BREAKING CHANGE: some description
 Fixes #1234
 ```
 
- This leads to more readable messages that are easy to follow when looking through the project history.
+The type can be one of these types: feat, fix, build, ci, docs, style, refactor, test, and chore.
+
+:::caution
+
+Summary should:
+
+* Be written in imperative, present tense, e.g. write `add` instead of `added` or `adds`. 
+* Don't capitalize the first letter. 
+* Don't write dot (.) at the end.
+ 
+:::
+
+<details>
+   <summary>An example</summary>
+
+patches (1.0.0 → 1.0.1)
+
+```
+git commit -a -m "fix(parsing): fixed a bug in our parser"
+```
+
+features (1.0.0 → 1.1.0)
+
+```
+git commit -a -m "feat(parser): we now have a parser \o/"
+```
+
+breaking changes (1.0.0 → 2.0.0)
+
+```
+git commit -a -m "feat(new-parser): introduces a new parsing library
+BREAKING CHANGE: new library does not support foo-construct"
+```
+
+Complete: 
+
+```
+refactor!: foo-bar replaces bar-foo
+
+bar-foo does not fit other solutions, use standard convention foo-bar
+
+AB#11
+Closes #22, AB#33, equinor/otherrepo#44
+
+BREAKING CHANGE:
+
+'bar-foo' command has changed from 'bar-foo' to 'foo-bar'
+
+To migrate your project, change all command where you use 'bar-foo' with 'foo-bar'
+
+Co-authored-by: Elliot Alderson
+```
+
+
+</details>
+
+This leads to more readable messages that are easy to follow when looking through the project history.
 
 It is important to note that we use the git commit messages to auto-generate changelogs for each release.
 
