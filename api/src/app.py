@@ -1,10 +1,14 @@
+from pathlib import Path
+
 import click
+import toml
 from fastapi import APIRouter, FastAPI, Security
 from fastapi.exceptions import RequestValidationError
 from starlette.middleware import Middleware
 
 from authentication.authentication import auth_with_jwt
 from common.exception_handlers import validation_exception_handler
+from common.logger import logger
 from common.middleware import TimerHeaderMiddleware
 from common.responses import responses
 from config import config
@@ -27,6 +31,17 @@ Anyone in Equinor are authorized to run these calculations.
 """
 
 
+def get_api_version_from_pyproject(pyproject_path: Path) -> str:
+    try:
+        pyproject_text = pyproject_path.read_text()
+        pyproject_data = toml.loads(pyproject_text)
+        metadata = pyproject_data["tool"]["poetry"]
+        return str(metadata["version"])
+    except FileNotFoundError:
+        logger.error("pyproject.toml not found, setting api version to 0.0.0")
+        return "0.0.0"
+
+
 def create_app() -> FastAPI:
     public_routes = APIRouter()
     public_routes.include_router(health_check_feature.router)
@@ -42,6 +57,7 @@ def create_app() -> FastAPI:
     app = FastAPI(
         root_path="/api",
         title="Template FastAPI React",
+        version=get_api_version_from_pyproject(Path("../pyproject.toml")),
         description=description_md,
         responses=responses,
         middleware=middleware,

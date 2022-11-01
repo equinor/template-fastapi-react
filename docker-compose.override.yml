@@ -7,7 +7,7 @@ services:
       target: development
     image: template-api-dev
     volumes:
-      - ./api/src/:/code
+      - ./api/src/:/code/src
     env_file:
       - .env
     environment:
