@@ -6,11 +6,11 @@ You can start running:
 docker-compose up
 ```
 
-The web app will be served at http://localhost
+The web app will be served at [http://localhost](http://localhost)
 
-The API documentation can be found at http://localhost/docs
+The API documentation can be found at [http://localhost/api/docs](http://localhost/api/docs)
 
-The OpenAPI spec can be found at http://localhost/openapi.json
+The OpenAPI spec can be found at [http://localhost/api/openapi.json](http://localhost/api/openapi.json)
 
 
 <details>
