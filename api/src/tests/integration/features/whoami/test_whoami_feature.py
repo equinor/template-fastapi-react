@@ -14,7 +14,7 @@ class TestWhoami:
         config.TEST_TOKEN = True
         user = User(user_id=1, username="foo", roles=["a"])
         headers = {"Authorization": f"Bearer {generate_mock_token(user)}"}
-        response = test_app.get("/api/v1/whoami", headers=headers)
+        response = test_app.get("/whoami", headers=headers)
         data = response.json()
         assert response.status_code == HTTP_200_OK
         assert data["roles"][0] == "a"
