@@ -62,8 +62,6 @@ def create_app() -> FastAPI:
         responses=responses,
         middleware=middleware,
         license_info={"name": "MIT", "url": "https://github.com/equinor/template-fastapi-react/blob/main/LICENSE.md"},
-        docs_url="/",
-        openapi_url="/openapi.json",
         exception_handlers=exception_handlers,  # type: ignore
         swagger_ui_init_oauth={
             "clientId": config.OAUTH_CLIENT_ID,
