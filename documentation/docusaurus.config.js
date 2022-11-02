@@ -93,6 +93,10 @@ async function createConfig() {
                   label: 'Docs',
                   to: '/docs/about/introduction',
                 },
+                  {
+                  label: 'Contribute',
+                  to: '/docs/contribute/how-to-start-contributing',
+                },
                 {
                   label: 'Changelog',
                   to: '/docs/changelog',

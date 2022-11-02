@@ -6,7 +6,7 @@ Concrete implementations of repository interfaces. A repository takes entities a
 ```mdx-code-block
 import CodeBlock from '@theme/CodeBlock';
 
-import TodoRepository from '!!raw-loader!@site/../api/src/data-providers/repositories/TodoRepository.py';
+import TodoRepository from '!!raw-loader!@site/../api/src/data_providers/repositories/TodoRepository.py';
 
 <CodeBlock language="jsx">{TodoRepository}</CodeBlock>
 ```
