@@ -18,3 +18,11 @@ Entities should be the most stable code within your application.
 
 Entities should not be affected by any change external to them.
 :::
+
+## Testing entities
+
+```mdx-code-block
+import Test from '!!raw-loader!@site/../api/src/tests/unit/entities/test_todo_item.py';
+
+<CodeBlock language="jsx">{Test}</CodeBlock>
+```

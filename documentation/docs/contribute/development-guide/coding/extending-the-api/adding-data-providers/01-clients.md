@@ -10,3 +10,12 @@ import MongoClient from '!!raw-loader!@site/../api/src/data_providers/clients/mo
 <CodeBlock language="jsx">{MongoClient}</CodeBlock>
 ```
 
+## Testing clients
+
+The `test_client` fixture are using the mongomock instead of real database. 
+
+```mdx-code-block
+import Test from '!!raw-loader!@site/../api/src/tests/unit/infrastructure/clients/mongodb/test_MongoDatabaseClient.py';
+
+<CodeBlock language="jsx">{Test}</CodeBlock>
+```
