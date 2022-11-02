@@ -15,7 +15,7 @@ import UseCase from '!!raw-loader!@site/../api/src/features/todo/use_cases/add_t
 * `Required`
   * Each use case needs to have its own read and write model to handle custom requests inputs and outputs for each use case.
 * `Optional`
-  * A [repository interface](./../adding-data-providers/02-repository-interfaces.md) describing necessary repository methods.
+  * A [repository interface](../adding-data-providers/02-repository-interfaces.md) describing necessary repository methods.
     * The use case uses [repositories](../adding-data-providers/03-repositories.md) for reading and writing to external systems like databases.
   
 :::info

@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-To work with the template monorepo you'll need to install [these tools](../../running/01-prerequisites.md).
+To work with the template monorepo you'll need to install [these tools](../../about/running/01-prerequisites.md).
 
 ## Pre-commit
 
