@@ -27,7 +27,7 @@ Anyone in Equinor are authorized to run these calculations.
  * [Docs](https://equinor.github.io/template-fastapi-react/)
  * [Github](https://github.com/equinor/template-fastapi-react)
 
- For questions about usage or expanding the service with new simulations, create issue on Github.
+ For questions about usage or expanding the API, create issue on Github or see docs.
 """
 
 
