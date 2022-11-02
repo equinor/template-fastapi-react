@@ -5,7 +5,7 @@ A repository interface describes the incoming parameters and the type of the obj
 ```mdx-code-block
 import CodeBlock from '@theme/CodeBlock';
 
-import TodoRepositoryInterface from '!!raw-loader!@site/../api/src/data-providers/repository-interfaces/TodoRepositoryInterface.py';
+import TodoRepositoryInterface from '!!raw-loader!@site/../api/src/data_providers/repository_interfaces/TodoRepositoryInterface.py';
 
 <CodeBlock language="jsx">{TodoRepositoryInterface}</CodeBlock>
 ```
