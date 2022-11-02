@@ -31,14 +31,7 @@ async function createConfig() {
     },
 
     plugins: [
-        [
-            '@docusaurus/plugin-content-docs',
-            {
-                id: 'changelog',
-                path: 'changelog',
-                routeBasePath: '/',
-            },
-        ],
+
     ],
 
     presets: [
@@ -71,18 +64,18 @@ async function createConfig() {
           },
           items: [
             {
-              type: 'doc',
-              docId: 'introduction',
+              type: 'docSidebar',
+              sidebarId: 'about',
               position: 'left',
               label: 'Docs',
             },
             {
-              type: 'doc',
-              docId: 'changelog',
-              docsPluginId: 'changelog',
+              type: 'docSidebar',
+              sidebarId: 'contribute',
               position: 'left',
-              label: 'Changelog',
+              label: 'Contribute',
             },
+            { to: '/docs/changelog', label: 'Changelog', position: 'left' },
             {
               href: 'https://github.com/equinor/template-fastapi-react',
               label: 'GitHub',
@@ -98,11 +91,11 @@ async function createConfig() {
               items: [
                 {
                   label: 'Docs',
-                  to: '/docs/introduction',
+                  to: '/docs/about/introduction',
                 },
                 {
                   label: 'Changelog',
-                  to: '/changelog',
+                  to: '/docs/changelog',
                 },
               ],
             },

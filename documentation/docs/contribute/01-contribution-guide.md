@@ -1,4 +1,4 @@
-# Contributing
+# How to start contributing
 
 Welcome! We are glad that you want to contribute to our project! 💖
 
