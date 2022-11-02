@@ -24,3 +24,19 @@ import Controller from '!!raw-loader!@site/../api/src/features/todo/todo_feature
 FastAPI is built around the [OpenAPI Specification](https://github.com/OAI/OpenAPI-Specification) (formerly known as swagger) standards. In FastAPI, by coding your endpoints, you are automatically writing your API documentation. FastAPI maps your endpoint details to a [JSON Schema](https://json-schema.org/) document.  Under the hood, FastAPI uses Pydantic for data validation. With Pydantic along with [type hints](https://docs.python.org/3/library/typing.html), you get a nice editor experience with autocompletion.
 
 :::
+
+## Testing controllers
+
+Use the `test_client` fixture to populate the database with test data and `test_app` fixture to perform REST API calls. 
+
+```mdx-code-block
+import Test from '!!raw-loader!@site/../api/src/tests/integration/features/todo/test_todo_feature.py';
+
+<CodeBlock language="jsx">{Test}</CodeBlock>
+```
+
+:::note
+
+Mark it as integration test.
+
+:::

@@ -24,3 +24,13 @@ Changes to use cases should not impact the entities.
 The use-case should only know of the repository interface (abstract class) before run-time. The concrete implementation of a repository is injected (dependency injection) into the use-case at run-time. 
 
 :::
+
+## Testing use cases
+
+Use the `todo_repository` fixture as input to use_cases. 
+
+```mdx-code-block
+import Test from '!!raw-loader!@site/../api/src/tests/unit/features/todo/use_cases/test_add_todo.py';
+
+<CodeBlock language="jsx">{Test}</CodeBlock>
+```
