@@ -1,5 +1,10 @@
 # Setup
 
+```mdx-code-block
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+```
+
 ## Prerequisites
 
 To work with the template monorepo you'll need to install [these tools](../../about/running/01-prerequisites.md).
@@ -42,31 +47,31 @@ From inside the /api folder.
 
 ### Create virtualenv
 
+Virtual environment is used for running unit tests with pre-commit and upgrade packages. It also can be used to run the application if you not are using Docker.
+
 ```shell
 python3 -m venv .venv
 ```
 
-Virtual environment is used for running unit tests with pre-commit and upgrade packages. It also can be used to run the application if you not are using Docker.
-
 ### Activate virtualenv
 
-<details>
-<summary>Linux</summary>
+<Tabs groupId="operating-system">
+<TabItem value="linux" label="Linux">
 
-```shell
-$ source .venv/bin/activate
-```
-</details>
-
-<details>
-<summary>Windows</summary>
-
-```shell
-$ .\venv\Scripts\Activate.ps1
-$ pip install --upgrade pip
+```bash
+source .venv/bin/activate
 ```
 
-</details>
+</TabItem>
+<TabItem value="windows" label="Windows">
+
+```powershell
+.\venv\Scripts\Activate.ps1
+pip install --upgrade pip
+```
+
+</TabItem>
+</Tabs>
 
 ### Install Poetry
 

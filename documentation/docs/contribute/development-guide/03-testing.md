@@ -2,23 +2,35 @@
 
 ## API
 
+```mdx-code-block
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+```
+
 The application has two types of API tests: unit tests and integration tests.
 
 ### Unit tests
 
 You will find unit tests under `src/tests/unit`.
 
-Using docker:
+<Tabs groupId="api-testing">
+<TabItem value="using-docker" label="Using docker">
 
 ```shell
 docker-compose run --rm api pytest
 ```
 
-Without using docker:
+</TabItem>
+<TabItem value="without-using-docker" label="Without using docker">
 
 ```shell
+cd api/
 pytest
 ```
+
+</TabItem>
+</Tabs>
+
 
 As a general rule, unit tests should not have any external dependencies - especially on the file system.
 
@@ -34,15 +46,20 @@ These tests depends on mongodb and that it's running.
 
 ### Unit tests
 
-Without using docker:
+<Tabs groupId="web-testing">
+<TabItem value="using-docker" label="Using docker">
 
 ```shell
 docker-compose run --rm web yarn test
 ```
 
-Not using docker:
+</TabItem>
+<TabItem value="without-using-docker" label="Without using docker">
 
 ```shell
 cd web/
 yarn test
 ```
+
+</TabItem>
+</Tabs>
