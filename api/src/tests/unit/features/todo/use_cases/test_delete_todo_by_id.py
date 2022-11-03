@@ -18,6 +18,5 @@ def test_delete_todo_should_return_success(todo_repository: TodoRepositoryInterf
 
 def test_delete_todo_should_return_not_success(todo_repository: TodoRepositoryInterface):
     id = "unkown"
-    with pytest.raises(NotFoundException) as error:
+    with pytest.raises(NotFoundException):
         delete_todo_use_case(id=id, todo_repository=todo_repository)
-        assert error.value.message == "The todo item you specified does not exist."

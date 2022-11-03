@@ -20,6 +20,5 @@ def test_get_todo_by_id_should_return_todo(todo_repository: TodoRepositoryInterf
 
 def test_get_todo_by_id_should_throw_todo_not_found_error(todo_repository: TodoRepositoryInterface):
     id = "unknown"
-    with pytest.raises(NotFoundException) as error:
+    with pytest.raises(NotFoundException):
         get_todo_by_id_use_case(id, todo_repository=todo_repository)
-        assert error.value.message == "The todo item you specified does not exist."
