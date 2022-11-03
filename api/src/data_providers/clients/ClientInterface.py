@@ -1,5 +1,5 @@
 from abc import abstractmethod
-from typing import Generic, List, TypeVar
+from typing import Dict, Generic, List, Optional, TypeVar
 
 # Type definition for Model
 M = TypeVar("M")
@@ -31,4 +31,16 @@ class ClientInterface(Generic[M, K]):
 
     @abstractmethod
     def insert_many(self, instances: List[M]):
+        pass
+
+    @abstractmethod
+    def delete_many(self, query: Dict):
+        pass
+
+    @abstractmethod
+    def find(self, filters: Dict) -> M:
+        pass
+
+    @abstractmethod
+    def find_one(self, filters: Dict) -> Optional[M]:
         pass

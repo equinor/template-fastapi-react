@@ -1,5 +1,6 @@
 import pytest
 from starlette.status import HTTP_200_OK
+from starlette.testclient import TestClient
 
 from authentication.mock_token_generator import generate_mock_token
 from authentication.models import User
@@ -9,7 +10,7 @@ pytestmark = pytest.mark.integration
 
 
 class TestWhoami:
-    def test_whoami(self, test_app):
+    def test_whoami(self, test_app: TestClient):
         config.AUTH_ENABLED = True
         config.TEST_TOKEN = True
         user = User(user_id=1, username="foo", roles=["a"])
