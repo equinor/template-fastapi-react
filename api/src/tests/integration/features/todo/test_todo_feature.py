@@ -1,5 +1,9 @@
 import pytest
-from starlette.status import HTTP_200_OK, HTTP_422_UNPROCESSABLE_ENTITY
+from starlette.status import (
+    HTTP_200_OK,
+    HTTP_404_NOT_FOUND,
+    HTTP_422_UNPROCESSABLE_ENTITY,
+)
 from starlette.testclient import TestClient
 
 from data_providers.clients.ClientInterface import ClientInterface
@@ -35,6 +39,10 @@ class TestTodo:
         assert response.json()["id"] == "1"
         assert response.json()["title"] == "title 1"
 
+    def test_get_todo_should_return_not_found(self, test_app: TestClient):
+        response = test_app.get("/todos/unknown")
+        assert response.status_code == HTTP_404_NOT_FOUND
+
     def test_add_todo(self, test_app: TestClient):
         response = test_app.post("/todos", json={"title": "title 3"})
         item = response.json()
@@ -53,6 +61,10 @@ class TestTodo:
         assert response.status_code == HTTP_200_OK
         assert response.json()["success"]
 
+    def test_update_todo_should_return_not_found(self, test_app):
+        response = test_app.put("/todos/unknown", json={"title": "something", "is_completed": False})
+        assert response.status_code == HTTP_404_NOT_FOUND
+
     def test_update_todo_should_return_unprocessable_when_invalid_entity(self, test_app: TestClient):
         response = test_app.put("/todos/1", json={"title": ""})
 
@@ -63,3 +75,7 @@ class TestTodo:
 
         assert response.status_code == HTTP_200_OK
         assert response.json()["success"]
+
+    def test_delete_todo_should_return_not_found(self, test_app: TestClient):
+        response = test_app.delete("/todos/unknown")
+        assert response.status_code == HTTP_404_NOT_FOUND

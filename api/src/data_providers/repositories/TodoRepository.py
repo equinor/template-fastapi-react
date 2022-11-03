@@ -1,5 +1,6 @@
 from typing import Optional
 
+from common.exceptions import NotFoundException
 from data_providers.clients.ClientInterface import ClientInterface
 from data_providers.repository_interfaces.TodoRepositoryInterface import (
     TodoRepositoryInterface,
@@ -24,7 +25,9 @@ class TodoRepository(TodoRepositoryInterface):
         return TodoItem.from_dict(updated_todo_item)
 
     def delete(self, todo_item_id: str) -> None:
-        self.client.delete(todo_item_id)
+        is_deleted = self.client.delete(todo_item_id)
+        if not is_deleted:
+            raise NotFoundException
 
     def delete_all(self) -> None:
         self.client.delete_collection(self.client.collection_name)

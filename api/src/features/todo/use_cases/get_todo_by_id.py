@@ -2,7 +2,6 @@ from typing import cast
 
 from pydantic import BaseModel, Field
 
-from common.exceptions import NotFoundException
 from data_providers.repository_interfaces.TodoRepositoryInterface import (
     TodoRepositoryInterface,
 )
@@ -21,6 +20,4 @@ class GetTodoByIdResponse(BaseModel):
 
 def get_todo_by_id_use_case(id: str, todo_repository: TodoRepositoryInterface) -> GetTodoByIdResponse:
     todo_item = todo_repository.get(id)
-    if not todo_item:
-        raise NotFoundException
     return GetTodoByIdResponse.from_entity(cast(TodoItem, todo_item))

@@ -51,7 +51,8 @@ class MongoDatabaseClient(ClientInterface[Dict, str]):
         return self.get(uid)
 
     def delete(self, uid: str) -> bool:
-        return self.collection.delete_one(filter={"_id": uid}).acknowledged
+        result = self.collection.delete_one(filter={"_id": uid})
+        return result.deleted_count > 0
 
     def find(self, filters: Dict) -> Cursor:
         return self.collection.find(filter=filters)

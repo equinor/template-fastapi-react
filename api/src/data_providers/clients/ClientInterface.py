@@ -14,7 +14,7 @@ class ClientInterface(Generic[M, K]):
         pass
 
     @abstractmethod
-    def delete(self, id: K) -> None:
+    def delete(self, id: K) -> bool:
         pass
 
     @abstractmethod
