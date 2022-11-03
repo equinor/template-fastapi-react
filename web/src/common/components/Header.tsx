@@ -6,7 +6,7 @@ import { receipt } from '@equinor/eds-icons'
 Icon.add({ receipt })
 
 const Header = () => {
-  const { tokenData, token } = useContext(AuthContext)
+  const { tokenData } = useContext(AuthContext)
   return (
     <TopBar>
       <TopBar.Header>
@@ -15,7 +15,9 @@ const Header = () => {
       </TopBar.Header>
       <TopBar.Actions>
         <Typography variant="caption">
-          Logged in as {token && tokenData?.['unique_name']}
+          {tokenData
+            ? `Logged in as ${tokenData?.['unique_name']}`
+            : 'Unauthenticated'}
         </Typography>
       </TopBar.Actions>
     </TopBar>

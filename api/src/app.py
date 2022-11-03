@@ -18,7 +18,7 @@ from features.whoami import whoami_feature
 
 description_md = """
 ### Description
-A RESTful API for handling todos items.
+A RESTful API for handling todo items.
 
 Anyone in Equinor are authorized to run these calculations.
  * Click **Authorize** to login and start testing.
