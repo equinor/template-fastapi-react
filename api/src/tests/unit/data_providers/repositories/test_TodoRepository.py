@@ -12,39 +12,39 @@ class TestTodoRepository:
         self.repository = TodoRepository(client=test_client)
 
     def test_create(self):
-        todo_item = TodoItem(id="1234", title="todo 1")
+        todo_item = TodoItem(id="1234", title="todos 1")
         self.repository.create(todo_item)
         assert len(self.repository.get_all()) == 1
 
     def test_create_already_exists(self):
-        todo_item_1 = TodoItem(id="1234", title="todo 1")
+        todo_item_1 = TodoItem(id="1234", title="todos 1")
         self.repository.create(todo_item_1)
         with pytest.raises(ValidationException):
-            todo_item_2 = TodoItem(id="1234", title="todo 1")
+            todo_item_2 = TodoItem(id="1234", title="todos 1")
             self.repository.create(todo_item_2)
 
     def test_find_item_that_exist(self):
         documents = [
-            {"_id": "81549300", "title": "todo 1"},
-            {"_id": "1a2b", "title": "todo 2"},
-            {"_id": "987321", "title": "todo 3"},
+            {"_id": "81549300", "title": "todos 1"},
+            {"_id": "1a2b", "title": "todos 2"},
+            {"_id": "987321", "title": "todos 3"},
             {
                 "_id": "987456",
-                "title": "todo 4",
+                "title": "todos 4",
             },
         ]
         self.repository.client.insert_many(documents)
-        todo_item = self.repository.find_one({"title": "todo 2"})
+        todo_item = self.repository.find_one({"title": "todos 2"})
         assert todo_item.id == "1a2b"
 
     def test_find_item_that_does_not_exist(self):
         documents = [
-            {"_id": "81549300", "title": "todo 1"},
-            {"_id": "1a2b", "title": "todo 2"},
-            {"_id": "987321", "title": "todo 3"},
+            {"_id": "81549300", "title": "todos 1"},
+            {"_id": "1a2b", "title": "todos 2"},
+            {"_id": "987321", "title": "todos 3"},
             {
                 "_id": "987456",
-                "title": "todo 4",
+                "title": "todos 4",
             },
         ]
         self.repository.client.insert_many(documents)
@@ -52,12 +52,12 @@ class TestTodoRepository:
 
     def test_get_item_that_does_exist(self):
         documents = [
-            {"_id": "81549300", "title": "todo 1"},
-            {"_id": "1a2b", "title": "todo 2"},
-            {"_id": "987321", "title": "todo 3"},
+            {"_id": "81549300", "title": "todos 1"},
+            {"_id": "1a2b", "title": "todos 2"},
+            {"_id": "987321", "title": "todos 3"},
             {
                 "_id": "987456",
-                "title": "todo 4",
+                "title": "todos 4",
             },
         ]
         self.repository.client.insert_many(documents)
@@ -66,12 +66,12 @@ class TestTodoRepository:
 
     def test_get_item_that_does_not_exist(self):
         documents = [
-            {"_id": "81549300", "title": "todo 1"},
-            {"_id": "1a2b", "title": "todo 2"},
-            {"_id": "987321", "title": "todo 3"},
+            {"_id": "81549300", "title": "todos 1"},
+            {"_id": "1a2b", "title": "todos 2"},
+            {"_id": "987321", "title": "todos 3"},
             {
                 "_id": "987456",
-                "title": "todo 4",
+                "title": "todos 4",
             },
         ]
         self.repository.client.insert_many(documents)
@@ -79,7 +79,7 @@ class TestTodoRepository:
             self.repository.get("invalid")
 
     def test_update_item(self):
-        todo_item = TodoItem(id="81549300", title="todo 1")
+        todo_item = TodoItem(id="81549300", title="todos 1")
         self.repository.create(todo_item)
         todo_item_to_update = TodoItem(id="81549300", title="Updated title")
         self.repository.update(todo_item=todo_item_to_update)
@@ -91,7 +91,7 @@ class TestTodoRepository:
             self.repository.update(todo_item_to_update)
 
     def test_delete(self):
-        documents = [{"_id": "81549300", "title": "todo 1"}, {"_id": "1a2b", "title": "todo 2"}]
+        documents = [{"_id": "81549300", "title": "todos 1"}, {"_id": "1a2b", "title": "todos 2"}]
         self.repository.client.insert_many(documents)
         assert len(self.repository.get_all()) == 2
         self.repository.delete("81549300")
@@ -99,7 +99,7 @@ class TestTodoRepository:
         assert self.repository.get_all() == [self.repository.get("1a2b")]
 
     def test_delete_all(self):
-        documents = [{"_id": "81549300", "title": "todo 1"}, {"_id": "1a2b", "title": "todo 2"}]
+        documents = [{"_id": "81549300", "title": "todos 1"}, {"_id": "1a2b", "title": "todos 2"}]
         self.repository.client.insert_many(documents)
         assert len(self.repository.get_all()) == 2
         self.repository.delete_all()

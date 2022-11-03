@@ -1,4 +1,4 @@
-# Fails to build styled-components with node 18
+# Fails to build styled-common with node 18
 FROM node:16 as base
 ARG AUTH_ENABLED=0
 ARG REDIRECT_URI=http://localhost/

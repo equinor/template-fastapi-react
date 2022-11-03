@@ -17,7 +17,7 @@ from data_providers.repositories.TodoRepository import TodoRepository
 def test_client():
     mongo_test_client = mongomock.MongoClient()
     client = MongoDatabaseClient(
-        collection_name="todo", database_name=mongo_test_client.TestDB.name, client=mongo_test_client
+        collection_name="todos", database_name=mongo_test_client.TestDB.name, client=mongo_test_client
     )
     yield client
     client.wipe_db()

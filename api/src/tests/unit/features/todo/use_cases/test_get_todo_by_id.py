@@ -22,3 +22,4 @@ def test_get_todo_by_id_should_throw_todo_not_found_error(todo_repository: TodoR
     id = "unknown"
     with pytest.raises(NotFoundException):
         get_todo_by_id_use_case(id, todo_repository=todo_repository)
+        assert error.message == "The todos item you specified does not exist."
