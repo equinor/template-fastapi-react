@@ -1,12 +1,15 @@
 import pytest
 from starlette.status import HTTP_200_OK, HTTP_422_UNPROCESSABLE_ENTITY
+from starlette.testclient import TestClient
+
+from data_providers.clients.ClientInterface import ClientInterface
 
 pytestmark = pytest.mark.integration
 
 
 class TestTodo:
     @pytest.fixture(autouse=True)
-    def setup_database(self, test_client):
+    def setup_database(self, test_client: ClientInterface):
         test_client.insert_many(
             [
                 {"_id": "1", "id": "1", "title": "title 1"},
@@ -14,7 +17,7 @@ class TestTodo:
             ]
         )
 
-    def test_get_todo_all(self, test_app):
+    def test_get_todo_all(self, test_app: TestClient):
         response = test_app.get("/todos")
         items = response.json()
 
@@ -25,21 +28,21 @@ class TestTodo:
         assert items[1]["id"] == "2"
         assert items[1]["title"] == "title 2"
 
-    def test_get_todo_by_id(self, test_app):
+    def test_get_todo_by_id(self, test_app: TestClient):
         response = test_app.get("/todos/1")
 
         assert response.status_code == HTTP_200_OK
         assert response.json()["id"] == "1"
         assert response.json()["title"] == "title 1"
 
-    def test_add_todo(self, test_app):
+    def test_add_todo(self, test_app: TestClient):
         response = test_app.post("/todos", json={"title": "title 3"})
         item = response.json()
 
         assert response.status_code == HTTP_200_OK
         assert item["title"] == "title 3"
 
-    def test_add_todo_should_return_unprocessable_when_invalid_entity(self, test_app):
+    def test_add_todo_should_return_unprocessable_when_invalid_entity(self, test_app: TestClient):
         response = test_app.post("/todos", json=None)
 
         assert response.status_code == HTTP_422_UNPROCESSABLE_ENTITY
@@ -50,12 +53,12 @@ class TestTodo:
         assert response.status_code == HTTP_200_OK
         assert response.json()["success"]
 
-    def test_update_todo_should_return_unprocessable_when_invalid_entity(self, test_app):
+    def test_update_todo_should_return_unprocessable_when_invalid_entity(self, test_app: TestClient):
         response = test_app.put("/todos/1", json={"title": ""})
 
         assert response.status_code == HTTP_422_UNPROCESSABLE_ENTITY
 
-    def test_delete_todo(self, test_app):
+    def test_delete_todo(self, test_app: TestClient):
         response = test_app.delete("/todos/1")
 
         assert response.status_code == HTTP_200_OK
