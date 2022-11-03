@@ -9,7 +9,7 @@ async function createConfig() {
   const mdxMermaid = await import('mdx-mermaid')
   return {
     title: 'Template FastAPI React',
-    tagline: 'Documentation for the FastAPI React Template',
+    tagline: 'A solution template for creating a Single Page App (SPA) with React and FastAPI following the principles of Clean Architecture.',
     url: 'https://template-fastapi-react.app.radix.equinor.com/',
     baseUrl: '/template-fastapi-react/',
     onBrokenLinks: 'throw',
