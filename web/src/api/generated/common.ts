@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * Template FastAPI React
- *  ### Description A RESTful API for handling todo items.  Anyone in Equinor are authorized to run these calculations.  * Click **Authorize** to login and start testing.  ### Resources  * [Docs](https://equinor.github.io/template-fastapi-react/)  * [Github](https://github.com/equinor/template-fastapi-react)   For questions about usage or expanding the service with new simulations, create issue on Github. 
+ *  ### Description A RESTful API for handling todos items.  Anyone in Equinor are authorized to run these calculations.  * Click **Authorize** to login and start testing.  ### Resources  * [Docs](https://equinor.github.io/template-fastapi-react/)  * [Github](https://github.com/equinor/template-fastapi-react)   For questions about usage or expanding the service with new simulations, create issue on Github.
  *
  * The version of the OpenAPI document: 0.1.0
  * 

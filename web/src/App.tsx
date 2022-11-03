@@ -1,18 +1,8 @@
-import { TodoApp } from './components/TodoApp'
-// @ts-ignore
-import { AuthProvider } from 'react-oauth2-code-pkce'
-import { authConfig } from './auth'
-
-const hasUnsafeAuthConfig = process.env.REACT_APP_AUTH !== '1'
+import { router } from './router'
+import { RouterProvider } from 'react-router-dom'
 
 function App() {
-  return hasUnsafeAuthConfig ? (
-    <TodoApp />
-  ) : (
-    <AuthProvider authConfig={authConfig}>
-      <TodoApp />
-    </AuthProvider>
-  )
+  return <RouterProvider router={router} />
 }
 
 export default App

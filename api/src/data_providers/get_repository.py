@@ -19,6 +19,6 @@ MONGO_CLIENT: MongoClient = MongoClient(
 
 def get_todo_repository():
     mongo_database_client = MongoDatabaseClient(
-        collection_name="todo", database_name=config.MONGODB_DATABASE, client=MONGO_CLIENT
+        collection_name="todos", database_name=config.MONGODB_DATABASE, client=MONGO_CLIENT
     )
     return TodoRepository(client=mongo_database_client)
