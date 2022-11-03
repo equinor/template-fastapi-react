@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@equinor/eds-core-react": "^0.20.3",
+    "@equinor/eds-icons": "^0.15.0",
     "axios": "^0.27.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
