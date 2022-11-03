@@ -1,23 +1,53 @@
-import React from 'react'
+import { StyledTodoItemTitle } from './TodoItem.styled'
 import {
-  StyledTodoContent,
-  StyledTodoItem,
-  StyledTodoItemTitle,
-} from './TodoItem.styled'
-import { Button } from '@equinor/eds-core-react'
+  Button,
+  Card,
+  Typography,
+  Icon,
+  Tooltip,
+} from '@equinor/eds-core-react'
+import { undo, done, remove_outlined } from '@equinor/eds-icons'
+import { AddTodoResponse } from '../../../api/generated'
 
-const TodoItem = (props: any) => {
-  const { todo, index, onToggle, onRemove } = props
+Icon.add({ undo, done, remove_outlined })
+
+const TodoItem = (props: {
+  todo: AddTodoResponse
+  onToggle: (id: string) => void
+  onRemove: (id: string) => void
+}) => {
+  const { todo, onToggle, onRemove } = props
   return (
-    <StyledTodoItem
-      is_completed={todo.is_completed}
-      onClick={() => onToggle(todo.id, todo.is_completed as boolean, index)}
-    >
-      <StyledTodoContent>
-        <StyledTodoItemTitle>{todo.title}</StyledTodoItemTitle>
-        <Button onClick={() => onRemove(todo.id, index)}>Remove</Button>
-      </StyledTodoContent>
-    </StyledTodoItem>
+    <Card>
+      <Card.Header>
+        <Card.HeaderTitle>
+          <StyledTodoItemTitle
+            variant="h5"
+            className="todoTitle"
+            is_completed={todo.is_completed}
+          >
+            {todo.title}
+          </StyledTodoItemTitle>
+          <Typography variant="body_short">
+            {todo.is_completed ? 'Done' : 'Todo'}
+          </Typography>
+        </Card.HeaderTitle>
+        <Tooltip title={`Mark as ${todo.is_completed ? 'incomplete' : 'done'}`}>
+          <Button variant="ghost_icon" onClick={() => onToggle(todo.id)}>
+            <Icon
+              name={todo.is_completed ? 'undo' : 'done'}
+              size={24}
+              title={todo.is_completed ? 'incomplete' : 'done'}
+            />
+          </Button>
+        </Tooltip>
+        <Tooltip title="Remove">
+          <Button variant="ghost_icon" onClick={() => onRemove(todo.id)}>
+            <Icon name="remove_outlined" size={24} title="Remove" />
+          </Button>
+        </Tooltip>
+      </Card.Header>
+    </Card>
   )
 }
 

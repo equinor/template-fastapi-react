@@ -3,13 +3,13 @@ import { useState } from 'react'
 import { Button, CircularProgress, Input } from '@equinor/eds-core-react'
 import TodoItem from './TodoItem'
 import { AddTodoResponse } from '../../../api/generated'
-import { StyledTodoList } from './TodoList.styled'
+import { StyledTodoList, StyledInput } from './TodoList.styled'
 
-const AddItem = (props: any) => {
+const AddItem = (props: { onAddItem: (id: string) => void }) => {
   const { onAddItem } = props
   const [value, setValue] = useState('')
 
-  const handleAddItem = (event: any) => {
+  const handleAddItem = (event: Event) => {
     event.preventDefault()
     if (!value) return
     onAddItem(value)
@@ -18,14 +18,16 @@ const AddItem = (props: any) => {
   return (
     <div className="form">
       <form onSubmit={handleAddItem}>
-        <Input
-          className="input"
-          placeholder="Add Task"
-          onChange={(e) => setValue(e.target.value)}
-        />
-        <Button className="add-button" type="submit">
-          Add
-        </Button>
+        <StyledInput>
+          <Input
+            className="input"
+            placeholder="Add Task"
+            onChange={(e) => setValue(e.target.value)}
+          />
+          <Button className="add-button" type="submit">
+            Add
+          </Button>
+        </StyledInput>
       </form>
     </div>
   )
@@ -42,13 +44,12 @@ const TodoList = () => {
   return (
     <StyledTodoList>
       <AddItem onAddItem={addItem} />
-      {todos?.map((todo: AddTodoResponse, index: number) => (
+      {todos?.map((todo: AddTodoResponse) => (
         <TodoItem
-          key={`${index}-${todo.is_completed}`}
+          key={todo.id}
           onToggle={toggleItem}
           onRemove={removeItem}
           todo={todo}
-          index={index}
         />
       ))}
     </StyledTodoList>

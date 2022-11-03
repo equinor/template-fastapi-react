@@ -20,4 +20,3 @@ def test_delete_todo_should_return_not_success(todo_repository: TodoRepositoryIn
     id = "unkown"
     with pytest.raises(NotFoundException):
         delete_todo_use_case(id=id, todo_repository=todo_repository)
-        assert error.message == "The todos item you specified does not exist."
