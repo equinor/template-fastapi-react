@@ -28,3 +28,33 @@
   margin: 20px auto;
   width: 65%;
 }
+
+.features {
+  display: flex;
+}
+
+.feature {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 20px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 15px;
+  display: flex;
+  height: 180px;
+  width: 180px;
+}
+
+
+.glass {
+  font-size: 10em;
+  display: inline-block;
+  width: 1.4em;
+  box-sizing: content-box;
+  height: 1.4em;
+  border: 0.01em solid black;
+  position: relative;
+  border-radius: 1.35em;
+  margin: 10px 10px;
+}
