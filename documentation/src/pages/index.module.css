@@ -24,37 +24,40 @@
 
 .description {
   text-align: center;
-  font-size: 22px;
-  margin: 20px auto;
+  font-size: 24px;
+  margin: 32px auto;
   width: 65%;
 }
 
 .features {
   display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 10px auto 80px;
 }
+
 
 .feature {
+  display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
-  margin: 20px 20px;
+  --feature-size: 220px;
+  height: var(--feature-size);
+  width: var(--feature-size);
+  margin: 10px;
+  padding: 12px;
+
   font-size: 16px;
   font-weight: bold;
-  padding: 15px;
-  display: flex;
-  height: 180px;
-  width: 180px;
+  text-align: center;
+
+  transition: all 0.25s;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-
-.glass {
-  font-size: 10em;
-  display: inline-block;
-  width: 1.4em;
-  box-sizing: content-box;
-  height: 1.4em;
-  border: 0.01em solid black;
-  position: relative;
-  border-radius: 1.35em;
-  margin: 10px 10px;
+.feature:hover {
+  background: rgba(255, 255, 255, 0.12);
 }
