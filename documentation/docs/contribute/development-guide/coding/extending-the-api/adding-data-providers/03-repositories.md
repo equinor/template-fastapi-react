@@ -16,7 +16,7 @@ import TodoRepository from '!!raw-loader!@site/../api/src/data_providers/reposit
 Use the `test_client` fixture as input to TodoRepository. The `test_client` fixture are using the mongomock instead of real database. 
 
 ```mdx-code-block
-import Test from '!!raw-loader!@site/../api/src/tests/unit/infrastructure/repositories/test_TodoRepository.py';
+import Test from '!!raw-loader!@site/../api/src/tests/unit/data_providers/repositories/test_TodoRepository.py';
 
 <CodeBlock language="jsx">{Test}</CodeBlock>
 ```
