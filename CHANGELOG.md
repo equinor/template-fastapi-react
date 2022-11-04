@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/equinor/template-fastapi-react/compare/v1.1.0...v1.1.1) (2022-11-04)
+
+
+### Bug Fixes
+
+* resolve PR feedback ([bd3debe](https://github.com/equinor/template-fastapi-react/commit/bd3debe820f27ebf7d892ecbda77720fc66be06b))
+
 ## [1.1.0](https://github.com/equinor/template-fastapi-react/compare/v1.0.0...v1.1.0) (2022-11-04)
 
 
