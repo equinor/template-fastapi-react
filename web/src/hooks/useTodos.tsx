@@ -4,14 +4,14 @@ import TodoAPI from '../api/TodoAPI'
 import { AxiosError } from 'axios'
 import { AddTodoResponse, ErrorResponse } from '../api/generated'
 
-const useTodos = (): [
-  AddTodoResponse[],
-  boolean,
-  (title: string) => void,
-  (id: string) => void,
-  (id: string) => void,
-  AxiosError | null
-] => {
+const useTodos = (): {
+  todos: AddTodoResponse[]
+  isLoading: boolean
+  addItem: (title: string) => void
+  removeItem: (id: string) => void
+  toggleItem: (id: string) => void
+  error: AxiosError | null
+} => {
   const [todos, setTodos] = useState<AddTodoResponse[]>([])
   const [isLoading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<AxiosError | null>(null)
@@ -83,7 +83,7 @@ const useTodos = (): [
       .finally(() => setLoading(false))
   }
 
-  return [todos, isLoading, addItem, removeItem, toggleItem, error]
+  return { todos, isLoading, addItem, removeItem, toggleItem, error }
 }
 
 export default useTodos
