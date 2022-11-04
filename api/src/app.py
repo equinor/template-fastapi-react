@@ -20,7 +20,7 @@ description_md = """
 ### Description
 A RESTful API for handling todo items.
 
-Anyone in Equinor are authorized to run these calculations.
+Anyone in Equinor are authorized to use the API.
  * Click **Authorize** to login and start testing.
 
 ### Resources
