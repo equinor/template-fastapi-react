@@ -34,7 +34,8 @@ const AddItem = (props: { onAddItem: (id: string) => void }) => {
 }
 
 const TodoList = () => {
-  const [todos, isLoading, addItem, removeItem, toggleItem, error] = useTodos()
+  const { todos, isLoading, addItem, removeItem, toggleItem, error } =
+    useTodos()
 
   if (isLoading) return <CircularProgress />
 
