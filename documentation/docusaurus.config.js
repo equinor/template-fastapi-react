@@ -77,6 +77,11 @@ async function createConfig() {
             },
             { to: '/docs/changelog', label: 'Changelog', position: 'left' },
             {
+              href: 'https://template-fastapi-react.app.radix.equinor.com',
+              label: 'Demo',
+              position: 'right',
+            },
+            {
               href: 'https://template-fastapi-react.app.radix.equinor.com/api/docs',
               label: 'API',
               position: 'right',
