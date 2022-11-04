@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.1.0](https://github.com/equinor/template-fastapi-react/compare/v1.0.0...v1.1.0) (2022-11-04)
+
+
+### Features
+
+* standardized ErrorResponse model ([c09e4dc](https://github.com/equinor/template-fastapi-react/commit/c09e4dccf5abd62fa05e9b1c0a577ea72d0129c4))
+
+
+### Bug Fixes
+
+* add types to fixtures ([0528e5b](https://github.com/equinor/template-fastapi-react/commit/0528e5beb9bec905cedee1db2af3b2a5248fe85d))
+* delete non existing item should return 404 ([4341416](https://github.com/equinor/template-fastapi-react/commit/43414160eef1bee7ff2ea44c7c9f99e041ccc977))
+
 ## 1.0.0 (2022-09-07)
 
 
