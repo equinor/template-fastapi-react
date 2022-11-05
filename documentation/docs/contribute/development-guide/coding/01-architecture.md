@@ -95,25 +95,32 @@ We follow the [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08
 
 It is a layered approach for a [more civilized age](https://www.youtube.com/watch?v=wtCQalq7L-E).
 
+Clean architecture aims to divide a big project into layers and pieces (classes, entities, modules etc.), and to make them independent of each other, so that our big and complex project become more maintainable, flexible and easy to work on together.
+
 ![Clean Architecture](/img/clean-architecture2.png)
 
-The main point of this approach is that the business logic, also known as domain, is at the center of the universe.
+The key idea behind this diagram is that the application should be divided into layers (there can be any amount of layers). The inner layers do not know about outer ones, the dependencies are directed to the center. The far a layer is from the center, the more it knows about "non-business" details of the application (e.g. which framework is used).
 
-#### The Dependency Rule
+The idea to keep the core business logic (entities) and application logic (use cases) at the center of the solution structure, and independent of frameworks, databases, and external parts (the two outer layers). This is to allow the core part, adaptive and flexible enough to deal with changing technology and interfaces, so that frameworks, databases, and external parts can be replaced with minimum efforts.
 
-The most important rule is that source code dependencies can only point inwards. Nothing in an inner circle can know anything at all about something in an outer circle. In particular, the name of something declared in an outer circle must not be mentioned by the code in an inner circle. That includes functions, classes. variables, or any other named software entity. 
+:::note
 
-:::info
-
-Talk inward with simple structures (dictionaries or classes) and talk outwards through interfaces.
+* The core inner entities and use cases are less likely to change
+* The external layers are most likely to change based on technologies, frameworks and so on
 
 :::
 
-The dependency rule is the underlying rule that makes Clean Architecture work. It says that nothing in an inner circle should depend on anything in an outer circle. For example, Entities know nothing about all the other circles, while the Frameworks & Drivers, the outer layer, know everything about the inner rings. In particular, application and business rules shouldn’t depend on the UI, database, presenters, and so on. These rules allow us to build systems that are simpler to maintain, as changes in outer circles won’t impact inner ones. 
+### The dependency rule
+
+The most important rule is that source code **dependencies can only point inwards.** Nothing in an inner circle can know anything at all about something in an outer circle. In particular, the name of something declared in an outer circle must not be mentioned by the code in an inner circle. That includes functions, classes. variables, or any other named software entity. 
+
+The dependency rule is the underlying rule that makes Clean Architecture work. It says that nothing in an inner circle should depend on anything in an outer circle. For example, Entities know nothing about all the other circles, while the outer layer, know everything about the inner rings. In particular, application and business rules shouldn’t depend on the UI, database, presenters, and so on. These rules allow us to build systems that are simpler to maintain, as changes in outer circles won’t impact inner ones.
 
 :::info
 
-The inner circles says what, and outer circles says how.
+The inner circle is not allowed to know anything about the outer circle. 
+
+Talk inward with simple structures (dictionaries or classes) and talk outwards through interfaces.
 
 :::
 
@@ -172,8 +179,12 @@ Data flow:
     * Could have multiple implementations, e.g. from db or from file system.
   * Hides all details about where the data is from.
     * Can work against local, remote, data services or third party services.
-
-
+    
 ### Business rules 
 
-The business logic is divided into two layers: The domain layer (aka entities) and the application layer (aka use cases). The domain layer contains the enterprise business logic, and the application layer contains the application business logic. The difference being that enterprise logic could be shared between systems whereas application logic would typically be specific to single system.
+The business logic is divided into two layers:
+
+* The domain layer (aka entities) 
+* The application layer (aka use cases)
+
+The domain layer contains the enterprise business logic, and the application layer contains the application business logic. The difference being that enterprise logic could be shared between systems whereas application logic would typically be specific to single system.
