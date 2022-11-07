@@ -10,6 +10,8 @@ A feature has this structure.
 └── ...
 ```
 
+Define endpoints in the controller that calls use cases that implements the application logic. 
+
 ## Register a feature
 
 Import the router of the feature and include it to the app.
