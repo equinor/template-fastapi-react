@@ -42,7 +42,7 @@ The API has a feature-based folder structure following the principles of [Clean 
    * Add a [use case](adding-features/02-use-cases.md) to handle application logic 
    * Add a [controller](adding-features/01-controllers.md) to handle API requests
       * Add an endpoint to the controller that executes the use case
-3. Add [repository implementations](adding-data-providers/03-repositories.md) to handle communication to external services such as databases.
+3. Add a data provider, [repository interface](adding-data-providers/02-repository-interfaces.md) and [repository](adding-data-providers/03-repositories.md) to handle communication to external services such as databases.
 
 
 :::note

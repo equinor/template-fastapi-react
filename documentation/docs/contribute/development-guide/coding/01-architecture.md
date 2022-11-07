@@ -95,13 +95,13 @@ We follow the [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08
 
 It is a layered approach for a [more civilized age](https://www.youtube.com/watch?v=wtCQalq7L-E).
 
-Clean architecture aims to divide a big project into layers and pieces (classes, entities, modules etc.), and to make them independent of each other, so that our big and complex project become more maintainable, flexible and easy to work on together.
+Clean architecture aims to divide a big project into layers and pieces (classes, entities, modules etc.), and to make them independent of each other, so that our big and complex project becomes more maintainable, flexible and easy to work on together.
 
 ![Clean Architecture](/img/clean-architecture2.png)
 
-The key idea behind this diagram is that the application should be divided into layers (there can be any amount of layers). The inner layers do not know about outer ones, the dependencies are directed to the center. The far a layer is from the center, the more it knows about "non-business" details of the application (e.g. which framework is used).
+The key idea behind this diagram is that the application should be divided into layers (there can be any amount of layers). The inner layers must not know anything about the outer ones; all dependencies are directed towards the center. The further a layer is from the center, the more it knows about "non-business" details of the application (e.g. which framework is used is part of the outermost layers).
 
-The idea to keep the core business logic (entities) and application logic (use cases) at the center of the solution structure, and independent of frameworks, databases, and external parts (the two outer layers). This is to allow the core part, adaptive and flexible enough to deal with changing technology and interfaces, so that frameworks, databases, and external parts can be replaced with minimum efforts.
+The idea to keep the core business logic (entities) and application logic (use cases) at the center of the solution structure, and independent of frameworks, databases, and external parts (the two outer layers). This allows the core part to be adaptive and flexible enough to deal with changing technology and interfaces, so that frameworks, databases, and external parts can be replaced with minimum efforts.
 
 :::note
 
