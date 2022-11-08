@@ -9,14 +9,12 @@ const hasAuthConfig = process.env.REACT_APP_AUTH === '1'
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
-    <>
-      {hasAuthConfig ? (
-        <AuthProvider authConfig={authConfig}>
-          <App />
-        </AuthProvider>
-      ) : (
+    {hasAuthConfig ? (
+      <AuthProvider authConfig={authConfig}>
         <App />
-      )}
-    </>
+      </AuthProvider>
+    ) : (
+      <App />
+    )}
   </React.StrictMode>
 )
