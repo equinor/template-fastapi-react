@@ -66,9 +66,11 @@ External dependencies:
 * The app is using [react-oauth2-code-pkce](https://www.npmjs.com/package/react-oauth2-code-pkce) for Oauth2 authentication. 
 * The app is using [react-router-dom](https://www.npmjs.com/package/react-router-dom) for routing. 
 
-# Configuration
+## Configuration
 
-## Oauth2
+See [configuration](../../../../about/running/configure) for a description of the different configuration options available.
+
+### Oauth2
 
 The AuthProvider are using the configuration defined in `web/src/auth`. 
 
@@ -79,7 +81,7 @@ import auth from '!!raw-loader!@site/../web/src/auth';
 <CodeBlock language="jsx">{auth}</CodeBlock>
 ```
 
-## Routes
+### Routes
 
 The RouterProvider are using the router defined in `web/src/router`.
 

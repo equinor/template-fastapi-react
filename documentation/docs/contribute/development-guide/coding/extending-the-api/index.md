@@ -50,3 +50,16 @@ The API has a feature-based folder structure following the principles of [Clean 
 Entities and data providers can be shared between features (the entrypoints and use-cases).
 
 :::
+
+# Configuration
+
+All configuration parameters are expected to be environment variables, and are defined in this file `api/src/config.py`.
+
+```mdx-code-block
+import CodeBlock from '@theme/CodeBlock';
+import auth from '!!raw-loader!@site/../api/src/config.py';
+
+<CodeBlock language="jsx">{auth}</CodeBlock>
+```
+
+See [configuration](../../../../about/running/configure) for a description of the different configuration options available.
