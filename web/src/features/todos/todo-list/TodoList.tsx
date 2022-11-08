@@ -11,8 +11,8 @@ const AddItem = (props: { onAddItem: (id: string) => void }) => {
 
   const handleAddItem = (event: Event) => {
     event.preventDefault()
-    if (!value) return
-    onAddItem(value)
+    if (value) onAddItem(value)
+    setValue('')
   }
 
   return (
