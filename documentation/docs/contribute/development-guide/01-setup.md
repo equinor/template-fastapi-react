@@ -41,6 +41,37 @@ Pre-commit tests can be skipped on commits with `git commit --no-verify`.
 If you have to skip the pre-commit tests, you're probably doing something you're not supposed to, and whoever commits after you might have to fix your "mistakes". Consider updating the pre-commit hooks if your code is non-compliant.
 :::
 
+### Hooks
+<details>
+
+<summary>Overview</summary>
+
+| Repository                                                                          | Hook                    | Purpose                                                                            |
+|-------------------------------------------------------------------------------------|-------------------------|------------------------------------------------------------------------------------|
+| [pre-commit/pre-commit-hooks](https://github.com/pre-commit/pre-commit-hooks)                                      | check-ast               | Check whether files parse as valid python                                          |
+|                                                                                     | check-merge-conflict    | Check for files that contain merge conflict strings                                |
+|                                                                                     | check-case-conflict     | Check for files with names that would conflict on a case-insensitive filesystem    |
+|                                                                                     | check-json              | Verify syntax of all JSON files                                                    |
+|                                                                                     | check-toml              | Verify syntax of all TOML files                                                    |
+|                                                                                     | check-yaml              | Verify syntax of all YAML files                                                    |
+|                                                                                     | trailing-whitespace     | Trim trailing whitespace                                                           |
+|                                                                                     | mixed-line-ending       | Replaces or checks mixed line ending                                               |
+|                                                                                     | detect-private-key      | Checks for the existence of private keys                                           |
+| [compilerla/conventional-pre-commit](https://github.com/compilerla/conventional-pre-commit)                               | conventional-pre-commit | A pre-commit hook to check commit messages for Conventional Commits formatting     |
+| [ambv/black](https://github.com/ambv/black)                                                       | black                   | Python code formatter                                                              |
+| [PyCQA/bandit](https://github.com/PyCQA/bandit)                                                     | bandit                  | A security linter designed to find common security issues in Python code           |
+| [econchick/interrogate](https://github.com/econchick/interrogate)                                            | interrogate             | Check the code base for missing docstrings                                         |
+| [hadialqattan/pycln](https://github.com/hadialqattan/pycln)                                               | pycln                   | Finds and removes unused import statements                                         |
+| [pycqa/isort](https://github.com/pycqa/isort)                                                      | isort                   | Sort imports alphabetically, and automatically separated into sections and by type |
+| [pre-commit/mirrors-prettier](https://github.com/pre-commit/mirrors-prettier)                                      | prettier                | TypeScript/JavaScript/JSON ++ code formatter                                       |
+| [pre-commit/mirrors-eslint](https://github.com/pre-commit/mirrors-eslint)                                        | eslint                  | Helps you find and fix problems in your JavaScript code                            |
+| [pycqa/flake8](https://gitlab.com/pycqa/flake8)                                                     | flake8                  | Check the style and quality of Python code                                         |
+| [local](https://github.com/equinor/template-fastapi-react/blob/main/.pre-commit-config.yaml) | mypy                    | Python type checker                                                                |
+|                                                                                     | pytest                  | Python test runner                                                                 |
+|                                                                                     |                         |                                                                                    |
+
+</details>
+
 ## API
 
 From inside the /api folder.
