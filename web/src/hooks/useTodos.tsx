@@ -10,11 +10,11 @@ const useTodos = (): {
   addItem: (title: string) => void
   removeItem: (id: string) => void
   toggleItem: (id: string) => void
-  error: AxiosError | null
+  error: AxiosError<ErrorResponse> | null
 } => {
   const [todos, setTodos] = useState<AddTodoResponse[]>([])
   const [isLoading, setLoading] = useState<boolean>(true)
-  const [error, setError] = useState<AxiosError | null>(null)
+  const [error, setError] = useState<AxiosError<ErrorResponse> | null>(null)
   const { token } = useContext(AuthContext)
   const todoAPI = new TodoAPI(token)
 
@@ -23,7 +23,7 @@ const useTodos = (): {
     todoAPI
       .getAll()
       .then((response) => setTodos(response.data))
-      .catch((error: AxiosError) => setError(error))
+      .catch((error: AxiosError<ErrorResponse>) => setError(error))
       .finally(() => setLoading(false))
   }, [])
 
@@ -55,7 +55,7 @@ const useTodos = (): {
         )
         setTodos(tmpTodos)
       })
-      .catch((error: AxiosError) => setError(error))
+      .catch((error: AxiosError<ErrorResponse>) => setError(error))
       .finally(() => setLoading(false))
   }
 
@@ -79,7 +79,7 @@ const useTodos = (): {
         items[index] = todoItem
         setTodos([...items])
       })
-      .catch((error: AxiosError) => setError(error))
+      .catch((error: AxiosError<ErrorResponse>) => setError(error))
       .finally(() => setLoading(false))
   }
 

@@ -1,5 +1,5 @@
 import useTodos from '../../../hooks/useTodos'
-import { useState } from 'react'
+import { FormEventHandler, useState } from 'react'
 import { Button, CircularProgress, Input } from '@equinor/eds-core-react'
 import TodoItem from './TodoItem'
 import { AddTodoResponse } from '../../../api/generated'
@@ -9,7 +9,7 @@ const AddItem = (props: { onAddItem: (id: string) => void }) => {
   const { onAddItem } = props
   const [value, setValue] = useState('')
 
-  const handleAddItem = (event: Event) => {
+  const handleAddItem: FormEventHandler = (event) => {
     event.preventDefault()
     if (value) onAddItem(value)
     setValue('')
