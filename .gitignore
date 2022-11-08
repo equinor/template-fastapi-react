@@ -162,6 +162,7 @@ web/.yarn/*
 !web/.yarn/releases
 !web/.yarn/sdks
 !web/.yarn/versions
+!web/.yarn/**/lib/
 
 # Asdf package manager
 /*/.tool-versions
