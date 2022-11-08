@@ -52,12 +52,15 @@ services:
 
   db:
     volumes:
-      - ./data/db:/data/db
+      - database:/data/db
     env_file:
       - .env
     environment:
       MONGO_INITDB_ROOT_USERNAME: $MONGODB_USERNAME
       MONGO_INITDB_ROOT_PASSWORD: $MONGODB_PASSWORD
+
+volumes:
+  database:
 
   # db-ui:
   #   image: mongo-express:0.49
