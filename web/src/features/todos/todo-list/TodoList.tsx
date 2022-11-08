@@ -1,9 +1,13 @@
 import useTodos from '../../../hooks/useTodos'
 import { FormEventHandler, useState } from 'react'
-import { Button, CircularProgress, Input } from '@equinor/eds-core-react'
+import { Button, Input, Progress } from '@equinor/eds-core-react'
 import TodoItem from './TodoItem'
 import { AddTodoResponse } from '../../../api/generated'
-import { StyledTodoList, StyledInput } from './TodoList.styled'
+import {
+  StyledTodoList,
+  StyledInput,
+  SpinnerContainer,
+} from './TodoList.styled'
 
 const AddItem = (props: { onAddItem: (id: string) => void }) => {
   const { onAddItem } = props
@@ -37,8 +41,6 @@ const TodoList = () => {
   const { todos, isLoading, addItem, removeItem, toggleItem, error } =
     useTodos()
 
-  if (isLoading) return <CircularProgress />
-
   if (error)
     return <div>{error?.response?.data.message ?? 'Something went wrong!'}</div>
 
@@ -53,6 +55,11 @@ const TodoList = () => {
           todo={todo}
         />
       ))}
+      {isLoading && (
+        <SpinnerContainer>
+          <Progress.Circular />
+        </SpinnerContainer>
+      )}
     </StyledTodoList>
   )
 }
