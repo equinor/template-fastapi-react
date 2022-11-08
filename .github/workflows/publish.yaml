@@ -27,7 +27,7 @@ env:
   NGINX_IMAGE: ghcr.io/equinor/template-fastapi-react/nginx
 
 jobs:
-  build-and-publish-web-master:
+  build-and-publish-web-main:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -50,7 +50,7 @@ jobs:
           docker tag $WEB_IMAGE $WEB_IMAGE:${{ inputs.image-tag }}
           docker push $WEB_IMAGE:${{ inputs.image-tag }}
 
-  build-and-publish-api-master:
+  build-and-publish-api-main:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
