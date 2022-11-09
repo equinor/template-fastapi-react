@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.2.0](https://github.com/equinor/template-fastapi-react/compare/v1.1.1...v1.2.0) (2022-11-09)
+
+
+### Features
+
+* expand and visualize auth states ([51c9870](https://github.com/equinor/template-fastapi-react/commit/51c9870bc657d586464780c664aeb6edb49b5ba2))
+* **web:** clear input on add-todo ([d61adc1](https://github.com/equinor/template-fastapi-react/commit/d61adc16ea35a25b2d556b61b9d1cf710de41e8e))
+* **web:** visualize loading state better ([6a6ab81](https://github.com/equinor/template-fastapi-react/commit/6a6ab81bec55bf79aeda5a07e8eff5cdd84b4ab5))
+
+
+### Bug Fixes
+
+* make useTodos simpler to use ([e8f0a18](https://github.com/equinor/template-fastapi-react/commit/e8f0a1866c594ca0a526bac3ae3e5a1f8551a005))
+
 ## [1.1.1](https://github.com/equinor/template-fastapi-react/compare/v1.1.0...v1.1.1) (2022-11-04)
 
 
