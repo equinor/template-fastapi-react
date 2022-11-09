@@ -24,6 +24,7 @@ const AddItem = (props: { onAddItem: (id: string) => void }) => {
       <form onSubmit={handleAddItem}>
         <StyledInput>
           <Input
+            value={value}
             className="input"
             placeholder="Add Task"
             onChange={(e) => setValue(e.target.value)}
