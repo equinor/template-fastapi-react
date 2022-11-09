@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/equinor/template-fastapi-react/compare/v1.2.0...v1.2.1) (2022-11-09)
+
+
+### Bug Fixes
+
+* **web:** adding todo item now clears input. ([82e6f6b](https://github.com/equinor/template-fastapi-react/commit/82e6f6baee06ccbd50c4d59fe7a9a97a4b1df094))
+
 ## [1.2.0](https://github.com/equinor/template-fastapi-react/compare/v1.1.1...v1.2.0) (2022-11-09)
 
 
