@@ -1,5 +1,6 @@
 from pydantic import BaseModel, Field
 
+from common.exceptions import NotFoundException
 from data_providers.repository_interfaces.TodoRepositoryInterface import (
     TodoRepositoryInterface,
 )
@@ -23,10 +24,14 @@ class UpdateTodoResponse(BaseModel):
 def update_todo_use_case(
     id: str,
     data: UpdateTodoRequest,
+    user_id: str,
     todo_repository: TodoRepositoryInterface,
 ) -> UpdateTodoResponse:
     todo_item = todo_repository.get(id)
-    updated_todo_item = TodoItem(id=todo_item.id, title=data.title, is_completed=data.is_completed)
+    if todo_item.user_id != user_id:
+        raise NotFoundException
+
+    updated_todo_item = TodoItem(id=todo_item.id, title=data.title, is_completed=data.is_completed, user_id=user_id)
     if todo_repository.update(updated_todo_item):
         return UpdateTodoResponse(success=True)
     return UpdateTodoResponse(success=False)

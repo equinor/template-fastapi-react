@@ -4,6 +4,7 @@ from dataclasses import asdict, dataclass, fields
 @dataclass(frozen=True)
 class TodoItem:
     id: str
+    user_id: str
     title: str
     is_completed: bool = False
 

@@ -19,12 +19,11 @@ class GetTodoAllResponse(BaseModel):
 
 
 def get_todo_all_use_case(
+    user_id: str,
     todo_repository: TodoRepositoryInterface,
 ) -> List[GetTodoAllResponse]:
-    response: List[GetTodoAllResponse] = []
-    todo_items: List[TodoItem] = todo_repository.get_all()
-
-    for todo_item in todo_items:
-        response.append(GetTodoAllResponse.from_entity(todo_item))
-
-    return response
+    return [
+        GetTodoAllResponse.from_entity(todo_item)
+        for todo_item in todo_repository.get_all()
+        if todo_item.user_id == user_id
+    ]

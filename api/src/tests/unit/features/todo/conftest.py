@@ -8,9 +8,9 @@ from data_providers.repositories.TodoRepository import TodoRepository
 @pytest.fixture(scope="function")
 def todo_test_data() -> Dict[str, dict]:
     return {
-        "dh2109": {"_id": "dh2109", "title": "item 1", "is_completed": False},
-        "1417b8": {"_id": "1417b8", "title": "item 2", "is_completed": True},
-        "abcdefg": {"_id": "abcdefg", "title": "item 3", "is_completed": False},
+        "dh2109": {"_id": "dh2109", "title": "item 1", "is_completed": False, "user_id": "xyz"},
+        "1417b8": {"_id": "1417b8", "title": "item 2", "is_completed": True, "user_id": "xyz"},
+        "abcdefg": {"_id": "abcdefg", "title": "item 3", "is_completed": False, "user_id": "xyz"},
     }
 
 
