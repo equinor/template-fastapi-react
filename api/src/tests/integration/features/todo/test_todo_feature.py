@@ -16,8 +16,8 @@ class TestTodo:
     def setup_database(self, test_client: ClientInterface):
         test_client.insert_many(
             [
-                {"_id": "1", "id": "1", "title": "title 1"},
-                {"_id": "2", "id": "2", "title": "title 2"},
+                {"_id": "1", "id": "1", "title": "title 1", "user_id": "nologin"},
+                {"_id": "2", "id": "2", "title": "title 2", "user_id": "nologin"},
             ]
         )
 
