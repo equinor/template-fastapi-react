@@ -1,4 +1,4 @@
-from pymongo import MongoClient
+from pymongo.mongo_client import MongoClient
 
 from config import config
 from data_providers.clients.mongodb.MongoDatabaseClient import MongoDatabaseClient

@@ -1,9 +1,9 @@
 from typing import Dict, List, Optional
 
-from pymongo import MongoClient
-from pymongo.collection import Cursor
+from pymongo.cursor import Cursor
 from pymongo.database import Database
 from pymongo.errors import DuplicateKeyError
+from pymongo.mongo_client import MongoClient
 
 from common.exceptions import NotFoundException, ValidationException
 from data_providers.clients.ClientInterface import ClientInterface
@@ -24,8 +24,8 @@ class MongoDatabaseClient(ClientInterface[Dict, str]):
         for database_name in databases_to_delete:
             self.database.client.drop_database(database_name)
 
-    def delete_collection(self, collection: str):
-        self.database[collection].drop()
+    def delete_collection(self):
+        self.collection.drop()
 
     def create(self, document: Dict) -> Dict:
         try:
@@ -54,14 +54,14 @@ class MongoDatabaseClient(ClientInterface[Dict, str]):
         result = self.collection.delete_one(filter={"_id": uid})
         return result.deleted_count > 0
 
-    def find(self, filters: Dict) -> Cursor:
-        return self.collection.find(filter=filters)
+    def find(self, filter: Dict) -> Cursor:
+        return self.collection.find(filter=filter)
 
-    def find_one(self, filters: Dict) -> Optional[Dict]:
-        return self.collection.find_one(filter=filters)
+    def find_one(self, filter: Dict) -> Optional[Dict]:
+        return self.collection.find_one(filter=filter)
 
     def insert_many(self, items: List[Dict]):
         return self.collection.insert_many(items)
 
-    def delete_many(self, query: Dict):
-        return self.collection.delete_many(query)
+    def delete_many(self, filter: Dict):
+        return self.collection.delete_many(filter)
