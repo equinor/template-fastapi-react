@@ -1,8 +1,7 @@
-import { useEffect, useContext, useState } from 'react'
-import { AuthContext } from 'react-oauth2-code-pkce'
-import TodoAPI from '../api/TodoAPI'
+import { useEffect, useState } from 'react'
 import { AxiosError } from 'axios'
 import { AddTodoResponse, ErrorResponse } from '../api/generated'
+import { useTodoAPI } from './useTodoAPI'
 
 const useTodos = (): {
   todos: AddTodoResponse[]
@@ -15,8 +14,7 @@ const useTodos = (): {
   const [todos, setTodos] = useState<AddTodoResponse[]>([])
   const [isLoading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<AxiosError<ErrorResponse> | null>(null)
-  const { token } = useContext(AuthContext)
-  const todoAPI = new TodoAPI(token)
+  const todoAPI = useTodoAPI()
 
   useEffect(() => {
     setLoading(true)
@@ -25,7 +23,7 @@ const useTodos = (): {
       .then((response) => setTodos(response.data))
       .catch((error: AxiosError<ErrorResponse>) => setError(error))
       .finally(() => setLoading(false))
-  }, [])
+  }, [todoAPI])
 
   const addItem = (title: string) => {
     setLoading(true)
