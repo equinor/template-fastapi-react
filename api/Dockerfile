@@ -1,4 +1,4 @@
-FROM python:3.10 as base
+FROM python:3.11-slim as base
 WORKDIR /code
 CMD ["/code/src/init.sh", "api"]
 EXPOSE 5000
