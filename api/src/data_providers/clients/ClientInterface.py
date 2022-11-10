@@ -34,13 +34,17 @@ class ClientInterface(Generic[M, K]):
         pass
 
     @abstractmethod
-    def delete_many(self, query: Dict):
+    def delete_many(self, filter: Dict):
         pass
 
     @abstractmethod
-    def find(self, filters: Dict) -> M:
+    def find(self, filter: Dict) -> M:
         pass
 
     @abstractmethod
-    def find_one(self, filters: Dict) -> Optional[M]:
+    def find_one(self, filter: Dict) -> Optional[M]:
+        pass
+
+    @abstractmethod
+    def delete_collection(self):
         pass

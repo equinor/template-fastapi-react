@@ -30,7 +30,7 @@ class TodoRepository(TodoRepositoryInterface):
             raise NotFoundException
 
     def delete_all(self) -> None:
-        self.client.delete_collection(self.client.collection_name)
+        self.client.delete_collection()
 
     def get(self, todo_item_id: str) -> TodoItem:
         todo_item = self.client.get(todo_item_id)

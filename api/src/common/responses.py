@@ -1,7 +1,7 @@
 import functools
 import traceback
 from inspect import iscoroutinefunction
-from typing import Callable, Type, TypeVar
+from typing import Any, Callable, Type, TypeVar
 
 from requests import HTTPError
 from starlette import status
@@ -17,7 +17,7 @@ from common.exceptions import (
 )
 from common.logger import logger
 
-responses = {
+responses: dict[int | str, dict[str, Any]] = {
     400: {"model": ErrorResponse, "content": {"application/json": {"example": BadRequestException().dict()}}},
     401: {
         "model": ErrorResponse,

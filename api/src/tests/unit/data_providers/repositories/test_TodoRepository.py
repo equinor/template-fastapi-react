@@ -3,16 +3,13 @@ import pytest
 from common.exceptions import NotFoundException, ValidationException
 from data_providers.clients.mongodb.MongoDatabaseClient import MongoDatabaseClient
 from data_providers.repositories.TodoRepository import TodoRepository
-from data_providers.repository_interfaces.TodoRepositoryInterface import (
-    TodoRepositoryInterface,
-)
 from entities.TodoItem import TodoItem
 
 
 class TestTodoRepository:
     @pytest.fixture(autouse=True)
     def _setup_repository(self, test_client: MongoDatabaseClient):
-        self.repository: TodoRepositoryInterface = TodoRepository(client=test_client)
+        self.repository = TodoRepository(client=test_client)
 
     def test_create(self):
         todo_item = TodoItem(id="1234", title="todo 1", user_id="xyz")
@@ -34,7 +31,8 @@ class TestTodoRepository:
             {"_id": "987456", "title": "todo 4", "user_id": "abc"},
         ]
         self.repository.client.insert_many(documents)
-        assert self.repository.find_one({"title": "todo 2", "user_id": "xyz"}).id == "1a2b"
+        todo_item = self.repository.find_one({"title": "todo 2", "user_id": "xyz"})
+        assert todo_item is not None and todo_item.id == "1a2b"
 
     def test_find_item_that_does_not_exist(self):
         documents = [

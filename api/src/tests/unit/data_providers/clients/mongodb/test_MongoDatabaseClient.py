@@ -36,10 +36,7 @@ class TestMongoDatabaseClient:
             {"_id": "81549300", "name": "hello"},
             {"_id": "1a2b", "name": "pingvin"},
             {"_id": "987321", "name": "alberto"},
-            {
-                "_id": "987456",
-                "name": "alberto",
-            },
+            {"_id": "987456", "name": "alberto"},
         ]
         test_client.collection.insert_many(documents)
         assert list(test_client.find({})) == documents
@@ -53,10 +50,7 @@ class TestMongoDatabaseClient:
             {"_id": "81549300", "name": "hello"},
             {"_id": "1a2b", "name": "pingvin"},
             {"_id": "987321", "name": "alberto"},
-            {
-                "_id": "987456",
-                "name": "alberto",
-            },
+            {"_id": "987456", "name": "alberto"},
         ]
         test_client.collection.insert_many(documents)
         assert test_client.list() == documents
@@ -92,22 +86,18 @@ class TestMongoDatabaseClient:
             {"_id": "81549300", "name": "hello"},
             {"_id": "1a2b", "name": "pingvin"},
             {"_id": "987321", "name": "alberto"},
-            {
-                "_id": "987456",
-                "name": "alberto",
-            },
+            {"_id": "987456", "name": "alberto"},
         ]
         test_client.collection.insert_many(documents)
-        original_collection = test_client.collection_name
         # add second collection to TestDB:
         test_client.database.create_collection("peppers")
         active_collections = test_client.database.list_collection_names()
-        number_of_entries_in_original_collection = test_client.database[original_collection].count_documents({})
+        number_of_entries_in_original_collection = test_client.collection.count_documents({})
         assert number_of_entries_in_original_collection > 0
         assert len(active_collections) == 2
-        test_client.delete_collection(original_collection)
+        test_client.delete_collection()
         assert test_client.database.list_collection_names() == ["peppers"]
-        assert test_client.database[original_collection].count_documents({}) == 0
+        assert test_client.collection.count_documents({}) == 0
 
     def test_create_in_empty_database(self, test_client: MongoDatabaseClient):
         document = {"_id": "1a2b", "name": "pingvin"}
@@ -121,10 +111,7 @@ class TestMongoDatabaseClient:
             {"_id": "81549300", "name": "hello"},
             {"_id": "1a2b", "name": "pingvin"},
             {"_id": "987321", "name": "alberto"},
-            {
-                "_id": "987456",
-                "name": "alberto",
-            },
+            {"_id": "987456", "name": "alberto"},
         ]
         test_client.collection.insert_many(documents)
         original_database = test_client.database.client.list_database_names()[0]
