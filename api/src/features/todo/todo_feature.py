@@ -46,8 +46,12 @@ def get_todo_by_id(
 
 @router.delete("/{id}", operation_id="delete_by_id", response_model=DeleteTodoByIdResponse)
 @create_response(JSONResponse)
-def delete_todo_by_id(id: str, todo_repository: TodoRepositoryInterface = Depends(get_todo_repository)):
-    return delete_todo_use_case(id=id, todo_repository=todo_repository).dict()
+def delete_todo_by_id(
+    id: str,
+    user: User = Depends(auth_with_jwt),
+    todo_repository: TodoRepositoryInterface = Depends(get_todo_repository),
+):
+    return delete_todo_use_case(id=id, user_id=user.user_id, todo_repository=todo_repository).dict()
 
 
 @router.get("", operation_id="get_all", response_model=List[GetTodoAllResponse])
