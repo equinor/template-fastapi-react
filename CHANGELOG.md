@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.3.0](https://github.com/equinor/template-fastapi-react/compare/v1.2.1...v1.3.0) (2022-11-11)
+
+
+### Features
+
+* allow each user to have their own todos ([9456ab8](https://github.com/equinor/template-fastapi-react/commit/9456ab84f5f5e0b804bd0011037ee72d7da49fbb))
+
+
+### Bug Fixes
+
+* add missing dependency without causing infinite loop of rerendering ([8f5c01d](https://github.com/equinor/template-fastapi-react/commit/8f5c01d5141c4dbd4ac9b99ebc39ae10f378147f))
+* **api:** raise MissingPrivilegeException when relevant ([0c55af3](https://github.com/equinor/template-fastapi-react/commit/0c55af393a4ffc189a068c821545261eb10ef7d4))
+* **api:** raise MissingPrivilegeException when relevant ([613cc42](https://github.com/equinor/template-fastapi-react/commit/613cc4257699ddb1c2a772b54f28ccec84f2778b))
+* make todo title required, not optional ([bc8dab6](https://github.com/equinor/template-fastapi-react/commit/bc8dab62079ded3e87c1113e81f1cd9911ad1a65))
+* only allow users to delete their own todos ([1cf1e7a](https://github.com/equinor/template-fastapi-react/commit/1cf1e7a8eefac27552dcdc9df0a30cf59c042eab))
+* test suite ([31da3f7](https://github.com/equinor/template-fastapi-react/commit/31da3f7e720d0838e59e280aa4d873b44e24cecb))
+* **tests:** fix up integration tests with per-user todos ([b7cc0ca](https://github.com/equinor/template-fastapi-react/commit/b7cc0caa51535020bb329c7c21cde4b458baa81c))
+
 ## [1.2.1](https://github.com/equinor/template-fastapi-react/compare/v1.2.0...v1.2.1) (2022-11-09)
 
 

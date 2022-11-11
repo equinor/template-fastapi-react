@@ -42,7 +42,7 @@ def create_app() -> FastAPI:
     app = FastAPI(
         root_path="/api",
         title="Template FastAPI React",
-        version="1.2.1",  # x-release-please-version
+        version="1.3.0",  # x-release-please-version
         description=description_md,
         responses=responses,
         middleware=middleware,
