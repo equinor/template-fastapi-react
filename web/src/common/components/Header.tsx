@@ -3,8 +3,6 @@ import { AuthContext } from 'react-oauth2-code-pkce'
 import { Button, Icon, TopBar, Typography } from '@equinor/eds-core-react'
 import { log_out, receipt } from '@equinor/eds-icons'
 
-Icon.add({ receipt })
-
 const Header = () => {
   const { tokenData, logOut } = useContext(AuthContext)
 
@@ -14,7 +12,7 @@ const Header = () => {
   return (
     <TopBar>
       <TopBar.Header>
-        <Icon name="receipt" />
+        <Icon data={receipt} />
         Todo App
       </TopBar.Header>
       <TopBar.Actions style={{ gap: 8 }}>
