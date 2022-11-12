@@ -1,5 +1,6 @@
 .gitignore
 .npmignore
+.openapi-generator-ignore
 api.ts
 api/health-check-api.ts
 api/todos-api.ts
@@ -9,12 +10,8 @@ common.ts
 configuration.ts
 git_push.sh
 index.ts
-models/add-todo-request.ts
-models/add-todo-response.ts
-models/delete-todo-by-id-response.ts
+models/delete-todo-response.ts
 models/error-response.ts
-models/get-todo-all-response.ts
-models/get-todo-by-id-response.ts
 models/index.ts
-models/update-todo-request.ts
-models/update-todo-response.ts
+models/todo-item.ts
+models/update-todo.ts

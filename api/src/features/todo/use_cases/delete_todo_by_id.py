@@ -6,15 +6,15 @@ from data_providers.repository_interfaces.TodoRepositoryInterface import (
 )
 
 
-class DeleteTodoByIdResponse(BaseModel):
+class DeleteTodoResponse(BaseModel):
     success: bool = Field(...)
 
 
-def delete_todo_use_case(id: str, user_id: str, todo_repository: TodoRepositoryInterface) -> DeleteTodoByIdResponse:
+def delete_todo_use_case(id: str, user_id: str, todo_repository: TodoRepositoryInterface) -> DeleteTodoResponse:
     todo_item = todo_repository.get(id)
     if todo_item is None:
         raise NotFoundException
     if todo_item.user_id != user_id:
         raise MissingPrivilegeException
     todo_repository.delete(id)
-    return DeleteTodoByIdResponse(success=True)
+    return DeleteTodoResponse(success=True)

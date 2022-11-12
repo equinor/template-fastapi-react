@@ -1,29 +1,17 @@
 from typing import List
 
-from pydantic import BaseModel, Field
-
 from data_providers.repository_interfaces.TodoRepositoryInterface import (
     TodoRepositoryInterface,
 )
-from entities.TodoItem import TodoItem
-
-
-class GetTodoAllResponse(BaseModel):
-    id: str = Field(...)
-    title: str = Field(...)
-    is_completed: bool
-
-    @staticmethod
-    def from_entity(todo_item: TodoItem):
-        return GetTodoAllResponse(id=todo_item.id, title=todo_item.title, is_completed=todo_item.is_completed)
+from features.todo.shared_models import TodoItemResponseModel
 
 
 def get_todo_all_use_case(
     user_id: str,
     todo_repository: TodoRepositoryInterface,
-) -> List[GetTodoAllResponse]:
+) -> List[TodoItemResponseModel]:
     return [
-        GetTodoAllResponse.from_entity(todo_item)
+        TodoItemResponseModel.parse_obj(todo_item)
         for todo_item in todo_repository.get_all()
         if todo_item.user_id == user_id
     ]

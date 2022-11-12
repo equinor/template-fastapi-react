@@ -13,6 +13,19 @@
  */
 
 
-export * from "./api";
-export * from "./configuration";
-export * from "./models";
+
+/**
+ * 
+ * @export
+ * @interface DeleteTodoResponse
+ */
+export interface DeleteTodoResponse {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof DeleteTodoResponse
+     */
+    success: boolean;
+}
+
+

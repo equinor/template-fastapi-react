@@ -59,7 +59,7 @@ class TestTodo:
         response = test_app.put("/todos/1", json={"title": "title 1 updated", "is_completed": False})
 
         assert response.status_code == HTTP_200_OK
-        assert response.json()["success"]
+        assert response.json()["title"] == "title 1 updated"
 
     def test_update_todo_should_return_not_found(self, test_app):
         response = test_app.put("/todos/unknown", json={"title": "something", "is_completed": False})

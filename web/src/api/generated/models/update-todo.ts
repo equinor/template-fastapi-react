@@ -13,6 +13,25 @@
  */
 
 
-export * from "./api";
-export * from "./configuration";
-export * from "./models";
+
+/**
+ * 
+ * @export
+ * @interface UpdateTodo
+ */
+export interface UpdateTodo {
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateTodo
+     */
+    title: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof UpdateTodo
+     */
+    is_completed?: boolean;
+}
+
+

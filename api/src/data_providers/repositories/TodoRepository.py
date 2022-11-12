@@ -9,7 +9,7 @@ from entities.TodoItem import TodoItem
 
 
 def to_dict(todo_item: TodoItem):
-    dict = todo_item.__dict__
+    dict = todo_item.dict()
     dict["_id"] = todo_item.id
     return dict
 

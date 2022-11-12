@@ -13,6 +13,31 @@
  */
 
 
-export * from "./api";
-export * from "./configuration";
-export * from "./models";
+
+/**
+ * 
+ * @export
+ * @interface TodoItem
+ */
+export interface TodoItem {
+    /**
+     * 
+     * @type {string}
+     * @memberof TodoItem
+     */
+    id: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TodoItem
+     */
+    title: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof TodoItem
+     */
+    is_completed?: boolean;
+}
+
+

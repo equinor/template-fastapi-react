@@ -1,8 +1,8 @@
 import useTodos from '../../../hooks/useTodos'
 import { FormEventHandler, useState } from 'react'
 import { Button, Input, Progress } from '@equinor/eds-core-react'
-import TodoItem from './TodoItem'
-import { AddTodoResponse } from '../../../api/generated'
+import TodoItemElement from './TodoItem'
+import { TodoItem } from '../../../api/generated'
 import {
   StyledTodoList,
   StyledInput,
@@ -42,14 +42,16 @@ const TodoList = () => {
   const { todos, isLoading, addItem, removeItem, toggleItem, error } =
     useTodos()
 
+  console.log(error)
+
   if (error)
     return <div>{error?.response?.data.message ?? 'Something went wrong!'}</div>
 
   return (
     <StyledTodoList>
       <AddItem onAddItem={addItem} />
-      {todos?.map((todo: AddTodoResponse) => (
-        <TodoItem
+      {todos?.map((todo: TodoItem) => (
+        <TodoItemElement
           key={todo.id}
           onToggle={toggleItem}
           onRemove={removeItem}

@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react'
 import { AxiosError } from 'axios'
-import { AddTodoResponse, ErrorResponse } from '../api/generated'
+import { TodoItem, ErrorResponse } from '../api/generated'
 import { useTodoAPI } from './useTodoAPI'
 
 const useTodos = (): {
-  todos: AddTodoResponse[]
+  todos: TodoItem[]
   isLoading: boolean
   addItem: (title: string) => void
   removeItem: (id: string) => void
   toggleItem: (id: string) => void
   error: AxiosError<ErrorResponse> | null
 } => {
-  const [todos, setTodos] = useState<AddTodoResponse[]>([])
+  const [todos, setTodos] = useState<TodoItem[]>([])
   const [isLoading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<AxiosError<ErrorResponse> | null>(null)
   const todoAPI = useTodoAPI()
@@ -28,13 +28,9 @@ const useTodos = (): {
   const addItem = (title: string) => {
     setLoading(true)
     todoAPI
-      .create({
-        addTodoRequest: {
-          title: title,
-        },
-      })
+      .create(title)
       .then((response) => {
-        const item: AddTodoResponse = response.data
+        const item: TodoItem = response.data
         setTodos([...todos, item])
       })
       .catch((error: AxiosError<ErrorResponse>) => {
@@ -46,10 +42,10 @@ const useTodos = (): {
   const removeItem = (id: string) => {
     setLoading(true)
     todoAPI
-      .deleteById({ id: id })
+      .deleteById(id)
       .then(() => {
         const tmpTodos = todos.filter(
-          (todoItem: AddTodoResponse) => todoItem.id !== id
+          (todoItem: TodoItem) => todoItem.id !== id
         )
         setTodos(tmpTodos)
       })
@@ -59,17 +55,12 @@ const useTodos = (): {
 
   const toggleItem = (id: string) => {
     setLoading(true)
-    const index: number = todos.findIndex(
-      (item: AddTodoResponse) => item.id === id
-    )
+    const index: number = todos.findIndex((item: TodoItem) => item.id === id)
     const todoItem = todos[index]
     todoAPI
-      .updateById({
-        id: id,
-        updateTodoRequest: {
-          is_completed: !todoItem.is_completed,
-          title: todoItem.title,
-        },
+      .updateById(id, {
+        is_completed: !todoItem.is_completed,
+        title: todoItem.title,
       })
       .then(() => {
         const items = todos

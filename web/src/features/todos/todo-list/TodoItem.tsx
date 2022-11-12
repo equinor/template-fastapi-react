@@ -7,10 +7,10 @@ import {
   Tooltip,
 } from '@equinor/eds-core-react'
 import { undo, done, remove_outlined } from '@equinor/eds-icons'
-import { AddTodoResponse } from '../../../api/generated'
+import { TodoItem } from '../../../api/generated'
 
-const TodoItem = (props: {
-  todo: AddTodoResponse
+const TodoItemElement = (props: {
+  todo: TodoItem
   onToggle: (id: string) => void
   onRemove: (id: string) => void
 }) => {
@@ -49,4 +49,4 @@ const TodoItem = (props: {
   )
 }
 
-export default TodoItem
+export default TodoItemElement

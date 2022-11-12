@@ -1,38 +1,24 @@
 import uuid
 
-from pydantic import BaseModel, Field
-
+from common.entity_mapper import filter_fields
 from data_providers.repository_interfaces.TodoRepositoryInterface import (
     TodoRepositoryInterface,
 )
-from entities.TodoItem import TodoItem
+from entities.TodoItem import TodoItem, title_field
+from features.todo.shared_models import TodoItemResponseModel
 
 
-class AddTodoRequest(BaseModel):
-    title: str = Field(
-        ...,
-        title="The title of the item",
-        max_length=300,
-        min_length=1,
-        example="Read about clean architecture",
-    )
-
-
-class AddTodoResponse(BaseModel):
-    id: str = Field(example="vytxeTZskVKR7C7WgdSP3d")
-    title: str = Field(example="Read about clean architecture")
-    is_completed: bool = False
-
-    @staticmethod
-    def from_entity(todo_item: TodoItem) -> "AddTodoResponse":
-        return AddTodoResponse(id=todo_item.id, title=todo_item.title, is_completed=todo_item.is_completed)
+@filter_fields(name="AddTodo")
+class AddTodoRequestModel(TodoItem):
+    class Config:
+        include = ["title"]
 
 
 def add_todo_use_case(
-    data: AddTodoRequest,
     user_id: str,
     todo_repository: TodoRepositoryInterface,
-) -> AddTodoResponse:
-    todo_item = TodoItem(id=str(uuid.uuid4()), title=data.title, user_id=user_id)
+    title: str = title_field,
+) -> TodoItemResponseModel:
+    todo_item = TodoItem(id=str(uuid.uuid4()), title=title, user_id=user_id)
     todo_repository.create(todo_item)
-    return AddTodoResponse.from_entity(todo_item)
+    return TodoItemResponseModel.parse_obj(todo_item)
