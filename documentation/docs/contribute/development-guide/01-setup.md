@@ -143,4 +143,6 @@ To let the IDE know that dependencies can be found in `.yarn` instead of `node_m
 
 #### Yarn PnP in VSCode
 
-You'll might need to add `"typescript.tsdk": "./template-fastapi-react/web/.yarn/sdks/typescript/lib"` to your workspace settings to make typescript work. Other than that, the committed .vscode folder should contain all the configurations you'll need.
+Because the project uses Yarn PnP, VSCode's language server must use the same typescript executable as the project in order to access dependencies. This is located in `web/.yarn/sdks/typescript/lib`. To use this version, simply open a `.ts(x)` file, open the command palette (default `Ctrl+Shift+P` or `Cmd+Shift+P`), find `TypeScript: Select TypeScript Version...` and select `Use Workspace Version`. 
+
+Not using the correct typescript executable might cause `Cannot find module '***' or its corresponding type declarations.` and `JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.` errors.
