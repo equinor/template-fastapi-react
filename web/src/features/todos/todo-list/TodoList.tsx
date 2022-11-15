@@ -42,8 +42,6 @@ const TodoList = () => {
   const { todos, isLoading, addItem, removeItem, toggleItem, error } =
     useTodos()
 
-  console.log(error)
-
   if (error)
     return <div>{error?.response?.data.message ?? 'Something went wrong!'}</div>
 
