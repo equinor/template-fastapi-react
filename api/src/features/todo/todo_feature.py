@@ -1,6 +1,7 @@
 from typing import List
 
 from fastapi import APIRouter, Depends
+from starlette import status
 from starlette.responses import JSONResponse
 
 from authentication.authentication import auth_with_jwt
@@ -10,7 +11,6 @@ from data_providers.get_repository import get_todo_repository
 from data_providers.repository_interfaces.TodoRepositoryInterface import (
     TodoRepositoryInterface,
 )
-from features.todo.use_cases.delete_todo_by_id import DeleteTodoResponse
 
 from .shared_models import TodoItemResponseModel
 from .use_cases.add_todo import AddTodoRequestModel, add_todo_use_case
@@ -42,14 +42,14 @@ def get_todo_by_id(
     return get_todo_by_id_use_case(id=id, user_id=user.user_id, todo_repository=todo_repository).dict()
 
 
-@router.delete("/{id}", operation_id="delete_by_id", response_model=DeleteTodoResponse)
+@router.delete("/{id}", operation_id="delete_by_id", status_code=status.HTTP_204_NO_CONTENT)
 @create_response(JSONResponse)
 def delete_todo_by_id(
     id: str,
     user: User = Depends(auth_with_jwt),
     todo_repository: TodoRepositoryInterface = Depends(get_todo_repository),
 ):
-    return delete_todo_use_case(id=id, user_id=user.user_id, todo_repository=todo_repository).dict()
+    return delete_todo_use_case(id=id, user_id=user.user_id, todo_repository=todo_repository)
 
 
 @router.get("", operation_id="get_all", response_model=List[TodoItemResponseModel])
