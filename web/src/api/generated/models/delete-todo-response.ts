@@ -25,7 +25,6 @@ export interface DeleteTodoResponse {
      * @type {boolean}
      * @memberof DeleteTodoResponse
      */
-    success: boolean;
+    'success': boolean;
 }
-
 

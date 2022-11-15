@@ -25,7 +25,6 @@ export interface AddTodo {
      * @type {string}
      * @memberof AddTodo
      */
-    title: string;
+    'title': string;
 }
-
 

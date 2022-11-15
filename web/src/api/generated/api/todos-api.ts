@@ -13,7 +13,7 @@
  */
 
 
-import globalAxios, { AxiosPromise, AxiosInstance } from 'axios';
+import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
 import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
@@ -43,7 +43,7 @@ export const TodosApiAxiosParamCreator = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        create: async (addTodo: AddTodo, options: any = {}): Promise<RequestArgs> => {
+        create: async (addTodo: AddTodo, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'addTodo' is not null or undefined
             assertParamExists('create', 'addTodo', addTodo)
             const localVarPath = `/todos`;
@@ -66,7 +66,7 @@ export const TodosApiAxiosParamCreator = function (configuration?: Configuration
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(addTodo, localVarRequestOptions, configuration)
@@ -83,7 +83,7 @@ export const TodosApiAxiosParamCreator = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteById: async (id: string, options: any = {}): Promise<RequestArgs> => {
+        deleteById: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('deleteById', 'id', id)
             const localVarPath = `/todos/{id}`
@@ -105,7 +105,7 @@ export const TodosApiAxiosParamCreator = function (configuration?: Configuration
 
 
     
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
@@ -120,7 +120,7 @@ export const TodosApiAxiosParamCreator = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAll: async (options: any = {}): Promise<RequestArgs> => {
+        getAll: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/todos`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -139,7 +139,7 @@ export const TodosApiAxiosParamCreator = function (configuration?: Configuration
 
 
     
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
@@ -155,7 +155,7 @@ export const TodosApiAxiosParamCreator = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getById: async (id: string, options: any = {}): Promise<RequestArgs> => {
+        getById: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('getById', 'id', id)
             const localVarPath = `/todos/{id}`
@@ -177,7 +177,7 @@ export const TodosApiAxiosParamCreator = function (configuration?: Configuration
 
 
     
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
@@ -194,7 +194,7 @@ export const TodosApiAxiosParamCreator = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateById: async (id: string, updateTodo: UpdateTodo, options: any = {}): Promise<RequestArgs> => {
+        updateById: async (id: string, updateTodo: UpdateTodo, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('updateById', 'id', id)
             // verify required parameter 'updateTodo' is not null or undefined
@@ -220,7 +220,7 @@ export const TodosApiAxiosParamCreator = function (configuration?: Configuration
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(updateTodo, localVarRequestOptions, configuration)
@@ -247,7 +247,7 @@ export const TodosApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async create(addTodo: AddTodo, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TodoItem>> {
+        async create(addTodo: AddTodo, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TodoItem>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.create(addTodo, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -258,7 +258,7 @@ export const TodosApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteById(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeleteTodoResponse>> {
+        async deleteById(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeleteTodoResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteById(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -268,7 +268,7 @@ export const TodosApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAll(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<TodoItem>>> {
+        async getAll(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<TodoItem>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getAll(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -279,7 +279,7 @@ export const TodosApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getById(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TodoItem>> {
+        async getById(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TodoItem>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getById(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -291,7 +291,7 @@ export const TodosApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateById(id: string, updateTodo: UpdateTodo, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TodoItem>> {
+        async updateById(id: string, updateTodo: UpdateTodo, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TodoItem>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateById(id, updateTodo, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -373,7 +373,7 @@ export class TodosApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TodosApi
      */
-    public create(addTodo: AddTodo, options?: any) {
+    public create(addTodo: AddTodo, options?: AxiosRequestConfig) {
         return TodosApiFp(this.configuration).create(addTodo, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -385,7 +385,7 @@ export class TodosApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TodosApi
      */
-    public deleteById(id: string, options?: any) {
+    public deleteById(id: string, options?: AxiosRequestConfig) {
         return TodosApiFp(this.configuration).deleteById(id, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -396,7 +396,7 @@ export class TodosApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TodosApi
      */
-    public getAll(options?: any) {
+    public getAll(options?: AxiosRequestConfig) {
         return TodosApiFp(this.configuration).getAll(options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -408,7 +408,7 @@ export class TodosApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TodosApi
      */
-    public getById(id: string, options?: any) {
+    public getById(id: string, options?: AxiosRequestConfig) {
         return TodosApiFp(this.configuration).getById(id, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -421,7 +421,7 @@ export class TodosApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TodosApi
      */
-    public updateById(id: string, updateTodo: UpdateTodo, options?: any) {
+    public updateById(id: string, updateTodo: UpdateTodo, options?: AxiosRequestConfig) {
         return TodosApiFp(this.configuration).updateById(id, updateTodo, options).then((request) => request(this.axios, this.basePath));
     }
 }

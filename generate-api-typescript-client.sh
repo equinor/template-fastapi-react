@@ -2,7 +2,7 @@
 
 # This requires the API to be running on localhost port 5000
 
-docker run --ulimit nofile=122880:122880 --rm --network="host" -v ${PWD}/web/src/api:/local openapitools/openapi-generator-cli:v5.1.0 generate \
+docker run --ulimit nofile=122880:122880 --rm --network="host" -v ${PWD}/web/src/api:/local openapitools/openapi-generator-cli:v6.2.1 generate \
     -i http://127.0.0.1:5000/openapi.json \
     -g typescript-axios \
     --additional-properties=withSeparateModelsAndApi=true,apiPackage=api,modelPackage=models \

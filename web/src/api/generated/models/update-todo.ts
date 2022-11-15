@@ -25,13 +25,12 @@ export interface UpdateTodo {
      * @type {string}
      * @memberof UpdateTodo
      */
-    title: string;
+    'title': string;
     /**
      * 
      * @type {boolean}
      * @memberof UpdateTodo
      */
-    is_completed?: boolean;
+    'is_completed'?: boolean;
 }
-
 

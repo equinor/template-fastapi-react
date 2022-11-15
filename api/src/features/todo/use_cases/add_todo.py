@@ -11,13 +11,13 @@ from features.todo.shared_models import TodoItemResponseModel
 # An alternative solution is to use Pydantic BaseModel
 # and to duplicate the title and is_completed fields
 @filter_fields(name="AddTodo")
-class AddTodoRequest(TodoItem):
+class AddTodoRequestModel(TodoItem):
     class Config:
         include = ["title"]
 
 
 def add_todo_use_case(
-    data: AddTodoRequest, user_id: str, todo_repository: TodoRepositoryInterface
+    data: AddTodoRequestModel, user_id: str, todo_repository: TodoRepositoryInterface
 ) -> TodoItemResponseModel:
     todo_item = TodoItem(id=str(uuid.uuid4()), title=data.title, user_id=user_id)
     todo_repository.create(todo_item)

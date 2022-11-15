@@ -25,31 +25,30 @@ export interface ErrorResponse {
      * @type {number}
      * @memberof ErrorResponse
      */
-    status?: number;
+    'status'?: number;
     /**
      * 
      * @type {string}
      * @memberof ErrorResponse
      */
-    type?: string;
+    'type'?: string;
     /**
      * 
      * @type {string}
      * @memberof ErrorResponse
      */
-    message?: string;
+    'message'?: string;
     /**
      * 
      * @type {string}
      * @memberof ErrorResponse
      */
-    debug?: string;
+    'debug'?: string;
     /**
      * 
      * @type {object}
      * @memberof ErrorResponse
      */
-    extra?: object;
+    'extra'?: object;
 }
-
 

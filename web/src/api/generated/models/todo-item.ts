@@ -25,19 +25,18 @@ export interface TodoItem {
      * @type {string}
      * @memberof TodoItem
      */
-    id: string;
+    'id': string;
     /**
      * 
      * @type {string}
      * @memberof TodoItem
      */
-    title: string;
+    'title': string;
     /**
      * 
      * @type {boolean}
      * @memberof TodoItem
      */
-    is_completed?: boolean;
+    'is_completed'?: boolean;
 }
-
 
