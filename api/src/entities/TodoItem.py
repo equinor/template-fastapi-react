@@ -1,23 +1,10 @@
 from __future__ import annotations
 
-from typing import List
-
 from pydantic import BaseModel, Field
 
 title_field = Field(
     ..., title="The title of the item", max_length=30, min_length=1, example="Read about clean architecture"
 )
-
-
-class User(BaseModel):
-    id: str
-    todos: List[TodoList]
-
-
-class TodoList(BaseModel):
-    id: str
-    user: User
-    items: List[TodoItem]
 
 
 class TodoItem(BaseModel):
