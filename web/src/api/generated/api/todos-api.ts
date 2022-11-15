@@ -21,6 +21,8 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 // @ts-ignore
+import { AddTodo } from '../models';
+// @ts-ignore
 import { DeleteTodoResponse } from '../models';
 // @ts-ignore
 import { ErrorResponse } from '../models';
@@ -37,13 +39,13 @@ export const TodosApiAxiosParamCreator = function (configuration?: Configuration
         /**
          * 
          * @summary Add Todo
-         * @param {string} title 
+         * @param {AddTodo} addTodo 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        create: async (title: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'title' is not null or undefined
-            assertParamExists('create', 'title', title)
+        create: async (addTodo: AddTodo, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'addTodo' is not null or undefined
+            assertParamExists('create', 'addTodo', addTodo)
             const localVarPath = `/todos`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -60,15 +62,14 @@ export const TodosApiAxiosParamCreator = function (configuration?: Configuration
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2AuthorizationCodeBearer", [], configuration)
 
-            if (title !== undefined) {
-                localVarQueryParameter['title'] = title;
-            }
-
 
     
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(addTodo, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -242,12 +243,12 @@ export const TodosApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary Add Todo
-         * @param {string} title 
+         * @param {AddTodo} addTodo 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async create(title: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TodoItem>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.create(title, options);
+        async create(addTodo: AddTodo, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TodoItem>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.create(addTodo, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -307,12 +308,12 @@ export const TodosApiFactory = function (configuration?: Configuration, basePath
         /**
          * 
          * @summary Add Todo
-         * @param {string} title 
+         * @param {AddTodo} addTodo 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        create(title: string, options?: any): AxiosPromise<TodoItem> {
-            return localVarFp.create(title, options).then((request) => request(axios, basePath));
+        create(addTodo: AddTodo, options?: any): AxiosPromise<TodoItem> {
+            return localVarFp.create(addTodo, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -367,13 +368,13 @@ export class TodosApi extends BaseAPI {
     /**
      * 
      * @summary Add Todo
-     * @param {string} title 
+     * @param {AddTodo} addTodo 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TodosApi
      */
-    public create(title: string, options?: any) {
-        return TodosApiFp(this.configuration).create(title, options).then((request) => request(this.axios, this.basePath));
+    public create(addTodo: AddTodo, options?: any) {
+        return TodosApiFp(this.configuration).create(addTodo, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

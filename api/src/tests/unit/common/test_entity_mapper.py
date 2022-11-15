@@ -1,3 +1,5 @@
+from dataclasses import dataclass
+
 from pydantic import BaseModel
 
 from common.entity_mapper import filter_fields
@@ -6,6 +8,11 @@ from common.entity_mapper import filter_fields
 class MyEntity(BaseModel):
     a: int
     b: str
+
+
+@dataclass
+class InventoryItem:
+    a: int
 
 
 def test_include_fields():

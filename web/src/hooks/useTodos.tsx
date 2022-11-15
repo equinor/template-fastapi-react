@@ -28,7 +28,7 @@ const useTodos = (): {
   const addItem = (title: string) => {
     setLoading(true)
     todoAPI
-      .create(title)
+      .create({ title: title })
       .then((response) => {
         const item: TodoItem = response.data
         setTodos([...todos, item])

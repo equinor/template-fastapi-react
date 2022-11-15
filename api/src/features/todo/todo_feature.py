@@ -10,6 +10,7 @@ from data_providers.get_repository import get_todo_repository
 from data_providers.repository_interfaces.TodoRepositoryInterface import (
     TodoRepositoryInterface,
 )
+from features.todo.use_cases.add_todo import AddTodoRequest
 from features.todo.use_cases.delete_todo_by_id import DeleteTodoResponse
 
 from .shared_models import TodoItemResponseModel
@@ -25,11 +26,11 @@ router = APIRouter(tags=["todos"], prefix="/todos")
 @router.post("", operation_id="create", response_model=TodoItemResponseModel)
 @create_response(JSONResponse)
 def add_todo(
-    title: str,
+    data: AddTodoRequest,
     user: User = Depends(auth_with_jwt),
     todo_repository: TodoRepositoryInterface = Depends(get_todo_repository),
 ):
-    return add_todo_use_case(title=title, user_id=user.user_id, todo_repository=todo_repository).dict()
+    return add_todo_use_case(data=data, user_id=user.user_id, todo_repository=todo_repository).dict()
 
 
 @router.get("/{id}", operation_id="get_by_id", response_model=TodoItemResponseModel)

@@ -10,6 +10,7 @@ common.ts
 configuration.ts
 git_push.sh
 index.ts
+models/add-todo.ts
 models/delete-todo-response.ts
 models/error-response.ts
 models/index.ts

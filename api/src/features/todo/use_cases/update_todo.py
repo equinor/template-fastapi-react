@@ -7,6 +7,8 @@ from entities.TodoItem import TodoItem
 from features.todo.shared_models import TodoItemResponseModel
 
 
+# An alternative solution is to use Pydantic BaseModel
+# and to duplicate the title and is_completed fields
 @filter_fields(name="UpdateTodo")
 class UpdateTodoRequest(TodoItem):
     class Config:
