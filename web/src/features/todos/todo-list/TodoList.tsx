@@ -1,7 +1,7 @@
 import useTodos from '../../../hooks/useTodos'
 import { FormEventHandler, useState } from 'react'
 import { Button, Input, Progress } from '@equinor/eds-core-react'
-import TodoItemCard from './TodoItem'
+import TodoItemCard from './TodoItemCard'
 import { TodoItem } from '../../../api/generated'
 import {
   StyledTodoList,
