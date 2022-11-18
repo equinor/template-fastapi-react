@@ -9,7 +9,7 @@ import {
 import { undo, done, remove_outlined } from '@equinor/eds-icons'
 import { TodoItem } from '../../../api/generated'
 
-const TodoItemElement = (props: {
+const TodoItemCard = (props: {
   todo: TodoItem
   onToggle: (id: string) => void
   onRemove: (id: string) => void
@@ -49,4 +49,4 @@ const TodoItemElement = (props: {
   )
 }
 
-export default TodoItemElement
+export default TodoItemCard

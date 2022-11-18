@@ -1,7 +1,7 @@
 import useTodos from '../../../hooks/useTodos'
 import { FormEventHandler, useState } from 'react'
 import { Button, Input, Progress } from '@equinor/eds-core-react'
-import TodoItemElement from './TodoItem'
+import TodoItemCard from './TodoItem'
 import { TodoItem } from '../../../api/generated'
 import {
   StyledTodoList,
@@ -49,7 +49,7 @@ const TodoList = () => {
     <StyledTodoList>
       <AddItem onAddItem={addItem} />
       {todos?.map((todo: TodoItem) => (
-        <TodoItemElement
+        <TodoItemCard
           key={todo.id}
           onToggle={toggleItem}
           onRemove={removeItem}
