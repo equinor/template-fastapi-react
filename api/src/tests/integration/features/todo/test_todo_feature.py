@@ -74,7 +74,6 @@ class TestTodo:
         response = test_app.delete("/todos/1")
 
         assert response.status_code == HTTP_200_OK
-        assert response.json()["success"]
 
     def test_delete_todo_should_return_not_found(self, test_app: TestClient):
         response = test_app.delete("/todos/unknown")

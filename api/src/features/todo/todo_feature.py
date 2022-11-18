@@ -1,7 +1,6 @@
 from typing import List
 
 from fastapi import APIRouter, Depends
-from starlette import status
 from starlette.responses import JSONResponse
 
 from authentication.authentication import auth_with_jwt
@@ -42,7 +41,7 @@ def get_todo_by_id(
     return get_todo_by_id_use_case(id=id, user_id=user.user_id, todo_repository=todo_repository).dict()
 
 
-@router.delete("/{id}", operation_id="delete_by_id", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/{id}", operation_id="delete_by_id")
 @create_response(JSONResponse)
 def delete_todo_by_id(
     id: str,
