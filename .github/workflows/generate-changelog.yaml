@@ -60,4 +60,4 @@ jobs:
       - name: Retrieve new version
         id: tag
         run: |
-          echo "::set-output name=version::$(git describe HEAD)"
+          echo "version=$(git describe HEAD)" >> $GITHUB_OUTPUT

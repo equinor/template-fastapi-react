@@ -82,7 +82,7 @@ jobs:
       # - name: "Get number of changed documentation files"
       #   id: docs-changes
       #   shell: bash
-      #   run: echo "::set-output name=changes::$(git diff --name-only $(git merge-base HEAD origin/main) HEAD | grep documentation/ | wc -l)"
+      #   run: echo "changes=$(git diff --name-only $(git merge-base HEAD origin/main) HEAD | grep documentation/ | wc -l)" >> $GITHUB_OUTPUT
 
       - name: "Setup node"
         # if: steps.docs-changes.outputs.changes > 0
