@@ -27,7 +27,7 @@ Anyone in Equinor are authorized to use the API.
 """
 
 
-def create_app() -> FastAPI:
+def create_app(root_path="/api") -> FastAPI:
     public_routes = APIRouter()
     public_routes.include_router(health_check_feature.router)
 
@@ -40,7 +40,7 @@ def create_app() -> FastAPI:
     exception_handlers = {RequestValidationError: validation_exception_handler}
 
     app = FastAPI(
-        root_path="/api",
+        root_path=root_path,
         title="Template FastAPI React",
         version="1.3.0",  # x-release-please-version
         description=description_md,

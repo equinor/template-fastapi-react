@@ -22,7 +22,7 @@ router = APIRouter(tags=["todos"], prefix="/todos")
 
 
 @router.post("", operation_id="create", response_model=TodoItemResponseModel)
-@create_response(JSONResponse)
+@create_response(JSONResponse, status_code=201)
 def add_todo(
     data: AddTodoRequestModel,
     user: User = Depends(auth_with_jwt),

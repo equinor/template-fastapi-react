@@ -60,7 +60,7 @@ class NotFoundException(ApplicationException):
         debug: str = "The requested resource could not be found",
         extra: dict | None = None,
     ):
-        super().__init__(message, debug, extra, request_status.HTTP_404_NOT_FOUND)
+        super().__init__(message, debug, {} if not extra else extra, request_status.HTTP_404_NOT_FOUND)
         self.type = self.__class__.__name__
 
 

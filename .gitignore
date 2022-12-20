@@ -165,4 +165,4 @@ web/.yarn/*
 !web/.yarn/**/lib/
 
 # Asdf package manager
-/*/.tool-versions
+/*/.tool-versionsschemathesis.log
