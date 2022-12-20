@@ -4,11 +4,20 @@ sidebar_position: 2
 
 # Extending the API
 
+## FastAPI
+
+[FastAPI](https://github.com/tiangolo/fastapi) is a high-performant REST API framework for Python. It's built on top of [Starlette](https://github.com/encode/starlette), an ASGI (Asynchronous Server Gateway Interface) implementation for Python, and it uses [Pydantic](https://github.com/pydantic/pydantic) for data validation. It can generate [OpenAPI](https://swagger.io/docs/specification/about/) documentation from your code and also produces a [Swagger UI](https://swagger.io/tools/swagger-ui/) that you can use to test your application. OpenAPI uses a subset of [JSON Schema](https://json-schema.org/) to describe APIs and define the validation rules of the
+API payloads and parameters.
+
+To run FastAPI applications, we use the process manager [uvicorn](https://github.com/encode/uvicorn). Check out the official [documentation](https://fastapi.tiangolo.com/deployment/server-workers/) for more details.
+
+![FastAPI](fast-api.png)
+
+## Codebase structure
+
 The API is grouped by features.
 
 ![Features](/img/features.png)
-
-## Codebase structure
 
 The API has a feature-based folder structure following the principles of [Clean Architecture](../01-architecture.md). 
 
@@ -51,7 +60,8 @@ Entities and data providers can be shared between features (the entrypoints and 
 
 :::
 
-# Configuration
+
+## Configuration
 
 All configuration parameters are expected to be environment variables, and are defined in this file `api/src/config.py`.
 
