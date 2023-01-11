@@ -3,7 +3,7 @@ import traceback
 from inspect import iscoroutinefunction
 from typing import Any, Callable, Type, TypeVar
 
-from requests import HTTPError
+from httpx import HTTPStatusError
 from starlette import status
 from starlette.responses import JSONResponse, Response
 
@@ -55,10 +55,10 @@ def create_response(response_class: Type[TResponse]) -> Callable[..., Callable[.
                 else:
                     result = await func(*args, **kwargs)
                 return response_class(result, status_code=200)
-            except HTTPError as http_error:
+            except HTTPStatusError as http_error:
                 error_response = ErrorResponse(
                     type="ExternalFetchException",
-                    status=http_error.response.status,
+                    status=http_error.response.status,  # type: ignore
                     message="Failed to fetch an external resource",
                     debug=http_error.response,
                 )

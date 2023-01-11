@@ -16,7 +16,7 @@ pymongo = "4.1.1"
 cryptography = "37.0.2"  # Locked because of a bad 37.0.3 release. (https://cryptography.io/en/latest/changelog/#yanked)
 # Not a direct dependecy, but needed to get certificates
 certifi = "^2022.6.15"
-requests = "^2.27.1"
+httpx = "^0.23.3"
 
 [tool.poetry.dev-dependencies]
 pre-commit = "^2.19.0"
