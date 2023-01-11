@@ -1,6 +1,6 @@
 from typing import List
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
 from data_providers.repository_interfaces.TodoRepositoryInterface import (
     TodoRepositoryInterface,
@@ -9,8 +9,8 @@ from entities.TodoItem import TodoItem
 
 
 class GetTodoAllResponse(BaseModel):
-    id: str = Field(...)
-    title: str = Field(...)
+    id: str
+    title: str
     is_completed: bool
 
     @staticmethod

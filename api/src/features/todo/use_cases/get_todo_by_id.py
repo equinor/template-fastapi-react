@@ -1,6 +1,6 @@
 from typing import cast
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
 from common.exceptions import MissingPrivilegeException
 from data_providers.repository_interfaces.TodoRepositoryInterface import (
@@ -10,8 +10,8 @@ from entities.TodoItem import TodoItem
 
 
 class GetTodoByIdResponse(BaseModel):
-    id: str = Field(...)
-    title: str = Field(...)
+    id: str
+    title: str
     is_completed: bool = False
 
     @staticmethod

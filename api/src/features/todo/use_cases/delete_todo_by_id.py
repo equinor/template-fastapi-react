@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
 from common.exceptions import MissingPrivilegeException, NotFoundException
 from data_providers.repository_interfaces.TodoRepositoryInterface import (
@@ -7,7 +7,7 @@ from data_providers.repository_interfaces.TodoRepositoryInterface import (
 
 
 class DeleteTodoByIdResponse(BaseModel):
-    success: bool = Field(...)
+    success: bool
 
 
 def delete_todo_use_case(id: str, user_id: str, todo_repository: TodoRepositoryInterface) -> DeleteTodoByIdResponse:
