@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.3.0
+    rev: v4.4.0
     hooks:
       - id: check-ast
         language_version: python3.10
@@ -17,13 +17,13 @@ repos:
         exclude: api/src/authentication/mock_token_generator.py
 
   - repo: https://github.com/compilerla/conventional-pre-commit
-    rev: v1.3.0
+    rev: v2.1.1
     hooks:
       - id: conventional-pre-commit
         always_run: true
 
   - repo: https://github.com/ambv/black
-    rev: 22.3.0
+    rev: 22.12.0
     hooks:
       - id: black
         language_version: python3.10
@@ -47,14 +47,14 @@ repos:
         files: ^api/.*\.py$
 
   - repo: https://github.com/hadialqattan/pycln
-    rev: v1.3.5
+    rev: v2.1.2
     hooks:
       - id: pycln
         args: [./api/src, --config=api/pyproject.toml]
         pass_filenames: false
 
   - repo: https://github.com/pycqa/isort
-    rev: 5.10.1
+    rev: 5.11.4
     hooks:
       - id: isort
         name: isort (python)
@@ -70,7 +70,7 @@ repos:
 
 
   - repo: https://github.com/pre-commit/mirrors-eslint
-    rev: 'v8.18.0'
+    rev: 'v8.31.0'
     hooks:
       - id: eslint
         additional_dependencies:
@@ -89,7 +89,7 @@ repos:
         args: ["--config=web/.eslintrc.json", "--ignore-path=web/.eslintignore"]
 
   - repo: https://github.com/PyCQA/flake8
-    rev: 4.0.1
+    rev: 6.0.0
     hooks:
       - id: flake8
         files: ^api/src/.*\.py$
