@@ -18,7 +18,7 @@ class UpdateTodoRequest(BaseModel):
 
 
 class UpdateTodoResponse(BaseModel):
-    success: bool = Field(...)
+    success: bool
 
 
 def update_todo_use_case(

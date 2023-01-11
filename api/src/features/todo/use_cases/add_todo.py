@@ -10,7 +10,6 @@ from entities.TodoItem import TodoItem
 
 class AddTodoRequest(BaseModel):
     title: str = Field(
-        ...,
         title="The title of the item",
         max_length=300,
         min_length=1,
