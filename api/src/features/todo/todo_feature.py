@@ -24,50 +24,50 @@ from .use_cases.update_todo import (
 router = APIRouter(tags=["todos"], prefix="/todos")
 
 
-@router.post("", operation_id="create", response_model=AddTodoResponse)
+@router.post("", operation_id="create")
 @create_response(JSONResponse)
 def add_todo(
     data: AddTodoRequest,
     user: User = Depends(auth_with_jwt),
     todo_repository: TodoRepositoryInterface = Depends(get_todo_repository),
-):
+) -> AddTodoResponse:
     return add_todo_use_case(data=data, user_id=user.user_id, todo_repository=todo_repository)
 
 
-@router.get("/{id}", operation_id="get_by_id", response_model=GetTodoByIdResponse)
+@router.get("/{id}", operation_id="get_by_id")
 @create_response(JSONResponse)
 def get_todo_by_id(
     id: str,
     user: User = Depends(auth_with_jwt),
     todo_repository: TodoRepositoryInterface = Depends(get_todo_repository),
-):
+) -> GetTodoByIdResponse:
     return get_todo_by_id_use_case(id=id, user_id=user.user_id, todo_repository=todo_repository)
 
 
-@router.delete("/{id}", operation_id="delete_by_id", response_model=DeleteTodoByIdResponse)
+@router.delete("/{id}", operation_id="delete_by_id")
 @create_response(JSONResponse)
 def delete_todo_by_id(
     id: str,
     user: User = Depends(auth_with_jwt),
     todo_repository: TodoRepositoryInterface = Depends(get_todo_repository),
-):
+) -> DeleteTodoByIdResponse:
     return delete_todo_use_case(id=id, user_id=user.user_id, todo_repository=todo_repository)
 
 
-@router.get("", operation_id="get_all", response_model=List[GetTodoAllResponse])
+@router.get("", operation_id="get_all")
 @create_response(JSONResponse)
 def get_todo_all(
     user: User = Depends(auth_with_jwt), todo_repository: TodoRepositoryInterface = Depends(get_todo_repository)
-):
+) -> List[GetTodoAllResponse]:
     return get_todo_all_use_case(user_id=user.user_id, todo_repository=todo_repository)
 
 
-@router.put("/{id}", operation_id="update_by_id", response_model=UpdateTodoResponse)
+@router.put("/{id}", operation_id="update_by_id")
 @create_response(JSONResponse)
 def update_todo(
     id: str,
     data: UpdateTodoRequest,
     user: User = Depends(auth_with_jwt),
     todo_repository: TodoRepositoryInterface = Depends(get_todo_repository),
-):
+) -> UpdateTodoResponse:
     return update_todo_use_case(id=id, data=data, user_id=user.user_id, todo_repository=todo_repository)
