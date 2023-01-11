@@ -9,7 +9,7 @@ license = ""
 cachetools = "^4.2.2"
 python = "^3.10"
 python-jose = {extras = ["cryptography"], version = "^3.3.0"}
-fastapi = "^0.78.0"
+fastapi = "^0.89.0"
 uvicorn = {extras = ["standard"], version = "^0.17.6"}
 gunicorn = "^20.1.0"
 pymongo = "4.1.1"
