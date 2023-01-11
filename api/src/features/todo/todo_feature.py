@@ -31,7 +31,7 @@ def add_todo(
     user: User = Depends(auth_with_jwt),
     todo_repository: TodoRepositoryInterface = Depends(get_todo_repository),
 ):
-    return add_todo_use_case(data=data, user_id=user.user_id, todo_repository=todo_repository).dict()
+    return add_todo_use_case(data=data, user_id=user.user_id, todo_repository=todo_repository)
 
 
 @router.get("/{id}", operation_id="get_by_id", response_model=GetTodoByIdResponse)
@@ -41,7 +41,7 @@ def get_todo_by_id(
     user: User = Depends(auth_with_jwt),
     todo_repository: TodoRepositoryInterface = Depends(get_todo_repository),
 ):
-    return get_todo_by_id_use_case(id=id, user_id=user.user_id, todo_repository=todo_repository).dict()
+    return get_todo_by_id_use_case(id=id, user_id=user.user_id, todo_repository=todo_repository)
 
 
 @router.delete("/{id}", operation_id="delete_by_id", response_model=DeleteTodoByIdResponse)
@@ -51,7 +51,7 @@ def delete_todo_by_id(
     user: User = Depends(auth_with_jwt),
     todo_repository: TodoRepositoryInterface = Depends(get_todo_repository),
 ):
-    return delete_todo_use_case(id=id, user_id=user.user_id, todo_repository=todo_repository).dict()
+    return delete_todo_use_case(id=id, user_id=user.user_id, todo_repository=todo_repository)
 
 
 @router.get("", operation_id="get_all", response_model=List[GetTodoAllResponse])
@@ -59,7 +59,7 @@ def delete_todo_by_id(
 def get_todo_all(
     user: User = Depends(auth_with_jwt), todo_repository: TodoRepositoryInterface = Depends(get_todo_repository)
 ):
-    return [todo.dict() for todo in get_todo_all_use_case(user_id=user.user_id, todo_repository=todo_repository)]
+    return get_todo_all_use_case(user_id=user.user_id, todo_repository=todo_repository)
 
 
 @router.put("/{id}", operation_id="update_by_id", response_model=UpdateTodoResponse)
@@ -70,4 +70,4 @@ def update_todo(
     user: User = Depends(auth_with_jwt),
     todo_repository: TodoRepositoryInterface = Depends(get_todo_repository),
 ):
-    return update_todo_use_case(id=id, data=data, user_id=user.user_id, todo_repository=todo_repository).dict()
+    return update_todo_use_case(id=id, data=data, user_id=user.user_id, todo_repository=todo_repository)
