@@ -10,6 +10,8 @@ on:
 jobs:
   tests:
     uses: ./.github/workflows/tests.yaml
+    secrets:
+      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
   generate-changelog:
     needs: tests
