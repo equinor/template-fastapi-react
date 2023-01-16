@@ -44,17 +44,21 @@ If the execution fails, it will return a JSONResponse with a standardized error 
 """
 
 
-def create_response(response_class: Type[TResponse]) -> Callable[..., Callable[..., TResponse | JSONResponse]]:
-    def func_wrapper(func) -> Callable[..., TResponse | JSONResponse]:
+def create_response(response_class: Type[TResponse]) -> Callable:
+    def func_wrapper(func) -> Callable:
         @functools.wraps(func)
-        async def wrapper_decorator(*args, **kwargs) -> TResponse | JSONResponse:
+        async def wrapper_decorator(*args, **kwargs) -> TResponse | Response | JSONResponse:
             try:
                 # Await function if needed
                 if not iscoroutinefunction(func):
                     result = func(*args, **kwargs)
                 else:
                     result = await func(*args, **kwargs)
-                return response_class(result, status_code=200)
+                if isinstance(result, Response):  # The controller created the Response instance itself
+                    return result
+                if isinstance(result, list):
+                    return response_class([result_entry.dict() for result_entry in result])
+                return response_class(result.dict())
             except HTTPStatusError as http_error:
                 error_response = ErrorResponse(
                     type="ExternalFetchException",
