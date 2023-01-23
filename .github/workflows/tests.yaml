@@ -53,10 +53,13 @@ jobs:
           docker pull $API_IMAGE
           docker build --target development --tag api-development ./api # TODO: --cache-from $API_IMAGE
 
-      - name: Container security scan with Snyk
-        run: |
-          sudo apt-get install docker-scan-plugin
-          docker scan api-development
+      - name: Run Snyk to check Docker image for vulnerabilities
+        uses: snyk/actions/docker@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          image: api-development
+          args: --file=api/Dockerfile
 
       - name: BDD Integration tests
         if: ${{ false }} # disable for now
@@ -76,10 +79,13 @@ jobs:
           docker pull $WEB_IMAGE
           docker build --cache-from $WEB_IMAGE --target development --tag web-dev ./web
 
-      - name: Container security scan with Snyk
-        run: |
-          sudo apt-get install docker-scan-plugin
-          docker scan web-dev
+      - name: Run Snyk to check Docker image for vulnerabilities
+        uses: snyk/actions/docker@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          image: web-dev
+          args: --file=web/Dockerfile
           
 
   python-security-scan:
@@ -91,7 +97,7 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --severity-threshold=high
+          args: --severity-threshold=high --file=api/pyproject.toml
 
   node-security-scan:
     runs-on: ubuntu-latest
@@ -101,6 +107,8 @@ jobs:
         uses: snyk/actions/node@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --file=web/package.json
 
   test-docs:
     name: test-docs
