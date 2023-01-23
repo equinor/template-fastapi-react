@@ -94,11 +94,11 @@ jobs:
       - uses: actions/checkout@master
       - name: Run Snyk to check for Python vulnerabilities
         working-directory: ./api
-        uses: snyk/actions/python@master
+        uses: snyk/actions/python-3.10@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --severity-threshold=high --file=pyproject.toml
+          args: --severity-threshold=high
 
   node-security-scan:
     runs-on: ubuntu-latest
@@ -113,8 +113,7 @@ jobs:
         working-directory: ./web
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          args: --file=package.json
+
 
   test-docs:
     name: test-docs
