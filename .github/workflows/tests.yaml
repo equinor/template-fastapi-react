@@ -93,22 +93,28 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Run Snyk to check for Python vulnerabilities
+        working-directory: ./api
         uses: snyk/actions/python@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --severity-threshold=high --file=api/pyproject.toml
+          args: --severity-threshold=high --file=pyproject.toml
 
   node-security-scan:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
+      - name: Install dependencies
+        working-directory: ./web
+        run: |
+          npm install
       - name: Run Snyk to check for Node vulnerabilities
         uses: snyk/actions/node@master
+        working-directory: ./web
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --file=web/package.json
+          args: --file=package.json
 
   test-docs:
     name: test-docs
