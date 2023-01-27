@@ -18,9 +18,6 @@ on:
         required: false
         type: string
 
-env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
 jobs:
   publish-docs:
     runs-on: ubuntu-latest
@@ -46,17 +43,22 @@ jobs:
       run: |
         sed -i -e '1i${{ inputs.message }}\' CHANGELOG.md
         cp CHANGELOG.md documentation/src/pages/changelog.md
-    
+
     - name: Install dependencies and build website
       run: |
         cd documentation
         yarn install --frozen-lockfile
         yarn build
 
-    - name: GitHub Pages
-      # if: github.ref == 'refs/heads/main'
-      uses: crazy-max/ghaction-github-pages@v2.6.0
-      with:
-        build_dir: documentation/build/
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Push static files to Github Pages branch
+      run: |
+        cd documentation/build
+        CREATED_FROM_REF=$(git rev-parse --short HEAD)
+        git init
+        git config user.name "GitHub Actions Bot"
+        git config user.email "<>"
+        git checkout -b $GITHUB_PAGES_BRANCH
+        git remote add $GITHUB_PAGES_BRANCH https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/equinor/template-fastapi-react
+        git add .
+        git commit -m "Built from commit '$CREATED_FROM_REF'"
+        git push -f --set-upstream gh-pages gh-pages
