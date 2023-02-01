@@ -17,8 +17,9 @@ jobs:
           extra-files: |
             api/pyproject.toml
             api/src/app.py
+          changelog-types: '[{ "type": "feat", "section": "Features", "hidden": false },{ "type": "feature", "section": "Features", "hidden": false },{ "type": "fix", "section": "Bug Fixes", "hidden": false },{ "type": "perf", "section": "Performance Improvements", "hidden": false },{ "type": "revert", "section": "Reverts", "hidden": false },{ "type": "docs", "section": "Documentation", "hidden": false },{ "type": "style", "section": "Styles", "hidden": false },{ "type": "chore", "section": "Miscellaneous Chores", "hidden": false },{ "type": "refactor", "section": "Code Refactoring", "hidden": false },{ "type": "test", "section": "Tests", "hidden": false },{ "type": "build", "section": "Build System", "hidden": false },{ "type": "ci", "section": "Continuous Integration", "hidden": false }]'
     outputs:
-       release_created: ${{ steps.release.outputs.release_created }}
+      release_created: ${{ steps.release.outputs.release_created }}
 
   deploy-prod:
     needs: release-please
