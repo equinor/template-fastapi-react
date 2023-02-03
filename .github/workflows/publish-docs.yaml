@@ -18,6 +18,9 @@ on:
         required: false
         type: string
 
+env:
+  GITHUB_PAGES_BRANCH: gh-pages
+
 jobs:
   publish-docs:
     runs-on: ubuntu-latest
