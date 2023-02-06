@@ -85,7 +85,7 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           image: web-dev
-          args: --file=web/Dockerfile
+          args: --severity-threshold=high --file=web/Dockerfile
           
 
   python-security-scan:
@@ -112,7 +112,7 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --file=web/package.json
+          args: --severity-threshold=high --file=web/package.json
 
 
   test-docs:

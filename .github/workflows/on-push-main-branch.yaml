@@ -37,3 +37,58 @@ jobs:
       radix-environment: 'test'
     secrets:
       APP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.APP_SERVICE_ACCOUNT_TOKEN }}
+
+
+  snyk-monitoring-python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Run Snyk to monitor for python vulnerabilities
+        uses: snyk/actions/python-3.10@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          command: monitor
+          args:  --severity-threshold=high --file=api/pyproject.toml
+
+  snyk-monitoring-node:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Run Snyk to monitor for node vulnerabilities
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          command: monitor
+          args: --severity-threshold=high --file=web/package.json
+
+  snyk-monitor-web-container:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build a Docker image
+        run: docker build -t web ./web
+      - name: Run Snyk to check Docker image for vulnerabilities
+        uses: snyk/actions/docker@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          image: web
+          command: monitor
+          args: --file=./web/Dockerfile
+
+  snuyk-monitor-api-container:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build a Docker image
+        run: docker build -t api ./api
+      - name: Run Snyk to check Docker image for vulnerabilities
+        uses: snyk/actions/docker@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          image: web
+          command: monitor
+          args: --file=./api/Dockerfile
