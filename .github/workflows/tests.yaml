@@ -8,6 +8,9 @@ on:
       CR_SECRET:
         description: "Secret to authenticate if using an other container registry than Github"
         required: false
+      SNYK_TOKEN:
+        description: "Token used to authenticate with Snyk"
+        required: true
 
 env:
   IMAGE_REGISTRY: ghcr.io
@@ -50,6 +53,14 @@ jobs:
           docker pull $API_IMAGE
           docker build --target development --tag api-development ./api # TODO: --cache-from $API_IMAGE
 
+      - name: Run Snyk to check Docker image for vulnerabilities
+        uses: snyk/actions/docker@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          image: api-development
+          args: --file=api/Dockerfile
+
       - name: BDD Integration tests
         if: ${{ false }} # disable for now
         run: docker-compose -f docker-compose.yml -f docker-compose.ci.yml run api behave
@@ -67,6 +78,42 @@ jobs:
           echo ${{ secrets.GITHUB_TOKEN }} | docker login $IMAGE_REGISTRY -u $GITHUB_ACTOR --password-stdin
           docker pull $WEB_IMAGE
           docker build --cache-from $WEB_IMAGE --target development --tag web-dev ./web
+
+      - name: Run Snyk to check Docker image for vulnerabilities
+        uses: snyk/actions/docker@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          image: web-dev
+          args: --severity-threshold=high --file=web/Dockerfile
+          
+
+  python-security-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Run Snyk to check for Python vulnerabilities
+        uses: snyk/actions/python-3.10@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high --file=api/pyproject.toml
+
+  node-security-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Install dependencies
+        working-directory: ./web
+        run: |
+          npm install
+      - name: Run Snyk to check for Node vulnerabilities
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high --file=web/package.json
+
 
   test-docs:
     name: test-docs
