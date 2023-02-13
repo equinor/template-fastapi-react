@@ -25,5 +25,3 @@ jobs:
     needs: release-please
     uses: ./.github/workflows/release-production.yaml
     if: ${{ needs.release-please.outputs.release_created }}
-    secrets:
-      APP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.APP_SERVICE_ACCOUNT_TOKEN }}
