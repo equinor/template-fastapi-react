@@ -8,9 +8,6 @@ on:
         default: 'test'
         required: true
         type: string
-    secrets:
-      APP_SERVICE_ACCOUNT_TOKEN:
-        required: true
 
 env:
   RADIX_APP: heracles
@@ -21,10 +18,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
+
+      - name: Az CLI login
+        uses: azure/login@v1
+        with:
+          client-id: 4a761bec-628d-4c4b-860a-4903cbecc963 #app registration Application ID
+          tenant-id: 3aa4a235-b6e2-48d5-9195-7fcf05b459b0
+          allow-no-subscriptions: true
+
+      - name: Get Azure principal token for Radix
+        # The resource 6dae42f8-4368-4678-94ff-3960e28e3630 is a fixed Application ID,
+        # corresponding to the Azure Kubernetes Service AAD Server.
+        run: |
+          token=$(az account get-access-token --resource 6dae42f8-4368-4678-94ff-3960e28e3630 --query=accessToken -otsv)
+          echo "::add-mask::$token"
+          echo "APP_SERVICE_ACCOUNT_TOKEN=$token" >> $GITHUB_ENV   
+
       - name: Deploy on Radix
         uses: equinor/radix-github-actions@master
         env:
-          APP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.APP_SERVICE_ACCOUNT_TOKEN }}
+          APP_SERVICE_ACCOUNT_TOKEN: ${{ env.APP_SERVICE_ACCOUNT_TOKEN }}
         with:
           args: >
             create job

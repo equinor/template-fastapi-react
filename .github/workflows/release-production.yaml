@@ -3,9 +3,6 @@ name: release-to-production
 on:
   workflow_dispatch:
   workflow_call:
-    secrets:
-      APP_SERVICE_ACCOUNT_TOKEN:
-        required: true
 
 jobs:
   tests:
@@ -23,5 +20,3 @@ jobs:
     uses: ./.github/workflows/deploy.yaml
     with:
       radix-environment: 'prod'
-    secrets:
-      APP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.APP_SERVICE_ACCOUNT_TOKEN }}
