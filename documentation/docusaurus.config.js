@@ -10,7 +10,7 @@ async function createConfig() {
   return {
     title: 'Template FastAPI React',
     tagline: 'A solution template for creating a Single Page App (SPA) with React and FastAPI following the principles of Clean Architecture.',
-    url: 'https://template-fastapi-react.app.radix.equinor.com/',
+    url: 'https://template-fastapi-react.app.playground.radix.equinor.com/',
     baseUrl: '/template-fastapi-react/',
     onBrokenLinks: 'throw',
     onBrokenMarkdownLinks: 'warn',
@@ -77,12 +77,12 @@ async function createConfig() {
             },
             { to: '/docs/changelog', label: 'Changelog', position: 'left' },
             {
-              href: 'https://template-fastapi-react.app.radix.equinor.com',
+              href: 'https://template-fastapi-react.app.playground.radix.equinor.com',
               label: 'Demo',
               position: 'right',
             },
             {
-              href: 'https://template-fastapi-react.app.radix.equinor.com/api/docs',
+              href: 'https://template-fastapi-react.app.playground.radix.equinor.com/api/docs',
               label: 'API',
               position: 'right',
             },
@@ -126,7 +126,7 @@ async function createConfig() {
                 },
                 {
                   label: 'Template FastAPI React',
-                  href: 'https://template-fastapi-react.app.radix.equinor.com/',
+                  href: 'https://template-fastapi-react.app.playground.radix.equinor.com/',
                 },
               ],
             },
