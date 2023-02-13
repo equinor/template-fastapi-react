@@ -16,7 +16,7 @@ jobs:
     uses: ./.github/workflows/publish.yaml
     with:
       image-tag: production
-      oauth-redirect-url: 'https://template-fastapi-react.app.radix.equinor.com'
+      oauth-redirect-url: 'https://template-fastapi-react.app.playground.radix.equinor.com'
 
   deploy-prod:
     needs: publish-production

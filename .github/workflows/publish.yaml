@@ -10,7 +10,7 @@ on:
         type: string
       oauth-redirect-url:
         description: "Redirect url for oauth. Should be the public url to access the web app"
-        default: "https://template-fastapi-react.app.radix.equinor.com"
+        default: "https://template-fastapi-react.app.playground.radix.equinor.com"
         required: true
         type: string
     secrets:
