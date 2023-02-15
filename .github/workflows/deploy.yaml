@@ -49,7 +49,7 @@ jobs:
             --application $RADIX_APP
             --environment ${{ inputs.radix-environment }}
             --user $RADIX_USER
-            --context production
+            --context playground
             --from-config
             --token-environment
             --follow
