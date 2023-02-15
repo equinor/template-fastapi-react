@@ -9,6 +9,10 @@ on:
         required: true
         type: string
 
+permissions:
+  id-token: write
+  contents: read
+
 env:
   RADIX_APP: heracles
   RADIX_USER: heracles@equinor.com
