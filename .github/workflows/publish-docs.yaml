@@ -5,16 +5,16 @@ on:
   workflow_dispatch:
     inputs:
       message:
-        description: 'A message to shown in the changelog'
-        default: ''
+        description: "A message to shown in the changelog"
+        default: ""
         required: false
         type: string
   # Workflow call is used for called from another workflow
   workflow_call:
     inputs:
       message:
-        description: 'A message to shown in the changelog'
-        default: ''
+        description: "A message to shown in the changelog"
+        default: ""
         required: false
         type: string
 
@@ -26,42 +26,42 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: 'Checkout GitHub Action'
-      uses: actions/checkout@main
+      - name: "Checkout GitHub Action"
+        uses: actions/checkout@main
 
-    - name: 'Setup node'
-      uses: actions/setup-node@v3
-      with:
-        node-version: 18
-        cache: yarn
-        cache-dependency-path: documentation/yarn.lock
+      - name: "Setup node"
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: yarn
+          cache-dependency-path: documentation/yarn.lock
 
-    - name: Download CHANGELOG
-      uses: actions/download-artifact@v3
-      with:
-        name: CHANGELOG
+      - name: Download CHANGELOG
+        uses: actions/download-artifact@v3
+        with:
+          name: CHANGELOG
 
-    - name: 'Add changelog'
-      shell: bash
-      run: |
-        sed -i -e '1i${{ inputs.message }}\' CHANGELOG.md
-        cp CHANGELOG.md documentation/src/pages/changelog.md
+      - name: "Add changelog"
+        shell: bash
+        run: |
+          sed -i -e '1i${{ inputs.message }}\' CHANGELOG.md
+          cp CHANGELOG.md documentation/src/pages/changelog.md
 
-    - name: Install dependencies and build website
-      run: |
-        cd documentation
-        yarn install --frozen-lockfile
-        yarn build
+      - name: Install dependencies and build website
+        run: |
+          cd documentation
+          yarn install --frozen-lockfile
+          yarn build
 
-    - name: Push static files to Github Pages branch
-      run: |
-        cd documentation/build
-        CREATED_FROM_REF=$(git rev-parse --short HEAD)
-        git init
-        git config user.name "GitHub Actions Bot"
-        git config user.email "<>"
-        git checkout -b $GITHUB_PAGES_BRANCH
-        git remote add $GITHUB_PAGES_BRANCH https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/equinor/template-fastapi-react
-        git add .
-        git commit -m "Built from commit '$CREATED_FROM_REF'"
-        git push -f --set-upstream gh-pages gh-pages
+      - name: Push static files to Github Pages branch
+        run: |
+          cd documentation/build
+          CREATED_FROM_REF=$(git rev-parse --short HEAD)
+          git init
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+          git checkout -b $GITHUB_PAGES_BRANCH
+          git remote add $GITHUB_PAGES_BRANCH https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/equinor/template-fastapi-react
+          git add .
+          git commit -m "Built from commit '$CREATED_FROM_REF'"
+          git push -f --set-upstream gh-pages gh-pages

@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths-ignore:
-      - 'CHANGELOG.md'
+      - "CHANGELOG.md"
 
 jobs:
   tests:
@@ -19,17 +19,17 @@ jobs:
     needs: generate-changelog
     uses: ./.github/workflows/publish-docs.yaml
     with:
-      message: 'Warning: This is the development version.'
+      message: "Warning: This is the development version."
 
   publish-latest:
     needs: tests
     uses: ./.github/workflows/publish.yaml
     with:
       image-tag: latest
-      oauth-redirect-url: 'https://proxy-template-fastapi-react-test.playground.radix.equinor.com/'
+      oauth-redirect-url: "https://proxy-template-fastapi-react-test.playground.radix.equinor.com/"
 
   deploy-test:
     needs: publish-latest
     uses: ./.github/workflows/deploy.yaml
     with:
-      radix-environment: 'test'
+      radix-environment: "test"
