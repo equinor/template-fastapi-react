@@ -30,6 +30,6 @@ jobs:
 
   deploy-test:
     needs: publish-latest
-    uses: ./.github/workflows/deploy.yaml
+    uses: ./.github/workflows/deploy-to-radix.yaml
     with:
       radix-environment: "test"
