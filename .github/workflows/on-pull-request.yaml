@@ -1,0 +1,8 @@
+name: "On PR updated"
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  tests:
+    uses: ./.github/workflows/tests.yaml
