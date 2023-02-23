@@ -17,7 +17,6 @@ jobs:
   generate-changelog:
     needs: tests
     uses: ./.github/workflows/generate-changelog.yaml
-
   docs:
     needs: generate-changelog
     uses: ./.github/workflows/publish-docs.yaml
@@ -30,9 +29,26 @@ jobs:
     with:
       image-tag: latest
       oauth-redirect-url: "https://proxy-template-fastapi-react-test.playground.radix.equinor.com/"
-
   deploy-test:
     needs: publish-latest
     uses: ./.github/workflows/deploy-to-radix.yaml
     with:
       radix-environment: "test"
+
+  release-please:
+    needs: tests
+    uses: ./.github/workflows/create-release-pr.yaml
+
+  publish-production:
+    needs: release-please
+    if: ${{ needs.release-please.outputs.release_created }}
+    uses: ./.github/workflows/publish-image.yaml
+    with:
+      image-tag: production
+      oauth-redirect-url: "https://template-fastapi-react.app.playground.radix.equinor.com"
+
+  deploy-prod:
+    needs: publish-production
+    uses: ./.github/workflows/deploy-to-radix.yaml
+    with:
+      radix-environment: "prod"
