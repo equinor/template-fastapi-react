@@ -26,7 +26,7 @@ jobs:
 
   publish-latest:
     needs: tests
-    uses: ./.github/workflows/publish.yaml
+    uses: ./.github/workflows/publish-image.yaml
     with:
       image-tag: latest
       oauth-redirect-url: "https://proxy-template-fastapi-react-test.playground.radix.equinor.com/"

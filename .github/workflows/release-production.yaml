@@ -10,7 +10,7 @@ jobs:
 
   publish-production:
     needs: tests
-    uses: ./.github/workflows/publish.yaml
+    uses: ./.github/workflows/publish-image.yaml
     with:
       image-tag: production
       oauth-redirect-url: "https://template-fastapi-react.app.playground.radix.equinor.com"
