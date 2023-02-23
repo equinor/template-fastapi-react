@@ -4,8 +4,8 @@ on:
   workflow_call: # Workflow is meant to be called from another workflow
     inputs:
       radix-environment:
-        description: 'Which radix environment to deploy into'
-        default: 'test'
+        description: "Which radix environment to deploy into"
+        default: "test"
         required: true
         type: string
 
@@ -36,7 +36,7 @@ jobs:
         run: |
           token=$(az account get-access-token --resource 6dae42f8-4368-4678-94ff-3960e28e3630 --query=accessToken -otsv)
           echo "::add-mask::$token"
-          echo "APP_SERVICE_ACCOUNT_TOKEN=$token" >> $GITHUB_ENV   
+          echo "APP_SERVICE_ACCOUNT_TOKEN=$token" >> $GITHUB_ENV
 
       - name: Deploy on Radix
         uses: equinor/radix-github-actions@master
