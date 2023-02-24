@@ -34,7 +34,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@equinor/eds-icons", "npm:0.18.0"],\
             ["@testing-library/dom", "npm:9.0.0"],\
             ["@testing-library/jest-dom", "npm:5.16.5"],\
-            ["@testing-library/react", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:13.4.0"],\
+            ["@testing-library/react", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:14.0.0"],\
             ["@testing-library/user-event", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:14.4.3"],\
             ["@types/jest", "npm:29.4.0"],\
             ["@types/node", "npm:18.14.1"],\
@@ -4413,21 +4413,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@testing-library/dom", [\
-        ["npm:8.20.0", {\
-          "packageLocation": "./.yarn/cache/@testing-library-dom-npm-8.20.0-afe79da119-1e599129a2.zip/node_modules/@testing-library/dom/",\
-          "packageDependencies": [\
-            ["@testing-library/dom", "npm:8.20.0"],\
-            ["@babel/code-frame", "npm:7.18.6"],\
-            ["@babel/runtime", "npm:7.21.0"],\
-            ["@types/aria-query", "npm:5.0.1"],\
-            ["aria-query", "npm:5.1.3"],\
-            ["chalk", "npm:4.1.2"],\
-            ["dom-accessibility-api", "npm:0.5.16"],\
-            ["lz-string", "npm:1.4.4"],\
-            ["pretty-format", "npm:27.5.1"]\
-          ],\
-          "linkType": "HARD"\
-        }],\
         ["npm:9.0.0", {\
           "packageLocation": "./.yarn/cache/@testing-library-dom-npm-9.0.0-d257fd1d0b-5381bf9438.zip/node_modules/@testing-library/dom/",\
           "packageDependencies": [\
@@ -4463,19 +4448,19 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@testing-library/react", [\
-        ["npm:13.4.0", {\
-          "packageLocation": "./.yarn/cache/@testing-library-react-npm-13.4.0-eaa652c0f5-51ec548c1f.zip/node_modules/@testing-library/react/",\
+        ["npm:14.0.0", {\
+          "packageLocation": "./.yarn/cache/@testing-library-react-npm-14.0.0-84fecd033b-4a54c8f56c.zip/node_modules/@testing-library/react/",\
           "packageDependencies": [\
-            ["@testing-library/react", "npm:13.4.0"]\
+            ["@testing-library/react", "npm:14.0.0"]\
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:13.4.0", {\
-          "packageLocation": "./.yarn/__virtual__/@testing-library-react-virtual-9220bd0c8e/0/cache/@testing-library-react-npm-13.4.0-eaa652c0f5-51ec548c1f.zip/node_modules/@testing-library/react/",\
+        ["virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:14.0.0", {\
+          "packageLocation": "./.yarn/__virtual__/@testing-library-react-virtual-36492f373b/0/cache/@testing-library-react-npm-14.0.0-84fecd033b-4a54c8f56c.zip/node_modules/@testing-library/react/",\
           "packageDependencies": [\
-            ["@testing-library/react", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:13.4.0"],\
+            ["@testing-library/react", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:14.0.0"],\
             ["@babel/runtime", "npm:7.21.0"],\
-            ["@testing-library/dom", "npm:8.20.0"],\
+            ["@testing-library/dom", "npm:9.0.0"],\
             ["@types/react", "npm:18.0.28"],\
             ["@types/react-dom", "npm:18.0.11"],\
             ["react", "npm:18.2.0"],\
@@ -17650,7 +17635,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@equinor/eds-icons", "npm:0.18.0"],\
             ["@testing-library/dom", "npm:9.0.0"],\
             ["@testing-library/jest-dom", "npm:5.16.5"],\
-            ["@testing-library/react", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:13.4.0"],\
+            ["@testing-library/react", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:14.0.0"],\
             ["@testing-library/user-event", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:14.4.3"],\
             ["@types/jest", "npm:29.4.0"],\
             ["@types/node", "npm:18.14.1"],\
