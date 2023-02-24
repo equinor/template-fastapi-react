@@ -7251,7 +7251,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ]],\
       ["core-js", [\
         ["npm:3.28.0", {\
-          "packageLocation": "./.yarn/cache/core-js-npm-3.28.0-495770dfdb-3155fd0ec1.zip/node_modules/core-js/",\
+          "packageLocation": "./.yarn/unplugged/core-js-npm-3.28.0-495770dfdb/node_modules/core-js/",\
           "packageDependencies": [\
             ["core-js", "npm:3.28.0"]\
           ],\
@@ -7270,7 +7270,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ]],\
       ["core-js-pure", [\
         ["npm:3.28.0", {\
-          "packageLocation": "./.yarn/cache/core-js-pure-npm-3.28.0-172396ba34-8bef96a435.zip/node_modules/core-js-pure/",\
+          "packageLocation": "./.yarn/unplugged/core-js-pure-npm-3.28.0-172396ba34/node_modules/core-js-pure/",\
           "packageDependencies": [\
             ["core-js-pure", "npm:3.28.0"]\
           ],\
@@ -16733,14 +16733,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ]],\
       ["styled-components", [\
         ["npm:5.3.6", {\
-          "packageLocation": "./.yarn/cache/styled-components-npm-5.3.6-934fe4f344-68eac1e451.zip/node_modules/styled-components/",\
+          "packageLocation": "./.yarn/unplugged/styled-components-virtual-1e5f9309d8/node_modules/styled-components/",\
           "packageDependencies": [\
             ["styled-components", "npm:5.3.6"]\
           ],\
           "linkType": "SOFT"\
         }],\
         ["virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:5.3.6", {\
-          "packageLocation": "./.yarn/__virtual__/styled-components-virtual-1e5f9309d8/0/cache/styled-components-npm-5.3.6-934fe4f344-68eac1e451.zip/node_modules/styled-components/",\
+          "packageLocation": "./.yarn/unplugged/styled-components-virtual-1e5f9309d8/node_modules/styled-components/",\
           "packageDependencies": [\
             ["styled-components", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:5.3.6"],\
             ["@babel/helper-module-imports", "npm:7.18.6"],\
