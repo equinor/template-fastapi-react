@@ -2,10 +2,6 @@
   "name": "web",
   "version": "0.1.0",
   "private": true,
-  "peerDependenices": {
-    "@babel/plugin-syntax-flow": "^7.17.0",
-    "@babel/plugin-transform-react-jsx": "^7.17.0"
-  },
   "dependencies": {
     "@equinor/eds-core-react": "^0.29.1",
     "@equinor/eds-icons": "^0.18.0",
@@ -19,6 +15,10 @@
     "styled-components": "^5.3.6"
   },
   "devDependencies": {
+    "@babel/core": "7.21.0",
+    "@babel/plugin-syntax-flow": "^7.17.0",
+    "@babel/plugin-transform-react-jsx": "^7.17.0",
+    "@testing-library/dom": "9.0.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
