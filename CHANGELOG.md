@@ -1,5 +1,75 @@
 # Changelog
 
+## [1.4.0](https://github.com/equinor/template-fastapi-react/compare/v1.3.0...v1.4.0) (2023-02-27)
+
+
+### Features
+
+* Add info popover with version ([28aa513](https://github.com/equinor/template-fastapi-react/commit/28aa51377592b7c5bb9b59d245ab275b47a52653)), closes [#154](https://github.com/equinor/template-fastapi-react/issues/154)
+
+
+### Bug Fixes
+
+* **api:** handle lists in create_response ([333f7d4](https://github.com/equinor/template-fastapi-react/commit/333f7d4afbac95609ae15b05b3a8f1d978ee1107))
+* **api:** make health-check return PlainTextResponse ([12d5169](https://github.com/equinor/template-fastapi-react/commit/12d51697ee78edbbe519c874b4fddfb8f0786718))
+* **api:** remove empty default pydantic field in models ([0424282](https://github.com/equinor/template-fastapi-react/commit/0424282f7dee8662c6d0b8faa01f78bdaced3a3f))
+* remove /api as root path. ([208ceb9](https://github.com/equinor/template-fastapi-react/commit/208ceb98dcf269e18b43d6ffda04dd265bfe868c))
+* replace deprecated output definition ([c53b003](https://github.com/equinor/template-fastapi-react/commit/c53b003498afb8f2568815a4c3da56f8d15542af))
+
+
+### Tests
+
+* Upgrade pre-commits ([bd8f110](https://github.com/equinor/template-fastapi-react/commit/bd8f1106cde2ec215ea9a519a4afd5daa460fb96))
+
+
+### Continuous Integration
+
+* bump pre-commit hooks ([9a0cea7](https://github.com/equinor/template-fastapi-react/commit/9a0cea7d6a03aaa99101135f626b948c87dd6882))
+* change oauth redurect url to radix playground ([655c55f](https://github.com/equinor/template-fastapi-react/commit/655c55f5027baea255d29ea881df0030695da5aa))
+* Change version logging format on build ([49ca893](https://github.com/equinor/template-fastapi-react/commit/49ca8939a6dd8fd753ba171653a5977a869a0249)), closes [#154](https://github.com/equinor/template-fastapi-react/issues/154)
+* correct permissions ([6d9d563](https://github.com/equinor/template-fastapi-react/commit/6d9d563a3cf3db335c1d34b3630ac64212881186))
+* Fix bug in publish docs ([a696a33](https://github.com/equinor/template-fastapi-react/commit/a696a33a9e451f3d261e2b07538aebac418ac3d3))
+* Include all commit types in changelog ([73cfaaa](https://github.com/equinor/template-fastapi-react/commit/73cfaaadf916c7e15accb347183f89e50651f279))
+* login as the service principal to request an access token ([fabe3b4](https://github.com/equinor/template-fastapi-react/commit/fabe3b469ce49f9c64ff3e0781d6564c78f709f5))
+* remove secret as input to reusable workflow ([1ec6cbb](https://github.com/equinor/template-fastapi-react/commit/1ec6cbb2e5360de99d99416739093a02a38c5ba7))
+* specify playground context ([142bc13](https://github.com/equinor/template-fastapi-react/commit/142bc139c4cd4b7e145a00dde2161a502afa9363))
+
+
+### Documentation
+
+* add what is fastapi ([bbec23b](https://github.com/equinor/template-fastapi-react/commit/bbec23b85d2b0c1fadfd4e4ea6e3df7e63683e78))
+* rewrite 01-setup Yarn PnP in VSCode ([df4c7d0](https://github.com/equinor/template-fastapi-react/commit/df4c7d0dadbbccaafa6fa5c13d0bd3b16faf5243))
+* update link to radix playground ([6c932c3](https://github.com/equinor/template-fastapi-react/commit/6c932c3c48739bce3cc21e24a416405a64e5cc31))
+
+
+### Code Refactoring
+
+* **api:** replace response_class with return type annotations ([b1fa3bd](https://github.com/equinor/template-fastapi-react/commit/b1fa3bd6b342ba89e5d2237721573a83cfd503fe))
+* **ci:** remove crazy-max external action ([b41990d](https://github.com/equinor/template-fastapi-react/commit/b41990d92c19d2a661900a208a60d604a5ab470c))
+* create empty yarn.lock ([39050e7](https://github.com/equinor/template-fastapi-react/commit/39050e72af50debd95380590fe4ee803a5995589))
+* **workflow:** Fix linting errors ([8ea9f69](https://github.com/equinor/template-fastapi-react/commit/8ea9f69fbb5919568ba99fed659be77e18647d48))
+
+
+### Build System
+
+* add typescript plugin ([83ade0c](https://github.com/equinor/template-fastapi-react/commit/83ade0cdb86d15bbe072e036fbe0ac1b106f8015))
+* **ci/cd:** update flake8 repo location ([e6953ad](https://github.com/equinor/template-fastapi-react/commit/e6953ad3ca280975c9589939a1e728a73fbfd418))
+* enable scripts to build necessary packages (YN0007) ([f1cf2c3](https://github.com/equinor/template-fastapi-react/commit/f1cf2c3f7d6fc7190535c8abf97c55bfa6839e56))
+* missing peer dependencies (YN0002) ([9e8981d](https://github.com/equinor/template-fastapi-react/commit/9e8981d581c2509039beda4a7a34980c574bf179))
+* set yarn version ([afb5834](https://github.com/equinor/template-fastapi-react/commit/afb5834883d6d1f01026d602fb434db38443c8b0))
+
+
+### Miscellaneous Chores
+
+* Add yarn upgrade-interactive ([91d998f](https://github.com/equinor/template-fastapi-react/commit/91d998f317d8b697a75a920108a94e5479b13f78))
+* **api:** return Pydantic model instead of dict ([427a963](https://github.com/equinor/template-fastapi-react/commit/427a9633d31cc3298d463fc4f1a225bd36f76867))
+* ignore diffs on yarn plugins ([78017e5](https://github.com/equinor/template-fastapi-react/commit/78017e5216f863b19842e09574bf035db78f88de))
+* Update all web packages ([a193af5](https://github.com/equinor/template-fastapi-react/commit/a193af56c4e0ed68be9b7ad05d7a5747130c0321))
+* update dependencies ([fb2cf50](https://github.com/equinor/template-fastapi-react/commit/fb2cf508f3f30f12bf39f23a9a630d92e12f47b0))
+* update sdks ([385a55e](https://github.com/equinor/template-fastapi-react/commit/385a55eefab23b695e2a4f1f12b1ca97e93a9820))
+* upgrade versions ([bc9f6a3](https://github.com/equinor/template-fastapi-react/commit/bc9f6a3dadb920167419e8b66bd79a396c09cad9))
+* upgrade versions ([041f78e](https://github.com/equinor/template-fastapi-react/commit/041f78e9c0cdb1be8fd83099d33b7c1e36e3633a))
+
 ## [1.3.0](https://github.com/equinor/template-fastapi-react/compare/v1.2.1...v1.3.0) (2022-11-11)
 
 
