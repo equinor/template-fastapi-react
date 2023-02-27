@@ -1,6 +1,12 @@
-name: "Deploy"
+name: "Deploy image to radix"
 on:
   workflow_dispatch:
+    inputs:
+      radix-environment:
+        description: "Which radix environment to deploy into"
+        default: "test"
+        required: true
+        type: string
   workflow_call: # Workflow is meant to be called from another workflow
     inputs:
       radix-environment:
