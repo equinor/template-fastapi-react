@@ -2,8 +2,14 @@ import { Typography } from '@equinor/eds-core-react'
 import axios, { AxiosResponse } from 'axios'
 import { useEffect, useState } from 'react'
 
+type CommitInfo = {
+  hash: string
+  date: string
+  refs: string
+}
+
 const useCommitInfo = () => {
-  const [commitInfo, setCommitInfo] = useState<{ [key: string]: string }>({
+  const [commitInfo, setCommitInfo] = useState<CommitInfo>({
     hash: '',
     date: '',
     refs: '',
@@ -14,7 +20,7 @@ const useCommitInfo = () => {
       const versionFile: { [key: string]: string } = Object.fromEntries(
         response.data.split('\n').map((line) => line.split(': '))
       )
-      setCommitInfo(versionFile)
+      setCommitInfo(versionFile as CommitInfo)
     })
   }, [])
 
