@@ -35,23 +35,21 @@ const useCommitInfo = () => {
   return commitInfo
 }
 
-export const VersionText = (): JSX.Element => {
+export const VersionText = () => {
   const commitInfo = useCommitInfo()
 
   return (
     <p>
       Version:{' '}
-      {commitInfo.hash !== '' && commitInfo.date !== '' && (
-        <>
-          <Typography
-            link
-            href={`https://github.com/equinor/template-fastapi-react/commit/${commitInfo.hash}`}
-          >
-            {commitInfo.refs === '' ? commitInfo.hash : commitInfo.refs}
-          </Typography>{' '}
-          ({commitInfo.date})
-        </>
-      )}
+      <>
+        <Typography
+          link
+          href={`https://github.com/equinor/template-fastapi-react/commit/${commitInfo.hash}`}
+        >
+          {commitInfo.refs === '' ? commitInfo.hash : commitInfo.refs}
+        </Typography>{' '}
+        {commitInfo.date}
+      </>
     </p>
   )
 }
