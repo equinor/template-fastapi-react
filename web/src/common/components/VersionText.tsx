@@ -10,15 +10,12 @@ const useCommitInfo = () => {
   })
 
   useEffect(() => {
-    axios
-      .get('version.txt')
-      .then((response: AxiosResponse<string>) => {
-        const versionFile: { [key: string]: string } = Object.fromEntries(
-          response.data.split('\n').map((line) => line.split(': '))
-        )
-        setCommitInfo(versionFile)
-      })
-      .catch(() => null)
+    axios.get('version.txt').then((response: AxiosResponse<string>) => {
+      const versionFile: { [key: string]: string } = Object.fromEntries(
+        response.data.split('\n').map((line) => line.split(': '))
+      )
+      setCommitInfo(versionFile)
+    })
   }, [])
 
   return commitInfo
