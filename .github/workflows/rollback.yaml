@@ -1,0 +1,44 @@
+name: "Rollback prod to an older release"
+on:
+  workflow_dispatch:
+    inputs:
+      release-tag:
+        description: "GitHub release tag. Must match a Docker image tag"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  id-token: write
+  packages: write
+
+env:
+  IMAGE_REGISTRY: ghcr.io
+  API_IMAGE: ghcr.io/equinor/neqsimapi
+
+jobs:
+  set-prod-tag:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        image:
+          [
+            ghcr.io/equinor/template-fastapi-react/api,
+            ghcr.io/equinor/template-fastapi-react/web,
+            ghcr.io/equinor/template-fastapi-react/nginx,
+          ]
+    steps:
+      - uses: actions/checkout@master
+      - name: "Set prod tag on older image"
+        run: |
+          echo "Tagging ${{ matrix.image }}:${{ inputs.release-tag }} with 'production'"
+          echo ${{ secrets.GITHUB_TOKEN }} | docker login $IMAGE_REGISTRY -u $GITHUB_ACTOR --password-stdin
+          docker pull ${{ matrix.image }}:${{ inputs.release-tag }}
+          docker tag ${{ matrix.image }}:${{ inputs.release-tag }} ${{ matrix.image }}:production
+          docker push $API_IMAGE:production
+
+  deploy:
+    needs: set-prod-tag
+    uses: ./.github/workflows/deploy-to-radix.yaml
+    with:
+      radix-environment: "prod"
