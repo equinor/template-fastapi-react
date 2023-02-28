@@ -27,7 +27,7 @@ jobs:
     needs: tests
     uses: ./.github/workflows/publish-image.yaml
     with:
-      image-tag: latest
+      image-tags: latest
       oauth-redirect-url: "https://proxy-template-fastapi-react-test.playground.radix.equinor.com/"
   deploy-test:
     needs: publish-latest
@@ -44,7 +44,7 @@ jobs:
     if: ${{ needs.release-please.outputs.release_created }}
     uses: ./.github/workflows/publish-image.yaml
     with:
-      image-tag: production
+      image-tags: production
       oauth-redirect-url: "https://template-fastapi-react.app.playground.radix.equinor.com"
 
   deploy-prod:

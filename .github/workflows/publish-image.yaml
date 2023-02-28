@@ -3,9 +3,8 @@ on:
   workflow_dispatch:
   workflow_call: # Workflow is meant to be called from another workflow, with the image tag as input
     inputs:
-      image-tag:
-        description: "Which tag to set for the produced docker images"
-        default: "latest"
+      image-tags:
+        description: "Which tag to give the images. Supports multiple tags if comma separated, ie 'tag1,tag2'"
         required: true
         type: string
       oauth-redirect-url:
@@ -36,9 +35,8 @@ jobs:
       - name: "Login to image registry"
         run: echo ${{ secrets.GITHUB_TOKEN }} | docker login $IMAGE_REGISTRY -u $GITHUB_ACTOR --password-stdin
 
-      - name: "Build and Publish Web"
+      - name: "Build web"
         run: |
-          echo "Tagging with ${{ inputs.image-tag }}"
           docker pull $WEB_IMAGE
           printf "$(git log -n 1 --format=format:'hash: %h%ndate: %cs%nrefs: %d' --decorate=short --decorate-refs=refs/tags | sed 's/ (tag: \([^\s]*\))/\1/')" > ./web/public/version.txt
           docker build \
@@ -50,8 +48,16 @@ jobs:
           --cache-from ${WEB_IMAGE} \
           --tag ${WEB_IMAGE} \
           ./web
-          docker tag $WEB_IMAGE $WEB_IMAGE:${{ inputs.image-tag }}
-          docker push $WEB_IMAGE:${{ inputs.image-tag }}
+
+      - name: "Publish web"
+        run: |
+          IFS=','
+          for IMAGE_TAG in $(echo ${{ inputs.image-tags }})
+          do
+            echo "Tagging with $IMAGE_TAG"
+            docker tag $WEB_IMAGE $WEB_IMAGE:$IMAGE_TAG
+            docker push $WEB_IMAGE:$IMAGE_TAG
+          done
 
   build-and-publish-api-main:
     runs-on: ubuntu-latest
@@ -63,14 +69,21 @@ jobs:
       - name: "Login to image registry"
         run: echo ${{ secrets.GITHUB_TOKEN }} | docker login $IMAGE_REGISTRY -u $GITHUB_ACTOR --password-stdin
 
-      - name: "Build and Publish API"
+      - name: "Build API"
         run: |
-          echo "Tagging with ${{ inputs.image-tag }}"
           docker pull $API_IMAGE
           printf "$(git log -n 1 --format=format:'hash: %h%ndate: %cs%nrefs: %d' --decorate=short --decorate-refs=refs/tags | sed 's/ (tag: \([^\s]*\))/\1/')" > ./api/src/version.txt
           docker build --cache-from $API_IMAGE --target prod --tag $API_IMAGE ./api
-          docker tag $API_IMAGE $API_IMAGE:${{ inputs.image-tag }}
-          docker push $API_IMAGE:${{ inputs.image-tag }}
+
+      - name: "Publish API"
+        run: |
+          IFS=','
+          for IMAGE_TAG in $(echo ${{ inputs.image-tags }})
+          do
+            echo "Tagging with $IMAGE_TAG"
+            docker tag $API_IMAGE $API_IMAGE:$IMAGE_TAG
+            docker push $API_IMAGE:$IMAGE_TAG
+          done
 
   build-and-publish-nginx:
     runs-on: ubuntu-latest
@@ -80,10 +93,17 @@ jobs:
       - name: "Login to image registry"
         run: echo ${{ secrets.GITHUB_TOKEN }} | docker login $IMAGE_REGISTRY -u $GITHUB_ACTOR --password-stdin
 
-      - name: "Build and Publish nginx"
+      - name: "Build nginx"
         run: |
-          echo "Tagging with ${{ inputs.image-tag }}"
           docker pull $NGINX_IMAGE
           docker build --cache-from $NGINX_IMAGE --tag $NGINX_IMAGE ./nginx
-          docker tag $NGINX_IMAGE $NGINX_IMAGE:${{ inputs.image-tag }}
-          docker push $NGINX_IMAGE:${{ inputs.image-tag }}
+
+      - name: "Publish nginx"
+        run: |
+          IFS=','
+          for IMAGE_TAG in $(echo ${{ inputs.image-tags }})
+          do
+            echo "Tagging with $IMAGE_TAG"
+            docker tag $NGINX_IMAGE $NGINX_IMAGE:$IMAGE_TAG
+            docker push $NGINX_IMAGE:$IMAGE_TAG
+          done
