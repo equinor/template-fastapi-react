@@ -29,6 +29,9 @@ jobs:
     steps:
       - uses: actions/checkout@master
 
+      # You'll need an app registration with a Federated Credential for this to
+      # work. Note that the credential will need to specify a branch name. This
+      # step will therefore fail for all branches not mentioned in the credentials
       - name: Az CLI login
         uses: azure/login@v1
         with:
