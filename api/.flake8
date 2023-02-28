@@ -11,4 +11,4 @@ exclude =
 max-complexity = 18
 select = B,C,E,F,W,T4,B9
 # To avoid incompatibilities with Black:
-max-line-length = 88
+max-line-length = 119

@@ -27,7 +27,7 @@ repos:
     hooks:
       - id: black
         language_version: python3.10
-        args: [--target-version, py310]
+        args: [--config=api/pyproject.toml]
         files: ^api/src/.*\.py$
 
   - repo: https://github.com/PyCQA/bandit
@@ -91,14 +91,7 @@ repos:
     rev: 6.0.0
     hooks:
       - id: flake8
-        files: ^api/src/.*\.py$
-        args:
-          [
-            "--max-line-length=119",
-            "--max-complexity=18",
-            "--select=B,C,E,F,W,T4,B9",
-            "--ignore=E203,E266,E501,W503",
-          ]
+        args: [--config=api/.flake8]
 
   # The path to the venv python interpreter differ between linux and windows. An if/else is used to find it on either.
   - repo: local
