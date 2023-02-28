@@ -44,7 +44,7 @@ jobs:
     if: ${{ needs.release-please.outputs.release_created }}
     uses: ./.github/workflows/publish-image.yaml
     with:
-      image-tags: production
+      image-tags: production,${{ needs.release-please.outputs.tag_name }}
       oauth-redirect-url: "https://template-fastapi-react.app.playground.radix.equinor.com"
 
   deploy-prod:
