@@ -44,9 +44,11 @@ jobs:
     steps:
       - uses: actions/checkout@master
 
+      - name: "Login to image registry"
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login $IMAGE_REGISTRY -u $GITHUB_ACTOR --password-stdin
+
       - name: Build API image
         run: |
-          echo ${{ secrets.GITHUB_TOKEN }} | docker login $IMAGE_REGISTRY -u $GITHUB_ACTOR --password-stdin
           docker pull $API_IMAGE
           docker build --target development --tag api-development ./api # TODO: --cache-from $API_IMAGE
 
@@ -62,9 +64,11 @@ jobs:
     steps:
       - uses: actions/checkout@master
 
+      - name: "Login to image registry"
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login $IMAGE_REGISTRY -u $GITHUB_ACTOR --password-stdin
+
       - name: Build Web Image
         run: |
-          echo ${{ secrets.GITHUB_TOKEN }} | docker login $IMAGE_REGISTRY -u $GITHUB_ACTOR --password-stdin
           docker pull $WEB_IMAGE
           docker build --cache-from $WEB_IMAGE --target development --tag web-dev ./web
 

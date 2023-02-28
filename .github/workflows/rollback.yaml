@@ -28,11 +28,12 @@ jobs:
             ghcr.io/equinor/template-fastapi-react/nginx,
           ]
     steps:
-      - uses: actions/checkout@master
+      - name: "Login to image registry"
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login $IMAGE_REGISTRY -u $GITHUB_ACTOR --password-stdin
+
       - name: "Set prod tag on older image"
         run: |
           echo "Tagging ${{ matrix.image }}:${{ inputs.release-tag }} with 'production'"
-          echo ${{ secrets.GITHUB_TOKEN }} | docker login $IMAGE_REGISTRY -u $GITHUB_ACTOR --password-stdin
           docker pull ${{ matrix.image }}:${{ inputs.release-tag }}
           docker tag ${{ matrix.image }}:${{ inputs.release-tag }} ${{ matrix.image }}:production
           docker push $API_IMAGE:production
