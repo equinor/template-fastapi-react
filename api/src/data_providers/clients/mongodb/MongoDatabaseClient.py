@@ -52,13 +52,13 @@ class MongoDatabaseClient(ClientInterface[Dict, str]):
 
     def delete(self, uid: str) -> bool:
         result = self.collection.delete_one(filter={"_id": uid})
-        return result.deleted_count > 0
+        return result.deleted_count > 0  # type: ignore[no-any-return]
 
     def find(self, filter: Dict) -> Cursor:
         return self.collection.find(filter=filter)
 
     def find_one(self, filter: Dict) -> Optional[Dict]:
-        return self.collection.find_one(filter=filter)
+        return self.collection.find_one(filter=filter)  # type: ignore[no-any-return]
 
     def insert_many(self, items: List[Dict]):
         return self.collection.insert_many(items)

@@ -100,14 +100,18 @@ repos:
             "--ignore=E203,E266,E501,W503",
           ]
 
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.0.1
+    hooks:
+      - id: mypy
+        name: Type checking
+        args: [ --config-file=./api/pyproject.toml ]
+        additional_dependencies:
+          - types-cachetools
+
   # The path to the venv python interpreter differ between linux and windows. An if/else is used to find it on either.
   - repo: local
     hooks:
-      - id: mypy
-        name: Python type checking
-        pass_filenames: false
-        entry: sh -c "if [ -f api/.venv/bin/python ]; then var=api/.venv/bin/python; else var=api/.venv/Scripts/python; fi; $var -m mypy --config-file=./api/pyproject.toml api/src"
-        language: system
       - id: pytest
         name: pytest-check
         entry: sh -c "if [ -f api/.venv/bin/python ]; then var=api/.venv/bin/python; else var=api/.venv/Scripts/python; fi; $var -m pytest api/src/tests"
