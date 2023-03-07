@@ -1,27 +1,34 @@
-import useTodos from '../../../hooks/useTodos'
-import { FormEventHandler, useState } from 'react'
-import { Button, Input, Progress } from '@equinor/eds-core-react'
+import { Button, Input } from '@equinor/eds-core-react'
+import { AxiosError } from 'axios'
+import { FormEventHandler, useEffect, useState } from 'react'
+import { AddTodoResponse, ErrorResponse } from '../../../api/generated'
+import { useTodos } from '../../../contexts/TodoContext'
+import { useTodoAPI } from '../../../hooks/useTodoAPI'
 import TodoItem from './TodoItem'
-import { AddTodoResponse } from '../../../api/generated'
-import {
-  StyledTodoList,
-  StyledInput,
-  SpinnerContainer,
-} from './TodoList.styled'
+import { StyledInput, StyledTodoList } from './TodoList.styled'
 
-const AddItem = (props: { onAddItem: (id: string) => void }) => {
-  const { onAddItem } = props
+const AddItem = () => {
+  const todoAPI = useTodoAPI()
+  const { dispatch } = useTodos()
   const [value, setValue] = useState('')
 
-  const handleAddItem: FormEventHandler = (event) => {
+  const addTodo: FormEventHandler = (event) => {
     event.preventDefault()
-    if (value) onAddItem(value)
+    if (value) {
+      todoAPI
+        .create({ addTodoRequest: { title: value } })
+        .then((response) => response.data)
+        .catch((error: AxiosError<ErrorResponse>) => {
+          throw new Error(error.message)
+        })
+        .then((todo) => dispatch({ type: 'ADD_TODO', payload: todo }))
+    }
     setValue('')
   }
 
   return (
     <div className="form">
-      <form onSubmit={handleAddItem}>
+      <form onSubmit={addTodo}>
         <StyledInput>
           <Input
             value={value}
@@ -39,28 +46,31 @@ const AddItem = (props: { onAddItem: (id: string) => void }) => {
 }
 
 const TodoList = () => {
-  const { todos, isLoading, addItem, removeItem, toggleItem, error } =
-    useTodos()
+  const todoAPI = useTodoAPI()
+  const { state, dispatch } = useTodos()
 
-  if (error)
-    return <div>{error?.response?.data.message ?? 'Something went wrong!'}</div>
+  useEffect(() => {
+    function fetchTodos() {
+      const todos = todoAPI
+        .getAll()
+        .then((response) => response.data)
+        .catch((error: AxiosError<ErrorResponse>) => {
+          throw new Error(error.message)
+        })
+      return todos
+    }
+
+    fetchTodos().then((todos) =>
+      dispatch({ type: 'INITIALIZE', payload: todos })
+    )
+  }, [dispatch, todoAPI])
 
   return (
     <StyledTodoList>
-      <AddItem onAddItem={addItem} />
-      {todos?.map((todo: AddTodoResponse) => (
-        <TodoItem
-          key={todo.id}
-          onToggle={toggleItem}
-          onRemove={removeItem}
-          todo={todo}
-        />
+      <AddItem />
+      {state.todos.map((todo: AddTodoResponse) => (
+        <TodoItem key={todo.id} todo={todo} />
       ))}
-      {isLoading && (
-        <SpinnerContainer>
-          <Progress.Circular />
-        </SpinnerContainer>
-      )}
     </StyledTodoList>
   )
 }
