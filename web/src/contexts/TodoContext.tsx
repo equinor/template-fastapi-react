@@ -5,12 +5,11 @@ import { AddTodoResponse } from '../api/generated'
  * Definitions of the types of actions an user can do,
  * that will trigger an update of state.
  */
-enum ActionType {
-  ADD_TODO = 'ADD_TODO',
-  REMOVE_TODO = 'REMOVE_TODO',
-  TOGGLE_TODO = 'TOGGLE_TODO',
-}
-type Action = { type: `${ActionType}`; payload: AddTodoResponse }
+type Action =
+  | { type: 'ADD_TODO'; payload: AddTodoResponse }
+  | { type: 'INITIALIZE'; payload: AddTodoResponse[] }
+  | { type: 'REMOVE_TODO'; payload: AddTodoResponse }
+  | { type: 'TOGGLE_TODO'; payload: AddTodoResponse }
 type Dispatch = (action: Action) => void
 type State = { todos: AddTodoResponse[] }
 type TodoProviderProps = { children: React.ReactNode }
@@ -34,6 +33,12 @@ function todoReducer(state: State, action: Action) {
         todos: [...state.todos, action.payload],
       }
     }
+    case 'INITIALIZE': {
+      return {
+        ...state,
+        todos: action.payload,
+      }
+    }
     case 'REMOVE_TODO': {
       return {
         ...state,
@@ -51,7 +56,7 @@ function todoReducer(state: State, action: Action) {
       }
     }
     default: {
-      throw new Error(`Unhandled action type: ${action.type}`)
+      throw new Error(`Unhandled action type: ${action}`)
     }
   }
 }
