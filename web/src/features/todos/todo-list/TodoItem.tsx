@@ -6,38 +6,23 @@ import {
   Typography,
 } from '@equinor/eds-core-react'
 import { done, remove_outlined, undo } from '@equinor/eds-icons'
-import { AxiosError } from 'axios'
-import { AddTodoResponse, ErrorResponse } from '../../../api/generated'
+import { AddTodoResponse } from '../../../api/generated'
 import { useTodos } from '../../../contexts/TodoContext'
 import { useTodoAPI } from '../../../hooks/useTodoAPI'
 import { StyledTodoItemTitle } from './TodoItem.styled'
 
 const TodoItem = ({ todo }: { todo: AddTodoResponse }) => {
-  const todoAPI = useTodoAPI()
+  const { toggleTodo, removeTodo } = useTodoAPI()
   const { dispatch } = useTodos()
 
-  function toggleTodo(todo: AddTodoResponse) {
-    todoAPI
-      .updateById({
-        id: todo.id,
-        updateTodoRequest: {
-          is_completed: !todo.is_completed,
-          title: todo.title,
-        },
-      })
-      .catch((error: AxiosError<ErrorResponse>) => {
-        throw new Error(error.message)
-      })
-      .then(() => dispatch({ type: 'TOGGLE_TODO', payload: todo }))
+  async function toggle(todo: AddTodoResponse) {
+    await toggleTodo(todo)
+    dispatch({ type: 'TOGGLE_TODO', payload: todo })
   }
 
-  function removeTodo(todo: AddTodoResponse) {
-    todoAPI
-      .deleteById({ id: todo.id })
-      .catch((error: AxiosError<ErrorResponse>) => {
-        throw new Error(error.message)
-      })
-      .then(() => dispatch({ type: 'REMOVE_TODO', payload: todo }))
+  async function remove(todo: AddTodoResponse) {
+    await removeTodo(todo)
+    dispatch({ type: 'REMOVE_TODO', payload: todo })
   }
 
   return (
@@ -56,7 +41,7 @@ const TodoItem = ({ todo }: { todo: AddTodoResponse }) => {
           </Typography>
         </Card.HeaderTitle>
         <Tooltip title={`Mark as ${todo.is_completed ? 'incomplete' : 'done'}`}>
-          <Button variant="ghost_icon" onClick={() => toggleTodo(todo)}>
+          <Button variant="ghost_icon" onClick={() => toggle(todo)}>
             <Icon
               data={todo.is_completed ? undo : done}
               size={24}
@@ -65,7 +50,7 @@ const TodoItem = ({ todo }: { todo: AddTodoResponse }) => {
           </Button>
         </Tooltip>
         <Tooltip title="Remove">
-          <Button variant="ghost_icon" onClick={() => removeTodo(todo)}>
+          <Button variant="ghost_icon" onClick={() => remove(todo)}>
             <Icon data={remove_outlined} size={24} title="Remove" />
           </Button>
         </Tooltip>
