@@ -1,34 +1,29 @@
 import { Button, Input } from '@equinor/eds-core-react'
-import { AxiosError } from 'axios'
 import { FormEventHandler, useEffect, useState } from 'react'
-import { AddTodoResponse, ErrorResponse } from '../../../api/generated'
+import { AddTodoResponse } from '../../../api/generated'
 import { useTodos } from '../../../contexts/TodoContext'
 import { useTodoAPI } from '../../../hooks/useTodoAPI'
 import TodoItem from './TodoItem'
 import { StyledInput, StyledTodoList } from './TodoList.styled'
 
 const AddItem = () => {
-  const todoAPI = useTodoAPI()
+  const { addTodo } = useTodoAPI()
   const { dispatch } = useTodos()
   const [value, setValue] = useState('')
 
-  const addTodo: FormEventHandler = (event) => {
+  const add: FormEventHandler = (event) => {
     event.preventDefault()
     if (value) {
-      todoAPI
-        .create({ addTodoRequest: { title: value } })
-        .then((response) => response.data)
-        .catch((error: AxiosError<ErrorResponse>) => {
-          throw new Error(error.message)
-        })
-        .then((todo) => dispatch({ type: 'ADD_TODO', payload: todo }))
+      addTodo(value).then((todo) =>
+        dispatch({ type: 'ADD_TODO', payload: todo })
+      )
     }
     setValue('')
   }
 
   return (
     <div className="form">
-      <form onSubmit={addTodo}>
+      <form onSubmit={add}>
         <StyledInput>
           <Input
             value={value}
@@ -46,24 +41,14 @@ const AddItem = () => {
 }
 
 const TodoList = () => {
-  const todoAPI = useTodoAPI()
+  const { getAllTodos } = useTodoAPI()
   const { state, dispatch } = useTodos()
 
   useEffect(() => {
-    function fetchTodos() {
-      const todos = todoAPI
-        .getAll()
-        .then((response) => response.data)
-        .catch((error: AxiosError<ErrorResponse>) => {
-          throw new Error(error.message)
-        })
-      return todos
-    }
-
-    fetchTodos().then((todos) =>
+    getAllTodos().then((todos) =>
       dispatch({ type: 'INITIALIZE', payload: todos })
     )
-  }, [dispatch, todoAPI])
+  }, [dispatch, getAllTodos])
 
   return (
     <StyledTodoList>
