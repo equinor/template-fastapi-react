@@ -22,6 +22,13 @@ repos:
       - id: conventional-pre-commit
         always_run: true
 
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: 'v0.0.253'
+    hooks:
+      - id: ruff
+        name: Code linting
+        files: ^api/.*\.py$
+
   - repo: https://github.com/ambv/black
     rev: 23.1.0
     hooks:
@@ -86,12 +93,6 @@ repos:
         files: ^web/src/.*\.[jt]sx?$ # *.js, *.jsx, *.ts and *.tsx
         types: [file]
         args: ["--config=web/.eslintrc.json", "--ignore-path=web/.eslintignore"]
-
-  - repo: https://github.com/PyCQA/flake8
-    rev: 6.0.0
-    hooks:
-      - id: flake8
-        args: [--config=api/.flake8]
 
   # The path to the venv python interpreter differ between linux and windows. An if/else is used to find it on either.
   - repo: local
