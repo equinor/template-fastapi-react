@@ -35,7 +35,7 @@ const TodoItem = ({ todo }: { todo: AddTodoResponse }) => {
           <StyledTodoItemTitle
             variant="h5"
             className="todoTitle"
-            is_completed={todo.is_completed}
+            isStruckThrough={todo.is_completed}
           >
             {todo.title}
           </StyledTodoItemTitle>
