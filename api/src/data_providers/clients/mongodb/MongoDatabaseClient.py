@@ -34,7 +34,7 @@ class MongoDatabaseClient(ClientInterface[Dict, str]):
         except DuplicateKeyError:
             raise ValidationException(message=f"The document with id '{document['_id']}' already exists")
 
-    def list(self) -> List[dict]:
+    def list_collection(self) -> list[dict]:
         return list(self.collection.find())
 
     def get(self, uid: str) -> Dict:

@@ -22,7 +22,7 @@ class ClientInterface(Generic[M, K]):
         pass
 
     @abstractmethod
-    def list(self) -> List[M]:
+    def list_collection(self) -> list[M]:
         pass
 
     @abstractmethod
