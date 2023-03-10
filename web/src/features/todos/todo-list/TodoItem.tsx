@@ -25,6 +25,9 @@ const TodoItem = ({ todo }: { todo: AddTodoResponse }) => {
     dispatch({ type: 'REMOVE_TODO', payload: todo })
   }
 
+  const statusOf = (isCompleted: boolean | undefined) =>
+    isCompleted ? 'Done' : 'Todo'
+
   return (
     <Card>
       <Card.Header>
@@ -37,15 +40,17 @@ const TodoItem = ({ todo }: { todo: AddTodoResponse }) => {
             {todo.title}
           </StyledTodoItemTitle>
           <Typography variant="body_short">
-            {todo.is_completed ? 'Done' : 'Todo'}
+            {statusOf(todo.is_completed)}
           </Typography>
         </Card.HeaderTitle>
-        <Tooltip title={`Mark as ${todo.is_completed ? 'incomplete' : 'done'}`}>
+        <Tooltip
+          title={`Mark as ${statusOf(!todo.is_completed).toLowerCase()}`}
+        >
           <Button variant="ghost_icon" onClick={() => toggle(todo)}>
             <Icon
               data={todo.is_completed ? undo : done}
               size={24}
-              title={todo.is_completed ? 'incomplete' : 'done'}
+              title={statusOf(!todo.is_completed)}
             />
           </Button>
         </Tooltip>
