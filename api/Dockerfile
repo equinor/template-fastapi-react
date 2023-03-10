@@ -16,7 +16,6 @@ COPY poetry.lock poetry.lock
 FROM base as development
 RUN poetry install
 WORKDIR /code/src
-COPY .flake8 ./
 COPY src .
 USER 1000
 
