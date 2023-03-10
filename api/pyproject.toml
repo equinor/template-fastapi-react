@@ -93,7 +93,7 @@ select = [
     # "I",  # isort
     "C",  # flake8-comprehensions
     "B",  # flake8-bugbear
-    #"UP", # automatically upgrade syntax for newer versions of the language
+    "UP", # automatically upgrade syntax for newer versions of the language
 ]
 
 target-version = "py311"
