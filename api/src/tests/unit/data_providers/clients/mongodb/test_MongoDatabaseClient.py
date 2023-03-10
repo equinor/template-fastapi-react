@@ -53,7 +53,7 @@ class TestMongoDatabaseClient:
             {"_id": "987456", "name": "alberto"},
         ]
         test_client.collection.insert_many(documents)
-        assert test_client.list() == documents
+        assert test_client.list_collection() == documents
 
     def test_update(self, test_client: MongoDatabaseClient):
         document = {"_id": "987321", "name": "alberto"}
