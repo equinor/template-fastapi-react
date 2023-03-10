@@ -1,12 +1,11 @@
 from abc import ABCMeta, abstractmethod
-from typing import Optional
 
 from entities.TodoItem import TodoItem
 
 
 class TodoRepositoryInterface(metaclass=ABCMeta):
     @abstractmethod
-    def create(self, todo_item: TodoItem) -> Optional[TodoItem]:
+    def create(self, todo_item: TodoItem) -> TodoItem | None:
         raise NotImplementedError
 
     @abstractmethod

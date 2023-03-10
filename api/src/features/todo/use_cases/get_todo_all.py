@@ -1,5 +1,3 @@
-from typing import List
-
 from pydantic import BaseModel
 
 from data_providers.repository_interfaces.TodoRepositoryInterface import (
@@ -21,7 +19,7 @@ class GetTodoAllResponse(BaseModel):
 def get_todo_all_use_case(
     user_id: str,
     todo_repository: TodoRepositoryInterface,
-) -> List[GetTodoAllResponse]:
+) -> list[GetTodoAllResponse]:
     return [
         GetTodoAllResponse.from_entity(todo_item)
         for todo_item in todo_repository.get_all()
