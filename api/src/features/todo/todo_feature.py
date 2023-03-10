@@ -1,5 +1,3 @@
-from typing import List
-
 from fastapi import APIRouter, Depends
 from starlette.responses import JSONResponse
 
@@ -58,7 +56,7 @@ def delete_todo_by_id(
 @create_response(JSONResponse)
 def get_todo_all(
     user: User = Depends(auth_with_jwt), todo_repository: TodoRepositoryInterface = Depends(get_todo_repository)
-) -> List[GetTodoAllResponse]:
+) -> list[GetTodoAllResponse]:
     return get_todo_all_use_case(user_id=user.user_id, todo_repository=todo_repository)
 
 

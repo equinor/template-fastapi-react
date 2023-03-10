@@ -1,7 +1,8 @@
 import functools
 import traceback
+from collections.abc import Callable
 from inspect import iscoroutinefunction
-from typing import Any, Callable, Type, TypeVar
+from typing import Any, TypeVar
 
 from httpx import HTTPStatusError
 from starlette import status
@@ -44,7 +45,7 @@ If the execution fails, it will return a JSONResponse with a standardized error 
 """
 
 
-def create_response(response_class: Type[TResponse]) -> Callable:
+def create_response(response_class: type[TResponse]) -> Callable:
     def func_wrapper(func) -> Callable:
         @functools.wraps(func)
         async def wrapper_decorator(*args, **kwargs) -> TResponse | Response | JSONResponse:

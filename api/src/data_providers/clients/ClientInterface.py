@@ -1,5 +1,5 @@
 from abc import abstractmethod
-from typing import Dict, Generic, List, Optional, TypeVar
+from typing import Generic, TypeVar
 
 # Type definition for Model
 M = TypeVar("M")
@@ -30,19 +30,19 @@ class ClientInterface(Generic[M, K]):
         pass
 
     @abstractmethod
-    def insert_many(self, instances: List[M]):
+    def insert_many(self, instances: list[M]):
         pass
 
     @abstractmethod
-    def delete_many(self, filter: Dict):
+    def delete_many(self, filter: dict):
         pass
 
     @abstractmethod
-    def find(self, filter: Dict) -> M:
+    def find(self, filter: dict) -> M:
         pass
 
     @abstractmethod
-    def find_one(self, filter: Dict) -> Optional[M]:
+    def find_one(self, filter: dict) -> M | None:
         pass
 
     @abstractmethod

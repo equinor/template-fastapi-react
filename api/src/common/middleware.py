@@ -1,5 +1,6 @@
 import time
-from typing import Any, Callable
+from collections.abc import Callable
+from typing import Any
 
 from fastapi import Request
 from starlette.middleware.base import BaseHTTPMiddleware

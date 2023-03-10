@@ -1,5 +1,5 @@
 from enum import IntEnum
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 from pydantic import BaseModel
 
@@ -28,7 +28,7 @@ class AccessLevel(IntEnum):
             raise ValueError("invalid AccessLevel enum value ")
 
     @classmethod
-    def __modify_schema__(cls, schema: Dict[str, Any]):
+    def __modify_schema__(cls, schema: dict[str, Any]):
         """
         Add a custom field type to the class representing the Enum's field names
         Ref: https://pydantic-docs.helpmanual.io/usage/schema/#modifying-schema-in-custom-fields
@@ -43,13 +43,13 @@ class AccessLevel(IntEnum):
 class User(BaseModel):
     user_id: str  # If using azure AD authentication, user_id is the oid field from the access token.
     # If using another oauth provider, user_id will be from the "sub" attribute in the access token.
-    email: Optional[str] = None
-    full_name: Optional[str] = None
-    roles: List[str] = []
+    email: str | None = None
+    full_name: str | None = None
+    roles: list[str] = []
     scope: AccessLevel = AccessLevel.WRITE
 
     def __hash__(self):
-        return hash((type(self.user_id)))
+        return hash(type(self.user_id))
 
 
 class ACL(BaseModel):
@@ -64,8 +64,8 @@ class ACL(BaseModel):
     """
 
     owner: str
-    roles: Dict[str, AccessLevel] = {}
-    users: Dict[str, AccessLevel] = {}
+    roles: dict[str, AccessLevel] = {}
+    users: dict[str, AccessLevel] = {}
     others: AccessLevel = AccessLevel.READ
 
     def dict(self, **kwargs):
