@@ -28,6 +28,8 @@ repos:
       - id: ruff
         name: Code linting
         files: ^api/.*\.py$
+        args:
+          - --fix
 
   - repo: https://github.com/ambv/black
     rev: 23.1.0
