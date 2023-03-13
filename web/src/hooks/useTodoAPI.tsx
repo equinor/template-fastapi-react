@@ -59,5 +59,5 @@ export function useTodoAPI() {
     [todoAPI]
   )
 
-  return { todoAPI, addTodo, getAllTodos, toggleTodo, removeTodo }
+  return { addTodo, getAllTodos, toggleTodo, removeTodo }
 }
