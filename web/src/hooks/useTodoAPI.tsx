@@ -1,16 +1,12 @@
 import { AxiosError } from 'axios'
-import { useCallback, useContext, useEffect, useState } from 'react'
+import { useCallback, useContext, useMemo } from 'react'
 import { AuthContext } from 'react-oauth2-code-pkce'
 import { AddTodoResponse, ErrorResponse } from '../api/generated'
 import TodoAPI from '../api/TodoAPI'
 
 export function useTodoAPI() {
   const { token } = useContext(AuthContext)
-  const [todoAPI, setTodoAPI] = useState<TodoAPI>(new TodoAPI(token))
-
-  useEffect(() => {
-    setTodoAPI(new TodoAPI(token))
-  }, [token])
+  const todoAPI = useMemo(() => new TodoAPI(token), [token])
 
   const addTodo = useCallback(
     (title: string) => {
