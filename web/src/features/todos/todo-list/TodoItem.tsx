@@ -1,12 +1,7 @@
-import {
-  Button,
-  Card,
-  Icon,
-  Tooltip,
-  Typography,
-} from '@equinor/eds-core-react'
+import { Card, Typography } from '@equinor/eds-core-react'
 import { done, remove_outlined, undo } from '@equinor/eds-icons'
 import { AddTodoResponse } from '../../../api/generated'
+import IconButton from '../../../common/components/IconButton'
 import { useTodos } from '../../../contexts/TodoContext'
 import { useTodoAPI } from '../../../hooks/useTodoAPI'
 import { StyledTodoItemTitle } from './TodoItem.styled'
@@ -39,22 +34,16 @@ const TodoItem = ({ todo }: { todo: AddTodoResponse }) => {
             {statusOf(todo.is_completed)}
           </Typography>
         </Card.HeaderTitle>
-        <Tooltip
+        <IconButton
           title={`Mark as ${statusOf(!todo.is_completed).toLowerCase()}`}
-        >
-          <Button variant="ghost_icon" onClick={() => toggle(todo)}>
-            <Icon
-              data={todo.is_completed ? undo : done}
-              size={24}
-              title={statusOf(!todo.is_completed)}
-            />
-          </Button>
-        </Tooltip>
-        <Tooltip title="Remove">
-          <Button variant="ghost_icon" onClick={() => remove(todo)}>
-            <Icon data={remove_outlined} size={24} title="Remove" />
-          </Button>
-        </Tooltip>
+          icon={todo.is_completed ? undo : done}
+          onClick={() => toggle(todo)}
+        />
+        <IconButton
+          title={'Remove'}
+          icon={remove_outlined}
+          onClick={() => remove(todo)}
+        />
       </Card.Header>
     </Card>
   )
