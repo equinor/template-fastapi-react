@@ -1,7 +1,8 @@
-import { Button, Icon, TopBar, Typography } from '@equinor/eds-core-react'
+import { Icon, TopBar, Typography } from '@equinor/eds-core-react'
 import { info_circle, log_out, receipt } from '@equinor/eds-icons'
 import { useContext, useRef, useState } from 'react'
 import { AuthContext } from 'react-oauth2-code-pkce'
+import IconButton from './IconButton'
 import Popover from './Popover'
 import { VersionText } from './VersionText'
 
@@ -27,27 +28,17 @@ const Header = () => {
           {tokenData ? (
             <>
               <Typography>Logged in as {username}</Typography>
-              <Button
-                variant="ghost_icon"
-                aria-label="Log out"
-                title="Log out"
-                onClick={logOut}
-              >
-                <Icon data={log_out} title="Log out" />
-              </Button>
+              <IconButton title={'Log out'} icon={log_out} onClick={logOut} />
             </>
           ) : (
             <Typography variant="caption">Unauthenticated</Typography>
           )}
-          <Button
-            variant="ghost_icon"
-            aria-label="Application info"
-            title="Application info"
+          <IconButton
+            title={'Application info'}
+            icon={info_circle}
             onClick={togglePopover}
             ref={aboutRef}
-          >
-            <Icon data={info_circle} />
-          </Button>
+          />
         </TopBar.Actions>
       </TopBar>
       <Popover
