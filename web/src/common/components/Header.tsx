@@ -1,13 +1,8 @@
+import { Button, Icon, TopBar, Typography } from '@equinor/eds-core-react'
+import { info_circle, log_out, receipt } from '@equinor/eds-icons'
 import { useContext, useRef, useState } from 'react'
 import { AuthContext } from 'react-oauth2-code-pkce'
-import {
-  Button,
-  Icon,
-  TopBar,
-  Typography,
-  Popover,
-} from '@equinor/eds-core-react'
-import { log_out, receipt, info_circle } from '@equinor/eds-icons'
+import Popover from './Popover'
 import { VersionText } from './VersionText'
 
 const Header = () => {
@@ -18,6 +13,9 @@ const Header = () => {
   // unique_name might be azure-specific, different tokenData-fields might
   // be available if another OAuth-provider is used.
   const username = tokenData?.unique_name
+
+  const togglePopover = () => setIsAboutOpen(!isAboutOpen)
+
   return (
     <>
       <TopBar>
@@ -53,21 +51,13 @@ const Header = () => {
         </TopBar.Actions>
       </TopBar>
       <Popover
-        open={isAboutOpen}
-        anchorEl={aboutRef.current}
-        onClose={() => setIsAboutOpen(false)}
-        trapFocus
+        title={'About'}
+        isOpen={isAboutOpen}
+        toggle={togglePopover}
+        anchor={aboutRef.current}
       >
-        <Popover.Header>
-          <Popover.Title>About</Popover.Title>
-        </Popover.Header>
-        <Popover.Content>
-          <VersionText />
-          <p>Person of contact: Eirik Ola Aksnes (eaks@equinor.com)</p>
-        </Popover.Content>
-        <Popover.Actions>
-          <Button onClick={() => setIsAboutOpen(false)}>Close</Button>
-        </Popover.Actions>
+        <VersionText />
+        <p>Person of contact: Eirik Ola Aksnes (eaks@equinor.com)</p>
       </Popover>
     </>
   )
