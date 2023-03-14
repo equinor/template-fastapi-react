@@ -7,14 +7,14 @@ import { VersionText } from './VersionText'
 
 const Header = () => {
   const { tokenData, logOut } = useContext(AuthContext)
-  const [isAboutOpen, setIsAboutOpen] = useState(false)
+  const [isPopoverOpen, setPopoverOpen] = useState(false)
   const aboutRef = useRef<HTMLButtonElement>(null)
 
   // unique_name might be azure-specific, different tokenData-fields might
   // be available if another OAuth-provider is used.
   const username = tokenData?.unique_name
 
-  const togglePopover = () => setIsAboutOpen(!isAboutOpen)
+  const togglePopover = () => setPopoverOpen(!isPopoverOpen)
 
   return (
     <>
@@ -52,7 +52,7 @@ const Header = () => {
       </TopBar>
       <Popover
         title={'About'}
-        isOpen={isAboutOpen}
+        isOpen={isPopoverOpen}
         toggle={togglePopover}
         anchor={aboutRef.current}
       >
