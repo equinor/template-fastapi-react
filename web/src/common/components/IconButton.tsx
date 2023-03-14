@@ -5,7 +5,7 @@ import { forwardRef, Ref } from 'react'
 interface IconButtonProps {
   title: string
   icon: IconData
-  onClick: () => Promise<void>
+  onClick: () => Promise<void> | void
 }
 
 const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
