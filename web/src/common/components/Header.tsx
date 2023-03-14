@@ -25,14 +25,8 @@ const Header = () => {
           Todo App
         </TopBar.Header>
         <TopBar.Actions style={{ gap: 8 }}>
-          {tokenData ? (
-            <>
-              <Typography>Logged in as {username}</Typography>
-              <IconButton title={'Log out'} icon={log_out} onClick={logOut} />
-            </>
-          ) : (
-            <Typography variant="caption">Unauthenticated</Typography>
-          )}
+          <Typography>{`Logged in as ${username}`}</Typography>
+          <IconButton title={'Log out'} icon={log_out} onClick={logOut} />
           <IconButton
             title={'Application info'}
             icon={info_circle}
