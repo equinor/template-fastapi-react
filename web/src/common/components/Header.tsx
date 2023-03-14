@@ -43,7 +43,7 @@ const Header = () => {
             variant="ghost_icon"
             aria-label="Application info"
             title="Application info"
-            onClick={() => setIsAboutOpen(!isAboutOpen)}
+            onClick={togglePopover}
             ref={aboutRef}
           >
             <Icon data={info_circle} />
