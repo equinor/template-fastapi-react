@@ -3,12 +3,13 @@ version: "3.8"
 services:
   nginx:
     restart: unless-stopped
-    build: ./nginx
+    build:
+      target: nginx-prod
+      context: ./web
     image: boilerplate.azurecr.io/nginx:latest
     ports:
       - "80:8080"
     links:
-      - web
       - api
 
   api:
@@ -17,11 +18,6 @@ services:
     restart: unless-stopped
     depends_on:
       - db
-
-  web:
-    build: ./web
-    image: ghcr.io/equinor/template-fastapi-react/web
-    restart: unless-stopped
 
   db:
     image: mongo:5.0.9
