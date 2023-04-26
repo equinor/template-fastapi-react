@@ -50,13 +50,13 @@ class MongoDatabaseClient(ClientInterface[dict, str]):
 
     def delete(self, uid: str) -> bool:
         result = self.collection.delete_one(filter={"_id": uid})
-        return result.deleted_count > 0
+        return result.deleted_count > 0  # type: ignore
 
     def find(self, filter: dict) -> Cursor:
         return self.collection.find(filter=filter)
 
     def find_one(self, filter: dict) -> dict | None:
-        return self.collection.find_one(filter=filter)
+        return self.collection.find_one(filter=filter)  # type: ignore
 
     def insert_many(self, items: list[dict]):
         return self.collection.insert_many(items)
