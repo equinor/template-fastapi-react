@@ -38,8 +38,14 @@ spec:
       environmentConfig:
         - environment: prod
           imageTagName: production
+          horizontalScaling:
+            minReplicas: 1
+            maxReplicas: 4
         - environment: test
           imageTagName: latest
+          horizontalScaling:
+            minReplicas: 1
+            maxReplicas: 2
       secrets:
         - SECRET_KEY
         - MONGODB_PASSWORD
