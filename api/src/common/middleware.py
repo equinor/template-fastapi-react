@@ -1,19 +1,39 @@
 import time
-from collections.abc import Callable
-from typing import Any
 
-from fastapi import Request
-from starlette.middleware.base import BaseHTTPMiddleware
+from starlette.datastructures import MutableHeaders
 
 from common.logger import logger
 
 
-class TimerHeaderMiddleware(BaseHTTPMiddleware):
-    async def dispatch(self, request: Request, call_next: Callable) -> Any:
+# These middlewares are written as "pure ASGI middleware", see: https://www.starlette.io/middleware/#pure-asgi-middleware
+# Middleware inheriting from the "BaseHTTPMiddleware" class does not work with Starlettes BackgroundTasks.
+# see: https://github.com/encode/starlette/issues/919
+class LocalLoggerMiddleware:
+    def __init__(self, app):
+        self.app = app
+
+    async def __call__(self, scope, receive, send):
+        if scope["type"] != "http":
+            return await self.app(scope, receive, send)
+
         start_time = time.time()
-        response = await call_next(request)
-        process_time = time.time() - start_time
-        milliseconds = int(round(process_time * 1000))
-        logger.debug(f"{request.method} {request.url.path} - {milliseconds}ms - {response.status_code}")
-        response.headers["X-Process-Time"] = str(process_time)
-        return response
+        process_time = ""
+        path = scope["path"]
+        method = scope["method"]
+        response = {}
+
+        async def inner_send(message):
+            nonlocal process_time
+            nonlocal response
+            if message["type"] == "http.response.start":
+                process_time_ms = time.time() - start_time
+                process_time = str(int(round(process_time_ms * 1000)))
+                response = message
+
+                headers = MutableHeaders(scope=message)
+                headers.append("X-Process-Time", process_time)
+
+            await send(message)
+
+        await self.app(scope, receive, inner_send)
+        logger.info(f"{method} {path} - {process_time}ms - {response['status']}")
