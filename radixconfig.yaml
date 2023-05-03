@@ -49,6 +49,7 @@ spec:
       secrets:
         - SECRET_KEY
         - MONGODB_PASSWORD
+        - APPINSIGHTS_CONSTRING
       variables:
         LOGGING_LEVEL: "debug"
         AUTH_ENABLED: "True"

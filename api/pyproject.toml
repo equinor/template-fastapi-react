@@ -16,6 +16,7 @@ cryptography = "37.0.2"  # Locked because of a bad 37.0.3 release. (https://cryp
 # Not a direct dependecy, but needed to get certificates
 certifi = "^2022.6.15"
 httpx = "^0.23.3"
+opencensus-ext-azure = "^1.1.9"
 
 [tool.poetry.dev-dependencies]
 pre-commit = "^2.19.0"

@@ -6,7 +6,10 @@ from authentication.models import User
 
 class Config(BaseSettings):
     ENVIRONMENT: str = Field("local", env="ENVIRONMENT")
+
+    # Logging
     LOGGER_LEVEL: str = Field("INFO", env="LOGGING_LEVEL", to_lower=True)
+    APPINSIGHTS_CONSTRING: str = Field(None, env="APPINSIGHTS_CONSTRING")
 
     # Database
     MONGODB_USERNAME: str = Field("dummy", env="MONGODB_USERNAME")
