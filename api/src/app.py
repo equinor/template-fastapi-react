@@ -5,7 +5,7 @@ from starlette.middleware import Middleware
 
 from authentication.authentication import auth_with_jwt
 from common.exception_handlers import validation_exception_handler
-from common.middleware import TimerHeaderMiddleware
+from common.middleware import LocalLoggerMiddleware
 from common.responses import responses
 from config import config
 from features.health_check import health_check_feature
@@ -35,7 +35,7 @@ def create_app() -> FastAPI:
     authenticated_routes.include_router(todo_feature.router)
     authenticated_routes.include_router(whoami_feature.router)
 
-    middleware = [Middleware(TimerHeaderMiddleware)]
+    middleware = [Middleware(LocalLoggerMiddleware)]
 
     exception_handlers = {RequestValidationError: validation_exception_handler}
 
