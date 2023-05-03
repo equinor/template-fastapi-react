@@ -61,7 +61,7 @@ class OpenCensusRequestLoggingMiddleware:
         path = scope["path"]
         response = {}
 
-        async def innner_send(message):
+        async def inner_send(message):
             nonlocal response
             if message["type"] == "http.response.start":
                 response = message
@@ -74,7 +74,7 @@ class OpenCensusRequestLoggingMiddleware:
         with tracer.span("main") as span:
             span.span_kind = SpanKind.SERVER
 
-            await self.app(scope, receive, innner_send)
+            await self.app(scope, receive, inner_send)
 
             tracer.add_attribute_to_current_span(
                 attribute_key=COMMON_ATTRIBUTES["HTTP_STATUS_CODE"], attribute_value=response["status"]
