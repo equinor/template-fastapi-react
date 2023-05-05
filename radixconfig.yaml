@@ -11,20 +11,6 @@ spec:
       build:
         from: main
   components:
-    - name: web
-      image: ghcr.io/equinor/template-fastapi-react/web:{imageTagName}
-      alwaysPullImageOnDeploy: true
-      environmentConfig:
-        - environment: prod
-          imageTagName: production
-        - environment: test
-          imageTagName: latest
-      variables:
-        AUTH_ENABLED: "True"
-      ports:
-        - name: http
-          port: 3000
-
     - name: api
       image: ghcr.io/equinor/template-fastapi-react/api:{imageTagName}
       alwaysPullImageOnDeploy: true
@@ -71,10 +57,12 @@ spec:
       image: ghcr.io/equinor/template-fastapi-react/nginx:{imageTagName}
       alwaysPullImageOnDeploy: true
       environmentConfig:
-        - environment: prod
+        - environment: nginx-prod
           imageTagName: production
         - environment: test
           imageTagName: latest
+      variables:
+        AUTH_ENABLED: "True"
       ports:
         - name: nginx
           port: 8080

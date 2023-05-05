@@ -33,9 +33,15 @@ services:
     links:
       - db
 
+  nginx:
+    build:
+      target: nginx-dev
+
   web:
+    restart: unless-stopped
     build:
       target: development
+      context: ./web
       args:
         AUTH_ENABLED: $AUTH_ENABLED
         AUTH_SCOPE: $AUTH_SCOPE
