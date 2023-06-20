@@ -63,7 +63,7 @@ def create_response(response_class: type[TResponse]) -> Callable:
             except HTTPStatusError as http_error:
                 error_response = ErrorResponse(
                     type="ExternalFetchException",
-                    status=http_error.response.status,  # type: ignore
+                    status=http_error.response.status,
                     message="Failed to fetch an external resource",
                     debug=http_error.response,
                 )
@@ -87,6 +87,6 @@ def create_response(response_class: type[TResponse]) -> Callable:
                 logger.error(f"Unexpected unhandled exception: {e}")
                 return JSONResponse(ErrorResponse().dict(), status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-        return wrapper_decorator  # type: ignore
+        return wrapper_decorator
 
     return func_wrapper

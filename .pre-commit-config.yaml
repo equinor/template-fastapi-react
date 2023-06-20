@@ -96,6 +96,7 @@ repos:
       - id: mypy
         name: Type checking
         args: [ --config-file=api/pyproject.toml ]
+        exclude: tests/
         additional_dependencies:
           - types-cachetools
           - types-requests
