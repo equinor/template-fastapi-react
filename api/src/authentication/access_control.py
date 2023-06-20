@@ -3,7 +3,7 @@ from common.exceptions import MissingPrivilegeException
 from config import config
 
 
-def access_control(acl: ACL, access_level_required: AccessLevel, user: User):
+def access_control(acl: ACL, access_level_required: AccessLevel, user: User) -> bool:
     """
     This is the main access control function.
     It will either return True or an MissingPrivilegeException.
