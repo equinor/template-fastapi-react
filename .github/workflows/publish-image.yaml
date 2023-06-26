@@ -21,11 +21,10 @@ env:
   IMAGE_REGISTRY: ghcr.io
   REGISTRY_USER: $GITHUB_ACTOR
   API_IMAGE: ghcr.io/equinor/template-fastapi-react/api
-  WEB_IMAGE: ghcr.io/equinor/template-fastapi-react/web
   NGINX_IMAGE: ghcr.io/equinor/template-fastapi-react/nginx
 
 jobs:
-  build-and-publish-web-main:
+  build-and-publish-nginx-main:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -37,7 +36,7 @@ jobs:
 
       - name: "Build web"
         run: |
-          docker pull $WEB_IMAGE
+          docker pull $NGINX_IMAGE
           printf "$(git log -n 1 --format=format:'hash: %h%ndate: %cs%nrefs: %d' --decorate=short --decorate-refs=refs/tags | sed 's/ (tag: \([^\s]*\))/\1/')" > ./web/public/version.txt
           docker build \
           --build-arg REDIRECT_URI=${{inputs.oauth-redirect-url}} \
@@ -45,8 +44,9 @@ jobs:
           --build-arg AUTH_SCOPE=api://4a761bec-628d-4c4b-860a-4903cbecc963/api \
           --build-arg CLIENT_ID=4a761bec-628d-4c4b-860a-4903cbecc963 \
           --build-arg TENANT_ID=3aa4a235-b6e2-48d5-9195-7fcf05b459b0 \
-          --cache-from ${WEB_IMAGE} \
-          --tag ${WEB_IMAGE} \
+          --cache-from ${NGINX_IMAGE} \
+          --tag ${NGINX_IMAGE} \
+          --target nginx-prod \
           ./web
 
       - name: "Publish web"
@@ -55,8 +55,8 @@ jobs:
           for IMAGE_TAG in $(echo ${{ inputs.image-tags }})
           do
             echo "Tagging with $IMAGE_TAG"
-            docker tag $WEB_IMAGE $WEB_IMAGE:$IMAGE_TAG
-            docker push $WEB_IMAGE:$IMAGE_TAG
+            docker tag $NGINX_IMAGE $NGINX_IMAGE:$IMAGE_TAG
+            docker push $NGINX_IMAGE:$IMAGE_TAG
           done
 
   build-and-publish-api-main:
@@ -83,27 +83,4 @@ jobs:
             echo "Tagging with $IMAGE_TAG"
             docker tag $API_IMAGE $API_IMAGE:$IMAGE_TAG
             docker push $API_IMAGE:$IMAGE_TAG
-          done
-
-  build-and-publish-nginx:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-
-      - name: "Login to image registry"
-        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login $IMAGE_REGISTRY -u $GITHUB_ACTOR --password-stdin
-
-      - name: "Build nginx"
-        run: |
-          docker pull $NGINX_IMAGE
-          docker build --cache-from $NGINX_IMAGE --tag $NGINX_IMAGE ./nginx
-
-      - name: "Publish nginx"
-        run: |
-          IFS=','
-          for IMAGE_TAG in $(echo ${{ inputs.image-tags }})
-          do
-            echo "Tagging with $IMAGE_TAG"
-            docker tag $NGINX_IMAGE $NGINX_IMAGE:$IMAGE_TAG
-            docker push $NGINX_IMAGE:$IMAGE_TAG
           done
