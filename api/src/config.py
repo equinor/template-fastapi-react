@@ -1,45 +1,46 @@
-from pydantic import BaseSettings, Field
-from pydantic.env_settings import SettingsError
+from pydantic import Field
+from pydantic_settings import BaseSettings
 
 from authentication.models import User
 
 
 class Config(BaseSettings):
-    ENVIRONMENT: str = Field("local", env="ENVIRONMENT")
+    # Pydantic-settings in pydantic v2 automatically fetch config settings from env-variables
+    ENVIRONMENT: str = "local"
 
     # Logging
-    LOGGER_LEVEL: str = Field("INFO", env="LOGGING_LEVEL", to_lower=True)
-    APPINSIGHTS_CONSTRING: str | None = Field(None, env="APPINSIGHTS_CONSTRING")
+    LOGGER_LEVEL: str = Field("INFO", validation_alias="LOGGING_LEVEL", to_lower=True)
+    APPINSIGHTS_CONSTRING: str | None = None
 
     # Database
-    MONGODB_USERNAME: str = Field("dummy", env="MONGODB_USERNAME")
-    MONGODB_PASSWORD: str = Field("dummy", env="MONGODB_PASSWORD")
-    MONGODB_HOSTNAME: str = Field("db", env="MONGODB_HOSTNAME")
-    MONGODB_DATABASE: str = Field("test", env="MONGODB_DATABASE")
-    MONGODB_PORT: int = Field(27017, env="MONGODB_PORT")
+    MONGODB_USERNAME: str = "dummy"
+    MONGODB_PASSWORD: str = "dummy"
+    MONGODB_HOSTNAME: str = "db"
+    MONGODB_DATABASE: str = "test"
+    MONGODB_PORT: int = 27017
 
     # Access control
-    APPLICATION_ADMIN = Field("admin", env="APPLICATION_ADMIN")
-    APPLICATION_ADMIN_ROLE = Field("admin", env="APPLICATION_ADMIN_ROLE")
+    APPLICATION_ADMIN: str = "admin"
+    APPLICATION_ADMIN_ROLE: str = "admin"
 
     # Authentication
-    SECRET_KEY: str = Field(None, env="SECRET_KEY")
-    AUTH_ENABLED: bool = Field(False, env="AUTH_ENABLED")
+    SECRET_KEY: str | None = None
+    AUTH_ENABLED: bool = False
     JWT_SELF_SIGNING_ISSUER: str = "APPLICATION"  # Which value will be used to sign self-signed JWT's
     TEST_TOKEN: bool = False  # This value should only be changed at runtime by test setup
-    OAUTH_WELL_KNOWN: str = Field(None, env="OAUTH_WELL_KNOWN")
-    OAUTH_TOKEN_ENDPOINT: str = Field("", env="OAUTH_TOKEN_ENDPOINT")
-    OAUTH_AUTH_ENDPOINT: str = Field("", env="OAUTH_AUTH_ENDPOINT")
-    OAUTH_CLIENT_ID = Field("", env="OAUTH_CLIENT_ID")
-    OAUTH_AUTH_SCOPE = Field("", env="OAUTH_AUTH_SCOPE")
-    AUTH_AUDIENCE: str = Field("", env="OAUTH_AUDIENCE")
+    OAUTH_WELL_KNOWN: str | None = None
+    OAUTH_TOKEN_ENDPOINT: str = ""
+    OAUTH_AUTH_ENDPOINT: str = ""
+    OAUTH_CLIENT_ID: str = ""
+    OAUTH_AUTH_SCOPE: str = ""
+    AUTH_AUDIENCE: str = ""
     MICROSOFT_AUTH_PROVIDER: str = "login.microsoftonline.com"
 
 
 config = Config()  # type: ignore[call-arg]
 
 if config.AUTH_ENABLED and not all((config.OAUTH_AUTH_ENDPOINT, config.OAUTH_TOKEN_ENDPOINT, config.OAUTH_WELL_KNOWN)):
-    raise SettingsError("Authentication was enabled, but some auth configuration parameters are missing")
+    raise ValueError("Authentication was enabled, but some auth configuration parameters are missing")
 
 if not config.AUTH_ENABLED:
     print("################ WARNING ################")

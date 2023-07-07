@@ -58,8 +58,8 @@ def create_response(response_class: type[TResponse]) -> Callable:
                 if isinstance(result, Response):  # The controller created the Response instance itself
                     return result
                 if isinstance(result, list):
-                    return response_class([result_entry.dict() for result_entry in result])
-                return response_class(result.dict())
+                    return response_class([result_entry.model_dump() for result_entry in result])
+                return response_class(result.model_dump())
             except HTTPStatusError as http_error:
                 error_response = ErrorResponse(
                     type="ExternalFetchException",
