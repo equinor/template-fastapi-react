@@ -8,13 +8,14 @@ license = ""
 [tool.poetry.dependencies]
 cachetools = "^5.3.0"
 python = "^3.10"
+fastapi = "^0.101.0"
 python-jose = {extras = ["cryptography"], version = "^3.3.0"}
-fastapi = {version="0.100-beta3", allow-prereleases=true}
 uvicorn = {extras = ["standard"], version = "^0.21.1"}
 pymongo = "4.1.1"
 certifi = "^2022.12.7"
 httpx = "^0.23.3"
 opencensus-ext-azure = "^1.1.9"
+pydantic = "^2.1"
 pydantic-settings = "^2.0.1"
 pydantic-extra-types = "^2.0.0"
 

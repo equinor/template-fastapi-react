@@ -28,7 +28,7 @@ class AccessLevel(IntEnum):
             raise ValueError("invalid AccessLevel enum value ")
 
     @classmethod
-    def __modify_schema__(cls, schema: dict[str, Any]):
+    def __get_pydantic_json_schema__(cls, schema: dict[str, Any]):
         """
         Add a custom field type to the class representing the Enum's field names
         Ref: https://pydantic-docs.helpmanual.io/usage/schema/#modifying-schema-in-custom-fields
