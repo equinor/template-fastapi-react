@@ -1,63 +1,50 @@
-import { AxiosError } from 'axios'
-import { useCallback, useContext, useMemo } from 'react'
-import { AuthContext } from 'react-oauth2-code-pkce'
-import { AddTodoResponse, ErrorResponse } from '../api/generated'
-import TodoAPI from '../api/TodoAPI'
+import { useCallback } from 'react'
+import {
+  AddTodoResponse,
+  ApiError,
+  ErrorResponse,
+  TodosService,
+} from '../api/generated'
 
 export function useTodoAPI() {
-  const { token } = useContext(AuthContext)
-  const todoAPI = useMemo(() => new TodoAPI(token), [token])
+  const addTodo = useCallback(async (title: string) => {
+    return TodosService.create({ title }).catch((error) => {
+      if (error instanceof ApiError) {
+        console.error((error.body as ErrorResponse).message)
+      }
+      throw error
+    })
+  }, [])
 
-  const addTodo = useCallback(
-    (title: string) => {
-      const todo = todoAPI
-        .create({ addTodoRequest: { title: title } })
-        .then((response) => response.data)
-        .catch((error: AxiosError<ErrorResponse>) => {
-          throw new Error(error.message)
-        })
-      return todo
-    },
-    [todoAPI]
-  )
+  const getAllTodos = useCallback(async () => {
+    return TodosService.getAll().catch((error) => {
+      if (error instanceof ApiError) {
+        console.error((error.body as ErrorResponse).message)
+      }
+      throw error
+    })
+  }, [])
 
-  const getAllTodos = useCallback(() => {
-    const todos = todoAPI
-      .getAll()
-      .then((response) => response.data)
-      .catch((error: AxiosError<ErrorResponse>) => {
-        throw new Error(error.message)
-      })
-    return todos
-  }, [todoAPI])
+  const toggleTodo = useCallback(async (todo: AddTodoResponse) => {
+    return TodosService.updateById(todo.id, {
+      is_completed: !todo.is_completed,
+      title: todo.title,
+    }).catch((error) => {
+      if (error instanceof ApiError) {
+        console.error((error.body as ErrorResponse).message)
+      }
+      throw error
+    })
+  }, [])
 
-  const toggleTodo = useCallback(
-    async (todo: AddTodoResponse) => {
-      todoAPI
-        .updateById({
-          id: todo.id,
-          updateTodoRequest: {
-            is_completed: !todo.is_completed,
-            title: todo.title,
-          },
-        })
-        .catch((error: AxiosError<ErrorResponse>) => {
-          throw new Error(error.message)
-        })
-    },
-    [todoAPI]
-  )
-
-  const removeTodo = useCallback(
-    async (todo: AddTodoResponse) => {
-      todoAPI
-        .deleteById({ id: todo.id })
-        .catch((error: AxiosError<ErrorResponse>) => {
-          throw new Error(error.message)
-        })
-    },
-    [todoAPI]
-  )
+  const removeTodo = useCallback(async (todo: AddTodoResponse) => {
+    return TodosService.deleteById(todo.id).catch((error) => {
+      if (error instanceof ApiError) {
+        console.error((error.body as ErrorResponse).message)
+      }
+      throw error
+    })
+  }, [])
 
   return { addTodo, getAllTodos, toggleTodo, removeTodo }
 }
