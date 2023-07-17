@@ -1,4 +1,12 @@
 repos:
+  - repo: local
+    hooks:
+      - id: generate-api-client
+        name: generate-api
+        entry: ./web/generate-api-typescript-client-pre-commit.sh
+        language: system
+        pass_filenames: false
+
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
     hooks:
@@ -23,7 +31,7 @@ repos:
         always_run: true
 
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: 'v0.0.253'
+    rev: "v0.0.253"
     hooks:
       - id: ruff
         name: Code linting
@@ -95,7 +103,7 @@ repos:
     hooks:
       - id: mypy
         name: Type checking
-        args: [ --config-file=api/pyproject.toml ]
+        args: [--config-file=api/pyproject.toml]
         exclude: tests/
         additional_dependencies:
           - types-cachetools
