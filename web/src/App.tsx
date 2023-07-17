@@ -5,6 +5,7 @@ import { AuthContext } from 'react-oauth2-code-pkce'
 import { useContext } from 'react'
 import { Button, Progress, Typography } from '@equinor/eds-core-react'
 import styled from 'styled-components'
+import { OpenAPI } from './api/generated'
 
 const hasAuthConfig = process.env.REACT_APP_AUTH === '1'
 
@@ -20,6 +21,8 @@ const CenterContainer = styled.div`
 
 function App() {
   const { token, error, login, loginInProgress } = useContext(AuthContext)
+
+  OpenAPI.TOKEN = token
 
   if (hasAuthConfig && error) {
     return <CenterContainer>{error}</CenterContainer>
