@@ -80,12 +80,11 @@ repos:
           ["--config=web/.prettierrc.js", "--ignore-path=web/.prettierignore"]
 
   - repo: https://github.com/pre-commit/mirrors-eslint
-    rev: "v8.33.0"
+    rev: "v8.45.0"
     hooks:
       - id: eslint
         additional_dependencies:
           - eslint
-          - eslint-config-react-app
           - typescript
           - "@typescript-eslint/parser"
           - "@typescript-eslint/eslint-plugin"
