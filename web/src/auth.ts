@@ -1,12 +1,12 @@
 import { TAuthConfig } from 'react-oauth2-code-pkce'
 
 export const authConfig: TAuthConfig = {
-  clientId: process.env.REACT_APP_AUTH_CLIENT_ID || '',
-  authorizationEndpoint: process.env.REACT_APP_AUTH_ENDPOINT || '',
-  tokenEndpoint: process.env.REACT_APP_TOKEN_ENDPOINT || '',
-  scope: process.env.REACT_APP_AUTH_SCOPE || '',
-  redirectUri: process.env.REACT_APP_AUTH_REDIRECT_URI || '',
-  logoutEndpoint: process.env.REACT_APP_LOGOUT_ENDPOINT || '',
+  clientId: import.meta.env.VITE_AUTH_CLIENT_ID || '',
+  authorizationEndpoint: import.meta.env.VITE_AUTH_ENDPOINT || '',
+  tokenEndpoint: import.meta.env.VITE_TOKEN_ENDPOINT || '',
+  scope: import.meta.env.VITE_AUTH_SCOPE || '',
+  redirectUri: import.meta.env.VITE_AUTH_REDIRECT_URI || '',
+  logoutEndpoint: import.meta.env.VITE_LOGOUT_ENDPOINT || '',
   autoLogin: false,
   preLogin: () =>
     localStorage.setItem(
@@ -16,6 +16,6 @@ export const authConfig: TAuthConfig = {
   postLogin: () =>
     window.location.replace(
       localStorage.getItem('preLoginPath') ??
-        (process.env.REACT_APP_AUTH_REDIRECT_URI || '')
+        (import.meta.env.VITE_AUTH_REDIRECT_URI || '')
     ),
 }

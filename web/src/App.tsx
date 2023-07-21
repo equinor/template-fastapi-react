@@ -7,7 +7,7 @@ import { Button, Progress, Typography } from '@equinor/eds-core-react'
 import styled from 'styled-components'
 import { OpenAPI } from './api/generated'
 
-const hasAuthConfig = process.env.REACT_APP_AUTH === '1'
+const hasAuthConfig = import.meta.env.VITE_AUTH === '1'
 
 const CenterContainer = styled.div`
   display: flex;

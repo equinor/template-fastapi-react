@@ -1,5 +1,5 @@
 import { Button, Input } from '@equinor/eds-core-react'
-import { FormEventHandler, useEffect, useState } from 'react'
+import { ChangeEvent, FormEventHandler, useEffect, useState } from 'react'
 import { AddTodoResponse } from '../../../api/generated'
 import { useTodos } from '../../../contexts/TodoContext'
 import { useTodoAPI } from '../../../hooks/useTodoAPI'
@@ -29,7 +29,9 @@ const AddItem = () => {
             value={value}
             className="input"
             placeholder="Add Task"
-            onChange={(e) => setValue(e.target.value)}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setValue(e.target.value)
+            }
           />
           <Button className="add-button" type="submit">
             Add

@@ -1,6 +1,6 @@
 # Getting Started with TypeScript React
 
-This project was set up with [Create React App](https://github.com/facebook/create-react-app)
+This project was set up with [Create React App](https://github.com/facebook/create-react-app), but then ported to use [Vite](https://vitejs.dev/), which is faster and more actively maintained.
 
 * TypeScript React
 * Linting with eslint
@@ -14,7 +14,6 @@ The starter project layout should look like the following:
 
 ```text
 web/
-├─ images.d.ts
 ├─ node_modules/
 ├─ public/
 ├─ src/
@@ -34,6 +33,5 @@ Of note:
 * `package.json` contains dependencies, as well as some shortcuts for commands we'd like to run for testing, previewing, and deploying the app.
 * `public` contains static assets like the HTML page we're planning to deploy to, or images. You can delete any file in this folder apart from `index.html`.
 * `src` contains the code. `index.tsx` is the entry-point for your file, and is mandatory.
-* `images.d.ts` will tell TypeScript that certain types of image files can be `import`-ed, which create-react-app supports.
 
 To learn React, check out the [React documentation](https://reactjs.org/).
