@@ -5,7 +5,7 @@ import { authConfig } from './auth'
 import { AuthProvider } from 'react-oauth2-code-pkce'
 import { OpenAPI } from './api/generated'
 
-const hasAuthConfig = process.env.REACT_APP_AUTH === '1'
+const hasAuthConfig = import.meta.env.VITE_AUTH === '1'
 
 OpenAPI.BASE = `${window.location.origin}/api`
 

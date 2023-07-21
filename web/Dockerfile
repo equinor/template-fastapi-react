@@ -39,18 +39,18 @@ ARG REDIRECT_URI=http://localhost/
 ARG AUTH_SCOPE=""
 ARG CLIENT_ID=""
 ARG TENANT_ID=""
-ENV REACT_APP_AUTH_SCOPE=$AUTH_SCOPE
-ENV REACT_APP_AUTH=$AUTH_ENABLED
-ENV REACT_APP_AUTH_CLIENT_ID=$CLIENT_ID
-ENV REACT_APP_AUTH_TENANT=$TENANT_ID
-ENV REACT_APP_TOKEN_ENDPOINT=https://login.microsoftonline.com/${REACT_APP_AUTH_TENANT}/oauth2/v2.0/token
-ENV REACT_APP_AUTH_ENDPOINT=https://login.microsoftonline.com/${REACT_APP_AUTH_TENANT}/oauth2/v2.0/authorize
-ENV REACT_APP_LOGOUT_ENDPOINT=https://login.microsoftonline.com/${REACT_APP_AUTH_TENANT}/oauth2/logout
-ENV REACT_APP_AUTH_REDIRECT_URI=$REDIRECT_URI
+ENV VITE_AUTH_SCOPE=$AUTH_SCOPE
+ENV VITE_AUTH=$AUTH_ENABLED
+ENV VITE_AUTH_CLIENT_ID=$CLIENT_ID
+ENV VITE_AUTH_TENANT=$TENANT_ID
+ENV VITE_TOKEN_ENDPOINT=https://login.microsoftonline.com/${VITE_AUTH_TENANT}/oauth2/v2.0/token
+ENV VITE_AUTH_ENDPOINT=https://login.microsoftonline.com/${VITE_AUTH_TENANT}/oauth2/v2.0/authorize
+ENV VITE_LOGOUT_ENDPOINT=https://login.microsoftonline.com/${VITE_AUTH_TENANT}/oauth2/logout
+ENV VITE_AUTH_REDIRECT_URI=$REDIRECT_URI
 
 WORKDIR /code
 COPY ./ ./
-RUN yarn install  --immutable --immutable-cache
+RUN yarn install --immutable
 
 FROM base as development
 CMD ["yarn", "start"]
