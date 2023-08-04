@@ -112,3 +112,14 @@ repos:
         language: system
         pass_filenames: false
         always_run: true
+
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.2.5
+    hooks:
+      - id: codespell
+        name: codespell
+        description: Checks for common misspellings in text files.
+        entry: codespell --skip="*.lock,*.cjs" --ignore-words=.codespell-ignore.txt
+        language: python
+        types: [text]
+

@@ -50,7 +50,7 @@
 ### Code Refactoring
 
 * **api:** replace response_class with return type annotations ([b1fa3bd](https://github.com/equinor/template-fastapi-react/commit/b1fa3bd6b342ba89e5d2237721573a83cfd503fe))
-* **ci:** extract ghcr login into separat step ([0d90fe0](https://github.com/equinor/template-fastapi-react/commit/0d90fe00438ad9c995198cba8e268c8268af1e4a))
+* **ci:** extract ghcr login into separate step ([0d90fe0](https://github.com/equinor/template-fastapi-react/commit/0d90fe00438ad9c995198cba8e268c8268af1e4a))
 * **ci:** remove crazy-max external action ([b41990d](https://github.com/equinor/template-fastapi-react/commit/b41990d92c19d2a661900a208a60d604a5ab470c))
 * create empty yarn.lock ([39050e7](https://github.com/equinor/template-fastapi-react/commit/39050e72af50debd95380590fe4ee803a5995589))
 * separate responsibilities by moving useEffect to a custom hook ([cc33a5d](https://github.com/equinor/template-fastapi-react/commit/cc33a5d1f856aff8e529c4c3df43d326fb5a8a90))
@@ -170,7 +170,7 @@
 ### Bug Fixes
 
 * add missing decorators ([54fd2f8](https://github.com/equinor/template-fastapi-react/commit/54fd2f8a3826d2a5bc5bbc7419cbdd83de4811f1))
-* add required additional dependecies to eslint pre-commit env ([cca8509](https://github.com/equinor/template-fastapi-react/commit/cca8509bf7a4edc5c38ad5fe3a7b0812fdb95040))
+* add required additional dependencies to eslint pre-commit env ([cca8509](https://github.com/equinor/template-fastapi-react/commit/cca8509bf7a4edc5c38ad5fe3a7b0812fdb95040))
 * add venv ([d682b08](https://github.com/equinor/template-fastapi-react/commit/d682b0817d735547f3a3cd7391d942983cbf666c))
 * cast variable that cannot be undefined to boolean ([372f781](https://github.com/equinor/template-fastapi-react/commit/372f781d805d25f2e7aaa284d3b70622989e9136))
 * **dev:** env_file in docker-compose.override.yml (PR [#39](https://github.com/equinor/template-fastapi-react/issues/39)) ([2aa80bd](https://github.com/equinor/template-fastapi-react/commit/2aa80bdfc211f44d624f1cdad4f8b0844164c4bf))

@@ -86,7 +86,7 @@ We auto-generate changelogs by following the [conventional commits](https://www.
 
 #### Auto-generated
 
-The Github action `release-please.yaml` is a workflow that will automatically create a pull request with an auto-generated changelog everytime code is pushed to the main branch.
+The Github action `release-please.yaml` is a workflow that will automatically create a pull request with an auto-generated changelog every time code is pushed to the main branch.
 
 #### Locally
 

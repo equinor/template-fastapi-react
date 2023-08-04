@@ -1,5 +1,5 @@
 ## more info https://github.com/crazy-max/ghaction-github-labeler
-- # maintaince
+- # maintenance
   name: "type: :wrench: maintenance"
   color: ""
   description: ""
@@ -55,8 +55,8 @@
   name: "type: :question: question"
   color: "FBCA04"
   description: ""
-- # wont do/fix
-  name: "status: :coffin: wont do/fix"
+- # won't do/fix
+  name: "status: :coffin: won't do/fix"
   color: "cccccc"
   description: ""
 - # security

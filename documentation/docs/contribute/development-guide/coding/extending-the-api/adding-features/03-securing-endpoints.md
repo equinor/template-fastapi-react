@@ -25,7 +25,7 @@ app.include_router(routes)  # Add a route/controller to the app
 app.include_router(routes, dependencies=[Security(auth_with_jwt)])
 ```
 
-That's it! Now every route added like this will require a successfull JWT validation before the request will be processed.
+That's it! Now every route added like this will require a successful JWT validation before the request will be processed.
 
 Dependencies can also return values, useful if you need to do some kind of __authorization__.  
 Here is one example;

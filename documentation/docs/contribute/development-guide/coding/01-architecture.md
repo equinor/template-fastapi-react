@@ -72,7 +72,7 @@ Rel(application_users, web, "Uses")
 System_Boundary(api, "REST API") {
   Component(controllers, "Controllers", "Function", "Trigger use cases and returning the result.")
   Component(use_cases, "Use Cases", "Function", "Implement and encapsulate all of the business rules.")
-  Component(repositories, "Repositories", "Interface", "Handle read and write logic against storage medias.")
+  Component(repositories, "Repositories", "Interface", "Handle read and write logic against storage mediums.")
   Component(entities, "Entity", "Class", "The domain objects")
 
   Rel(controllers, use_cases, "Execute")
