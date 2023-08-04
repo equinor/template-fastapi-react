@@ -32,7 +32,7 @@ Here’s an example commit message:
 ```
 type: short description of what you did (imperative tense) <= 50 chars
 
-When necessarry, mote details can come here, until 72 chars each line.
+When necessary, mote details can come here, until 72 chars each line.
 
 BREAKING CHANGE: some description
 
