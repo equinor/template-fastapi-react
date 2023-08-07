@@ -119,7 +119,9 @@ repos:
       - id: codespell
         name: codespell
         description: Checks for common misspellings in text files.
-        entry: codespell --skip="*.lock,*.cjs" --ignore-words=.codespell-ignore.txt
+        entry: codespell --toml=api/pyproject.toml
         language: python
         types: [text]
+        additional_dependencies:
+          - tomli
 
