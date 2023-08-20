@@ -5,4 +5,4 @@ on:
 
 jobs:
   codeql:
-    uses: ./.github/workflows/codeql-security-analysis.yaml
+    uses: ./.github/workflows/codeql.yaml
