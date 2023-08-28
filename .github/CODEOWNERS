@@ -1,0 +1,8 @@
+# Default/fallback ownership
+* @equinor/team-hermes
+
+# Backend
+/api/ @equinor/team-hermes-backend
+
+# Frontend
+/web/ @equinor/team-hermes-frontend
