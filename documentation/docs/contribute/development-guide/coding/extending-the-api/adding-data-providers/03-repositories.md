@@ -6,7 +6,7 @@ Concrete implementations of repository interfaces. A repository takes entities a
 ```mdx-code-block
 import CodeBlock from '@theme/CodeBlock';
 
-import TodoRepository from '!!raw-loader!@site/../api/src/data_providers/repositories/TodoRepository.py';
+import TodoRepository from '!!raw-loader!@site/../api/src/data_providers/repositories/todo_repository.py';
 
 <CodeBlock language="jsx">{TodoRepository}</CodeBlock>
 ```
@@ -16,7 +16,7 @@ import TodoRepository from '!!raw-loader!@site/../api/src/data_providers/reposit
 Use the `test_client` fixture as input to TodoRepository. The `test_client` fixture are using the mongomock instead of real database. 
 
 ```mdx-code-block
-import Test from '!!raw-loader!@site/../api/src/tests/unit/data_providers/repositories/test_TodoRepository.py';
+import Test from '!!raw-loader!@site/../api/src/tests/unit/data_providers/repositories/test_todo_repository.py';
 
 <CodeBlock language="jsx">{Test}</CodeBlock>
 ```

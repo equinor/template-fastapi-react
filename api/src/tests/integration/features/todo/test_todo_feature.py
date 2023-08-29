@@ -6,7 +6,7 @@ from starlette.status import (
 )
 from starlette.testclient import TestClient
 
-from data_providers.clients.ClientInterface import ClientInterface
+from data_providers.clients.client_interface import ClientInterface
 
 pytestmark = pytest.mark.integration
 

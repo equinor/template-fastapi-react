@@ -1,6 +1,6 @@
 import uuid
 
-from entities.TodoItem import TodoItem
+from entities.todo_item import TodoItem
 
 
 def test_todo_item_init():

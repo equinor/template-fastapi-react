@@ -5,7 +5,7 @@ from authentication.authentication import auth_with_jwt
 from authentication.models import User
 from common.responses import create_response
 from data_providers.get_repository import get_todo_repository
-from data_providers.repository_interfaces.TodoRepositoryInterface import (
+from data_providers.repository_interfaces.todo_repository_interface import (
     TodoRepositoryInterface,
 )
 

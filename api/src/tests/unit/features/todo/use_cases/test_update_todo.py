@@ -1,4 +1,4 @@
-from data_providers.repository_interfaces.TodoRepositoryInterface import (
+from data_providers.repository_interfaces.todo_repository_interface import (
     TodoRepositoryInterface,
 )
 from features.todo.use_cases.update_todo import UpdateTodoRequest, update_todo_use_case
