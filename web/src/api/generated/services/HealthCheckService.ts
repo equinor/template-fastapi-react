@@ -9,22 +9,15 @@ import { request as __request } from '../core/request';
 export class HealthCheckService {
 
     /**
-     * Get
+     * Get Health Status
+     * Check health of API
      * @returns string Successful Response
      * @throws ApiError
      */
-    public static getHealthCheckGet(): CancelablePromise<string> {
+    public static getHealthStatusHealthCheckGet(): CancelablePromise<string> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/health-check',
-            errors: {
-                400: `Bad Request`,
-                401: `Unauthorized`,
-                403: `Forbidden`,
-                404: `Not Found`,
-                422: `Unprocessable Entity`,
-                500: `Internal Server Error`,
-            },
         });
     }
 

@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 from common.exceptions import MissingPrivilegeException, NotFoundException
-from data_providers.repository_interfaces.TodoRepositoryInterface import (
+from data_providers.repository_interfaces.todo_repository_interface import (
     TodoRepositoryInterface,
 )
 

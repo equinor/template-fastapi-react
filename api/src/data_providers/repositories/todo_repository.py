@@ -1,9 +1,9 @@
 from common.exceptions import NotFoundException
-from data_providers.clients.ClientInterface import ClientInterface
-from data_providers.repository_interfaces.TodoRepositoryInterface import (
+from data_providers.clients.client_interface import ClientInterface
+from data_providers.repository_interfaces.todo_repository_interface import (
     TodoRepositoryInterface,
 )
-from entities.TodoItem import TodoItem
+from entities.todo_item import TodoItem
 
 
 def to_dict(todo_item: TodoItem):

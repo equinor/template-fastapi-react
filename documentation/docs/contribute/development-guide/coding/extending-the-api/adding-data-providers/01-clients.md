@@ -5,7 +5,7 @@ The template already ships with a mongo database client for connecting to MongoD
 ```mdx-code-block
 import CodeBlock from '@theme/CodeBlock';
 
-import MongoClient from '!!raw-loader!@site/../api/src/data_providers/clients/mongodb/MongoDatabaseClient.py';
+import MongoClient from '!!raw-loader!@site/../api/src/data_providers/clients/mongodb/mongo_database_client.py';
 
 <CodeBlock language="jsx">{MongoClient}</CodeBlock>
 ```
@@ -15,7 +15,7 @@ import MongoClient from '!!raw-loader!@site/../api/src/data_providers/clients/mo
 The `test_client` fixture are using the mongomock instead of real database. 
 
 ```mdx-code-block
-import Test from '!!raw-loader!@site/../api/src/tests/unit/data_providers/clients/mongodb/test_MongoDatabaseClient.py';
+import Test from '!!raw-loader!@site/../api/src/tests/unit/data_providers/clients/mongodb/test_mongo_database_client.py';
 
 <CodeBlock language="jsx">{Test}</CodeBlock>
 ```

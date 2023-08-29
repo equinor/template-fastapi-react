@@ -6,7 +6,7 @@ An entity can be an object with methods, or it can be a set of data structures a
 
 ```mdx-code-block
 import CodeBlock from '@theme/CodeBlock';
-import TodoItem from '!!raw-loader!@site/../api/src/entities/TodoItem.py';
+import TodoItem from '!!raw-loader!@site/../api/src/entities/todo_item.py';
 
 <CodeBlock language="jsx">{TodoItem}</CodeBlock>
 ```
