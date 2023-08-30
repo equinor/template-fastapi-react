@@ -9,8 +9,7 @@ from starlette.testclient import TestClient
 from app import create_app
 from config import config
 from data_providers.clients.mongodb.mongo_database_client import MongoDatabaseClient
-from data_providers.get_repository import get_todo_repository
-from data_providers.repositories.todo_repository import TodoRepository
+from features.todo.repository.todo_repository import TodoRepository, get_todo_repository
 from starlette.testclient import TestClient
 
 
