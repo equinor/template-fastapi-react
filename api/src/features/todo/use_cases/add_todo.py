@@ -26,9 +26,9 @@ class AddTodoResponse(BaseModel):
 
 
 def add_todo_use_case(
-    data: AddTodoRequest,
-    user_id: str,
-    todo_repository: TodoRepositoryInterface,
+        data: AddTodoRequest,
+        user_id: str,
+        todo_repository: TodoRepositoryInterface,
 ) -> AddTodoResponse:
     todo_item = TodoItem(id=str(uuid.uuid4()), title=data.title, user_id=user_id)
     todo_repository.create(todo_item)

@@ -4,8 +4,6 @@ import os
 
 import mongomock
 import pytest
-from starlette.testclient import TestClient
-
 from app import create_app
 from config import config
 from data_providers.clients.mongodb.mongo_database_client import MongoDatabaseClient

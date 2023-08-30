@@ -15,8 +15,8 @@ class GetTodoAllResponse(BaseModel):
 
 
 def get_todo_all_use_case(
-    user_id: str,
-    todo_repository: TodoRepositoryInterface,
+        user_id: str,
+        todo_repository: TodoRepositoryInterface,
 ) -> list[GetTodoAllResponse]:
     return [
         GetTodoAllResponse.from_entity(todo_item)
