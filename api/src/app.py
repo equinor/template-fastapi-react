@@ -1,10 +1,9 @@
 import click
 from fastapi import APIRouter, FastAPI, Security
-from fastapi.exceptions import RequestValidationError
 from starlette.middleware import Middleware
 
 from authentication.authentication import auth_with_jwt
-from common.exception_handlers import validation_exception_handler
+from common.exception_handlers import add_exception_handlers
 from common.middleware import LocalLoggerMiddleware, OpenCensusRequestLoggingMiddleware
 from common.responses import responses
 from config import config
@@ -39,8 +38,6 @@ def create_app() -> FastAPI:
     if config.APPINSIGHTS_CONSTRING:
         middleware.append(Middleware(OpenCensusRequestLoggingMiddleware))
 
-    exception_handlers = {RequestValidationError: validation_exception_handler}
-
     app = FastAPI(
         title="Template FastAPI React",
         version="1.4.0",  # x-release-please-version
@@ -48,7 +45,6 @@ def create_app() -> FastAPI:
         responses=responses,
         middleware=middleware,
         license_info={"name": "MIT", "url": "https://github.com/equinor/template-fastapi-react/blob/main/LICENSE.md"},
-        exception_handlers=exception_handlers,  # type: ignore
         swagger_ui_init_oauth={
             "clientId": config.OAUTH_CLIENT_ID,
             "appName": "TemplateFastAPIReact",
@@ -57,6 +53,8 @@ def create_app() -> FastAPI:
             "useBasicAuthenticationWithAccessCodeGrant": True,
         },
     )
+
+    add_exception_handlers(app)
 
     app.include_router(authenticated_routes, dependencies=[Security(auth_with_jwt)])
     app.include_router(public_routes)
