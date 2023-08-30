@@ -4,6 +4,8 @@ import os
 
 import mongomock
 import pytest
+from starlette.datastructures import Headers
+from starlette.requests import Request
 from starlette.testclient import TestClient
 
 from app import create_app
@@ -38,6 +40,37 @@ def test_app(test_client: MongoDatabaseClient):
 
     app.dependency_overrides[get_todo_repository] = use_todo_repository_mock
     yield client
+
+
+@pytest.fixture(scope="function")
+def mock_request(
+    method: str = "GET",
+    server: str = "www.example.com",
+    path: str = "/",
+    headers: dict = None,
+    body: str = None,
+) -> Request:
+    if headers is None:
+        headers = {}
+    request = Request(
+        {
+            "type": "http",
+            "path": path,
+            "headers": Headers(headers).raw,
+            "http_version": "1.1",
+            "method": method,
+            "scheme": "https",
+            "client": ("127.0.0.1", 8080),
+            "server": (server, 443),
+        }
+    )
+    if body:
+
+        async def request_body():
+            return body
+
+        request.body = request_body
+    return request
 
 
 def pytest_addoption(parser):
