@@ -2,21 +2,23 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { User } from '../models/User';
+
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 
-export class HealthCheckService {
+export class WhoamiService {
 
     /**
-     * Get
-     * @returns string Successful Response
+     * Get Information On Authenticated User
+     * @returns User Successful Response
      * @throws ApiError
      */
-    public static getHealthCheckGet(): CancelablePromise<string> {
+    public static whoami(): CancelablePromise<User> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/health-check',
+            url: '/whoami',
             errors: {
                 400: `Bad Request`,
                 401: `Unauthorized`,
