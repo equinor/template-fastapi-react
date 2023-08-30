@@ -3,8 +3,8 @@ from pymongo.database import Database
 from pymongo.errors import DuplicateKeyError
 from pymongo.mongo_client import MongoClient
 
-from api.src.config import config
 from common.exceptions import NotFoundException, ValidationException
+from config import config
 from data_providers.clients.client_interface import ClientInterface
 
 MONGO_CLIENT: MongoClient = MongoClient(
