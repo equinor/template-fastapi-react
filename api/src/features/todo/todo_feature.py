@@ -1,9 +1,7 @@
 from fastapi import APIRouter, Depends
-from starlette.responses import JSONResponse
 
 from authentication.authentication import auth_with_jwt
 from authentication.models import User
-from common.responses import create_response
 from features.todo.repository.todo_repository import get_todo_repository
 from features.todo.repository.todo_repository_interface import TodoRepositoryInterface
 from features.todo.use_cases.add_todo import (
@@ -30,7 +28,6 @@ router = APIRouter(tags=["todos"], prefix="/todos")
 
 
 @router.post("", operation_id="create")
-@create_response(JSONResponse)
 def add_todo(
     data: AddTodoRequest,
     user: User = Depends(auth_with_jwt),
@@ -40,7 +37,6 @@ def add_todo(
 
 
 @router.get("/{id}", operation_id="get_by_id")
-@create_response(JSONResponse)
 def get_todo_by_id(
     id: str,
     user: User = Depends(auth_with_jwt),
@@ -50,7 +46,6 @@ def get_todo_by_id(
 
 
 @router.delete("/{id}", operation_id="delete_by_id")
-@create_response(JSONResponse)
 def delete_todo_by_id(
     id: str,
     user: User = Depends(auth_with_jwt),
@@ -60,7 +55,6 @@ def delete_todo_by_id(
 
 
 @router.get("", operation_id="get_all")
-@create_response(JSONResponse)
 def get_todo_all(
     user: User = Depends(auth_with_jwt), todo_repository: TodoRepositoryInterface = Depends(get_todo_repository)
 ):
@@ -68,7 +62,6 @@ def get_todo_all(
 
 
 @router.put("/{id}", operation_id="update_by_id")
-@create_response(JSONResponse)
 def update_todo(
     id: str,
     data: UpdateTodoRequest,
