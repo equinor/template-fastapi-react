@@ -1,9 +1,7 @@
 import pytest
 from pydantic.error_wrappers import ValidationError
 
-from data_providers.repository_interfaces.todo_repository_interface import (
-    TodoRepositoryInterface,
-)
+from features.todo.repository.todo_repository_interface import TodoRepositoryInterface
 from features.todo.use_cases.add_todo import AddTodoRequest, add_todo_use_case
 
 

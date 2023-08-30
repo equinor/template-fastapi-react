@@ -1,9 +1,7 @@
 from pydantic import BaseModel
 
-from data_providers.repository_interfaces.todo_repository_interface import (
-    TodoRepositoryInterface,
-)
-from entities.todo_item import TodoItem
+from features.todo.entities.todo_item import TodoItem
+from features.todo.repository.todo_repository_interface import TodoRepositoryInterface
 
 
 class GetTodoAllResponse(BaseModel):

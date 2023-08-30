@@ -1,6 +1,6 @@
 import pytest
 
-from data_providers.repositories.todo_repository import TodoRepository
+from features.todo.repository.todo_repository import TodoRepository
 
 
 @pytest.fixture(scope="function")
