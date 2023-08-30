@@ -8,7 +8,7 @@ data (state) and logic reusable for various applications.
 
 ```mdx-code-block
 import CodeBlock from '@theme/CodeBlock';
-import TodoItem from '!!raw-loader!@site/../api/src/features/entities/todo_item.py';
+import TodoItem from '!!raw-loader!@site/../api/src/features/todo/entities/todo_item.py';
 
 <CodeBlock language="jsx">{TodoItem}</CodeBlock>
 ```
