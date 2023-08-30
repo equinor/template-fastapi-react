@@ -3,8 +3,26 @@ from pymongo.database import Database
 from pymongo.errors import DuplicateKeyError
 from pymongo.mongo_client import MongoClient
 
-from common.exceptions import NotFoundException, ValidationException
-from data_providers.clients.client_interface import ClientInterface
+from ..client_interface import ClientInterface
+
+MONGO_CLIENT: MongoClient = MongoClient(
+    host=config.MONGODB_HOSTNAME,
+    port=config.MONGODB_PORT,
+    username=config.MONGODB_USERNAME,
+    password=config.MONGODB_PASSWORD,
+    authSource="admin",
+    tls=False,
+    connectTimeoutMS=5000,
+    serverSelectionTimeoutMS=5000,
+    retryWrites=False,
+)
+
+
+def get_mongo_database_client(collection_name: str):
+    mongo_database_client = MongoDatabaseClient(
+        collection_name=collection_name, database_name=config.MONGODB_DATABASE, client=MONGO_CLIENT
+    )
+    return mongo_database_client
 
 
 class MongoDatabaseClient(ClientInterface[dict, str]):

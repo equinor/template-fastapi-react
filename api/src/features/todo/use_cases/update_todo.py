@@ -1,10 +1,8 @@
+from common.exceptions import MissingPrivilegeException
 from pydantic import BaseModel, Field
 
-from common.exceptions import MissingPrivilegeException
-from data_providers.repository_interfaces.todo_repository_interface import (
-    TodoRepositoryInterface,
-)
-from entities.todo_item import TodoItem
+from ..entities.todo_item import TodoItem
+from ..repository.todo_repository_interface import TodoRepositoryInterface
 
 
 class UpdateTodoRequest(BaseModel):
@@ -22,10 +20,10 @@ class UpdateTodoResponse(BaseModel):
 
 
 def update_todo_use_case(
-    id: str,
-    data: UpdateTodoRequest,
-    user_id: str,
-    todo_repository: TodoRepositoryInterface,
+        id: str,
+        data: UpdateTodoRequest,
+        user_id: str,
+        todo_repository: TodoRepositoryInterface,
 ) -> UpdateTodoResponse:
     todo_item = todo_repository.get(id)
     if todo_item.user_id != user_id:
