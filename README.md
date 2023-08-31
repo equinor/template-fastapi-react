@@ -21,7 +21,9 @@ This is a **solution template** for creating a Single Page App (SPA) with React 
 [Development](#development) •
 [Contributing](#contributing)
 
+<!--- The demo project is not currently deployed. 
 A demo is running at https://template-fastapi-react.app.playground.radix.equinor.com
+-->
 
 </div>
 
