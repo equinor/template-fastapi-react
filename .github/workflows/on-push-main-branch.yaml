@@ -29,11 +29,12 @@ jobs:
     with:
       image-tags: latest
       oauth-redirect-url: "https://proxy-template-fastapi-react-test.playground.radix.equinor.com/"
-  deploy-test:
-    needs: publish-latest
-    uses: ./.github/workflows/deploy-to-radix.yaml
-    with:
-      radix-environment: "test"
+# FIXME: DEMO CURRENTLY NOT DEPLOYED TO RADIX, comment back in to enable deployment to test environment
+#  deploy-test:
+#    needs: publish-latest
+#    uses: ./.github/workflows/deploy-to-radix.yaml
+#    with:
+#      radix-environment: "test"
 
   release-please:
     needs: tests
@@ -46,9 +47,9 @@ jobs:
     with:
       image-tags: production,${{ needs.release-please.outputs.tag_name }}
       oauth-redirect-url: "https://template-fastapi-react.app.playground.radix.equinor.com"
-
-  deploy-prod:
-    needs: publish-production
-    uses: ./.github/workflows/deploy-to-radix.yaml
-    with:
-      radix-environment: "prod"
+# FIXME: DEMO CURRENTLY NOT DEPLOYED TO RADIX, comment back in to enable deployment to production environment
+#  deploy-prod:
+#    needs: publish-production
+#    uses: ./.github/workflows/deploy-to-radix.yaml
+#    with:
+#      radix-environment: "prod"
