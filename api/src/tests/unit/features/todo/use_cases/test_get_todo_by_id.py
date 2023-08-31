@@ -1,9 +1,7 @@
 import pytest as pytest
 
 from common.exceptions import NotFoundException
-from data_providers.repository_interfaces.todo_repository_interface import (
-    TodoRepositoryInterface,
-)
+from features.todo.repository.todo_repository_interface import TodoRepositoryInterface
 from features.todo.use_cases.get_todo_by_id import (
     GetTodoByIdResponse,
     get_todo_by_id_use_case,

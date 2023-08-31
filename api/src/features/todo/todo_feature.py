@@ -4,16 +4,23 @@ from starlette.responses import JSONResponse
 from authentication.authentication import auth_with_jwt
 from authentication.models import User
 from common.responses import create_response
-from data_providers.get_repository import get_todo_repository
-from data_providers.repository_interfaces.todo_repository_interface import (
-    TodoRepositoryInterface,
+from features.todo.repository.todo_repository import get_todo_repository
+from features.todo.repository.todo_repository_interface import TodoRepositoryInterface
+from features.todo.use_cases.add_todo import (
+    AddTodoRequest,
+    AddTodoResponse,
+    add_todo_use_case,
 )
-
-from .use_cases.add_todo import AddTodoRequest, AddTodoResponse, add_todo_use_case
-from .use_cases.delete_todo_by_id import DeleteTodoByIdResponse, delete_todo_use_case
-from .use_cases.get_todo_all import GetTodoAllResponse, get_todo_all_use_case
-from .use_cases.get_todo_by_id import GetTodoByIdResponse, get_todo_by_id_use_case
-from .use_cases.update_todo import (
+from features.todo.use_cases.delete_todo_by_id import (
+    DeleteTodoByIdResponse,
+    delete_todo_use_case,
+)
+from features.todo.use_cases.get_todo_all import get_todo_all_use_case
+from features.todo.use_cases.get_todo_by_id import (
+    GetTodoByIdResponse,
+    get_todo_by_id_use_case,
+)
+from features.todo.use_cases.update_todo import (
     UpdateTodoRequest,
     UpdateTodoResponse,
     update_todo_use_case,
@@ -56,7 +63,7 @@ def delete_todo_by_id(
 @create_response(JSONResponse)
 def get_todo_all(
     user: User = Depends(auth_with_jwt), todo_repository: TodoRepositoryInterface = Depends(get_todo_repository)
-) -> list[GetTodoAllResponse]:
+):
     return get_todo_all_use_case(user_id=user.user_id, todo_repository=todo_repository)
 
 

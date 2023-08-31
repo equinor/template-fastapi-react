@@ -1,15 +1,20 @@
 from common.exceptions import NotFoundException
+from config import config
 from data_providers.clients.client_interface import ClientInterface
-from data_providers.repository_interfaces.todo_repository_interface import (
-    TodoRepositoryInterface,
-)
-from entities.todo_item import TodoItem
+from data_providers.clients.mongodb.mongo_database_client import MongoDatabaseClient
+from features.todo.entities.todo_item import TodoItem
+from features.todo.repository.todo_repository_interface import TodoRepositoryInterface
 
 
 def to_dict(todo_item: TodoItem):
-    dict = todo_item.__dict__
-    dict["_id"] = todo_item.id
-    return dict
+    _dict = todo_item.__dict__
+    _dict["_id"] = todo_item.id
+    return _dict
+
+
+def get_todo_repository():
+    mongo_database_client = MongoDatabaseClient(collection_name="todos", database_name=config.MONGODB_DATABASE)
+    return TodoRepository(client=mongo_database_client)
 
 
 class TodoRepository(TodoRepositoryInterface):
