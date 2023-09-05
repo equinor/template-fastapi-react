@@ -1,11 +1,5 @@
 {
   "search.exclude": {
-    "**/.yarn": true,
-    "**/.pnp.*": true
-  },
-  "eslint.nodePath": "web/.yarn/sdks",
-  "prettier.prettierPath": "web/.yarn/sdks/prettier/index.js",
-  "typescript.tsdk": "web/.yarn/sdks/typescript/lib",
-  "typescript.enablePromptUseWorkspaceTsdk": true,
-  "black-formatter.args": ["--config=api/pyproject.toml"]
+    "**/.yarn": true
+  }
 }
