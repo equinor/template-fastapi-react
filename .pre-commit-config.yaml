@@ -21,6 +21,8 @@ repos:
       - id: check-yaml
       - id: trailing-whitespace
         exclude: ^.*\.(lock)$||^docs\/
+      - id: end-of-file-fixer
+        exclude: ^.*\.(lock)$||^docs\/
       - id: mixed-line-ending
         exclude: ^.*\.(lock)$||^docs\/
       - id: detect-private-key
