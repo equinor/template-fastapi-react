@@ -27,6 +27,9 @@ repos:
         exclude: ^.*\.(lock)$||^docs\/
       - id: detect-private-key
         exclude: api/src/authentication/mock_token_generator.py
+      - id: no-commit-to-branch
+        args: [--branch, main, --branch, master]
+        stages: [commit-msg]
 
   - repo: https://github.com/compilerla/conventional-pre-commit
     rev: v2.1.1
