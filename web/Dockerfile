@@ -50,7 +50,7 @@ ENV VITE_AUTH_REDIRECT_URI=$REDIRECT_URI
 
 WORKDIR /code
 COPY ./ ./
-RUN yarn install --immutable
+RUN yarn install
 
 FROM base as development
 CMD ["yarn", "start"]
