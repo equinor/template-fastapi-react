@@ -33,7 +33,7 @@ class Config(BaseSettings):
     OAUTH_AUTH_ENDPOINT: str = ""
     OAUTH_CLIENT_ID: str = ""
     OAUTH_AUTH_SCOPE: str = ""
-    AUTH_AUDIENCE: str = ""
+    OAUTH_AUDIENCE: str = ""
     MICROSOFT_AUTH_PROVIDER: str = "login.microsoftonline.com"
 
 
