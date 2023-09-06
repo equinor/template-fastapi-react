@@ -57,7 +57,7 @@ spec:
       image: ghcr.io/equinor/template-fastapi-react/nginx:{imageTagName}
       alwaysPullImageOnDeploy: true
       environmentConfig:
-        - environment: nginx-prod
+        - environment: prod
           imageTagName: production
         - environment: test
           imageTagName: latest
