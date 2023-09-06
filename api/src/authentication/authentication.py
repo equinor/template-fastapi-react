@@ -44,7 +44,7 @@ def auth_with_jwt(jwt_token: str = Security(oauth2_scheme)) -> User:
     key = mock_rsa_public_key if config.TEST_TOKEN else {"keys": fetch_openid_configuration()["jwks"]}
 
     try:
-        payload = jwt.decode(jwt_token, key, algorithms=["RS256"], audience=config.AUTH_AUDIENCE)
+        payload = jwt.decode(jwt_token, key, algorithms=["RS256"], audience=config.OAUTH_AUDIENCE)
         if config.MICROSOFT_AUTH_PROVIDER in payload["iss"]:
             # Azure AD uses an oid string to uniquely identify users. Each user has a unique oid value.
             user = User(user_id=payload["oid"], **payload)
