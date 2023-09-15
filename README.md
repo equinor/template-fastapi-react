@@ -78,6 +78,8 @@ See the [docs](https://equinor.github.io/template-fastapi-react/) if you want to
 <a id="Contributing"></a>
 ## :+1: Contributing
 
+Something stupid to test
+
 Thanks for your interest in contributing! There are many ways to contribute to this project. Get started [here](CONTRIBUTING.md).
 
 [license-badge]: https://img.shields.io/badge/License-MIT-yellow.svg
