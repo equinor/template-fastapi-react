@@ -65,11 +65,17 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.mypy]
+
+plugins = ["pydantic.mypy"]
+
 ignore_missing_imports = true
 warn_return_any = true
 warn_unused_configs = true
 namespace_packages = true
 explicit_package_bases = true
+allow_subclassing_any = true
+
+strict = true
 
 
 [tool.ruff]

@@ -102,6 +102,7 @@ repos:
           - types-requests
           - types-ujson
           - types-toml
+          - pydantic
 
   # The path to the venv python interpreter differ between linux and windows. An if/else is used to find it on either.
   - repo: local
