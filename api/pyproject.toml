@@ -20,7 +20,7 @@ pydantic-settings = "^2.0.1"
 pydantic-extra-types = "^2.0.0"
 
 [tool.poetry.dev-dependencies]
-pre-commit = "^2.2.0"
+pre-commit = ">=3"
 pytest = "^7.2.2"
 mongomock = "^4.1.2"
 
@@ -60,9 +60,6 @@ whitelist-regex = []
 color = true
 omit-covered-files = false
 
-[tool.isort]
-profile = "black"
-
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
@@ -76,26 +73,31 @@ explicit_package_bases = true
 
 
 [tool.ruff]
+
+src = ["src"]
+target-version = "py311"
+line-length = 119
+
 select = [
     "E",  # pycodestyle errors
     "W",  # pycodestyle warnings
     "F",  # pyflakes
-    # "I",  # isort
+    "I",  # isort
+    "S",  # flake8-bandit
     "C",  # flake8-comprehensions
     "B",  # flake8-bugbear
     "UP", # automatically upgrade syntax for newer versions of the language
 ]
 
-target-version = "py311"
 
 ignore = [
-    "E501",  # line too long, handled by black,
     "B904",  # TODO: Within an except clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling
     "B008",  # do not perform function calls in argument defaults. Ignored to allow dependencies in FastAPI
 ]
 
 [tool.ruff.per-file-ignores]
 "__init__.py" = ["E402"]  # Ignore `E402` (import violations) in all `__init__.py` files
+"src/tests/*" = ["S101"]
 
 [tool.codespell]
 skip = "*.lock,*.cjs"
