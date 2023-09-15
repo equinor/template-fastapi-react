@@ -12,7 +12,7 @@ import MongoClient from '!!raw-loader!@site/../api/src/data_providers/clients/mo
 
 ## Testing clients
 
-The `test_client` fixture are using the mongomock instead of real database. 
+The `test_client` fixture are using the mongomock instead of real database.
 
 ```mdx-code-block
 import Test from '!!raw-loader!@site/../api/src/tests/unit/data_providers/clients/mongodb/test_mongo_database_client.py';

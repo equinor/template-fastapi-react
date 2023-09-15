@@ -8,4 +8,3 @@ export type AddTodoResponse = {
     title: string;
     is_completed: boolean;
 };
-

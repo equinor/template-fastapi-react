@@ -1,29 +1,29 @@
 # Ground rules
 
-* For major changes, please open an issue first to discuss what you would like to change. 
+* For major changes, please open an issue first to discuss what you would like to change.
   * Search for existing issues and pull requests on the [project development board](https://github.com/equinor/template-fastapi-react/projects/1) before creating your own.
 * Contributors should fork the repository and work on fixes or enhancements on their own fork.
   * Use the [pull request feature](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork) to submit your changes to this  repository.
   * All pull requests should be rebased (with main) and commits squashed prior to the final merge process.
   * Use [conventional commit](https://www.conventionalcommits.org/en/v1.0.0/) formatting for commit messages, so that it's possible to auto-generate the changelogs.
-* Use a separate branch for each issue you’re working on. 
-  * Do not combine fixes for multiple issues into one branch. 
+* Use a separate branch for each issue you’re working on.
+  * Do not combine fixes for multiple issues into one branch.
 * Please include unit tests with all your code changes.
   * All unit tests must be 100% passing before the pull requests will be approved and merged.
-  
+
 ## Pull Requests
 
 Please try to make your pull request easy to review for us.
 
 * Make small pull requests. The smaller, the faster to review and the more likely it will be merged soon.
-* Don't make changes unrelated to the goals of your PR. 
+* Don't make changes unrelated to the goals of your PR.
   * There might be typos on some comments, or perhaps a function is in need of refactoring - regardless, if those changes are not related to your PR, please implement those changes in another PR.
 
 While you're writing up the pull request, you can add Closes #XXX in the message body where #XXX is the issue you're fixing. Therefore, an example would be Closes #42 would close issue #42.
 
 ## Git commit format
 
-We have very precise rules over how our git commit messages can be formatted. 
+We have very precise rules over how our git commit messages can be formatted.
 
 We are using the [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) formatting for commit messages.
 
@@ -45,10 +45,10 @@ The type can be one of these types: feat, fix, build, ci, docs, style, refactor,
 
 Summary should:
 
-* Be written in imperative, present tense, e.g. write `add` instead of `added` or `adds`. 
-* Don't capitalize the first letter. 
+* Be written in imperative, present tense, e.g. write `add` instead of `added` or `adds`.
+* Don't capitalize the first letter.
 * Don't write dot (.) at the end.
- 
+
 :::
 
 <details>
@@ -73,7 +73,7 @@ git commit -a -m "feat(new-parser): introduces a new parsing library
 BREAKING CHANGE: new library does not support foo-construct"
 ```
 
-Complete: 
+Complete:
 
 ```
 refactor!: foo-bar replaces bar-foo

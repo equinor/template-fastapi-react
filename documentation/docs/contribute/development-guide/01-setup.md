@@ -129,8 +129,8 @@ From inside the /web folder.
 
 ### Package management
 
-This project uses __Yarn 2 Plug'n'Play__ to manage web package dependencies.  
-That means there is no need to run npm/yarn install.  
+This project uses __Yarn 2 Plug'n'Play__ to manage web package dependencies.
+That means there is no need to run npm/yarn install.
 However, if you want to add/remove/update packages, you need yarn installed locally.
 
 ```shell
@@ -139,10 +139,10 @@ $ npm install -g yarn
 
 #### Yarn PnP in Jetbrains IDEs
 
-To let the IDE know that dependencies can be found in `.yarn` instead of `node_modules`, follow these steps; https://www.jetbrains.com/help/idea/installing-and-removing-external-software-using-node-package-manager.html#ws_npm_yarn_set_up_yarn2 
+To let the IDE know that dependencies can be found in `.yarn` instead of `node_modules`, follow these steps; https://www.jetbrains.com/help/idea/installing-and-removing-external-software-using-node-package-manager.html#ws_npm_yarn_set_up_yarn2
 
 #### Yarn PnP in VSCode
 
-Because the project uses Yarn PnP, VSCode's language server must use the same typescript executable as the project in order to access dependencies. This is located in `web/.yarn/sdks/typescript/lib`. To use this version, simply open a `.ts(x)` file, open the command palette (default `Ctrl+Shift+P` or `Cmd+Shift+P`), find `TypeScript: Select TypeScript Version...` and select `Use Workspace Version`. 
+Because the project uses Yarn PnP, VSCode's language server must use the same typescript executable as the project in order to access dependencies. This is located in `web/.yarn/sdks/typescript/lib`. To use this version, simply open a `.ts(x)` file, open the command palette (default `Ctrl+Shift+P` or `Cmd+Shift+P`), find `TypeScript: Select TypeScript Version...` and select `Use Workspace Version`.
 
 Not using the correct typescript executable might cause `Cannot find module '***' or its corresponding type declarations.` and `JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.` errors.

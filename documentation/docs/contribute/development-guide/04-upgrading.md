@@ -6,7 +6,7 @@
 Remember to restart!
 
 Any changes you make to these files will only come into effect after you restart the
-server. If you run the application using containers, 
+server. If you run the application using containers,
 you need to do `docker-compose build` and then `docker-compose up` to get the changes.
 
 :::

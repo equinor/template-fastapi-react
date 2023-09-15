@@ -20,11 +20,11 @@ repos:
       - id: check-toml
       - id: check-yaml
       - id: trailing-whitespace
-        exclude: ^.*\.(lock)$||^docs\/
+        exclude: ^.*\.(lock)$
       - id: end-of-file-fixer
-        exclude: ^.*\.(lock)$||^docs\/
+        exclude: ^.*\.(lock)$
       - id: mixed-line-ending
-        exclude: ^.*\.(lock)$||^docs\/
+        exclude: ^.*\.(lock)$
       - id: detect-private-key
         exclude: api/src/authentication/mock_token_generator.py
       - id: no-commit-to-branch
