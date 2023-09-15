@@ -73,7 +73,7 @@ def run():
 
     uvicorn.run(
         "app:create_app",
-        host="0.0.0.0",  # nosec
+        host="0.0.0.0",  # noqa:S104
         port=5000,
         factory=True,
         reload=config.ENVIRONMENT == "local",
