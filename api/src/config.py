@@ -37,7 +37,7 @@ class Config(BaseSettings):
     MICROSOFT_AUTH_PROVIDER: str = "login.microsoftonline.com"
 
 
-config = Config()  # type: ignore[call-arg]
+config = Config()
 
 if config.AUTH_ENABLED and not all((config.OAUTH_AUTH_ENDPOINT, config.OAUTH_TOKEN_ENDPOINT, config.OAUTH_WELL_KNOWN)):
     raise ValueError("Authentication was enabled, but some auth configuration parameters are missing")

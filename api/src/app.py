@@ -63,12 +63,12 @@ def create_app() -> FastAPI:
 
 
 @click.group()
-def cli():
+def cli() -> None:
     pass
 
 
 @cli.command()
-def run():
+def run() -> None:
     import uvicorn
 
     uvicorn.run(

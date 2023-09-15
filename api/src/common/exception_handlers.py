@@ -88,7 +88,7 @@ def validation_exception_handler(request: Request, exc: RequestValidationError) 
     )
 
 
-def http_exception_handler(request: Request, exc: HTTPStatusError):
+def http_exception_handler(request: Request, exc: HTTPStatusError) -> JSONResponse:
     logger.error(exc)
     return JSONResponse(
         ErrorResponse(

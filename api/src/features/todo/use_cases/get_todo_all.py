@@ -10,7 +10,7 @@ class GetTodoAllResponse(BaseModel):
     is_completed: bool
 
     @staticmethod
-    def from_entity(todo_item: TodoItem):
+    def from_entity(todo_item: TodoItem) -> "GetTodoAllResponse":
         return GetTodoAllResponse(id=todo_item.id, title=todo_item.title, is_completed=todo_item.is_completed)
 
 
