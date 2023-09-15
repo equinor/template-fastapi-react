@@ -12,4 +12,3 @@ export type User = {
     roles: Array<string>;
     scope: AccessLevel;
 };
-

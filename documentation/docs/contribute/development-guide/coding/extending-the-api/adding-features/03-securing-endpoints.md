@@ -6,7 +6,7 @@ sidebar_position: 4
 
 The REST API (i.e. python FastAPI server) has access to, and is responsible for serving, data that could be private. Therefore we need to validate that the request is coming from an authenticated client.
 
-We do that in these steps;  
+We do that in these steps;
 
   1. Require a JWT on each request
   2. Fetch the RSA public keys from the authentication server.
@@ -27,7 +27,7 @@ app.include_router(routes, dependencies=[Security(auth_with_jwt)])
 
 That's it! Now every route added like this will require a successful JWT validation before the request will be processed.
 
-Dependencies can also return values, useful if you need to do some kind of __authorization__.  
+Dependencies can also return values, useful if you need to do some kind of __authorization__.
 Here is one example;
 
 ```python
@@ -39,4 +39,3 @@ def delete_report(id: str, user: User = Depends(auth_with_jwt)):
     else:
       return PlainTextResponse("Permission denied", status_code=402)
 ```
-

@@ -4,7 +4,7 @@ This document goes through all the different configuration options available.
 
 :::info
 
-Remember to restart 
+Remember to restart
 
 Any changes you make to this file will only come into effect when you restart the
 server.
@@ -24,7 +24,7 @@ First, let's look at the options available in the `.env` file.
 - `TENANT_ID`: Find tenant ID through the Azure portal under Azure Active Directory service. Select properties and under scroll down to the Tenant ID field.
 - `AUTH_SCOPE`: Find the scope the Azure portal under Azure Active Directory service and App registrations. The scope is located under the expose an API.
 
-### API 
+### API
 
 #### System
 

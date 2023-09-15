@@ -8,18 +8,18 @@ The web is grouped by features.
 
 ## Codebase structure
 
-The web has a feature-based folder structure. 
+The web has a feature-based folder structure.
 
 ```
 ├── web/
 │   └── src/
 │       ├── api/
 │       ├── common/
-│       ├── features/ 
+│       ├── features/
 │       │   ├── todos/
 │       │   └── ...
 │       ├── hooks/
-│       └── pages/       
+│       └── pages/
 └── ...
 ```
 
@@ -33,7 +33,7 @@ The web has a feature-based folder structure.
 
 ```mermaid
 
-flowchart 
+flowchart
     subgraph web
     AuthProvider-. imported from .->react-oauth2-code-pkce;
     index --> AuthProvider
@@ -43,28 +43,28 @@ flowchart
     RouterProvider-. imported from .->react-router-dom;
     RouterProvider --> routes
     routes -- /invalid --> InvalidUrl
-    routes -- / --> TodoListPage 
+    routes -- / --> TodoListPage
     TodoListPage --> TodoList
     TodoList -- uses hook --> useTodos
     useTodos -- uses client --> TodoAPI
     TodoList --> AddItem
     TodoList -- 1..x --> TodoItem
     end
-    
+
     TodoAPI -- HTTP requests --> API
-    
+
     style react-oauth2-code-pkce fill:#f96;
     click react-oauth2-code-pkce "https://www.npmjs.com/package/react-oauth2-code-pkce" "Open"
     style react-router-dom fill:#f96;
     click react-router-dom "https://www.npmjs.com/package/react-router-dom" "Open"
-    
+
     style useTodos fill:#b8c;
 ```
 
 External dependencies:
 
-* The app is using [react-oauth2-code-pkce](https://www.npmjs.com/package/react-oauth2-code-pkce) for Oauth2 authentication. 
-* The app is using [react-router-dom](https://www.npmjs.com/package/react-router-dom) for routing. 
+* The app is using [react-oauth2-code-pkce](https://www.npmjs.com/package/react-oauth2-code-pkce) for Oauth2 authentication.
+* The app is using [react-router-dom](https://www.npmjs.com/package/react-router-dom) for routing.
 
 ## Configuration
 
@@ -72,7 +72,7 @@ See [configuration](../../../../about/running/configure) for a description of th
 
 ### Oauth2
 
-The AuthProvider are using the configuration defined in `web/src/auth`. 
+The AuthProvider are using the configuration defined in `web/src/auth`.
 
 ```mdx-code-block
 import CodeBlock from '@theme/CodeBlock';

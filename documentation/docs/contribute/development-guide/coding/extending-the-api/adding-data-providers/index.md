@@ -7,8 +7,8 @@ external systems.
 
 ```
 ├── data_providers/
-│   ├── clients/ 
-│   ├── repository_interfaces/ 
+│   ├── clients/
+│   ├── repository_interfaces/
 │   └── repositories/
 └── ...
 ```

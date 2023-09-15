@@ -11,6 +11,3 @@ For a meetup.com clone, it could be:
 * Drafting new meeting as an organizer
 
 ## Related concepts
-
-
-

@@ -6,4 +6,3 @@
 export type AddTodoRequest = {
     title: string;
 };
-

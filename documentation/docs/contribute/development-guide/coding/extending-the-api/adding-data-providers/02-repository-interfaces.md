@@ -11,4 +11,3 @@ import TodoRepositoryInterface from '!!raw-loader!@site/../api/src/features/todo
 
 <CodeBlock language="jsx">{TodoRepositoryInterface}</CodeBlock>
 ```
-

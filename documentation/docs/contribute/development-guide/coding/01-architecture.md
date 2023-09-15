@@ -112,13 +112,13 @@ The idea to keep the core business logic (entities) and application logic (use c
 
 ### The dependency rule
 
-The most important rule is that source code **dependencies can only point inwards.** Nothing in an inner circle can know anything at all about something in an outer circle. In particular, the name of something declared in an outer circle must not be mentioned by the code in an inner circle. That includes functions, classes. variables, or any other named software entity. 
+The most important rule is that source code **dependencies can only point inwards.** Nothing in an inner circle can know anything at all about something in an outer circle. In particular, the name of something declared in an outer circle must not be mentioned by the code in an inner circle. That includes functions, classes. variables, or any other named software entity.
 
 The dependency rule is the underlying rule that makes Clean Architecture work. It says that nothing in an inner circle should depend on anything in an outer circle. For example, Entities know nothing about all the other circles, while the outer layer, know everything about the inner rings. In particular, application and business rules shouldn’t depend on the UI, database, presenters, and so on. These rules allow us to build systems that are simpler to maintain, as changes in outer circles won’t impact inner ones.
 
 :::info
 
-The inner circle is not allowed to know anything about the outer circle. 
+The inner circle is not allowed to know anything about the outer circle.
 
 Talk inward with simple structures (dictionaries or classes) and talk outwards through interfaces.
 
@@ -126,43 +126,43 @@ Talk inward with simple structures (dictionaries or classes) and talk outwards t
 
 ### Why Clean Architecture?
 
-* `Loose coupling` 
+* `Loose coupling`
   * It becomes easier to modify one small piece of code without it affecting a large part of the app’s code base. This makes it easier to scale the application later on.
-* `Testable`. 
+* `Testable`.
   * It is designed so that every part of the architecture is easy testable. Our tests can be simpler to write, faster and cheaper to maintain.
-* `Separation of concern` 
+* `Separation of concern`
   * Different modules have specific responsibilities making it easier for modification and maintenance.
-* `Framework independent` 
+* `Framework independent`
   * The architecture is framework independent. This means that it doesn’t matter which database, frameworks, UI or external services you are using - the entities and the business logic of the application will always stay the same. When any of the external parts of the system become obsolete, like the database, or the web framework, you can replace those obsolete elements with a minimum of effort.
 
 ### S.O.L.I.D Principles
 
-* `Single Responsibility` 
+* `Single Responsibility`
   * Each software component should have only one reason to change – one responsibility.
-* `Open-Closed` 
+* `Open-Closed`
   * You should be able to extend the behavior of a component, without breaking its usage, or modifying its extensions.
 * `Liskov Substitution`
   * If you have a class of one type, and any subclasses of that class, you should be able to represent the base class usage with the subclass, without breaking the app.
 * `Interface Segregation`
   * It’s better to have many smaller interfaces than a large one, to prevent a class from implementing methods that it doesn’t need.
-* `Dependency Inversion` 
+* `Dependency Inversion`
   * Components should depend on abstractions rather than concrete implementations. Also higher level modules shouldn’t depend on lower level modules.
 
-### Components 
+### Components
 
 Data flow:
 
 ![Clean Architecture](/img/clean-architecture-horizontal2.png)
 
-* `Entities` 
-  * Entities are the domain model that holds data (state) and logic (business rules) 
+* `Entities`
+  * Entities are the domain model that holds data (state) and logic (business rules)
   * Entities may be reused across applications in the same enterprise.
-  * Entities must be regular classes, dataclasses, or value objects (meaning if all the properties are the same, the objects are identical). 
+  * Entities must be regular classes, dataclasses, or value objects (meaning if all the properties are the same, the objects are identical).
   * Entities can not depend on anything except other entities.
   * Entities should not be affected by any external change, and should be the most stable code within your application.
-* `Use cases` 
+* `Use cases`
   * Use cases are the application features (it’s what you can do with the application)
-    * Each use case should be limited to one feature according to the Single Responsibility Principle.      
+    * Each use case should be limited to one feature according to the Single Responsibility Principle.
   * Use cases interact with entities (thus depend on them) and hold logic of the specific application, and typically execute that logic via various repositories or data access layer(s) gateway(s).
     * Use cases may define repository interfaces for the data they require, and one or more repositories will implement the repository interfaces, but the use case doesn’t know where the data is coming from.
   * Use cases throw business specific exceptions.
@@ -171,20 +171,20 @@ Data flow:
   * Controllers execute use cases.
   * They contain no business logic, only conversion logic.
     * Controllers adapt inputs from the outside world into messages the use cases can understand, and in turn adapt responses from the use cases into outputs for the world.
-  * You can think of them as entry and exit gates to the use cases. A controller receives a request and returns a response. 
+  * You can think of them as entry and exit gates to the use cases. A controller receives a request and returns a response.
   * The controller takes the user input (the request), converts it into the request object defined by the use case and passes the request objects to the use case, and at the end return the response objects.
 * `Repositories`
-  * A repository takes entities and returns entities, hides storage details. 
+  * A repository takes entities and returns entities, hides storage details.
   * Repositories implement interfaces defined by use cases.
     * Could have multiple implementations, e.g. from db or from file system.
   * Hides all details about where the data is from.
     * Can work against local, remote, data services or third party services.
-    
-### Business rules 
+
+### Business rules
 
 The business logic is divided into two layers:
 
-* The domain layer (aka entities) 
+* The domain layer (aka entities)
 * The application layer (aka use cases)
 
 The domain layer contains the enterprise business logic, and the application layer contains the application business logic. The difference being that enterprise logic could be shared between systems whereas application logic would typically be specific to single system.

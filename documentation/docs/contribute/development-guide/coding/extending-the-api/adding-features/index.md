@@ -10,7 +10,7 @@ A feature has this structure.
 └── ...
 ```
 
-Define endpoints in the controller that calls use cases that implements the application logic. 
+Define endpoints in the controller that calls use cases that implements the application logic.
 
 ## Register a feature
 
@@ -23,5 +23,3 @@ import UseCase from '!!raw-loader!@site/../api/src/app.py';
 
 <CodeBlock language="jsx">{UseCase}</CodeBlock>
 ```
-
-
