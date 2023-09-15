@@ -8,13 +8,13 @@ class TodoItem:
     title: str
     is_completed: bool = False
 
-    def to_dict(self):
+    def to_dict(self) -> dict[str, str | bool]:
         return asdict(self)
 
     @classmethod
-    def from_dict(cls, dict_) -> "TodoItem":
+    def from_dict(cls, dict_: dict[str, str | bool]) -> "TodoItem":
         class_fields = {f.name for f in fields(cls)}
         if "_id" in dict_:
             dict_["id"] = dict_.pop("_id")
         data = {k: v for k, v in dict_.items() if k in class_fields}
-        return TodoItem(**data)
+        return TodoItem(**data)  # type:ignore

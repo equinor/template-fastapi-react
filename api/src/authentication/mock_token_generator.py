@@ -50,7 +50,7 @@ gwIDAQAB
 """
 
 
-def generate_mock_token(user: User = default_user):
+def generate_mock_token(user: User = default_user) -> str:
     """
     This function is for testing purposes only
     Used for behave testing
@@ -64,5 +64,4 @@ def generate_mock_token(user: User = default_user):
         "roles": user.roles,
         "iss": "mock-auth-server",
     }
-    token = jwt.encode(payload, mock_rsa_private_key, algorithm="RS256")
-    return token
+    return jwt.encode(payload, mock_rsa_private_key, algorithm="RS256")

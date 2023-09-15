@@ -17,7 +17,7 @@ class TodoRepositoryInterface(metaclass=ABCMeta):
         raise NotImplementedError
 
     @abstractmethod
-    def delete(self, todo_item_id: str):
+    def delete(self, todo_item_id: str) -> None:
         raise NotImplementedError
 
     @abstractmethod

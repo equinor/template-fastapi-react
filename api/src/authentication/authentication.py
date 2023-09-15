@@ -18,7 +18,7 @@ oauth2_scheme = OAuth2AuthorizationCodeBearer(
 
 
 @cached(cache=TTLCache(maxsize=32, ttl=86400))
-def fetch_openid_configuration() -> dict:
+def fetch_openid_configuration() -> dict[str, str]:
     try:
         oid_conf_response = httpx.get(config.OAUTH_WELL_KNOWN)
         oid_conf_response.raise_for_status()

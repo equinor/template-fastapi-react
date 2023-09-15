@@ -1,11 +1,14 @@
 from abc import abstractmethod
-from typing import Generic, TypeVar
+from typing import Any, Generic, TypeVar
 
 # Type definition for Model
 M = TypeVar("M")
 
 # Type definition for Unique Id
 K = TypeVar("K")
+
+# Type definition for filter
+FilterDict = dict[str, Any]
 
 
 class ClientInterface(Generic[M, K]):
@@ -30,21 +33,21 @@ class ClientInterface(Generic[M, K]):
         pass
 
     @abstractmethod
-    def insert_many(self, instances: list[M]):
+    def insert_many(self, instances: list[M]) -> None:
         pass
 
     @abstractmethod
-    def delete_many(self, filter: dict):
+    def delete_many(self, filter: FilterDict) -> None:
         pass
 
     @abstractmethod
-    def find(self, filter: dict) -> M:
+    def find(self, filter: FilterDict) -> M:
         pass
 
     @abstractmethod
-    def find_one(self, filter: dict) -> M | None:
+    def find_one(self, filter: FilterDict) -> M | None:
         pass
 
     @abstractmethod
-    def delete_collection(self):
+    def delete_collection(self) -> None:
         pass
