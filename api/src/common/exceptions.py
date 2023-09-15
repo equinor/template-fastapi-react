@@ -17,7 +17,7 @@ class ErrorResponse(BaseModel):
     type: str = "ApplicationException"
     message: str = "The requested operation failed"
     debug: str = "An unknown and unhandled exception occurred in the API"
-    extra: dict | None = None
+    extra: dict[str, str] | None = None
 
 
 class ApplicationException(Exception):
@@ -26,13 +26,13 @@ class ApplicationException(Exception):
     type: str = "ApplicationException"
     message: str = "The requested operation failed"
     debug: str = "An unknown and unhandled exception occurred in the API"
-    extra: dict | None = None
+    extra: dict[str, str] | None = None
 
     def __init__(
         self,
         message: str = "The requested operation failed",
         debug: str = "An unknown and unhandled exception occurred in the API",
-        extra: dict | None = None,
+        extra: dict[str, str] | None = None,
         status: int = 500,
         severity: ExceptionSeverity = ExceptionSeverity.ERROR,
     ):
@@ -43,7 +43,7 @@ class ApplicationException(Exception):
         self.extra = extra
         self.severity = severity
 
-    def dict(self):
+    def dict(self) -> dict[str, int | str | dict[str, str] | None]:
         return {
             "status": self.status,
             "type": self.type,
@@ -58,7 +58,7 @@ class MissingPrivilegeException(ApplicationException):
         self,
         message: str = "You do not have the required permissions",
         debug: str = "Action denied because of insufficient permissions",
-        extra: dict | None = None,
+        extra: dict[str, str] | None = None,
     ):
         super().__init__(message, debug, extra, request_status.HTTP_403_FORBIDDEN, severity=ExceptionSeverity.WARNING)
         self.type = self.__class__.__name__
@@ -69,7 +69,7 @@ class NotFoundException(ApplicationException):
         self,
         message: str = "The requested resource could not be found",
         debug: str = "The requested resource could not be found",
-        extra: dict | None = None,
+        extra: dict[str, str] | None = None,
     ):
         super().__init__(message, debug, extra, request_status.HTTP_404_NOT_FOUND)
         self.type = self.__class__.__name__
@@ -80,7 +80,7 @@ class BadRequestException(ApplicationException):
         self,
         message: str = "Invalid data for the operation",
         debug: str = "Unable to complete the requested operation with the given input values.",
-        extra: dict | None = None,
+        extra: dict[str, str] | None = None,
     ):
         super().__init__(message, debug, extra, request_status.HTTP_400_BAD_REQUEST)
         self.type = self.__class__.__name__
@@ -91,7 +91,7 @@ class ValidationException(ApplicationException):
         self,
         message: str = "The received data is invalid",
         debug: str = "Values are invalid for requested operation.",
-        extra: dict | None = None,
+        extra: dict[str, str] | None = None,
     ):
         super().__init__(message, debug, extra, request_status.HTTP_422_UNPROCESSABLE_ENTITY)
         self.type = self.__class__.__name__

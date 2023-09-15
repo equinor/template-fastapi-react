@@ -13,7 +13,7 @@ from features.todo.use_cases.delete_todo_by_id import (
     DeleteTodoByIdResponse,
     delete_todo_use_case,
 )
-from features.todo.use_cases.get_todo_all import get_todo_all_use_case
+from features.todo.use_cases.get_todo_all import GetTodoAllResponse, get_todo_all_use_case
 from features.todo.use_cases.get_todo_by_id import (
     GetTodoByIdResponse,
     get_todo_by_id_use_case,
@@ -57,8 +57,8 @@ def delete_todo_by_id(
 @router.get("", operation_id="get_all")
 def get_todo_all(
     user: User = Depends(auth_with_jwt), todo_repository: TodoRepositoryInterface = Depends(get_todo_repository)
-):
-    return get_todo_all_use_case(user_id=user.user_id, todo_repository=todo_repository)
+) -> list[GetTodoAllResponse]:
+    return get_todo_all_use_case(user_id=user.user_id, todo_repository=todo_repository)  # type: ignore
 
 
 @router.put("/{id}", operation_id="update_by_id")

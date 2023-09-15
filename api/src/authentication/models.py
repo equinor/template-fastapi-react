@@ -1,4 +1,5 @@
 from enum import IntEnum
+from typing import Any
 
 from pydantic import BaseModel, GetJsonSchemaHandler
 from pydantic_core import core_schema
@@ -15,11 +16,11 @@ class AccessLevel(IntEnum):
         return False
 
     @classmethod
-    def __get_validators__(cls):
+    def __get_validators__(cls):  # type:ignore
         yield cls.validate
 
     @classmethod
-    def validate(cls, v):
+    def validate(cls, v: str) -> "AccessLevel":
         if isinstance(v, cls):
             return v
         try:
@@ -28,7 +29,9 @@ class AccessLevel(IntEnum):
             raise ValueError("invalid AccessLevel enum value ")
 
     @classmethod
-    def __get_pydantic_json_schema__(cls, core_schema: core_schema.CoreSchema, handler: GetJsonSchemaHandler):
+    def __get_pydantic_json_schema__(
+        cls, core_schema: core_schema.CoreSchema, handler: GetJsonSchemaHandler
+    ) -> dict[str, Any]:
         """
         Add a custom field type to the class representing the Enum's field names
         Ref: https://pydantic-docs.helpmanual.io/usage/schema/#modifying-schema-in-custom-fields
@@ -50,7 +53,7 @@ class User(BaseModel):
     roles: list[str] = []
     scope: AccessLevel = AccessLevel.WRITE
 
-    def __hash__(self):
+    def __hash__(self) -> int:
         return hash(type(self.user_id))
 
 
@@ -70,7 +73,7 @@ class ACL(BaseModel):
     users: dict[str, AccessLevel] = {}
     others: AccessLevel = AccessLevel.READ
 
-    def dict(self, **kwargs):
+    def dict(self, **kwargs: Any) -> dict[str, str | dict[str, AccessLevel | str]]:
         return {
             "owner": self.owner,
             "roles": {k: v.name for k, v in self.roles.items()},

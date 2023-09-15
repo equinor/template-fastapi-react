@@ -6,6 +6,7 @@ from opencensus.trace.attributes_helper import COMMON_ATTRIBUTES
 from opencensus.trace.samplers import ProbabilitySampler
 from opencensus.trace.tracer import Tracer
 from starlette.datastructures import MutableHeaders
+from starlette.types import ASGIApp, Message, Receive, Scope, Send
 
 from common.logger import logger
 from config import config
@@ -15,10 +16,10 @@ from config import config
 # Middleware inheriting from the "BaseHTTPMiddleware" class does not work with Starlettes BackgroundTasks.
 # see: https://github.com/encode/starlette/issues/919
 class LocalLoggerMiddleware:
-    def __init__(self, app):
+    def __init__(self, app: ASGIApp):
         self.app = app
 
-    async def __call__(self, scope, receive, send):
+    async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
         if scope["type"] != "http":
             return await self.app(scope, receive, send)
 
@@ -26,9 +27,9 @@ class LocalLoggerMiddleware:
         process_time = ""
         path = scope["path"]
         method = scope["method"]
-        response = {}
+        response: Message = {}
 
-        async def inner_send(message):
+        async def inner_send(message: Message) -> None:
             nonlocal process_time
             nonlocal response
             if message["type"] == "http.response.start":
@@ -49,19 +50,19 @@ class OpenCensusRequestLoggingMiddleware:
     exporter = AzureExporter(connection_string=config.APPINSIGHTS_CONSTRING) if config.APPINSIGHTS_CONSTRING else None
     sampler = ProbabilitySampler(1.0)
 
-    def __init__(self, app):
+    def __init__(self, app: ASGIApp):
         self.app = app
 
-    async def __call__(self, scope, receive, send):
+    async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
         if scope["type"] != "http":
             return await self.app(scope, receive, send)
 
         tracer = Tracer(exporter=self.exporter, sampler=self.sampler)
 
         path = scope["path"]
-        response = {}
+        response: Message = {}
 
-        async def inner_send(message):
+        async def inner_send(message: Message) -> None:
             nonlocal response
             if message["type"] == "http.response.start":
                 response = message

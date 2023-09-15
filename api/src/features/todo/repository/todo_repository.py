@@ -1,3 +1,5 @@
+from typing import Any
+
 from common.exceptions import NotFoundException
 from config import config
 from data_providers.clients.client_interface import ClientInterface
@@ -6,13 +8,13 @@ from features.todo.entities.todo_item import TodoItem
 from features.todo.repository.todo_repository_interface import TodoRepositoryInterface
 
 
-def to_dict(todo_item: TodoItem):
-    _dict = todo_item.__dict__
+def to_dict(todo_item: TodoItem) -> dict[str, Any]:
+    _dict: dict[str, Any] = todo_item.__dict__
     _dict["_id"] = todo_item.id
     return _dict
 
 
-def get_todo_repository():
+def get_todo_repository() -> "TodoRepository":
     mongo_database_client = MongoDatabaseClient(collection_name="todos", database_name=config.MONGODB_DATABASE)
     return TodoRepository(client=mongo_database_client)
 
@@ -44,12 +46,12 @@ class TodoRepository(TodoRepositoryInterface):
         return TodoItem.from_dict(inserted_todo_item)
 
     def get_all(self) -> list[TodoItem]:
-        todo_items = []
+        todo_items: list[TodoItem] = []
         for item in self.client.list_collection():
             todo_items.append(TodoItem.from_dict(item))
         return todo_items
 
-    def find_one(self, filter: dict) -> TodoItem | None:
+    def find_one(self, filter: dict[str, Any]) -> TodoItem | None:
         todo_item = self.client.find_one(filter)
         if todo_item:
             return TodoItem.from_dict(todo_item)
