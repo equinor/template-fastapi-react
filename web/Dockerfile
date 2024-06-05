@@ -31,8 +31,7 @@ RUN touch /var/run/nginx.pid && \
 # Run master process as non-root user
 USER 1000
 
-# Fails to build styled-common with node 18
-FROM node:16 as base
+FROM node:22 as base
 ARG AUTH_ENABLED=0
 ARG REDIRECT_URI=http://localhost/
 # Azure AD requires a scope.
