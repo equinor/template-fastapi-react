@@ -41,10 +41,13 @@ repos:
     rev: "v0.4.7"
     hooks:
       - id: ruff
+        name: Python lint
+        files: ^api/.*\.py$
+        args: ["--fix"]
+
+      - id: ruff-format
         name: Python format
         files: ^api/.*\.py$
-        args:
-          - --fix
 
   - repo: https://github.com/biomejs/pre-commit
     rev: v0.2.0

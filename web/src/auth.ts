@@ -1,4 +1,4 @@
-import { TAuthConfig } from 'react-oauth2-code-pkce'
+import type { TAuthConfig } from 'react-oauth2-code-pkce'
 
 export const authConfig: TAuthConfig = {
   clientId: import.meta.env.VITE_AUTH_CLIENT_ID || '',
@@ -14,8 +14,5 @@ export const authConfig: TAuthConfig = {
       `${window.location.pathname}${window.location.search}${window.location.hash}`
     ),
   postLogin: () =>
-    window.location.replace(
-      localStorage.getItem('preLoginPath') ??
-        (import.meta.env.VITE_AUTH_REDIRECT_URI || '')
-    ),
+    window.location.replace(localStorage.getItem('preLoginPath') ?? (import.meta.env.VITE_AUTH_REDIRECT_URI || '')),
 }

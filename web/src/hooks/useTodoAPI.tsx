@@ -1,10 +1,5 @@
 import { useCallback } from 'react'
-import {
-  AddTodoResponse,
-  ApiError,
-  ErrorResponse,
-  TodosService,
-} from '../api/generated'
+import { type AddTodoResponse, ApiError, type ErrorResponse, TodosService } from '../api/generated'
 
 export function useTodoAPI() {
   const addTodo = useCallback(async (title: string) => {

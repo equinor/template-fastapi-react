@@ -1,9 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App'
-import { authConfig } from './auth'
 import { AuthProvider } from 'react-oauth2-code-pkce'
+import App from './App'
 import { OpenAPI } from './api/generated'
+import { authConfig } from './auth'
 
 const hasAuthConfig = import.meta.env.VITE_AUTH === '1'
 
