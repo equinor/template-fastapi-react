@@ -21,7 +21,6 @@
       "last 1 safari version"
     ]
   },
-  "packageManager": "yarn@3.4.1",
   "dependencies": {
     "@equinor/eds-core-react": "^0.29.1",
     "@equinor/eds-icons": "^0.18.0",
