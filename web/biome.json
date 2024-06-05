@@ -7,7 +7,6 @@
     "formatter": {
       "indentStyle": "space",
       "indentWidth": 2,
-      "jsxQuoteStyle": "single",
       "quoteStyle": "single",
       "trailingCommas": "es5",
       "lineWidth": 119,

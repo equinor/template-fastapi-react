@@ -1,5 +1,6 @@
-import React, { createContext, useContext, useReducer } from 'react'
-import { AddTodoResponse } from '../api/generated'
+import type React from 'react'
+import { createContext, useContext, useReducer } from 'react'
+import type { AddTodoResponse } from '../api/generated'
 
 /**
  * Definitions of the types of actions an user can do,
@@ -14,9 +15,7 @@ type Dispatch = (action: Action) => void
 type State = { todos: AddTodoResponse[] }
 type TodoProviderProps = { children: React.ReactNode }
 
-const TodoContext = createContext<
-  { state: State; dispatch: Dispatch } | undefined
->(undefined)
+const TodoContext = createContext<{ state: State; dispatch: Dispatch } | undefined>(undefined)
 
 function TodoProvider({ children }: TodoProviderProps) {
   const [state, dispatch] = useReducer(todoReducer, { todos: [] })
@@ -49,9 +48,7 @@ function todoReducer(state: State, action: Action) {
       return {
         ...state,
         todos: state.todos.map((todo) =>
-          todo !== action.payload
-            ? todo
-            : { ...todo, is_completed: !todo.is_completed }
+          todo !== action.payload ? todo : { ...todo, is_completed: !todo.is_completed }
         ),
       }
     }

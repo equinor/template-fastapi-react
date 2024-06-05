@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom'
-import { TodoListPage } from './pages/TodoListPage'
 import InvalidUrl from './common/components/InvalidUrl'
+import { TodoListPage } from './pages/TodoListPage'
 
 export const router = createBrowserRouter([
   {

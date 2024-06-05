@@ -27,20 +27,10 @@ const Header = () => {
         <TopBar.Actions style={{ gap: 8 }}>
           <Typography>{`Logged in as ${username}`}</Typography>
           <IconButton title={'Log out'} icon={log_out} onClick={logOut} />
-          <IconButton
-            title={'Application info'}
-            icon={info_circle}
-            onClick={togglePopover}
-            ref={aboutRef}
-          />
+          <IconButton title={'Application info'} icon={info_circle} onClick={togglePopover} ref={aboutRef} />
         </TopBar.Actions>
       </TopBar>
-      <Popover
-        title={'About'}
-        isOpen={isPopoverOpen}
-        toggle={togglePopover}
-        anchor={aboutRef.current}
-      >
+      <Popover title={'About'} isOpen={isPopoverOpen} toggle={togglePopover} anchor={aboutRef.current}>
         <VersionText />
         <p>Person of contact: Eirik Ola Aksnes (eaks@equinor.com)</p>
       </Popover>

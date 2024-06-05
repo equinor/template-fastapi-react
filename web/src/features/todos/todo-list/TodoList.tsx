@@ -1,6 +1,6 @@
 import { Button, Input } from '@equinor/eds-core-react'
-import { ChangeEvent, FormEventHandler, useEffect, useState } from 'react'
-import { AddTodoResponse } from '../../../api/generated'
+import { type ChangeEvent, type FormEventHandler, useEffect, useState } from 'react'
+import type { AddTodoResponse } from '../../../api/generated'
 import { useTodos } from '../../../contexts/TodoContext'
 import { useTodoAPI } from '../../../hooks/useTodoAPI'
 import TodoItem from './TodoItem'
@@ -14,9 +14,7 @@ const AddItem = () => {
   const add: FormEventHandler = (event) => {
     event.preventDefault()
     if (value) {
-      addTodo(value).then((todo) =>
-        dispatch({ type: 'ADD_TODO', payload: todo })
-      )
+      addTodo(value).then((todo) => dispatch({ type: 'ADD_TODO', payload: todo }))
     }
     setValue('')
   }
@@ -29,9 +27,7 @@ const AddItem = () => {
             value={value}
             className="input"
             placeholder="Add Task"
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              setValue(e.target.value)
-            }
+            onChange={(e: ChangeEvent<HTMLInputElement>) => setValue(e.target.value)}
           />
           <Button className="add-button" type="submit">
             Add
@@ -47,9 +43,7 @@ const TodoList = () => {
   const { state, dispatch } = useTodos()
 
   useEffect(() => {
-    getAllTodos().then((todos) =>
-      dispatch({ type: 'INITIALIZE', payload: todos })
-    )
+    getAllTodos().then((todos) => dispatch({ type: 'INITIALIZE', payload: todos }))
   }, [dispatch, getAllTodos])
 
   return (

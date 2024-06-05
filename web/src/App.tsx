@@ -1,11 +1,11 @@
-import { router } from './router'
-import { RouterProvider } from 'react-router-dom'
-import Header from './common/components/Header'
-import { AuthContext } from 'react-oauth2-code-pkce'
-import { useContext } from 'react'
 import { Button, Progress, Typography } from '@equinor/eds-core-react'
+import { useContext } from 'react'
+import { AuthContext } from 'react-oauth2-code-pkce'
+import { RouterProvider } from 'react-router-dom'
 import styled from 'styled-components'
 import { OpenAPI } from './api/generated'
+import Header from './common/components/Header'
+import { router } from './router'
 
 const hasAuthConfig = import.meta.env.VITE_AUTH === '1'
 
