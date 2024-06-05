@@ -1,6 +1,0 @@
-**/gen/*
-src/api/generated
-
-build
-coverage
-src/components/TodoApp.tsx

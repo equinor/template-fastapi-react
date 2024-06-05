@@ -1,8 +1,8 @@
+import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 import checker from 'vite-plugin-checker'
-import react from '@vitejs/plugin-react'
-import viteTsConfigPaths from 'vite-tsconfig-paths'
 import svgrPlugin from 'vite-plugin-svgr'
+import viteTsConfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig({
   plugins: [

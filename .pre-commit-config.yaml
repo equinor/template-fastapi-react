@@ -37,58 +37,22 @@ repos:
       - id: conventional-pre-commit
         stages: [commit-msg]
 
-  - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: "v0.0.289"
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: "v0.4.7"
     hooks:
       - id: ruff
-        name: Code linting
+        name: Python format
         files: ^api/.*\.py$
         args:
           - --fix
 
-  - repo: https://github.com/ambv/black
-    rev: 23.9.1
+  - repo: https://github.com/biomejs/pre-commit
+    rev: v0.2.0
     hooks:
-      - id: black
-        name: Code formatting
-        language_version: python3.10
-        args: [--config=api/pyproject.toml]
-        files: ^api/src/.*\.py$
+      - id: biome-check
+        additional_dependencies: [ "@biomejs/biome@1.8.0" ]
+        args: ["--config-path", "web"]
 
-  - repo: https://github.com/econchick/interrogate
-    rev: 1.5.0
-    hooks:
-      - id: interrogate
-        language_version: python3.10
-        types: [python]
-        args: [--config=api/pyproject.toml]
-        files: ^api/.*\.py$
-
-  - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: v3.0.3
-    hooks:
-      - id: prettier
-        files: ^web/src/.*\.(ts|tsx|js|css|html|json)$
-        args:
-          ["--config=web/.prettierrc.js", "--ignore-path=web/.prettierignore"]
-
-  - repo: https://github.com/pre-commit/mirrors-eslint
-    rev: "v8.49.0"
-    hooks:
-      - id: eslint
-        additional_dependencies:
-          - eslint
-          - typescript
-          - "@typescript-eslint/parser"
-          - "@typescript-eslint/eslint-plugin"
-          - eslint-config-prettier # turns off all rules that might conflict with prettier
-          - eslint-plugin-jsx-a11y # checks accessibility rules on jsx elements
-          - eslint-plugin-prettier # runs prettier as an eslint rule
-          - eslint-plugin-react # react specific linting rules
-          - eslint-plugin-react-hooks # enforces the rules of hooks
-        files: ^web/src/.*\.[jt]sx?$ # *.js, *.jsx, *.ts and *.tsx
-        types: [file]
-        args: ["--config=web/.eslintrc.json", "--ignore-path=web/.eslintignore"]
 
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.5.1
