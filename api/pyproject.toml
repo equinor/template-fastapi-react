@@ -24,21 +24,6 @@ pre-commit = ">=3"
 pytest = "^7.2.2"
 mongomock = "^4.1.2"
 
-[tool.black]
-line-length = 119
-target-version = ['py310']
-include = '\.pyi?$'
-exclude = '''
-/(
-    \.eggs
-  | \.git
-  | \.hg
-  | \.mypy_cache
-  | \.tox
-  | \.venv
-)/
-'''
-
 [tool.interrogate]
 ignore-init-method = true
 ignore-init-module = true
