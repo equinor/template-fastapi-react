@@ -43,14 +43,13 @@ if config.AUTH_ENABLED and not all((config.OAUTH_AUTH_ENDPOINT, config.OAUTH_TOK
     raise ValueError("Authentication was enabled, but some auth configuration parameters are missing")
 
 if not config.AUTH_ENABLED:
+    print("\n")
     print("################ WARNING ################")
     print("#       Authentication is disabled      #")
     print("################ WARNING ################\n")
 
 default_user: User = User(
-    **{
-        "user_id": "nologin",
-        "full_name": "Not Authenticated",
-        "email": "nologin@example.com",
-    }
+    user_id="nologin",
+    full_name="Not Authenticated",
+    email="nologin@example.com",
 )

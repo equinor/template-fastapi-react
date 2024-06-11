@@ -4,11 +4,10 @@ from cachetools import TTLCache, cached
 from fastapi import Security
 from fastapi.security import OAuth2AuthorizationCodeBearer
 
-from authentication.mock_token_generator import mock_rsa_public_key
 from authentication.models import User
 from common.exceptions import credentials_exception
 from common.logger import logger
-from config import config, default_user
+from config import config
 
 oauth2_scheme = OAuth2AuthorizationCodeBearer(
     authorizationUrl=config.OAUTH_AUTH_ENDPOINT,
@@ -18,7 +17,7 @@ oauth2_scheme = OAuth2AuthorizationCodeBearer(
 
 
 @cached(cache=TTLCache(maxsize=32, ttl=86400))
-def fetch_openid_configuration() -> jwt.PyJWKClient:
+def get_JWK_client() -> jwt.PyJWKClient:
     try:
         oid_conf_response = httpx.get(config.OAUTH_WELL_KNOWN)
         oid_conf_response.raise_for_status()
@@ -30,17 +29,9 @@ def fetch_openid_configuration() -> jwt.PyJWKClient:
 
 
 def auth_with_jwt(jwt_token: str = Security(oauth2_scheme)) -> User:
-    if not config.AUTH_ENABLED:
-        return default_user
     if not jwt_token:
         raise credentials_exception
-    # If TEST_TOKEN is true, we are running tests. Use the self-signed keys. If not, get keys from auth server.
-    key = (
-        mock_rsa_public_key
-        if config.TEST_TOKEN
-        else fetch_openid_configuration().get_signing_key_from_jwt(jwt_token).key
-    )
-
+    key = get_JWK_client().get_signing_key_from_jwt(jwt_token).key
     try:
         payload = jwt.decode(jwt_token, key, algorithms=["RS256"], audience=config.OAUTH_AUDIENCE)
         if config.MICROSOFT_AUTH_PROVIDER in payload["iss"]:
