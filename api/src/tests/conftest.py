@@ -9,9 +9,11 @@ from starlette.requests import Request
 from starlette.testclient import TestClient
 
 from app import create_app
+from authentication.authentication import auth_with_jwt
 from config import config
 from data_providers.clients.mongodb.mongo_database_client import MongoDatabaseClient
 from features.todo.repository.todo_repository import TodoRepository, get_todo_repository
+from tests.integration.mock_authentication import mock_auth_with_jwt
 
 
 @pytest.fixture(scope="function")
@@ -39,6 +41,7 @@ def test_app(test_client: MongoDatabaseClient):
         return TodoRepository(client=test_client)
 
     app.dependency_overrides[get_todo_repository] = use_todo_repository_mock
+    app.dependency_overrides[auth_with_jwt] = mock_auth_with_jwt
     yield client
 
 
