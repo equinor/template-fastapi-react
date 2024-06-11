@@ -1,4 +1,4 @@
-from jose import jwt
+import jwt
 
 from authentication.models import User
 from config import default_user
@@ -63,5 +63,6 @@ def generate_mock_token(user: User = default_user) -> str:
         "sub": user.user_id,
         "roles": user.roles,
         "iss": "mock-auth-server",
+        "aud": "TEST",
     }
     return jwt.encode(payload, mock_rsa_private_key, algorithm="RS256")
