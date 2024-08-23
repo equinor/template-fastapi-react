@@ -18,26 +18,36 @@ env:
 jobs:
   pre-commit:
     runs-on: ubuntu-latest
+    env:
+      UV_CACHE_DIR: /tmp/.uv-cache
     steps:
       - uses: actions/checkout@master
 
-      - name: Set up python
-        uses: actions/setup-python@v2
-        with:
-          python-version: "3.10"
-
-      - name: Install pre-commit
-        run: pip install pre-commit
-
-      - name: Set up venv
+      - name: Set up uv
         run: |
-          pip install poetry
-          poetry config virtualenvs.in-project true
-          cd api
-          poetry install
+          curl -LsSf https://astral.sh/uv/0.3.2/install.sh | sh
 
-      - name: Run pre-commit
-        run: pre-commit run --all-files
+      - name: Set up python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: "api/pyproject.toml"
+      - name: Restore uv cache
+        uses: actions/cache@v4
+        with:
+          path: /tmp/.uv-cache
+          key: uv-${{ runner.os }}-${{ hashFiles('uv.lock') }}
+          restore-keys: |
+            uv-${{ runner.os }}-${{ hashFiles('uv.lock') }}
+            uv-${{ runner.os }}
+
+      - name: Install deps
+        run: cd api && uv sync --dev
+
+      - name: Run tests
+        run: cd api && uv run pre-commit run --all-files
+
+      - name: Minimize uv cache
+        run: uv cache prune --ci
 
   test-api:
     runs-on: ubuntu-latest
@@ -54,10 +64,10 @@ jobs:
 
       - name: BDD Integration tests
         if: ${{ false }} # disable for now
-        run: docker-compose -f docker-compose.yml -f docker-compose.ci.yml run api behave
+        run: docker compose -f docker-compose.yml -f docker-compose.ci.yml run api uv run behave
 
       - name: Pytest Integration tests
-        run: docker-compose -f docker-compose.yml -f docker-compose.ci.yml run --rm api pytest --integration
+        run: docker compose -f docker-compose.yml -f docker-compose.ci.yml run --rm api uv run pytest --integration
 
   test-web:
     runs-on: ubuntu-latest
