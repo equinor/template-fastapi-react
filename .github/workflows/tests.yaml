@@ -41,9 +41,9 @@ jobs:
             uv-${{ runner.os }}
 
       - name: Install deps
-        run: cd api && uv sync --dev
+        run: cd api && uv sync --dev --locked
 
-      - name: Run tests
+      - name: Run pre-commit
         run: cd api && uv run pre-commit run --all-files
 
       - name: Minimize uv cache
