@@ -63,7 +63,7 @@ Create a copy of `.env-template` called `.env` and populate it with values.
 Once you have done the configuration, you can start running:
 
 ```sh
-docker-compose up
+docker compose up
 ```
 
 The application will be served at http://localhost
