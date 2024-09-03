@@ -11,13 +11,23 @@ class AddTodoRequest(BaseModel):
         title="The title of the item",
         max_length=300,
         min_length=1,
-        example="Read about clean architecture",
+        json_schema_extra={
+            "examples": ["Read about clean architecture"],
+        },
     )
 
 
 class AddTodoResponse(BaseModel):
-    id: str = Field(example="vytxeTZskVKR7C7WgdSP3d")
-    title: str = Field(example="Read about clean architecture")
+    id: str = Field(
+        json_schema_extra={
+            "examples": ["vytxeTZskVKR7C7WgdSP3d"],
+        }
+    )
+    title: str = Field(
+        json_schema_extra={
+            "examples": ["Read about clean architecture"],
+        }
+    )
     is_completed: bool = False
 
     @staticmethod
