@@ -44,7 +44,7 @@ class ApplicationException(Exception):
         self.extra = extra
         self.severity = severity
 
-    def dict(self) -> dict[str, int | str | dict[str, Any] | None]:
+    def to_dict(self) -> dict[str, int | str | dict[str, Any] | None]:
         return {
             "status": self.status,
             "type": self.type,
