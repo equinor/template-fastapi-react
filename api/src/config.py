@@ -2,6 +2,7 @@ from pydantic import Field
 from pydantic_settings import BaseSettings
 
 from authentication.models import User
+from common.logger_level import LoggerLevel
 
 
 class Config(BaseSettings):
@@ -9,7 +10,7 @@ class Config(BaseSettings):
     ENVIRONMENT: str = "local"
 
     # Logging
-    LOGGER_LEVEL: str = Field("INFO", validation_alias="LOGGING_LEVEL", to_lower=True)
+    LOGGER_LEVEL: LoggerLevel = Field(default=LoggerLevel.INFO)
     APPINSIGHTS_CONSTRING: str | None = None
 
     # Database
@@ -35,6 +36,11 @@ class Config(BaseSettings):
     OAUTH_AUTH_SCOPE: str = ""
     OAUTH_AUDIENCE: str = ""
     MICROSOFT_AUTH_PROVIDER: str = "login.microsoftonline.com"
+
+    @property
+    def log_level(self) -> str:
+        """Returns LOGGER_LEVEL as a (lower case) string."""
+        return str(self.LOGGER_LEVEL.value).lower()
 
 
 config = Config()

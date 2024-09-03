@@ -9,9 +9,9 @@ from config import config
 uvicorn_logger = logging.getLogger("uvicorn")
 
 logger = logging.getLogger("API")
-logger.setLevel(config.LOGGER_LEVEL.upper())
+logger.setLevel(config.log_level.upper())
 formatter = logging.Formatter("%(levelname)s:%(asctime)s %(message)s")
 channel = logging.StreamHandler()
 channel.setFormatter(formatter)
-channel.setLevel(config.LOGGER_LEVEL.upper())
+channel.setLevel(config.log_level.upper())
 logger.addHandler(channel)
