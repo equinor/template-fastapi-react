@@ -54,10 +54,10 @@ jobs:
 
       - name: BDD Integration tests
         if: ${{ false }} # disable for now
-        run: docker-compose -f docker-compose.yml -f docker-compose.ci.yml run api behave
+        run: docker compose -f docker-compose.yml -f docker-compose.ci.yml run api behave
 
       - name: Pytest Integration tests
-        run: docker-compose -f docker-compose.yml -f docker-compose.ci.yml run --rm api pytest --integration
+        run: docker compose -f docker-compose.yml -f docker-compose.ci.yml run --rm api pytest --integration
 
   test-web:
     runs-on: ubuntu-latest

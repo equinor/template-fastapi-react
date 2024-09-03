@@ -3,7 +3,7 @@
 You can start running:
 
 ```shell
-docker-compose up
+docker compose up
 ```
 
 The web app will be served at [http://localhost](http://localhost)
