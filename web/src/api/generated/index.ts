@@ -12,6 +12,7 @@ export type { AddTodoRequest } from './models/AddTodoRequest';
 export type { AddTodoResponse } from './models/AddTodoResponse';
 export type { DeleteTodoByIdResponse } from './models/DeleteTodoByIdResponse';
 export type { ErrorResponse } from './models/ErrorResponse';
+export type { GetTodoAllResponse } from './models/GetTodoAllResponse';
 export type { GetTodoByIdResponse } from './models/GetTodoByIdResponse';
 export type { UpdateTodoRequest } from './models/UpdateTodoRequest';
 export type { UpdateTodoResponse } from './models/UpdateTodoResponse';

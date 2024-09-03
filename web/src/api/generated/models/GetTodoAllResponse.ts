@@ -3,7 +3,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type UpdateTodoResponse = {
-    success: boolean;
+export type GetTodoAllResponse = {
+    id: string;
+    title: string;
+    is_completed: boolean;
 };
 

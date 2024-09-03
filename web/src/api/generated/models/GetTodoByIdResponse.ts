@@ -8,3 +8,4 @@ export type GetTodoByIdResponse = {
     title: string;
     is_completed: boolean;
 };
+
