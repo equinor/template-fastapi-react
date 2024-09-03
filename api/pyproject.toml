@@ -91,7 +91,13 @@ ignore = [
 skip = "*.lock,*.cjs"
 ignore-words-list = "ignored-word"
 
-[tool.pytest]
-markers =[
+[tool.pytest.ini_options]
+# Makes pytest CLI discover markers and conftest settings:
+markers = [
+    "unit: mark a test as unit test.",
     "integration: mark a test as integration test."
+]
+testpaths = [
+    "src/tests/unit",
+    "src/tests/integration"
 ]

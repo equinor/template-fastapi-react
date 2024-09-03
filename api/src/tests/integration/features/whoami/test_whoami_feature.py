@@ -1,12 +1,9 @@
-import pytest
 from starlette.status import HTTP_200_OK
 from starlette.testclient import TestClient
 
 from authentication.models import User
 from config import config
 from tests.integration.mock_authentication import get_mock_jwt_token
-
-pytestmark = pytest.mark.integration
 
 
 class TestWhoami:
