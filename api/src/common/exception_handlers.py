@@ -30,7 +30,7 @@ def add_exception_handlers(app: FastAPI) -> None:
 
     # Override built-in default handler
     app.add_exception_handler(RequestValidationError, validation_exception_handler)  # type: ignore
-    app.add_exception_handler(HTTPStatusError, http_exception_handler)  # type: ignore
+    app.add_exception_handler(HTTPStatusError, http_exception_handler)
 
     # Fallback exception handler for all unexpected exceptions
     app.add_exception_handler(Exception, fall_back_exception_handler)
