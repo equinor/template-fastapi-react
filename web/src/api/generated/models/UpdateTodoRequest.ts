@@ -7,3 +7,4 @@ export type UpdateTodoRequest = {
     title?: string;
     is_completed: boolean;
 };
+

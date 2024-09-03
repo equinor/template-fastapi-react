@@ -3,6 +3,8 @@ set -eo
 
 PATTERN="api/src/features/*"
 PATTERN+="|api/src/entities/*"
+PATTERN+="|api/src/common/*"
+PATTERN+="|api/src/authentication/*"
 
 CHANGED_API_FILES=()
 while read; do

@@ -10,3 +10,4 @@ export type ErrorResponse = {
     debug?: string;
     extra?: (Record<string, any> | null);
 };
+

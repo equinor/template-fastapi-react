@@ -5,6 +5,7 @@
 import type { AddTodoRequest } from '../models/AddTodoRequest';
 import type { AddTodoResponse } from '../models/AddTodoResponse';
 import type { DeleteTodoByIdResponse } from '../models/DeleteTodoByIdResponse';
+import type { GetTodoAllResponse } from '../models/GetTodoAllResponse';
 import type { GetTodoByIdResponse } from '../models/GetTodoByIdResponse';
 import type { UpdateTodoRequest } from '../models/UpdateTodoRequest';
 import type { UpdateTodoResponse } from '../models/UpdateTodoResponse';
@@ -17,10 +18,10 @@ export class TodosService {
 
     /**
      * Get Todo All
-     * @returns any Successful Response
+     * @returns GetTodoAllResponse Successful Response
      * @throws ApiError
      */
-    public static getAll(): CancelablePromise<any> {
+    public static getAll(): CancelablePromise<Array<GetTodoAllResponse>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/todos',
