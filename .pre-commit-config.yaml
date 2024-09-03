@@ -10,7 +10,7 @@ repos:
         pass_filenames: false
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+    rev: v4.6.0
     hooks:
       - id: check-ast
         language_version: python3.10
@@ -32,13 +32,13 @@ repos:
         stages: [commit-msg]
 
   - repo: https://github.com/compilerla/conventional-pre-commit
-    rev: v2.4.0
+    rev: v3.4.0
     hooks:
       - id: conventional-pre-commit
         stages: [commit-msg]
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: "v0.4.7"
+    rev: "v0.6.3"
     hooks:
       - id: ruff
         name: Python lint
@@ -50,10 +50,10 @@ repos:
         files: ^api/.*\.py$
 
   - repo: https://github.com/biomejs/pre-commit
-    rev: v0.2.0
+    rev: v0.4.0
     hooks:
       - id: biome-check
-        additional_dependencies: [ "@biomejs/biome@1.8.0" ]
+        additional_dependencies: [ "@biomejs/biome@1.8.3" ]
         args: ["--config-path", "web"]
 
 
@@ -92,6 +92,7 @@ repos:
         name: codespell
         description: Checks for common misspellings in text files.
         entry: codespell --toml=api/pyproject.toml
+        exclude: documentation/docs/changelog/changelog.md
         language: python
         types: [text]
         additional_dependencies:
