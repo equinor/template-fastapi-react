@@ -1,8 +1,5 @@
-import pytest
 from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
 from starlette.testclient import TestClient
-
-pytestmark = pytest.mark.integration
 
 
 def test_exception_handler_validation_error(test_app: TestClient):

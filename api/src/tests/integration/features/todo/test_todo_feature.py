@@ -8,8 +8,6 @@ from starlette.testclient import TestClient
 
 from data_providers.clients.client_interface import ClientInterface
 
-pytestmark = pytest.mark.integration
-
 
 class TestTodo:
     @pytest.fixture(autouse=True)

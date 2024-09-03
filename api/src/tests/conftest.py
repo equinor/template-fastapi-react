@@ -10,7 +10,7 @@ from starlette.testclient import TestClient
 
 from app import create_app
 from authentication.authentication import auth_with_jwt
-from config import config
+from config import config as project_config
 from data_providers.clients.mongodb.mongo_database_client import MongoDatabaseClient
 from features.todo.repository.todo_repository import TodoRepository, get_todo_repository
 from tests.integration.mock_authentication import mock_auth_with_jwt
@@ -28,7 +28,7 @@ def test_client():
 
 @pytest.fixture(autouse=True)
 def disable_auth():
-    config.AUTH_ENABLED = False
+    project_config.AUTH_ENABLED = False
     os.environ["AUTH_ENABLED"] = "False"
 
 
@@ -76,10 +76,45 @@ def mock_request(
     return request
 
 
+def pytest_configure(config: pytest.Config):
+    """Add markers to be recognised by pytest."""
+    has_unit_option = config.getoption("unit", default=False)
+    has_integration_option = config.getoption("integration", default=False)
+    marker_expr = config.getoption("markexpr", default="")
+    if marker_expr != "" and (has_integration_option or has_unit_option):
+        pytest.exit("Invalid options: Cannot use --markexpr with --unit or --integration options", 4)
+
+
 def pytest_addoption(parser):
-    parser.addoption("--integration", action="store_true", help="run integration tests")
+    """Add option to pytest parser for running unit/integration tests."""
+    parser.addoption("--unit", action="store_true", default=False, help="run unit tests")
+    parser.addoption("--integration", action="store_true", default=False, help="run integration tests")
 
 
-def pytest_runtest_setup(item):
-    if "integration" in item.keywords and not item.config.getoption("integration"):
-        pytest.skip("need --integration option to run")
+def pytest_collection_modifyitems(config: pytest.Config, items: list[pytest.Item]):
+    """Add markers to tests based on folder structure."""
+    unit_tests_directory = config.rootpath / "src/tests/unit"
+    integration_tests_directory = config.rootpath / "src/tests/integration"
+    for item in items:
+        if item.path.is_relative_to(unit_tests_directory):
+            item.add_marker("unit")
+        if item.path.is_relative_to(integration_tests_directory):
+            item.add_marker("integration")
+
+
+def pytest_runtest_setup(item: pytest.Item):
+    """Skip tests based on options provided."""
+    has_unit_option = item.config.getoption("unit", default=False)
+    has_integration_option = item.config.getoption("integration", default=False)
+    match (has_unit_option, has_integration_option):
+        case (False, True):
+            # skip unit tests
+            if "unit" in item.keywords:
+                pytest.skip("unit tests are skipped when explicitly running integration tests")
+        case (True, False):
+            # skip integration tests
+            if "integration" in item.keywords:
+                pytest.skip("integration tests are skipped when explicitly running unit tests")
+        case _:
+            # run all tests
+            return
