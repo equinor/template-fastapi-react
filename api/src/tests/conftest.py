@@ -50,8 +50,8 @@ def mock_request(
     method: str = "GET",
     server: str = "www.example.com",
     path: str = "/",
-    headers: dict = None,
-    body: str = None,
+    headers: dict | None = None,
+    body: bytes | None = None,
 ) -> Request:
     if headers is None:
         headers = {}
