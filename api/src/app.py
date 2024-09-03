@@ -77,7 +77,7 @@ def run() -> None:
         port=5000,
         factory=True,
         reload=config.ENVIRONMENT == "local",
-        log_level=config.LOGGER_LEVEL.lower(),
+        log_level=config.log_level,
     )
 
 
