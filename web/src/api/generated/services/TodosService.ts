@@ -1,4 +1,4 @@
-/* generated using openapi-typescript-codegen -- do no edit */
+/* generated using openapi-typescript-codegen -- do not edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
@@ -9,13 +9,10 @@ import type { GetTodoAllResponse } from '../models/GetTodoAllResponse';
 import type { GetTodoByIdResponse } from '../models/GetTodoByIdResponse';
 import type { UpdateTodoRequest } from '../models/UpdateTodoRequest';
 import type { UpdateTodoResponse } from '../models/UpdateTodoResponse';
-
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
-
 export class TodosService {
-
     /**
      * Get Todo All
      * @returns GetTodoAllResponse Successful Response
@@ -35,7 +32,6 @@ export class TodosService {
             },
         });
     }
-
     /**
      * Add Todo
      * @param requestBody
@@ -60,7 +56,6 @@ export class TodosService {
             },
         });
     }
-
     /**
      * Get Todo By Id
      * @param id
@@ -86,7 +81,6 @@ export class TodosService {
             },
         });
     }
-
     /**
      * Delete Todo By Id
      * @param id
@@ -112,7 +106,6 @@ export class TodosService {
             },
         });
     }
-
     /**
      * Update Todo
      * @param id
@@ -142,5 +135,4 @@ export class TodosService {
             },
         });
     }
-
 }

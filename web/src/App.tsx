@@ -40,7 +40,7 @@ function App() {
   if (hasAuthConfig && !token) {
     return (
       <CenterContainer>
-        <Button onClick={login}>Log in</Button>
+        <Button onClick={() => login()}>Log in</Button>
       </CenterContainer>
     )
   }
