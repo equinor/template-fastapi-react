@@ -17,7 +17,7 @@ You will find unit tests under `src/tests/unit`.
 <TabItem value="using-docker" label="Using docker">
 
 ```shell
-docker-compose run --rm api pytest
+docker compose run --rm api pytest
 ```
 
 </TabItem>
@@ -50,7 +50,7 @@ These tests depends on mongodb and that it's running.
 <TabItem value="using-docker" label="Using docker">
 
 ```shell
-docker-compose run --rm web yarn test
+docker compose run --rm web yarn test
 ```
 
 </TabItem>

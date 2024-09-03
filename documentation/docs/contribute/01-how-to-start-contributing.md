@@ -33,8 +33,8 @@ git checkout -b feature/my-new-feature
 5. Make the changes in the created branch.
 6. Add and run tests for your changes (we only take pull requests with passing tests).
 ```shell
-docker-compose run --rm api pytest
-docker-compose run --rm web yarn test
+docker compose run --rm api pytest
+docker compose run --rm web yarn test
 ```
 7. Add the changed files
 ```shell
