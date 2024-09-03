@@ -17,7 +17,7 @@ responses: dict[int | str, dict[str, Any]] = {
             "application/json": {
                 "example": ErrorResponse(
                     status=401, type="UnauthorizedException", message="Token validation failed"
-                ).dict()
+                ).model_dump()
             }
         },
     },
