@@ -16,19 +16,6 @@ class AccessLevel(IntEnum):
         return False
 
     @classmethod
-    def __get_validators__(cls):  # type:ignore
-        yield cls.validate
-
-    @classmethod
-    def validate(cls, v: str) -> "AccessLevel":
-        if isinstance(v, cls):
-            return v
-        try:
-            return cls[v]
-        except KeyError:
-            raise ValueError("invalid AccessLevel enum value ")
-
-    @classmethod
     def __get_pydantic_json_schema__(
         cls, core_schema: core_schema.CoreSchema, handler: GetJsonSchemaHandler
     ) -> dict[str, Any]:
