@@ -24,8 +24,7 @@ jobs:
       - uses: actions/checkout@master
 
       - name: Set up uv
-        run: |
-          curl -LsSf https://astral.sh/uv/0.3.2/install.sh | sh
+        run: curl -LsSf https://astral.sh/uv/0.4.3/install.sh | sh
 
       - name: Set up python
         uses: actions/setup-python@v5
@@ -41,7 +40,7 @@ jobs:
             uv-${{ runner.os }}
 
       - name: Install deps
-        run: cd api && uv sync --dev --locked
+        run: cd api && uv sync --all-extras --locked
 
       - name: Run pre-commit
         run: cd api && uv run pre-commit run --all-files
