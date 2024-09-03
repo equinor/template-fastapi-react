@@ -6,6 +6,7 @@
     "start": "vite",
     "build": "tsc && vite build",
     "serve": "vite preview",
+    "generate": "openapi -i http://localhost:5001/openapi.json -o './src/api/generated' -c axios",
     "test": "vitest",
     "lint": "yarn eslint --fix --ext .ts,.tsx ."
   },
