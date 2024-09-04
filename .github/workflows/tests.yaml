@@ -44,7 +44,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
 
-      - name: "Login to image registry"
+      - name: Login to image registry
         run: echo ${{ secrets.GITHUB_TOKEN }} | docker login $IMAGE_REGISTRY -u $GITHUB_ACTOR --password-stdin
 
       - name: Build API image
@@ -64,7 +64,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
 
-      - name: "Login to image registry"
+      - name: Login to image registry
         run: echo ${{ secrets.GITHUB_TOKEN }} | docker login $IMAGE_REGISTRY -u $GITHUB_ACTOR --password-stdin
 
       - name: Build Web Image
@@ -72,13 +72,17 @@ jobs:
           docker pull $WEB_IMAGE
           docker build --cache-from $WEB_IMAGE --target development --tag web-dev ./web
 
+      - name: Run Web tests
+        if: ${{ false }} # disable for now as they do not currently work
+        run: docker compose -f docker-compose.yml -f docker-compose.ci.yml run --rm web yarn test
+
   test-docs:
     name: test-docs
     runs-on: ubuntu-latest
 
     steps:
       # If you know your docs does not rely on anything outside of the documentation folder, the commented out code below can be used to only test the docs build if the documentation folder changes.
-      - name: "Checkout GitHub Action"
+      - name: Checkout GitHub Action
         uses: actions/checkout@main
         # with:
         #   fetch-depth: 0
@@ -88,7 +92,7 @@ jobs:
       #   shell: bash
       #   run: echo "changes=$(git diff --name-only $(git merge-base HEAD origin/main) HEAD | grep documentation/ | wc -l)" >> $GITHUB_OUTPUT
 
-      - name: "Setup node"
+      - name: Setup node
         # if: steps.docs-changes.outputs.changes > 0
         uses: actions/setup-node@v3
         with:
