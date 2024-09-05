@@ -1,5 +1,38 @@
 # Changelog
 
+## [1.5.1](https://github.com/equinor/template-fastapi-react/compare/template-fastapi-react-v1.5.0...template-fastapi-react-v1.5.1) (2024-09-05)
+
+
+### Bug Fixes
+
+* mypy error ([66303aa](https://github.com/equinor/template-fastapi-react/commit/66303aa35f571e8588c3342bdb25cb56566085a2))
+
+
+### Miscellaneous Chores
+
+* 'docker-compose'-&gt;'docker compose' ([532f123](https://github.com/equinor/template-fastapi-react/commit/532f123247e10d35ce6c5dab3d15dd40dea59173))
+* add 'yarn generate' command ([ae135e2](https://github.com/equinor/template-fastapi-react/commit/ae135e2c600fd7d701c4773434841a8a4bae260f))
+* generate api ([7fbdbcf](https://github.com/equinor/template-fastapi-react/commit/7fbdbcf27f57a912bfd6be62313df3668be0454d))
+* invalid optional argument typing ([542a8b2](https://github.com/equinor/template-fastapi-react/commit/542a8b259257e6bc2e909935813c1f518128db5b))
+* update pre-commit ([866cdef](https://github.com/equinor/template-fastapi-react/commit/866cdeff38f332cc97abc335bb3ab9e8aacb88de))
+* update yarn dependencies ([66f7545](https://github.com/equinor/template-fastapi-react/commit/66f754574401cdf73d8bab56e8584aead2774548))
+* use biome for 'yarn lint' command ([8e3abc9](https://github.com/equinor/template-fastapi-react/commit/8e3abc903867293420ad85ceecadde318750698f))
+* use non-deprecated serialization method ([77697fa](https://github.com/equinor/template-fastapi-react/commit/77697faeb4448adffab2f58717d5839c9f8c7c4d))
+
+
+### Code Refactoring
+
+* 'dict' is deprecated in Pydantic 2 ([2ea5cad](https://github.com/equinor/template-fastapi-react/commit/2ea5cade1b58aa448739d0ab51322f76930df181))
+* moved pydantic class ([fe9d4bf](https://github.com/equinor/template-fastapi-react/commit/fe9d4bf3adfe84a0ec7a8ea89bb264171a0bd5d0))
+* pytest collection and CLI options ([7d8fb3a](https://github.com/equinor/template-fastapi-react/commit/7d8fb3a8d1daa3d1bf7a7eea444d0a1aa60421af))
+* remove deprecated example field ([3ab5a3b](https://github.com/equinor/template-fastapi-react/commit/3ab5a3bb4a0bc872c50d1c0cf948a661582900b8))
+* use LoggerLevel enum ([3ff2140](https://github.com/equinor/template-fastapi-react/commit/3ff2140633eab6fb1220b4518629be3ee860f2db))
+
+
+### Continuous Integration
+
+* update tests action ([0caf81e](https://github.com/equinor/template-fastapi-react/commit/0caf81ed3deb44651d93619070887a5e606602ac))
+
 ## [1.5.0](https://github.com/equinor/template-fastapi-react/compare/template-fastapi-react-v1.4.0...template-fastapi-react-v1.5.0) (2024-07-22)
 
 
