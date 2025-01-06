@@ -1,7 +1,9 @@
 from fastapi import APIRouter, status
 from fastapi.responses import PlainTextResponse
 
-router = APIRouter(tags=["health_check"], prefix="/health-check")
+from common.exception_handlers import ExceptionHandlingRoute
+
+router = APIRouter(tags=["health_check"], prefix="/health-check", route_class=ExceptionHandlingRoute)
 
 
 @router.get(
