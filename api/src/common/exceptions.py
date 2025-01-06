@@ -1,7 +1,6 @@
 from enum import Enum
 from typing import Any
 
-from fastapi import HTTPException
 from pydantic import BaseModel
 from starlette import status as request_status
 
@@ -98,8 +97,12 @@ class ValidationException(ApplicationException):
         self.type = self.__class__.__name__
 
 
-credentials_exception = HTTPException(
-    status_code=request_status.HTTP_401_UNAUTHORIZED,
-    detail="Token validation failed",
-    headers={"WWW-Authenticate": "Bearer"},
-)
+class UnauthorizedException(ApplicationException):
+    def __init__(
+        self,
+        message: str = "Token validation failed",
+        debug: str = "Token was not valid for requested operation.",
+        extra: dict[str, Any] | None = None,
+    ):
+        super().__init__(message, debug, extra, request_status.HTTP_401_UNAUTHORIZED)
+        self.type = self.__class__.__name__

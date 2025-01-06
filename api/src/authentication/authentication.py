@@ -5,7 +5,7 @@ from fastapi import Security
 from fastapi.security import OAuth2AuthorizationCodeBearer
 
 from authentication.models import User
-from common.exceptions import credentials_exception
+from common.exceptions import UnauthorizedException
 from common.logger import logger
 from config import config
 
@@ -25,12 +25,12 @@ def get_JWK_client() -> jwt.PyJWKClient:
         return jwt.PyJWKClient(oid_conf["jwks_uri"])
     except Exception as error:
         logger.error(f"Failed to fetch OpenId Connect configuration for '{config.OAUTH_WELL_KNOWN}': {error}")
-        raise credentials_exception
+        raise UnauthorizedException
 
 
 def auth_with_jwt(jwt_token: str = Security(oauth2_scheme)) -> User:
     if not jwt_token:
-        raise credentials_exception
+        raise UnauthorizedException
     key = get_JWK_client().get_signing_key_from_jwt(jwt_token).key
     try:
         payload = jwt.decode(jwt_token, key, algorithms=["RS256"], audience=config.OAUTH_AUDIENCE)
@@ -41,8 +41,8 @@ def auth_with_jwt(jwt_token: str = Security(oauth2_scheme)) -> User:
             user = User(user_id=payload["sub"], **payload)
     except jwt.exceptions.InvalidTokenError as error:
         logger.warning(f"Failed to decode JWT: {error}")
-        raise credentials_exception
+        raise UnauthorizedException
 
     if user is None:
-        raise credentials_exception
+        raise UnauthorizedException
     return user

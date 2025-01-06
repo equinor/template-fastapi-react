@@ -3,8 +3,7 @@ from fastapi import APIRouter, FastAPI, Security
 from starlette.middleware import Middleware
 
 from authentication.authentication import auth_with_jwt
-from common.exception_handlers import add_exception_handlers
-from common.middleware import LocalLoggerMiddleware, OpenCensusRequestLoggingMiddleware
+from common.middleware import LocalLoggerMiddleware
 from common.responses import responses
 from config import config
 from features.health_check import health_check_feature
@@ -35,8 +34,6 @@ def create_app() -> FastAPI:
     authenticated_routes.include_router(whoami_feature.router)
 
     middleware = [Middleware(LocalLoggerMiddleware)]
-    if config.APPINSIGHTS_CONSTRING:
-        middleware.append(Middleware(OpenCensusRequestLoggingMiddleware))
 
     app = FastAPI(
         title="Template FastAPI React",
@@ -54,7 +51,12 @@ def create_app() -> FastAPI:
         },
     )
 
-    add_exception_handlers(app)
+    if config.APPINSIGHTS_CONSTRING:
+        from azure.monitor.opentelemetry import configure_azure_monitor
+        from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
+
+        configure_azure_monitor(connection_string=config.APPINSIGHTS_CONSTRING, logger_name="API")
+        FastAPIInstrumentor.instrument_app(app, excluded_urls="healthcheck")
 
     app.include_router(authenticated_routes, dependencies=[Security(auth_with_jwt)])
     app.include_router(public_routes)

@@ -3,7 +3,7 @@ from fastapi import Security
 
 from authentication.authentication import oauth2_scheme
 from authentication.models import User
-from common.exceptions import credentials_exception
+from common.exceptions import UnauthorizedException
 from config import config, default_user
 
 
@@ -89,7 +89,7 @@ def mock_auth_with_jwt(jwt_token: str = Security(oauth2_scheme)) -> User:
         print(payload)
         user = User(user_id=payload["sub"], **payload)
     except jwt.exceptions.InvalidTokenError as error:
-        raise credentials_exception from error
+        raise UnauthorizedException from error
     if user is None:
-        raise credentials_exception
+        raise UnauthorizedException
     return user

@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends
 
 from authentication.authentication import auth_with_jwt
 from authentication.models import User
+from common.exception_handlers import ExceptionHandlingRoute
 from features.todo.repository.todo_repository import get_todo_repository
 from features.todo.repository.todo_repository_interface import TodoRepositoryInterface
 from features.todo.use_cases.add_todo import (
@@ -24,7 +25,7 @@ from features.todo.use_cases.update_todo import (
     update_todo_use_case,
 )
 
-router = APIRouter(tags=["todos"], prefix="/todos")
+router = APIRouter(tags=["todos"], prefix="/todos", route_class=ExceptionHandlingRoute)
 
 
 @router.post("", operation_id="create")

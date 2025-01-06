@@ -1,13 +1,15 @@
 import traceback
 import uuid
+from collections.abc import Callable, Coroutine
+from typing import Any
 
-from fastapi import FastAPI
 from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import RequestValidationError
+from fastapi.routing import APIRoute
 from httpx import HTTPStatusError
 from starlette import status
 from starlette.requests import Request
-from starlette.responses import JSONResponse
+from starlette.responses import JSONResponse, Response
 
 from common.exceptions import (
     ApplicationException,
@@ -16,29 +18,16 @@ from common.exceptions import (
     ExceptionSeverity,
     MissingPrivilegeException,
     NotFoundException,
+    UnauthorizedException,
     ValidationException,
 )
 from common.logger import logger
 
 
-def add_exception_handlers(app: FastAPI) -> None:
-    # Handle custom exceptions
-    app.add_exception_handler(BadRequestException, generic_exception_handler)
-    app.add_exception_handler(ValidationException, generic_exception_handler)
-    app.add_exception_handler(NotFoundException, generic_exception_handler)
-    app.add_exception_handler(MissingPrivilegeException, generic_exception_handler)
-
-    # Override built-in default handler
-    app.add_exception_handler(RequestValidationError, validation_exception_handler)  # type: ignore
-    app.add_exception_handler(HTTPStatusError, http_exception_handler)
-
-    # Fallback exception handler for all unexpected exceptions
-    app.add_exception_handler(Exception, fall_back_exception_handler)
-
-
 def fall_back_exception_handler(request: Request, exc: Exception) -> JSONResponse:
     error_id = uuid.uuid4()
     traceback_string = " ".join(traceback.format_tb(tb=exc.__traceback__))
+    print(traceback_string)
     logger.error(
         f"Unexpected unhandled exception ({error_id}): {exc}",
         extra={"custom_dimensions": {"Error ID": error_id, "Traceback": traceback_string}},
@@ -98,3 +87,33 @@ def http_exception_handler(request: Request, exc: HTTPStatusError) -> JSONRespon
             debug=exc.response,
         )
     )
+
+
+class ExceptionHandlingRoute(APIRoute):
+    """APIRoute class for handling exceptions."""
+
+    def get_route_handler(self) -> Callable[[Request], Coroutine[Any, Any, Response]]:
+        """Intercept response and return correct exception response."""
+        original_route_handler = super().get_route_handler()
+
+        async def custom_route_handler(request: Request) -> Response:
+            try:
+                return await original_route_handler(request)
+            except BadRequestException as e:
+                return generic_exception_handler(request, e)
+            except ValidationException as e:
+                return generic_exception_handler(request, e)
+            except NotFoundException as e:
+                return generic_exception_handler(request, e)
+            except MissingPrivilegeException as e:
+                return generic_exception_handler(request, e)
+            except RequestValidationError as e:
+                return validation_exception_handler(request, e)
+            except HTTPStatusError as e:
+                return http_exception_handler(request, e)
+            except UnauthorizedException as e:
+                return generic_exception_handler(request, e)
+            except Exception as e:
+                return fall_back_exception_handler(request, e)
+
+        return custom_route_handler
