@@ -31,7 +31,7 @@ RUN touch /var/run/nginx.pid && \
 # Run master process as non-root user
 USER 1000
 
-FROM node:22 as base
+FROM node:22 AS base
 ARG AUTH_ENABLED=0
 ARG REDIRECT_URI=http://localhost/
 # Azure AD requires a scope.
@@ -51,13 +51,13 @@ WORKDIR /code
 COPY ./ ./
 RUN yarn install
 
-FROM base as development
+FROM base AS development
 CMD ["yarn", "start"]
 
 FROM server AS nginx-dev
 COPY nginx/environments/web.dev.conf  /etc/nginx/environments/
 
-FROM base as build
+FROM base AS build
 RUN yarn build
 
 FROM server AS nginx-prod

@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 python:3.11-slim as base
+FROM --platform=linux/amd64 python:3.12-slim AS base
 WORKDIR /code
 CMD ["/code/src/init.sh", "api"]
 EXPOSE 5000
@@ -13,14 +13,14 @@ RUN pip install --upgrade pip && \
 COPY pyproject.toml pyproject.toml
 COPY poetry.lock poetry.lock
 
-FROM base as development
+FROM base AS development
 RUN poetry install
 WORKDIR /code/src
 COPY src .
 USER 1000
 
-FROM base as prod
-RUN poetry install --no-dev
+FROM base AS prod
+RUN poetry install --without dev
 WORKDIR /code/src
 COPY src .
 USER 1000
