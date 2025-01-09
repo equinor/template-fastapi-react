@@ -33,7 +33,6 @@ USER 1000
 
 FROM node:22 AS base
 ARG AUTH_ENABLED=0
-ARG REDIRECT_URI=http://localhost/
 # Azure AD requires a scope.
 ARG AUTH_SCOPE=""
 ARG CLIENT_ID=""
@@ -45,7 +44,6 @@ ENV VITE_AUTH_TENANT=$TENANT_ID
 ENV VITE_TOKEN_ENDPOINT=https://login.microsoftonline.com/${VITE_AUTH_TENANT}/oauth2/v2.0/token
 ENV VITE_AUTH_ENDPOINT=https://login.microsoftonline.com/${VITE_AUTH_TENANT}/oauth2/v2.0/authorize
 ENV VITE_LOGOUT_ENDPOINT=https://login.microsoftonline.com/${VITE_AUTH_TENANT}/oauth2/logout
-ENV VITE_AUTH_REDIRECT_URI=$REDIRECT_URI
 
 WORKDIR /code
 COPY ./ ./

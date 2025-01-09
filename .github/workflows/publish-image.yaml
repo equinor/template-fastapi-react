@@ -7,11 +7,6 @@ on:
         description: "Which tag to give the images. Supports multiple tags if comma separated, ie 'tag1,tag2'"
         required: true
         type: string
-      oauth-redirect-url:
-        description: "Redirect url for oauth. Should be the public url to access the web app"
-        default: "https://template-fastapi-react.app.playground.radix.equinor.com"
-        required: true
-        type: string
     secrets:
       CR_SECRET:
         description: "Secret to authenticate if using an other container registry than Github"
@@ -39,7 +34,6 @@ jobs:
           docker pull $NGINX_IMAGE
           printf "$(git log -n 1 --format=format:'hash: %h%ndate: %cs%nrefs: %d' --decorate=short --decorate-refs=refs/tags | sed 's/ (tag: \([^\s]*\))/\1/')" > ./web/public/version.txt
           docker build \
-          --build-arg REDIRECT_URI=${{inputs.oauth-redirect-url}} \
           --build-arg AUTH_ENABLED=1 \
           --build-arg AUTH_SCOPE=api://4a761bec-628d-4c4b-860a-4903cbecc963/api \
           --build-arg CLIENT_ID=4a761bec-628d-4c4b-860a-4903cbecc963 \
