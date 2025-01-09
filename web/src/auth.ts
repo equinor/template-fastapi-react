@@ -5,7 +5,7 @@ export const authConfig: TAuthConfig = {
   authorizationEndpoint: import.meta.env.VITE_AUTH_ENDPOINT || '',
   tokenEndpoint: import.meta.env.VITE_TOKEN_ENDPOINT || '',
   scope: import.meta.env.VITE_AUTH_SCOPE || '',
-  redirectUri: import.meta.env.VITE_AUTH_REDIRECT_URI || '',
+  redirectUri: window.origin,
   logoutEndpoint: import.meta.env.VITE_LOGOUT_ENDPOINT || '',
   autoLogin: false,
   preLogin: () =>

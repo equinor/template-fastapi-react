@@ -7,11 +7,19 @@ on:
         default: "test"
         required: true
         type: string
+      image-tag:
+        description: "Which image tag to deploy."
+        required: true
+        type: string
   workflow_call: # Workflow is meant to be called from another workflow
     inputs:
       radix-environment:
         description: "Which radix environment to deploy into"
         default: "test"
+        required: true
+        type: string
+      image-tag:
+        description: "Which image tag to deploy."
         required: true
         type: string
 
@@ -62,3 +70,5 @@ jobs:
             --from-config
             --token-environment
             --follow
+            --image-tag-name api=${{ inputs.image-tag }}
+            --image-tag-name proxy=${{ inputs.image-tag }}

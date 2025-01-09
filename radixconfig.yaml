@@ -5,9 +5,10 @@ metadata:
 spec:
   environments:
     - name: prod
+    - name: staging
       build:
         from: main
-    - name: test
+    - name: dev
       build:
         from: main
   components:
@@ -23,15 +24,20 @@ spec:
           cpu: "4000m"
       environmentConfig:
         - environment: prod
-          imageTagName: production
+          imageTagName: latest
           horizontalScaling:
             minReplicas: 1
             maxReplicas: 4
-        - environment: test
+        - environment: staging
           imageTagName: latest
           horizontalScaling:
             minReplicas: 1
             maxReplicas: 2
+        - environment: dev
+          imageTagName: latest
+          horizontalScaling:
+            minReplicas: 1
+            maxReplicas: 1
       secrets:
         - SECRET_KEY
         - MONGODB_PASSWORD
@@ -58,11 +64,11 @@ spec:
       alwaysPullImageOnDeploy: true
       environmentConfig:
         - environment: prod
-          imageTagName: production
-        - environment: test
           imageTagName: latest
-      variables:
-        AUTH_ENABLED: "True"
+        - environment: staging
+          imageTagName: latest
+        - environment: dev
+          imageTagName: latest
       ports:
         - name: nginx
           port: 8080

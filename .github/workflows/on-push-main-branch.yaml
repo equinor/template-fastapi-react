@@ -28,28 +28,28 @@ jobs:
     uses: ./.github/workflows/publish-image.yaml
     with:
       image-tags: latest
-      oauth-redirect-url: "https://proxy-template-fastapi-react-test.playground.radix.equinor.com/"
 # FIXME: DEMO CURRENTLY NOT DEPLOYED TO RADIX, comment back in to enable deployment to test environment
-#  deploy-test:
+#  deploy-dev:
 #    needs: publish-latest
 #    uses: ./.github/workflows/deploy-to-radix.yaml
 #    with:
-#      radix-environment: "test"
+#      image-tag: "latest"
+#      radix-environment: "dev"
 
   release-please:
     needs: tests
     uses: ./.github/workflows/create-release-pr.yaml
 
-  publish-production:
+  publish-staging:
     needs: release-please
     if: ${{ needs.release-please.outputs.release_created }}
     uses: ./.github/workflows/publish-image.yaml
     with:
-      image-tags: production,${{ needs.release-please.outputs.tag_name }}
-      oauth-redirect-url: "https://template-fastapi-react.app.playground.radix.equinor.com"
+      image-tags: ${{ needs.release-please.outputs.tag_name }}
 # FIXME: DEMO CURRENTLY NOT DEPLOYED TO RADIX, comment back in to enable deployment to production environment
-#  deploy-prod:
-#    needs: publish-production
+#  deploy-staging:
+#    needs: [release-please, publish-staging]
 #    uses: ./.github/workflows/deploy-to-radix.yaml
 #    with:
-#      radix-environment: "prod"
+#      image-tag: ${{ needs.release-please.outputs.tag_name }}
+#      radix-environment: "staging"
