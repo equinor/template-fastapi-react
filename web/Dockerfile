@@ -31,7 +31,7 @@ RUN touch /var/run/nginx.pid && \
 # Run master process as non-root user
 USER 1000
 
-FROM node:22 AS base
+FROM node:23 AS base
 ARG AUTH_ENABLED=0
 # Azure AD requires a scope.
 ARG AUTH_SCOPE=""
