@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 python:3.12-slim AS base
+FROM --platform=linux/amd64 python:3.13-slim AS base
 WORKDIR /code
 CMD ["/code/src/init.sh", "api"]
 EXPOSE 5000
