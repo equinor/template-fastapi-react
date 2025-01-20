@@ -3,7 +3,7 @@ updates:
   - package-ecosystem: "npm"
     directory: "/web"
     schedule:
-      interval: "weekly"
+      interval: "monthly" # when template is used, recommended interval is "weekly"
     groups:
       web:
         update-types:
@@ -13,7 +13,7 @@ updates:
   - package-ecosystem: "pip"
     directory: "/api"
     schedule:
-      interval: "weekly"
+      interval: "monthly" # when template is used, recommended interval is "weekly"
     groups:
       api:
         update-types:
@@ -25,7 +25,7 @@ updates:
       - "/web"
       - "/api"
     schedule:
-      interval: "weekly"
+      interval: "monthly" # when template is used, recommended interval is "weekly"
     groups:
       dockerfile:
         update-types:
