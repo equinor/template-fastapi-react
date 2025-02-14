@@ -1,2 +1,23 @@
-node_modules
-src/build
+# ignore all by default
+*
+
+# Nginx
+!nginx/*.conf
+!nginx/*/*.conf
+
+# Single Page Application
+# Dependencies
+!package.json
+!yarn.lock
+
+# Application
+!public/
+!index.html
+!src/**/*.tsx
+!src/**/*.ts
+!src/*.tsx
+!src/*.ts
+
+# Configuration / build files
+!vite.config.mts
+!tsconfig.json

@@ -1,3 +1,11 @@
-.venv
-.pytest_cache
-.mypy_cache
+# Ignore all by default
+*
+!pyproject.toml
+!poetry.lock
+
+!src/**/*.py
+!src/*.py
+!src/init.sh
+
+!tests/**/*.py
+!tests/test_data/

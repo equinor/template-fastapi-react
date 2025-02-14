@@ -24,7 +24,7 @@ Entities should not be affected by any change external to them.
 ## Testing entities
 
 ```mdx-code-block
-import Test from '!!raw-loader!@site/../api/src/tests/unit/features/todo/entities/test_todo_item.py';
+import Test from '!!raw-loader!@site/../api/tests/unit/features/todo/entities/test_todo_item.py';
 
 <CodeBlock language="jsx">{Test}</CodeBlock>
 ```

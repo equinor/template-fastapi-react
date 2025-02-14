@@ -15,7 +15,7 @@ import MongoClient from '!!raw-loader!@site/../api/src/data_providers/clients/mo
 The `test_client` fixture are using the mongomock instead of real database.
 
 ```mdx-code-block
-import Test from '!!raw-loader!@site/../api/src/tests/unit/data_providers/clients/mongodb/test_mongo_database_client.py';
+import Test from '!!raw-loader!@site/../api/tests/unit/data_providers/clients/mongodb/test_mongo_database_client.py';
 
 <CodeBlock language="jsx">{Test}</CodeBlock>
 ```
