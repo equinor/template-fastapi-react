@@ -11,7 +11,7 @@ The application has two types of API tests: unit tests and integration tests.
 
 ### Unit tests
 
-You will find unit tests under `src/tests/unit`.
+You will find unit tests under `tests/unit`.
 
 <Tabs groupId="api-testing">
 <TabItem value="using-docker" label="Using docker">
@@ -36,7 +36,7 @@ As a general rule, unit tests should not have any external dependencies - especi
 
 ### Integration tests
 
-The integrations tests can be found under `src/tests/integration`.
+The integrations tests can be found under `tests/integration`.
 
 To run integration tests add `--integration` as argument for pytest.
 
