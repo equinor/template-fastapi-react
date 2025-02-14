@@ -15,14 +15,13 @@ export default defineConfig({
     svgrPlugin(),
     csp({
       dev: {
-        run: true,
+        run: false,
       },
       policy: {
         'default-src': ["'self'"],
         'font-src': ["'self'", 'https://*.equinor.com'],
         'style-src': ["'self'", "'unsafe-inline'", 'https://*.equinor.com'],
-        'script-src-elem': ["'self'"],
-        'connect-src': ['self', 'https://*.microsoftonline.com', 'http:', ' https:', 'ws:', 'wss:', 'data:', 'blob:'],
+        'connect-src': ["'self'", 'https://*.microsoftonline.com', 'http:', ' https:'],
       },
       build: {
         sri: true,
