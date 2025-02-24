@@ -20,7 +20,7 @@ const CenterContainer = styled.div`
 `
 
 function App() {
-  const { token, error, login, loginInProgress } = useContext(AuthContext)
+  const { token, error, logIn, loginInProgress } = useContext(AuthContext)
 
   OpenAPI.TOKEN = token
 
@@ -40,7 +40,7 @@ function App() {
   if (hasAuthConfig && !token) {
     return (
       <CenterContainer>
-        <Button onClick={() => login()}>Log in</Button>
+        <Button onClick={() => logIn()}>Log in</Button>
       </CenterContainer>
     )
   }
