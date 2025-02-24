@@ -35,13 +35,13 @@ jobs:
   deploy-on-radix:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v4
 
       # You'll need an app registration with a Federated Credential for this to
       # work. Note that the credential will need to specify a branch name. This
       # step will therefore fail for all branches not mentioned in the credentials
       - name: Az CLI login
-        uses: azure/login@v1
+        uses: azure/login@v2
         with:
           client-id: 4a761bec-628d-4c4b-860a-4903cbecc963 #app registration Application ID
           tenant-id: 3aa4a235-b6e2-48d5-9195-7fcf05b459b0
@@ -56,7 +56,7 @@ jobs:
           echo "APP_SERVICE_ACCOUNT_TOKEN=$token" >> $GITHUB_ENV
 
       - name: Deploy on Radix
-        uses: equinor/radix-github-actions@master
+        uses: equinor/radix-github-actions@v1
         env:
           APP_SERVICE_ACCOUNT_TOKEN: ${{ env.APP_SERVICE_ACCOUNT_TOKEN }}
         with:

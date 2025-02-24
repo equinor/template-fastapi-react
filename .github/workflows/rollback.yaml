@@ -38,8 +38,9 @@ jobs:
           docker tag ${{ matrix.image }}:${{ inputs.release-tag }} ${{ matrix.image }}:production
           docker push $API_IMAGE:production
 
-  deploy:
-    needs: set-prod-tag
-    uses: ./.github/workflows/deploy-to-radix.yaml
-    with:
-      radix-environment: "prod"
+  # uncomment to apply rollback to radix
+  # deploy:
+  #   needs: set-prod-tag
+  #   uses: ./.github/workflows/deploy-to-radix.yaml
+  #   with:
+  #     radix-environment: "prod"
