@@ -7,19 +7,19 @@ license = ""
 package-mode = false
 
 [tool.poetry.dependencies]
-cachetools = "^5.5.1"
+cachetools = "^5.5.2"
 python = "^3.12"
 fastapi = { extras = ["standard"], version = "^0.115.8" }
 pyjwt = "^2.8.0"
-pymongo = "4.11"
+pymongo = "4.11.1"
 certifi = "^2025.1.31"
 httpx = "^0.28"
 pydantic = "^2.10"
-pydantic-settings = "^2.6"
+pydantic-settings = "^2.8"
 pydantic-extra-types = "^2.10"
-azure-monitor-opentelemetry = "^1.6.2"
-opentelemetry-instrumentation-fastapi = "^0.50b0"
-cryptography = "^44.0.0"
+azure-monitor-opentelemetry = "^1.6.5"
+opentelemetry-instrumentation-fastapi = "^0.51b0"
+cryptography = "^44.0.1"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = ">=3"
