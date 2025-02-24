@@ -1,6 +1,9 @@
 import styled from 'styled-components'
 
 export const StyledTodoList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;;
   width: 400px;
   padding: 30px;
   position: relative;
