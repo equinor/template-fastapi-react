@@ -19,12 +19,12 @@ jobs:
   pre-commit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v4
 
       - name: Set up python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
-          python-version: "3.10"
+          python-version: "3.12"
 
       - name: Install pre-commit
         run: pip install pre-commit
@@ -42,7 +42,7 @@ jobs:
   test-api:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v4
 
       - name: Login to image registry
         run: echo ${{ secrets.GITHUB_TOKEN }} | docker login $IMAGE_REGISTRY -u $GITHUB_ACTOR --password-stdin
@@ -62,7 +62,7 @@ jobs:
   test-web:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v4
 
       - name: Login to image registry
         run: echo ${{ secrets.GITHUB_TOKEN }} | docker login $IMAGE_REGISTRY -u $GITHUB_ACTOR --password-stdin
@@ -83,7 +83,7 @@ jobs:
     steps:
       # If you know your docs does not rely on anything outside of the documentation folder, the commented out code below can be used to only test the docs build if the documentation folder changes.
       - name: Checkout GitHub Action
-        uses: actions/checkout@main
+        uses: actions/checkout@v4
         # with:
         #   fetch-depth: 0
 
@@ -94,9 +94,9 @@ jobs:
 
       - name: Setup node
         # if: steps.docs-changes.outputs.changes > 0
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
           cache: yarn
           cache-dependency-path: documentation/yarn.lock
 
