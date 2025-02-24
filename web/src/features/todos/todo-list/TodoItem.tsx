@@ -26,7 +26,7 @@ const TodoItem = ({ todo }: { todo: AddTodoResponse }) => {
     <Card>
       <Card.Header>
         <Card.HeaderTitle>
-          <StyledTodoItemTitle variant="h5" isStruckThrough={todo.is_completed}>
+          <StyledTodoItemTitle variant="h5" $isStruckThrough={todo.is_completed}>
             {todo.title}
           </StyledTodoItemTitle>
           <Typography variant="body_short">{statusOf(todo.is_completed)}</Typography>
