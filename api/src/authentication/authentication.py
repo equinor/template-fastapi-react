@@ -7,7 +7,7 @@ from fastapi.security import OAuth2AuthorizationCodeBearer
 from authentication.models import User
 from common.exceptions import UnauthorizedException
 from common.logger import logger
-from config import config
+from config import config, default_user
 
 oauth2_scheme = OAuth2AuthorizationCodeBearer(
     authorizationUrl=config.OAUTH_AUTH_ENDPOINT,
@@ -29,6 +29,8 @@ def get_JWK_client() -> jwt.PyJWKClient:
 
 
 def auth_with_jwt(jwt_token: str = Security(oauth2_scheme)) -> User:
+    if not config.AUTH_ENABLED:
+        return default_user
     if not jwt_token:
         raise UnauthorizedException
     key = get_JWK_client().get_signing_key_from_jwt(jwt_token).key
