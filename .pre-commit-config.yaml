@@ -13,7 +13,7 @@ repos:
     rev: v4.6.0
     hooks:
       - id: check-ast
-        language_version: python3.10
+        language_version: python3.12
       - id: check-merge-conflict
       - id: check-case-conflict
       - id: check-json
@@ -53,9 +53,8 @@ repos:
     rev: v0.4.0
     hooks:
       - id: biome-check
-        additional_dependencies: [ "@biomejs/biome@1.9.4" ]
+        additional_dependencies: ["@biomejs/biome@1.9.4"]
         args: ["--config-path", "web"]
-
 
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.5.1
