@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "api"
-version = "1.4.0" # x-release-please-version
+version = "1.4.0"                              # x-release-please-version
 description = "API for Template Fastapi React"
 authors = []
 license = ""
@@ -9,7 +9,7 @@ package-mode = false
 [tool.poetry.dependencies]
 cachetools = "^5.5.1"
 python = "^3.12"
-fastapi = {extras = ["standard"], version = "^0.115.8"}
+fastapi = { extras = ["standard"], version = "^0.115.8" }
 pyjwt = "^2.8.0"
 pymongo = "4.11"
 certifi = "^2025.1.31"
@@ -66,28 +66,30 @@ strict = true
 [tool.ruff]
 
 src = ["src"]
-target-version = "py311"
+target-version = "py312"
 line-length = 119
 
 [tool.ruff.lint]
 select = [
-    "E",  # pycodestyle errors
-    "W",  # pycodestyle warnings
-    "F",  # pyflakes
-    "I",  # isort
-    "S",  # flake8-bandit
-    "C",  # flake8-comprehensions
-    "B",  # flake8-bugbear
-    "UP", # automatically upgrade syntax for newer versions of the language
+  "E",  # pycodestyle errors
+  "W",  # pycodestyle warnings
+  "F",  # pyflakes
+  "I",  # isort
+  "S",  # flake8-bandit
+  "C",  # flake8-comprehensions
+  "B",  # flake8-bugbear
+  "UP", # automatically upgrade syntax for newer versions of the language
 ]
 ignore = [
-    "B904",  # TODO: Within an except clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling
-    "B008",  # do not perform function calls in argument defaults. Ignored to allow dependencies in FastAPI
+  "B904", # TODO: Within an except clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling
+  "B008", # do not perform function calls in argument defaults. Ignored to allow dependencies in FastAPI
 ]
 
 [tool.ruff.lint.per-file-ignores]
-"__init__.py" = ["E402"]  # Ignore `E402` (import violations) in all `__init__.py` files
-"src/tests/*" = ["S101"]  # Allow the use of ´assert´ in tests
+"__init__.py" = [
+  "E402",
+] # Ignore `E402` (import violations) in all `__init__.py` files
+"src/tests/*" = ["S101"] # Allow the use of ´assert´ in tests
 
 [tool.codespell]
 skip = "*.lock,*.cjs"
@@ -96,10 +98,7 @@ ignore-words-list = "ignored-word"
 [tool.pytest.ini_options]
 # Makes pytest CLI discover markers and conftest settings:
 markers = [
-    "unit: mark a test as unit test.",
-    "integration: mark a test as integration test."
+  "unit: mark a test as unit test.",
+  "integration: mark a test as integration test.",
 ]
-testpaths = [
-    "src/tests/unit",
-    "src/tests/integration"
-]
+testpaths = ["src/tests/unit", "src/tests/integration"]
