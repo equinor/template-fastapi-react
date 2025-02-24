@@ -1,12 +1,3 @@
-<!-- markdownlint-configure-file {
-  "MD013": {
-    "code_blocks": false,
-    "tables": false
-  },
-  "MD033": false,
-  "MD041": false
-} -->
-
 <div align="center">
 
 # Template Fastapi React
@@ -16,10 +7,7 @@
 
 This is a **solution template** for creating a Single Page App (SPA) with React and FastAPI following the principles of Clean Architecture.
 
-[Key Features](#key-features)•
-[Quickstart](#quickstart) •
-[Development](#development) •
-[Contributing](#contributing)
+[Key Features](#key-features) • [Quickstart](#quickstart) • [Development](#development) • [Contributing](#contributing)
 
 <!--- The demo project is not currently deployed.
 A demo is running at https://template-fastapi-react.app.playground.radix.equinor.com
@@ -45,25 +33,29 @@ A demo is running at https://template-fastapi-react.app.playground.radix.equinor
 
 ### Prerequisites
 
-In order to run the commands described below, you need:
+To run the template todo-list application ([Running](#running)):
 - [Docker](https://www.docker.com/)
-- [Docker Compose](https://docs.docker.com/compose/)
-- Make sure you have Python installed. version 3.10 or higher is required.
+
+For development ([Development](#development)):
+- [Docker](https://www.docker.com/)
+- [Python 3.12](https://www.python.org/downloads/) or newer
 
 ### Configuration
 
 Environment variables is used for configuration and must be set before running.
 
-Create a copy of `.env-template` called `.env` and populate it with values.
+Create a copy of `.env-template` called `.env` and populate it with values:
 
-- `XXX`: Specifies the directory in which the database is stored.
+- `XYZ`: Specifies the [RESOURCE NAME] connection string
+
+**Note:** The template doesn't have any values that you need to replace, but any instantiated project probably will.
 
 ### Running
 
 Once you have done the configuration, you can start running:
 
 ```sh
-docker-compose up
+docker compose up --build
 ```
 
 The application will be served at http://localhost
@@ -75,7 +67,7 @@ The API documentation can be found at http://localhost:5000/docs
 
 See the [docs](https://equinor.github.io/template-fastapi-react/) if you want to start developing.
 
-<a id="Contributing"></a>
+<a id="contributing"></a>
 ## :+1: Contributing
 
 Thanks for your interest in contributing! There are many ways to contribute to this project. Get started [here](CONTRIBUTING.md).
