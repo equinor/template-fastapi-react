@@ -1,8 +1,0 @@
-name: "On weekly"
-on:
-  schedule:
-    - cron: "34 19 * * 0"
-
-jobs:
-  codeql:
-    uses: ./.github/workflows/codeql.yaml

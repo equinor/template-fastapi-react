@@ -8,9 +8,6 @@ on:
       - "CHANGELOG.md"
 
 jobs:
-  codeql:
-    uses: ./.github/workflows/codeql.yaml
-
   tests:
     uses: ./.github/workflows/tests.yaml
 

@@ -3,8 +3,13 @@
 name: "Run CodeQL security analysis"
 
 on:
-  workflow_dispatch:
-  workflow_call:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  # uncomment this to run codeql weekly at 23:59 at Sundays
+  # schedule:
+  #   - cron: "59 23 * * 0"
 
 jobs:
   analyze:
