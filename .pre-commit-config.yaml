@@ -4,63 +4,76 @@ repos:
   - repo: local
     hooks:
       - id: generate-api-client
-        name: generate-api
+        name: "Generate: API TypeScript types"
         entry: ./web/generate-api-typescript-client-pre-commit.sh
         language: system
         pass_filenames: false
-
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.6.0
-    hooks:
-      - id: check-ast
-        language_version: python3.12
-      - id: check-merge-conflict
-      - id: check-case-conflict
-      - id: check-json
-      - id: check-toml
-      - id: check-yaml
-      - id: trailing-whitespace
-        exclude: ^web/src/api/generated/|^.*\.(lock)$
-      - id: end-of-file-fixer
-        exclude: ^web/src/api/generated/|^.*\.(lock)$
-      - id: mixed-line-ending
-        exclude: ^.*\.(lock)$
-      - id: detect-private-key
-        exclude: api/src/tests/integration/mock_authentication.py
-      - id: no-commit-to-branch
-        args: [--branch, main, --branch, master]
-        stages: [commit-msg]
 
   - repo: https://github.com/compilerla/conventional-pre-commit
     rev: v3.4.0
     hooks:
       - id: conventional-pre-commit
+        name: "Validate: commit message follows conventional standards"
         stages: [commit-msg]
 
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-merge-conflict
+        name: "Validate: no merge conflict strings"
+      - id: no-commit-to-branch
+        name: "Validate: no commit to main"
+        args: [--branch, main, --branch, master]
+        stages: [commit-msg]
+      - id: check-ast
+        name: "Validate: parse .py files"
+        language_version: python3.12
+      - id: check-json
+        name: "Validate: parse .json files"
+      - id: check-toml
+        name: "Validate: parse .toml files"
+      - id: check-yaml
+        name: "Validate: parse .yaml files"
+      - id: check-case-conflict
+        name: "Validate: no case conflicting file names"
+      - id: trailing-whitespace
+        name: "Lint: remove trailing whitespaces"
+        exclude: ^web/src/api/generated/|^.*\.(lock)$
+      - id: end-of-file-fixer
+        name: "Lint: make files end with only newline"
+        exclude: ^web/src/api/generated/|^.*\.(lock)$
+      - id: mixed-line-ending
+        name: "Lint: ensure file ending is consistent"
+        exclude: ^.*\.(lock)$
+      - id: detect-private-key
+        name: "Validate: ensure no private keys are commited"
+        exclude: api/src/tests/integration/mock_authentication.py
+
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: "v0.6.3"
+    rev: "v0.9.7"
     hooks:
       - id: ruff
-        name: Python lint
+        name: "Lint: ruff (python)"
         files: ^api/.*\.py$
         args: ["--fix"]
 
       - id: ruff-format
-        name: Python format
+        name: "Lint: ruff-format (python)"
         files: ^api/.*\.py$
 
   - repo: https://github.com/biomejs/pre-commit
-    rev: v0.4.0
+    rev: v0.6.1
     hooks:
       - id: biome-check
+        name: "Lint: biome (ts/js)"
         additional_dependencies: ["@biomejs/biome@1.9.4"]
         args: ["--config-path", "web"]
 
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.5.1
+    rev: v1.15.0
     hooks:
       - id: mypy
-        name: Type checking
+        name: "Lint: python type checking (mypy)"
         args: [--config-file=api/pyproject.toml]
         exclude: tests/
         additional_dependencies:
@@ -78,17 +91,17 @@ repos:
   - repo: local
     hooks:
       - id: pytest
-        name: pytest-check
+        name: "Tests: python unit tests"
         entry: sh -c "cd ./api/src/ && poetry run pytest ./tests/"
         language: system
         pass_filenames: false
         always_run: true
 
   - repo: https://github.com/codespell-project/codespell
-    rev: v2.2.5
+    rev: v2.4.1
     hooks:
       - id: codespell
-        name: codespell
+        name: "Lint: spelling"
         description: Checks for common misspellings in text files.
         entry: codespell --toml=api/pyproject.toml
         exclude: documentation/docs/changelog/changelog.md
