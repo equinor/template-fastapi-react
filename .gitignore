@@ -9,7 +9,7 @@ __pycache__/
 *.so
 
 # Dependency directories
-web/node_modules
+node_modules
 web/.pnp
 .pnp.js
 web/package-lock.json
@@ -166,3 +166,7 @@ web/.yarn/*
 
 # Asdf package manager
 /*/.tool-versions
+
+# Docusaurus
+.docusaurus
+.cache-loader
