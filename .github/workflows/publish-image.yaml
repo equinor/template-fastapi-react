@@ -14,7 +14,6 @@ on:
 
 env:
   IMAGE_REGISTRY: ghcr.io
-  REGISTRY_USER: $GITHUB_ACTOR
   API_IMAGE: ghcr.io/equinor/template-fastapi-react/api
   NGINX_IMAGE: ghcr.io/equinor/template-fastapi-react/nginx
 
@@ -26,8 +25,12 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: "Login to image registry"
-        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login $IMAGE_REGISTRY -u $GITHUB_ACTOR --password-stdin
+      - name: "Login to GitHub Container Registry"
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.IMAGE_REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: "Build web"
         run: |
@@ -60,8 +63,12 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: "Login to image registry"
-        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login $IMAGE_REGISTRY -u $GITHUB_ACTOR --password-stdin
+      - name: "Login to GitHub Container Registry"
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.IMAGE_REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: "Build API"
         run: |
