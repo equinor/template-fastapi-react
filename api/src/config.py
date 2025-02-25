@@ -15,7 +15,7 @@ class Config(BaseSettings):
 
     # Database
     MONGODB_USERNAME: str = "dummy"
-    MONGODB_PASSWORD: str = "dummy"
+    MONGODB_PASSWORD: str = "dummy"  # noqa: S105
     MONGODB_HOSTNAME: str = "db"
     MONGODB_DATABASE: str = "test"
     MONGODB_PORT: int = 27017
