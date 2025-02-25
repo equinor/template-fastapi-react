@@ -6,7 +6,7 @@
     "start": "vite",
     "build": "tsc && vite build",
     "serve": "vite preview",
-    "generate": "openapi -i http://localhost:5001/openapi.json -o './src/api/generated' -c axios",
+    "generate": "openapi -i http://localhost:5000/openapi.json -o './src/api/generated' -c axios",
     "test": "vitest",
     "lint": "biome check --write --no-errors-on-unmatched"
   },
