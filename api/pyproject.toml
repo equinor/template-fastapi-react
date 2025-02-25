@@ -28,27 +28,6 @@ mongomock = "^4.1.2"
 mypy = "^1.14.1"
 types-cachetools = "^5.5.0.20240820"
 
-[tool.interrogate]
-ignore-init-method = true
-ignore-init-module = true
-ignore-magic = false
-ignore-semiprivate = false
-ignore-private = false
-ignore-property-decorators = false
-ignore-module = false
-ignore-nested-functions = false
-ignore-nested-classes = true
-ignore-setters = false
-fail-under = 0
-exclude = ["setup.py", "docs", "build"]
-ignore-regex = ["^get$", "^mock_.*", ".*BaseClass.*"]
-# possible values: 0 (minimal output), 1 (-v), 2 (-vv)
-verbose = 0
-quiet = false
-whitelist-regex = []
-color = true
-omit-covered-files = false
-
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
@@ -63,9 +42,7 @@ namespace_packages = true
 explicit_package_bases = true
 allow_subclassing_any = true
 
-
 [tool.ruff]
-
 src = ["src"]
 target-version = "py312"
 line-length = 119
