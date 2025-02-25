@@ -1,23 +1,23 @@
 services:
   nginx:
+    image: ghcr.io/equinor/template-fastapi-react/nginx:latest
     restart: unless-stopped
     build:
       target: nginx-prod
       context: ./web
-    image: boilerplate.azurecr.io/nginx:latest
     ports:
       - "80:8080"
     links:
       - api
 
   api:
-    build: ./api
     image: ghcr.io/equinor/template-fastapi-react/api
+    build: ./api
     restart: unless-stopped
     depends_on:
       - db
 
   db:
-    image: mongo:5.0.9
+    image: mongo:7.0.17
     restart: unless-stopped
     command: mongod --auth --quiet
