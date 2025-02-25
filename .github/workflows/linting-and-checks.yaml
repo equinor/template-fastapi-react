@@ -1,0 +1,85 @@
+name: "Test"
+on:
+  # Workflow dispatch is used for manual triggers
+  workflow_dispatch:
+  # Workflow call is used for called from another workflow
+  workflow_call:
+    secrets:
+      CR_SECRET:
+        description: "Secret to authenticate if using an other container registry than Github"
+        required: false
+
+env:
+  IMAGE_REGISTRY: ghcr.io
+  REGISTRY_USER: $GITHUB_ACTOR
+  API_IMAGE: ghcr.io/equinor/template-fastapi-react/api
+  WEB_IMAGE: ghcr.io/equinor/template-fastapi-react/web
+
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    name: "pre-commit"
+    steps:
+      - name: "Setup: checkout repository"
+        uses: actions/checkout@v4
+
+      - name: "Setup: add python"
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: "Run: pre-commit"
+        uses: pre-commit/action@v3.0.1
+        with:
+          extra_args: --all-files
+
+  mypy:
+    runs-on: ubuntu-latest
+    name: "mypy static type checking"
+    defaults:
+      run:
+        working-directory: ./api
+    steps:
+      - name: "Setup: checkout repository"
+        uses: actions/checkout@v4
+
+      - name: "Setup: add python"
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: "Setup: add venv"
+        run: |
+          pip install poetry
+          poetry config virtualenvs.in-project true
+          poetry install
+
+      - name: "Run: mypy"
+        run: mypy src
+
+  typescript-compile:
+    runs-on: ubuntu-latest
+    name: "typescript compilation"
+    defaults:
+      run:
+        working-directory: ./web
+    steps:
+      - name: "Setup: check out repository"
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            .github
+            web
+
+      - name: "Setup: add node"
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: yarn
+          cache-dependency-path: web/yarn.lock
+
+      - name: "Setup: yarn install"
+        run: yarn install
+
+      - name: "Run: compile"
+        run: yarn compile
