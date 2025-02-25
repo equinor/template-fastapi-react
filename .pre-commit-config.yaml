@@ -69,34 +69,6 @@ repos:
         additional_dependencies: ["@biomejs/biome@1.9.4"]
         args: ["--config-path", "web"]
 
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.15.0
-    hooks:
-      - id: mypy
-        name: "Lint: python type checking (mypy)"
-        args: [--config-file=api/pyproject.toml]
-        exclude: tests/
-        additional_dependencies:
-          - types-cachetools
-          - types-requests
-          - types-ujson
-          - types-toml
-          - types-click
-          - types-python-jose
-          - pymongo
-          - pydantic
-          - fastapi
-
-  # The path to the venv python interpreter differ between linux and windows. An if/else is used to find it on either.
-  - repo: local
-    hooks:
-      - id: pytest
-        name: "Tests: python unit tests"
-        entry: sh -c "cd ./api/src/ && poetry run pytest ./tests/"
-        language: system
-        pass_filenames: false
-        always_run: true
-
   - repo: https://github.com/codespell-project/codespell
     rev: v2.4.1
     hooks:

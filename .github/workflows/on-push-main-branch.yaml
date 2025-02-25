@@ -8,20 +8,28 @@ on:
       - "CHANGELOG.md"
 
 jobs:
+  linting-and-checks:
+    name: "Linting and checks"
+    uses: ./.github/workflows/linting-and-checks.yaml
+
   tests:
+    name: "Tests"
     uses: ./.github/workflows/tests.yaml
 
   generate-changelog:
     needs: tests
+    name: "Generate changelog"
     uses: ./.github/workflows/generate-changelog.yaml
   docs:
     needs: generate-changelog
+    name: "Build and publish docs"
     uses: ./.github/workflows/publish-docs.yaml
     with:
       message: "Warning: This is the development version."
 
   publish-latest:
     needs: tests
+    name: "Publish dev docker images"
     uses: ./.github/workflows/publish-image.yaml
     with:
       image-tags: latest
@@ -35,11 +43,13 @@ jobs:
 
   release-please:
     needs: tests
+    name: "Create or update release PR"
     uses: ./.github/workflows/create-release-pr.yaml
 
   publish-staging:
     needs: release-please
     if: ${{ needs.release-please.outputs.release_created }}
+    name: "Publish staging docker images"
     uses: ./.github/workflows/publish-image.yaml
     with:
       image-tags: ${{ needs.release-please.outputs.tag_name }}

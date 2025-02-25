@@ -4,5 +4,10 @@ on:
     types: [opened, reopened, synchronize]
 
 jobs:
+  linting-and-checks:
+    name: "Linting and checks"
+    uses: ./.github/workflows/linting-and-checks.yaml
+
   tests:
+    name: "Tests"
     uses: ./.github/workflows/tests.yaml

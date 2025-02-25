@@ -16,30 +16,23 @@ env:
   WEB_IMAGE: ghcr.io/equinor/template-fastapi-react/web
 
 jobs:
-  pre-commit:
+  api-unit-tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
+      - name: Login to image registry
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login $IMAGE_REGISTRY -u $GITHUB_ACTOR --password-stdin
 
-      - name: Install pre-commit
-        run: pip install pre-commit
-
-      - name: Set up venv
+      - name: Build API image
         run: |
-          pip install poetry
-          poetry config virtualenvs.in-project true
-          cd api
-          poetry install
+          docker pull $API_IMAGE
+          docker build --target development --tag api-development ./api # TODO: --cache-from $API_IMAGE
 
-      - name: Run pre-commit
-        run: pre-commit run --all-files
+      - name: Pytest Unit tests
+        run: docker compose -f docker-compose.yml -f docker-compose.ci.yml run --rm api pytest --unit
 
-  test-api:
+  api-integration-tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -59,7 +52,7 @@ jobs:
       - name: Pytest Integration tests
         run: docker compose -f docker-compose.yml -f docker-compose.ci.yml run --rm api pytest --integration
 
-  test-web:
+  web-tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -76,7 +69,7 @@ jobs:
         if: ${{ false }} # disable for now as they do not currently work
         run: docker compose -f docker-compose.yml -f docker-compose.ci.yml run --rm web yarn test
 
-  test-docs:
+  docs-tests:
     name: test-docs
     runs-on: ubuntu-latest
 
