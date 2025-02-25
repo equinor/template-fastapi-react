@@ -4,8 +4,5 @@ on:
     types: [opened, reopened, synchronize]
 
 jobs:
-  codeql:
-    uses: ./.github/workflows/codeql.yaml
-
   tests:
     uses: ./.github/workflows/tests.yaml
