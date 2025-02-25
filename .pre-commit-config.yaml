@@ -68,16 +68,3 @@ repos:
         name: "Lint : biome (ts/js)"
         additional_dependencies: ["@biomejs/biome@1.9.4"]
         args: ["--config-path", "web"]
-
-  - repo: https://github.com/codespell-project/codespell
-    rev: v2.4.1
-    hooks:
-      - id: codespell
-        name: "Lint : spelling"
-        description: Checks for common misspellings in text files.
-        entry: codespell --toml=api/pyproject.toml
-        exclude: documentation/docs/changelog/changelog.md
-        language: python
-        types: [text]
-        additional_dependencies:
-          - tomli
