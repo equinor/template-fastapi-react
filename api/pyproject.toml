@@ -25,6 +25,8 @@ cryptography = "^44.0.1"
 pre-commit = ">=3"
 pytest = "^8.3"
 mongomock = "^4.1.2"
+mypy = "^1.14.1"
+types-cachetools = "^5.5.0.20240820"
 
 [tool.interrogate]
 ignore-init-method = true
@@ -54,13 +56,11 @@ build-backend = "poetry.core.masonry.api"
 [tool.mypy]
 
 plugins = ["pydantic.mypy"]
-
+strict = true
 ignore_missing_imports = true
 namespace_packages = true
 explicit_package_bases = true
 allow_subclassing_any = true
-
-strict = true
 
 
 [tool.ruff]
