@@ -26,7 +26,7 @@ The web has a feature-based folder structure.
 - `api` contains the auto-generated API client
 - `common` contains shared code like generic components
 - `features` contains features e.g. todo-list
-- `hooks` contains re-usable hooks
+- `hooks` contains reusable hooks
 - `pages` contains entrypoints (pages that are used by the router)
 
 ## Application tree
@@ -63,8 +63,8 @@ flowchart
 
 External dependencies:
 
-* The app is using [react-oauth2-code-pkce](https://www.npmjs.com/package/react-oauth2-code-pkce) for Oauth2 authentication.
-* The app is using [react-router-dom](https://www.npmjs.com/package/react-router-dom) for routing.
+- The app is using [react-oauth2-code-pkce](https://www.npmjs.com/package/react-oauth2-code-pkce) for Oauth2 authentication.
+- The app is using [react-router-dom](https://www.npmjs.com/package/react-router-dom) for routing.
 
 ## Configuration
 
