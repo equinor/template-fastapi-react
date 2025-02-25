@@ -18,19 +18,24 @@ env:
 jobs:
   api-unit-tests:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./api
     steps:
-      - uses: actions/checkout@v4
+      - name: "Setup: checkout repository"
+        uses: actions/checkout@v4
 
-      - name: Login to image registry
-        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login $IMAGE_REGISTRY -u $GITHUB_ACTOR --password-stdin
+      - name: "Setup: install poetry"
+        run: pipx install poetry
 
-      - name: Build API image
-        run: |
-          docker pull $API_IMAGE
-          docker build --target development --tag api-development ./api # TODO: --cache-from $API_IMAGE
+      - name: "Setup: add python"
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "poetry"
 
-      - name: Pytest Unit tests
-        run: docker compose -f docker-compose.yml -f docker-compose.ci.yml run --rm api pytest --unit
+      - name: "Run: pytest unit tests"
+        run: poetry run pytest --unit
 
   api-integration-tests:
     runs-on: ubuntu-latest
