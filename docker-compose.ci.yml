@@ -1,6 +1,7 @@
 services:
   api:
-    image: development
+    image: ghcr.io/equinor/template-fastapi-react/api:latest
+    # image: api-development
     build:
       target: development
     environment:

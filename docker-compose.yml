@@ -12,7 +12,9 @@ services:
 
   api:
     image: ghcr.io/equinor/template-fastapi-react/api
-    build: ./api
+    build:
+      target: prod
+      context: ./api
     restart: unless-stopped
     depends_on:
       - db
