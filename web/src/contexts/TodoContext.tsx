@@ -15,42 +15,42 @@ type Action =
   | { type: 'REMOVE_TODO'; payload: TodoItem }
   | { type: 'TOGGLE_TODO'; payload: TodoItem }
 type Dispatch = (action: Action) => void
-type State = { todos: TodoItem[] }
+type State = { todoItems: TodoItem[] }
 type TodoProviderProps = { children: React.ReactNode }
 
 const TodoContext = createContext<{ state: State; dispatch: Dispatch } | undefined>(undefined)
 
 function TodoProvider({ children }: TodoProviderProps) {
-  const [state, dispatch] = useReducer(todoReducer, { todos: [] })
+  const [state, dispatch] = useReducer(todoReducer, { todoItems: [] })
   const value = { state, dispatch }
 
   return <TodoContext.Provider value={value}>{children}</TodoContext.Provider>
 }
 
-function todoReducer(state: State, action: Action) {
+function todoReducer(state: State, action: Action): State {
   switch (action.type) {
     case 'ADD_TODO': {
       return {
         ...state,
-        todos: [...state.todos, action.payload],
+        todoItems: [...state.todoItems, action.payload],
       }
     }
     case 'INITIALIZE': {
       return {
         ...state,
-        todos: action.payload,
+        todoItems: action.payload,
       }
     }
     case 'REMOVE_TODO': {
       return {
         ...state,
-        todos: state.todos.filter((todo) => todo.id !== action.payload.id),
+        todoItems: state.todoItems.filter((todo) => todo.id !== action.payload.id),
       }
     }
     case 'TOGGLE_TODO': {
       return {
         ...state,
-        todos: state.todos.map((todo) =>
+        todoItems: state.todoItems.map((todo) =>
           todo !== action.payload ? todo : { ...todo, is_completed: !todo.is_completed }
         ),
       }

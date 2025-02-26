@@ -49,7 +49,7 @@ const TodoList = () => {
   return (
     <StyledTodoList>
       <AddItem />
-      {state.todos.map((todo: AddTodoResponse) => (
+      {state.todoItems.map((todo: AddTodoResponse) => (
         <TodoItem key={todo.id} todo={todo} />
       ))}
     </StyledTodoList>
