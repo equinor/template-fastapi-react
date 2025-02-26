@@ -1,7 +1,6 @@
 services:
   api:
-    image: ghcr.io/equinor/template-fastapi-react/api:latest
-    # image: api-development
+    image: ghcr.io/equinor/template-fastapi-react/api:dev
     build:
       target: development
     environment:
@@ -13,10 +12,13 @@ services:
       MONGODB_PORT: 27017
       SECRET_KEY: sg9aeUM5i1JO4gNN8fQadokJa3_gXQMLBjSGGYcfscs=
       AUTH_ENABLED: "False"
-    depends_on:
-      - db
     links:
       - db
+
+  nginx:
+    image: web:dev
+    build:
+      target: development
 
   db:
     environment:

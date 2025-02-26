@@ -11,8 +11,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  API_IMAGE_PATH: ${{ github.repository }}/api
-  WEB_IMAGE_PATH: ${{ github.repository }}/web
+  API_IMAGE_NAME: api
 
 jobs:
   api-unit-tests:
@@ -42,6 +41,9 @@ jobs:
       - name: "Setup: checkout repository"
         uses: actions/checkout@v4
 
+      - name: "Setup: Set image name"
+        run: echo "API_IMAGE=${{ env.REGISTRY }}/${{ github.repository }}/${{ env.API_IMAGE_NAME }}" >> "$GITHUB_ENV"
+
       - name: "Setup: Login to GitHub Container Registry"
         uses: docker/login-action@v3
         with:
@@ -51,56 +53,51 @@ jobs:
 
       # - name: "Setup: Docker Buildx"
       #   uses: docker/setup-buildx-action@v3
-      #
-      # - name: "Setup: Build API image"
-      #   uses: docker/build-push-action@v6
-      #   with:
-      #     context: ./api
-      #     target: development
-      #     load: true
-      #     tags: ${{ env.REGISTRY }}/${{ env.API_IMAGE_PATH }}:buildcache
-      #     cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.API_IMAGE_PATH }}:buildcache
 
-      # - name: Build API image
-      #   run: |
-      #     docker pull $API_IMAGE
-      #     docker build --target development --tag api-development ./api # TODO: --cache-from $API_IMAGE
+      - name: "Setup: Build API image"
+        uses: docker/build-push-action@v6
+        with:
+          context: ./api
+          target: development
+          load: true
+          tags: ${{ env.API_IMAGE }}:dev
+          cache-from: type=registry,ref=${{ env.API_IMAGE }}:dev
+          # cache-to: type=registry,ref=${{ env.API_IMAGE }}:dev,mode=max
 
-      - name: Pytest Integration tests
+      - name: "Run: Integration tests (pytest)"
         run: docker compose -f docker-compose.yml -f docker-compose.ci.yml run --rm api python -m pytest --integration
 
-      - name: BDD Integration tests
+      - name: "Run: Integration tests (behave)"
         if: ${{ false }} # disable for now
         run: docker compose -f docker-compose.yml -f docker-compose.ci.yml run api behave
 
   web-tests:
     runs-on: ubuntu-latest
+    if: ${{ false }} # disable for now as they do not currently work
     steps:
-      - uses: actions/checkout@v4
+      - name: "Setup: checkout repository"
+        uses: actions/checkout@v4
 
-      - name: "Login to GitHub Container Registry"
-        uses: docker/login-action@v3
+      - name: "Setup: Build web image"
+        uses: docker/build-push-action@v6
         with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          context: ./web
+          target: development
+          load: true
+          tags: web:dev
 
-      - name: Build Web Image
-        run: |
-          docker pull ${REGISTRY}/${WEB_IMAGE_PATH}
-          docker build --cache-from ${REGISTRY}/${WEB_IMAGE_PATH} --target development --tag web-dev ./web
-
-      - name: Run Web tests
-        if: ${{ false }} # disable for now as they do not currently work
+      - name: "Run: Web tests"
         run: docker compose -f docker-compose.yml -f docker-compose.ci.yml run --rm web yarn test
 
   docs-tests:
     name: test-docs
     runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        working-directory: ./documentation
     steps:
       # If you know your docs does not rely on anything outside of the documentation folder, the commented out code below can be used to only test the docs build if the documentation folder changes.
-      - name: Checkout GitHub Action
+      - name: "Setup: checkout repository"
         uses: actions/checkout@v4
         # with:
         #   fetch-depth: 0
@@ -110,17 +107,21 @@ jobs:
       #   shell: bash
       #   run: echo "changes=$(git diff --name-only $(git merge-base HEAD origin/main) HEAD | grep documentation/ | wc -l)" >> $GITHUB_OUTPUT
 
-      - name: Setup node
+      - name: "Setup: node"
+        if: ${{ false }}
         # if: steps.docs-changes.outputs.changes > 0
+        id: setup-node
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: yarn
           cache-dependency-path: documentation/yarn.lock
 
-      - name: Install dependencies and build website
-        # if: steps.docs-changes.outputs.changes > 0
-        run: |
-          cd documentation
-          yarn install --frozen-lockfile
-          yarn build
+      - name: "Setup: Install dependencies"
+        id: install-deps
+        if: steps.setup-node.outcome == 'success'
+        run: yarn install --frozen-lockfile
+
+      - name: "Run: Build docs"
+        if: steps.install-deps.outcome == 'success'
+        run: yarn build
