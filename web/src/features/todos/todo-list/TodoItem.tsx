@@ -7,16 +7,16 @@ import { useTodoAPI } from '../../../hooks/useTodoAPI'
 import { StyledTodoItemTitle } from './TodoItem.styled'
 
 const TodoItem = ({ todo }: { todo: AddTodoResponse }) => {
-  const { toggleTodo, removeTodo } = useTodoAPI()
+  const { toggleTodoItem, removeTodoItem } = useTodoAPI()
   const { dispatch } = useTodos()
 
   async function toggle() {
-    await toggleTodo(todo)
+    await toggleTodoItem(todo)
     dispatch({ type: 'TOGGLE_TODO', payload: todo })
   }
 
   async function remove() {
-    await removeTodo(todo)
+    await removeTodoItem(todo)
     dispatch({ type: 'REMOVE_TODO', payload: todo })
   }
 

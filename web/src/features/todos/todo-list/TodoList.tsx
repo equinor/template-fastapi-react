@@ -7,14 +7,14 @@ import TodoItem from './TodoItem'
 import { StyledInput, StyledTodoList } from './TodoList.styled'
 
 const AddItem = () => {
-  const { addTodo } = useTodoAPI()
+  const { addTodoItem } = useTodoAPI()
   const { dispatch } = useTodos()
   const [value, setValue] = useState('')
 
   const add: FormEventHandler = (event) => {
     event.preventDefault()
     if (value) {
-      addTodo(value).then((todo) => dispatch({ type: 'ADD_TODO', payload: todo }))
+      addTodoItem(value).then((todo) => dispatch({ type: 'ADD_TODO', payload: todo }))
     }
     setValue('')
   }
@@ -39,12 +39,12 @@ const AddItem = () => {
 }
 
 const TodoList = () => {
-  const { getAllTodos } = useTodoAPI()
+  const { getAllTodoItems } = useTodoAPI()
   const { state, dispatch } = useTodos()
 
   useEffect(() => {
-    getAllTodos().then((todos) => dispatch({ type: 'INITIALIZE', payload: todos }))
-  }, [dispatch, getAllTodos])
+    getAllTodoItems().then((todos) => dispatch({ type: 'INITIALIZE', payload: todos }))
+  }, [dispatch, getAllTodoItems])
 
   return (
     <StyledTodoList>
