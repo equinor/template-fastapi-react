@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 import { type AddTodoResponse, ApiError, type ErrorResponse, TodosService } from '../api/generated'
 
 export function useTodoAPI() {
-  const addTodo = useCallback(async (title: string) => {
+  const addTodoItem = useCallback(async (title: string) => {
     return TodosService.create({ title }).catch((error) => {
       if (error instanceof ApiError) {
         console.error((error.body as ErrorResponse).message)
@@ -11,7 +11,7 @@ export function useTodoAPI() {
     })
   }, [])
 
-  const getAllTodos = useCallback(async () => {
+  const getAllTodoItems = useCallback(async () => {
     return TodosService.getAll().catch((error) => {
       if (error instanceof ApiError) {
         console.error((error.body as ErrorResponse).message)
@@ -20,7 +20,7 @@ export function useTodoAPI() {
     })
   }, [])
 
-  const toggleTodo = useCallback(async (todo: AddTodoResponse) => {
+  const toggleTodoItem = useCallback(async (todo: AddTodoResponse) => {
     return TodosService.updateById(todo.id, {
       is_completed: !todo.is_completed,
       title: todo.title,
@@ -32,7 +32,7 @@ export function useTodoAPI() {
     })
   }, [])
 
-  const removeTodo = useCallback(async (todo: AddTodoResponse) => {
+  const removeTodoItem = useCallback(async (todo: AddTodoResponse) => {
     return TodosService.deleteById(todo.id).catch((error) => {
       if (error instanceof ApiError) {
         console.error((error.body as ErrorResponse).message)
@@ -41,5 +41,5 @@ export function useTodoAPI() {
     })
   }, [])
 
-  return { addTodo, getAllTodos, toggleTodo, removeTodo }
+  return { addTodoItem, getAllTodoItems, toggleTodoItem, removeTodoItem }
 }
