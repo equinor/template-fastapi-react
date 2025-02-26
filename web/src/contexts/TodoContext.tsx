@@ -2,17 +2,20 @@ import type React from 'react'
 import { createContext, useContext, useReducer } from 'react'
 import type { AddTodoResponse } from '../api/generated'
 
+// Type alias to make it make more sense in the code
+type TodoItem = AddTodoResponse
+
 /**
  * Definitions of the types of actions an user can do,
  * that will trigger an update of state.
  */
 type Action =
-  | { type: 'ADD_TODO'; payload: AddTodoResponse }
-  | { type: 'INITIALIZE'; payload: AddTodoResponse[] }
-  | { type: 'REMOVE_TODO'; payload: AddTodoResponse }
-  | { type: 'TOGGLE_TODO'; payload: AddTodoResponse }
+  | { type: 'ADD_TODO'; payload: TodoItem }
+  | { type: 'INITIALIZE'; payload: TodoItem[] }
+  | { type: 'REMOVE_TODO'; payload: TodoItem }
+  | { type: 'TOGGLE_TODO'; payload: TodoItem }
 type Dispatch = (action: Action) => void
-type State = { todos: AddTodoResponse[] }
+type State = { todos: TodoItem[] }
 type TodoProviderProps = { children: React.ReactNode }
 
 const TodoContext = createContext<{ state: State; dispatch: Dispatch } | undefined>(undefined)
