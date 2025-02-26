@@ -10,12 +10,12 @@ const TodoItem = ({ todo }: { todo: AddTodoResponse }) => {
   const { toggleTodo, removeTodo } = useTodoAPI()
   const { dispatch } = useTodos()
 
-  async function toggle(todo: AddTodoResponse) {
+  async function toggle() {
     await toggleTodo(todo)
     dispatch({ type: 'TOGGLE_TODO', payload: todo })
   }
 
-  async function remove(todo: AddTodoResponse) {
+  async function remove() {
     await removeTodo(todo)
     dispatch({ type: 'REMOVE_TODO', payload: todo })
   }
@@ -32,9 +32,9 @@ const TodoItem = ({ todo }: { todo: AddTodoResponse }) => {
         <IconButton
           title={`Mark as ${todo.is_completed ? 'todo' : 'done'}`}
           icon={todo.is_completed ? undo : done}
-          onClick={() => toggle(todo)}
+          onClick={toggle}
         />
-        <IconButton title={'Remove'} icon={remove_outlined} onClick={() => remove(todo)} />
+        <IconButton title={'Remove'} icon={remove_outlined} onClick={remove} />
       </Card.Header>
     </Card>
   )
