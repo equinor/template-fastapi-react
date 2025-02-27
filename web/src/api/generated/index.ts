@@ -19,5 +19,5 @@ export type { UpdateTodoResponse } from './models/UpdateTodoResponse';
 export type { User } from './models/User';
 
 export { HealthCheckService } from './services/HealthCheckService';
-export { TodosService } from './services/TodosService';
+export { TodoService } from './services/TodoService';
 export { WhoamiService } from './services/WhoamiService';

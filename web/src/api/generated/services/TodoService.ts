@@ -12,7 +12,7 @@ import type { UpdateTodoResponse } from '../models/UpdateTodoResponse';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
-export class TodosService {
+export class TodoService {
     /**
      * Get Todo All
      * @returns GetTodoAllResponse Successful Response
@@ -27,7 +27,7 @@ export class TodosService {
                 401: `Unauthorized`,
                 403: `Forbidden`,
                 404: `Not Found`,
-                422: `Unprocessable Entity`,
+                422: `Unprocessable Content`,
                 500: `Internal Server Error`,
             },
         });
@@ -51,7 +51,7 @@ export class TodosService {
                 401: `Unauthorized`,
                 403: `Forbidden`,
                 404: `Not Found`,
-                422: `Unprocessable Entity`,
+                422: `Unprocessable Content`,
                 500: `Internal Server Error`,
             },
         });
@@ -76,7 +76,7 @@ export class TodosService {
                 401: `Unauthorized`,
                 403: `Forbidden`,
                 404: `Not Found`,
-                422: `Unprocessable Entity`,
+                422: `Unprocessable Content`,
                 500: `Internal Server Error`,
             },
         });
@@ -101,7 +101,7 @@ export class TodosService {
                 401: `Unauthorized`,
                 403: `Forbidden`,
                 404: `Not Found`,
-                422: `Unprocessable Entity`,
+                422: `Unprocessable Content`,
                 500: `Internal Server Error`,
             },
         });
@@ -130,7 +130,7 @@ export class TodosService {
                 401: `Unauthorized`,
                 403: `Forbidden`,
                 404: `Not Found`,
-                422: `Unprocessable Entity`,
+                422: `Unprocessable Content`,
                 500: `Internal Server Error`,
             },
         });

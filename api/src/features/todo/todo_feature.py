@@ -25,7 +25,7 @@ from features.todo.use_cases.update_todo import (
     update_todo_use_case,
 )
 
-router = APIRouter(tags=["todos"], prefix="/todos", route_class=ExceptionHandlingRoute)
+router = APIRouter(tags=["todo"], prefix="/todos", route_class=ExceptionHandlingRoute)
 
 
 @router.post("", operation_id="create")

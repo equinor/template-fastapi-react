@@ -5,6 +5,6 @@
 export type GetTodoByIdResponse = {
     id: string;
     title: string;
-    is_completed: boolean;
+    is_completed?: boolean;
 };
 
