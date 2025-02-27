@@ -1,15 +1,19 @@
 import { useCallback } from 'react'
 import { type AddTodoResponse, ApiError, type ErrorResponse, TodoService } from '../api/generated'
 
+function handleError(error: unknown): void {
+  if (error instanceof ApiError) {
+    console.error((error.body as ErrorResponse).message)
+  }
+  throw error
+}
+
 export function useTodoAPI() {
   const addTodoItem = useCallback(async (title: string) => {
     try {
       return await TodoService.create({ title })
     } catch (error) {
-      if (error instanceof ApiError) {
-        console.error((error.body as ErrorResponse).message)
-      }
-      throw error
+      handleError(error)
     }
   }, [])
 
@@ -17,10 +21,7 @@ export function useTodoAPI() {
     try {
       return await TodoService.getAll()
     } catch (error) {
-      if (error instanceof ApiError) {
-        console.error((error.body as ErrorResponse).message)
-      }
-      throw error
+      handleError(error)
     }
   }, [])
 
@@ -31,10 +32,7 @@ export function useTodoAPI() {
         title: todo.title,
       })
     } catch (error) {
-      if (error instanceof ApiError) {
-        console.error((error.body as ErrorResponse).message)
-      }
-      throw error
+      handleError(error)
     }
   }, [])
 
@@ -42,10 +40,7 @@ export function useTodoAPI() {
     try {
       return await TodoService.deleteById(todo.id)
     } catch (error) {
-      if (error instanceof ApiError) {
-        console.error((error.body as ErrorResponse).message)
-      }
-      throw error
+      handleError(error)
     }
   }, [])
 
