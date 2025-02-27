@@ -1,5 +1,6 @@
 import { useCallback } from 'react'
 import { type AddTodoResponse, ApiError, type ErrorResponse, TodoService } from '../api/generated'
+import { useTodos } from '../contexts/TodoContext'
 
 function handleError(error: unknown): void {
   if (error instanceof ApiError) {
@@ -9,9 +10,13 @@ function handleError(error: unknown): void {
 }
 
 export function useTodoAPI() {
+  const { dispatch } = useTodos()
+
   const addTodoItem = useCallback(async (title: string) => {
     try {
-      return await TodoService.create({ title })
+      const todoItem = await TodoService.create({ title })
+      dispatch({ type: 'ADD_TODO', payload: todoItem })
+      return todoItem
     } catch (error) {
       handleError(error)
     }
@@ -19,26 +24,30 @@ export function useTodoAPI() {
 
   const getAllTodoItems = useCallback(async () => {
     try {
-      return await TodoService.getAll()
+      const todoItems = await TodoService.getAll()
+      dispatch({ type: 'INITIALIZE', payload: todoItems })
+      return todoItems
     } catch (error) {
       handleError(error)
     }
   }, [])
 
-  const toggleTodoItem = useCallback(async (todo: AddTodoResponse) => {
+  const toggleTodoItem = useCallback(async (todoItem: AddTodoResponse) => {
     try {
-      return await TodoService.updateById(todo.id, {
-        is_completed: !todo.is_completed,
-        title: todo.title,
+      await TodoService.updateById(todoItem.id, {
+        is_completed: !todoItem.is_completed,
+        title: todoItem.title,
       })
+      dispatch({ type: 'TOGGLE_TODO', payload: todoItem })
     } catch (error) {
       handleError(error)
     }
   }, [])
 
-  const removeTodoItem = useCallback(async (todo: AddTodoResponse) => {
+  const removeTodoItem = useCallback(async (todoItem: AddTodoResponse) => {
     try {
-      return await TodoService.deleteById(todo.id)
+      await TodoService.deleteById(todoItem.id)
+      dispatch({ type: 'REMOVE_TODO', payload: todoItem })
     } catch (error) {
       handleError(error)
     }

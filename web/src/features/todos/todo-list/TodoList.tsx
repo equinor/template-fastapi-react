@@ -8,13 +8,12 @@ import { StyledInput, StyledTodoList } from './TodoList.styled'
 
 const AddItem = () => {
   const { addTodoItem } = useTodoAPI()
-  const { dispatch } = useTodos()
   const [value, setValue] = useState('')
 
   const add: FormEventHandler = (event) => {
     event.preventDefault()
     if (value) {
-      addTodoItem(value).then((todo) => dispatch({ type: 'ADD_TODO', payload: todo }))
+      addTodoItem(value)
     }
     setValue('')
   }
@@ -43,7 +42,7 @@ const TodoList = () => {
   const { state, dispatch } = useTodos()
 
   useEffect(() => {
-    getAllTodoItems().then((todos) => dispatch({ type: 'INITIALIZE', payload: todos }))
+    getAllTodoItems()
   }, [dispatch, getAllTodoItems])
 
   return (

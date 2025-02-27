@@ -2,22 +2,18 @@ import { Card, Typography } from '@equinor/eds-core-react'
 import { done, remove_outlined, undo } from '@equinor/eds-icons'
 import type { AddTodoResponse } from '../../../api/generated'
 import IconButton from '../../../common/components/IconButton'
-import { useTodos } from '../../../contexts/TodoContext'
 import { useTodoAPI } from '../../../hooks/useTodoAPI'
 import { StyledTodoItemTitle } from './TodoItem.styled'
 
 const TodoItem = ({ todo }: { todo: AddTodoResponse }) => {
   const { toggleTodoItem, removeTodoItem } = useTodoAPI()
-  const { dispatch } = useTodos()
 
   async function toggle() {
     await toggleTodoItem(todo)
-    dispatch({ type: 'TOGGLE_TODO', payload: todo })
   }
 
   async function remove() {
     await removeTodoItem(todo)
-    dispatch({ type: 'REMOVE_TODO', payload: todo })
   }
 
   return (
