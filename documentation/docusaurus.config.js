@@ -1,8 +1,8 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
-
-const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const { themes } = require("prism-react-renderer")
+const lightCodeTheme = themes.github
+const darkCodeTheme = themes.dracula
 const simplePlantUML = require('@akebifiky/remark-simple-plantuml');
 
 async function createConfig() {
@@ -43,7 +43,7 @@ async function createConfig() {
             sidebarPath: require.resolve('./sidebars.js'),
             editUrl:
               'https://github.com/equinor/template-fastapi-react/tree/main/documentation/',
-              remarkPlugins: [mdxMermaid.default, simplePlantUML],
+            remarkPlugins: [mdxMermaid.default, simplePlantUML],
           },
           blog: false,
           theme: {
@@ -103,7 +103,7 @@ async function createConfig() {
                   label: 'Docs',
                   to: '/docs/about/introduction',
                 },
-                  {
+                {
                   label: 'Contribute',
                   to: '/docs/contribute/how-to-start-contributing',
                 },
