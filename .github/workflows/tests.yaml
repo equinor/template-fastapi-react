@@ -10,72 +10,94 @@ on:
         required: false
 
 env:
-  IMAGE_REGISTRY: ghcr.io
-  REGISTRY_USER: $GITHUB_ACTOR
-  API_IMAGE: ghcr.io/equinor/template-fastapi-react/api
-  WEB_IMAGE: ghcr.io/equinor/template-fastapi-react/web
+  REGISTRY: ghcr.io
+  API_IMAGE_NAME: api
 
 jobs:
   api-unit-tests:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./api
     steps:
-      - uses: actions/checkout@v4
+      - name: "Setup: checkout repository"
+        uses: actions/checkout@v4
 
-      - name: Login to image registry
-        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login $IMAGE_REGISTRY -u $GITHUB_ACTOR --password-stdin
+      - name: "Setup: install poetry"
+        run: pipx install poetry
 
-      - name: Build API image
-        run: |
-          docker pull $API_IMAGE
-          docker build --target development --tag api-development ./api # TODO: --cache-from $API_IMAGE
+      - name: "Setup: add python"
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "poetry"
 
-      - name: Pytest Unit tests
-        run: docker compose -f docker-compose.yml -f docker-compose.ci.yml run --rm api pytest --unit
+      - name: "Run: pytest unit tests"
+        run: poetry run pytest --unit
 
   api-integration-tests:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: "Setup: checkout repository"
+        uses: actions/checkout@v4
 
-      - name: Login to image registry
-        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login $IMAGE_REGISTRY -u $GITHUB_ACTOR --password-stdin
+      - name: "Setup: Set image name"
+        run: echo "API_IMAGE=${{ env.REGISTRY }}/${{ github.repository }}/${{ env.API_IMAGE_NAME }}" >> "$GITHUB_ENV"
 
-      - name: Build API image
-        run: |
-          docker pull $API_IMAGE
-          docker build --target development --tag api-development ./api # TODO: --cache-from $API_IMAGE
+      - name: "Setup: Login to GitHub Container Registry"
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: BDD Integration tests
+      # - name: "Setup: Docker Buildx"
+      #   uses: docker/setup-buildx-action@v3
+
+      - name: "Setup: Build API image"
+        uses: docker/build-push-action@v6
+        with:
+          context: ./api
+          target: development
+          load: true
+          tags: ${{ env.API_IMAGE }}:dev
+          cache-from: type=registry,ref=${{ env.API_IMAGE }}:dev
+          # cache-to: type=registry,ref=${{ env.API_IMAGE }}:dev,mode=max
+
+      - name: "Run: Integration tests (pytest)"
+        run: docker compose -f docker-compose.yml -f docker-compose.ci.yml run --rm api python -m pytest --integration
+
+      - name: "Run: Integration tests (behave)"
         if: ${{ false }} # disable for now
         run: docker compose -f docker-compose.yml -f docker-compose.ci.yml run api behave
 
-      - name: Pytest Integration tests
-        run: docker compose -f docker-compose.yml -f docker-compose.ci.yml run --rm api pytest --integration
-
   web-tests:
     runs-on: ubuntu-latest
+    if: ${{ false }} # disable for now as they do not currently work
     steps:
-      - uses: actions/checkout@v4
+      - name: "Setup: checkout repository"
+        uses: actions/checkout@v4
 
-      - name: Login to image registry
-        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login $IMAGE_REGISTRY -u $GITHUB_ACTOR --password-stdin
+      - name: "Setup: Build web image"
+        uses: docker/build-push-action@v6
+        with:
+          context: ./web
+          target: development
+          load: true
+          tags: web:dev
 
-      - name: Build Web Image
-        run: |
-          docker pull $WEB_IMAGE
-          docker build --cache-from $WEB_IMAGE --target development --tag web-dev ./web
-
-      - name: Run Web tests
-        if: ${{ false }} # disable for now as they do not currently work
+      - name: "Run: Web tests"
         run: docker compose -f docker-compose.yml -f docker-compose.ci.yml run --rm web yarn test
 
   docs-tests:
     name: test-docs
     runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        working-directory: ./documentation
     steps:
       # If you know your docs does not rely on anything outside of the documentation folder, the commented out code below can be used to only test the docs build if the documentation folder changes.
-      - name: Checkout GitHub Action
+      - name: "Setup: checkout repository"
         uses: actions/checkout@v4
         # with:
         #   fetch-depth: 0
@@ -85,17 +107,21 @@ jobs:
       #   shell: bash
       #   run: echo "changes=$(git diff --name-only $(git merge-base HEAD origin/main) HEAD | grep documentation/ | wc -l)" >> $GITHUB_OUTPUT
 
-      - name: Setup node
+      - name: "Setup: node"
+        if: ${{ false }}
         # if: steps.docs-changes.outputs.changes > 0
+        id: setup-node
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: yarn
           cache-dependency-path: documentation/yarn.lock
 
-      - name: Install dependencies and build website
-        # if: steps.docs-changes.outputs.changes > 0
-        run: |
-          cd documentation
-          yarn install --frozen-lockfile
-          yarn build
+      - name: "Setup: Install dependencies"
+        id: install-deps
+        if: steps.setup-node.outcome == 'success'
+        run: yarn install --frozen-lockfile
+
+      - name: "Run: Build docs"
+        if: steps.install-deps.outcome == 'success'
+        run: yarn build

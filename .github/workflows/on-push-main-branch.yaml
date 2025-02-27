@@ -20,6 +20,7 @@ jobs:
     needs: tests
     name: "Generate changelog"
     uses: ./.github/workflows/generate-changelog.yaml
+
   docs:
     needs: generate-changelog
     name: "Build and publish docs"

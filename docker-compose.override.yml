@@ -1,9 +1,9 @@
 services:
-
   api:
+    image: template-api-dev
     build:
       target: development
-    image: template-api-dev
+    platform: linux/amd64
     volumes:
       - ./api/src/:/code/src
     env_file:
