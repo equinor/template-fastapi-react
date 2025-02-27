@@ -5,9 +5,9 @@
 import type { AccessLevel } from './AccessLevel';
 export type User = {
     user_id: string;
-    email: (string | null);
-    full_name: (string | null);
-    roles: Array<string>;
-    scope: AccessLevel;
+    email?: (string | null);
+    full_name?: (string | null);
+    roles?: Array<string>;
+    scope?: AccessLevel;
 };
 
