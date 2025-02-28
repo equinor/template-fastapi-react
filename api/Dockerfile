@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 python:3.13-slim AS base
+FROM python:3.13-slim AS base
 WORKDIR /code
 CMD ["/code/src/init.sh", "api"]
 EXPOSE 5000
@@ -7,8 +7,8 @@ ENV PYTHONUNBUFFERED=1
 ENV PYTHONPATH=/code
 
 RUN pip install --upgrade pip && \
-    pip install poetry && \
-    poetry config virtualenvs.create false
+  pip install poetry && \
+  poetry config virtualenvs.create false
 
 COPY pyproject.toml pyproject.toml
 COPY poetry.lock poetry.lock
