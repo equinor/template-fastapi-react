@@ -9,17 +9,17 @@ package-mode = false
 [tool.poetry.dependencies]
 cachetools = "^5.5.2"
 python = "^3.12"
-fastapi = { extras = ["standard"], version = "^0.115.8" }
+fastapi = { extras = ["standard"], version = "^0.115.12" }
 pyjwt = "^2.8.0"
-pymongo = "4.11.1"
+pymongo = "4.11.3"
 certifi = "^2025.1.31"
 httpx = "^0.28"
-pydantic = "^2.10"
+pydantic = "^2.11"
 pydantic-settings = "^2.8"
 pydantic-extra-types = "^2.10"
 azure-monitor-opentelemetry = "^1.6.5"
-opentelemetry-instrumentation-fastapi = "^0.51b0"
-cryptography = "^44.0.1"
+opentelemetry-instrumentation-fastapi = "^0.52b0"
+cryptography = "^44.0.2"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = ">=3"
