@@ -43,20 +43,16 @@ jobs:
       - name: "Setup: checkout repository"
         uses: actions/checkout@v4
 
-      - name: "Setup: install poetry"
-        run: pipx install poetry
-
-      - name: "Setup: add python"
-        uses: actions/setup-python@v5
+      - name: "Setup: install uv"
+        uses: astral-sh/setup-uv@v5
         with:
-          python-version: "3.12"
-          cache: "poetry"
+          enable-cache: true
 
       - name: "Setup: install dependencies"
-        run: poetry install
+        run: uv sync --locked --dev
 
       - name: "Run: mypy"
-        run: poetry run mypy src
+        run: uv run mypy src
 
   typescript-compile:
     runs-on: ubuntu-latest

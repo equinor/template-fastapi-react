@@ -14,7 +14,7 @@
     { "type": "build", "section": "Build System", "hidden": false },
     { "type": "ci", "section": "Continuous Integration", "hidden": false }
   ],
-  "extra-files": ["pyproject.toml", "src/app.py"],
+  "extra-files": ["src/app.py"],
   "packages": {
     ".": {
       "package-name": "template-fastapi-react",

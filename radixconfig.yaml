@@ -3,6 +3,9 @@ kind: RadixApplication
 metadata:
   name: template-fastapi-react
 spec:
+  build:
+    useBuildKit: true
+    useBuildCache: true
   environments:
     - name: prod
     - name: staging

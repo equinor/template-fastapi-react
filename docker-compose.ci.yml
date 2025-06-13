@@ -1,8 +1,8 @@
 services:
   api:
-    image: development
     build:
       target: development
+    image: development
     environment:
       ENVIRONMENT: local
       MONGODB_DATABASE: db

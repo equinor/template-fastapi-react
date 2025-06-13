@@ -1,5 +1,4 @@
 services:
-
   api:
     build:
       target: development
