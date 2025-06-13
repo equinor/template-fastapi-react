@@ -1,26 +1,35 @@
-FROM --platform=linux/amd64 python:3.13-slim AS base
-WORKDIR /code
-CMD ["/code/src/init.sh", "api"]
+# First, build the application in the `/app` directory
+FROM --platform=linux/amd64 ghcr.io/astral-sh/uv:bookworm-slim AS uv-base
+ENV UV_COMPILE_BYTECODE=1
+ENV UV_LINK_MODE=copy
+
+# Configure the Python directory so it is consistent
+ENV UV_PYTHON_INSTALL_DIR=/python
+
+# Only use the managed Python version
+ENV UV_PYTHON_PREFERENCE=only-managed
+
+RUN uv python install 3.13
+
+FROM uv-base AS base
+# Install Python before the project for caching
+
+WORKDIR /app
+RUN --mount=type=cache,target=/root/.cache/uv \
+    --mount=type=bind,source=uv.lock,target=uv.lock \
+    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
+    uv sync --locked --no-install-project --no-dev
+COPY . /app
+
+# Place executables in the environment at the front of the path
+ENV PATH="/app/.venv/bin:$PATH"
+WORKDIR /app/src
 EXPOSE 5000
+CMD ["/app/src/init.sh", "api"]
 
-ENV PYTHONUNBUFFERED=1
-ENV PYTHONPATH=/code
-
-RUN pip install --upgrade pip && \
-    pip install poetry && \
-    poetry config virtualenvs.create false
-
-COPY pyproject.toml pyproject.toml
-COPY poetry.lock poetry.lock
 
 FROM base AS development
-RUN poetry install
-WORKDIR /code/src
-COPY src .
-USER 1000
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv sync --locked --dev
 
 FROM base AS prod
-RUN poetry install --without dev
-WORKDIR /code/src
-COPY src .
-USER 1000

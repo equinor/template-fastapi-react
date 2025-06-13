@@ -74,53 +74,23 @@ If you have to skip the pre-commit tests, you're probably doing something you're
 
 ## API
 
-From inside the /api folder.
+From inside the `/api` folder.
 
-### Create virtualenv
 
-Virtual environment is used for running unit tests with pre-commit and upgrade packages. It also can be used to run the application if you not are using Docker.
+### Install `uv`
 
-```shell
-python3 -m venv .venv
-```
-
-### Activate virtualenv
-
-<Tabs groupId="operating-system">
-<TabItem value="linux" label="Linux">
-
-```bash
-source .venv/bin/activate
-```
-
-</TabItem>
-<TabItem value="windows" label="Windows">
-
-```powershell
-.\venv\Scripts\Activate.ps1
-pip install --upgrade pip
-```
-
-</TabItem>
-</Tabs>
-
-### Install Poetry
-
-Poetry is used to manage Python package dependencies.
+[`uv`](https://docs.astral.sh/uv/) is used to manage Python package dependencies.
 
 ```shell
-$ pip install poetry
-$ poetry config virtualenvs.create false  # Not create venv
+$ pip install uv
 ```
 
-
-
-The installation instructions can be found [here](https://python-poetry.org/docs/#installation).
+The installation instructions can be found [here](https://docs.astral.sh/uv/getting-started/installation/).
 
 ### Install packages
 
 ```shell
-$ poetry install
+$ uv sync --dev
 ```
 
 ## Web

@@ -12,11 +12,25 @@ you need to do `docker compose build` and then `docker compose up` to get the ch
 :::
 
 ### API dependencies
+First, change directory to the `/api` directory:
 
 ```shell
-cd api/
-# Add or remove package to pyproject.toml
-poetry update
+cd /api
+```
+
+To add a new dependency, use the following command. If you only want to add it to the `dev` dependency group, add the `--dev` option.
+```shell
+uv add <dependency> [--dev]
+```
+
+To remove a dependency, use the following command
+```shell
+uv remove <dependency>
+```
+
+To update your environment, run
+```shell
+uv sync --dev
 ```
 
 ### Web dependencies
