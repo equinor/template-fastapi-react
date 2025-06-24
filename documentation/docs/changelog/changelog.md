@@ -1,5 +1,105 @@
 # Changelog
 
+## [1.5.1](https://github.com/equinor/template-fastapi-react/compare/template-fastapi-react-v1.5.0...template-fastapi-react-v1.5.1) (2025-06-24)
+
+
+### Bug Fixes
+
+* add spacing between list items ([82c8970](https://github.com/equinor/template-fastapi-react/commit/82c8970bf1da6decabcbd8651df002316deccfb8))
+* allow auth disabled -&gt; default to default_user ([6649042](https://github.com/equinor/template-fastapi-react/commit/6649042e97f6870629cae559923a15435ff777aa))
+* avoid prop forwarding to dom using sc prefix ([71ad09e](https://github.com/equinor/template-fastapi-react/commit/71ad09e3ec3b3078bfc9cce99a2f8f87419852c5))
+* disable csp locally ([3703330](https://github.com/equinor/template-fastapi-react/commit/3703330ec71d34c3b5572f37bef34722b58a3b2c))
+* mypy error ([66303aa](https://github.com/equinor/template-fastapi-react/commit/66303aa35f571e8588c3342bdb25cb56566085a2))
+* Propagate SIGINT signal ([2297b66](https://github.com/equinor/template-fastapi-react/commit/2297b665c4a3ff19203ae6e183de6f2de3b2a755))
+* replace OpenSensus with OpenTelemetry and fix exception handling ([710e9f1](https://github.com/equinor/template-fastapi-react/commit/710e9f1a28f8fc356644bf2fbb2b3b0b9e62ddd6))
+* run tests from the src folder ([3478a06](https://github.com/equinor/template-fastapi-react/commit/3478a061ac813ef304d2630a40fe5979434d4807))
+* use vite-plugin-csp-guard to generate csp and subresource integrity checks ([df215da](https://github.com/equinor/template-fastapi-react/commit/df215da8f4ad26b685f6f321c41c9abe42c7a200))
+
+
+### Documentation
+
+* add RUNBOOK.md ([d665e29](https://github.com/equinor/template-fastapi-react/commit/d665e291a586f919b037baf68d7c2bf78faa12e6))
+
+
+### Miscellaneous Chores
+
+* 'docker-compose'-&gt;'docker compose' ([532f123](https://github.com/equinor/template-fastapi-react/commit/532f123247e10d35ce6c5dab3d15dd40dea59173))
+* add 'yarn generate' command ([ae135e2](https://github.com/equinor/template-fastapi-react/commit/ae135e2c600fd7d701c4773434841a8a4bae260f))
+* add mypy as dependency ([42c9ea8](https://github.com/equinor/template-fastapi-react/commit/42c9ea8942049881a39f42d31adcefa5c48c4949))
+* add new app-reg to `.env-template` ([0ab9351](https://github.com/equinor/template-fastapi-react/commit/0ab93513bc69160ff0106ec98f2413cabeea2982))
+* adjust readme ([e9c5d97](https://github.com/equinor/template-fastapi-react/commit/e9c5d979826df5e849b42af971e6c39cc499b45a))
+* biome match installed package version ([b145f05](https://github.com/equinor/template-fastapi-react/commit/b145f059c4693d21aedb1746639d6b5af1b2965a))
+* bump python 3.10 -&gt; 3.12 ([8b71285](https://github.com/equinor/template-fastapi-react/commit/8b71285c36027060b6fd5c194817a2a64073c7aa))
+* change to correct port in yarn generate ([8efab97](https://github.com/equinor/template-fastapi-react/commit/8efab973dd77f8bb14a18165c015794e41e54319))
+* enable mypy strict mode ([bf282a6](https://github.com/equinor/template-fastapi-react/commit/bf282a6474da1cdb64077b70b1a2ce6db3c1a46c))
+* ensure correct python version is used by pre commit ([d262023](https://github.com/equinor/template-fastapi-react/commit/d2620232c489cb593ae78d62bd478aa1f64ecf21))
+* generate api ([7fbdbcf](https://github.com/equinor/template-fastapi-react/commit/7fbdbcf27f57a912bfd6be62313df3668be0454d))
+* ignore ruff lint ([ba14b02](https://github.com/equinor/template-fastapi-react/commit/ba14b0269f929c5fac7c3bc986af235bf971c0cd))
+* invalid optional argument typing ([542a8b2](https://github.com/equinor/template-fastapi-react/commit/542a8b259257e6bc2e909935813c1f518128db5b))
+* make pre-commit output prettier ([499eba3](https://github.com/equinor/template-fastapi-react/commit/499eba318d3cdc3e6449e771f4d4fce257366eac))
+* merge .gitignore files ([a7ae71e](https://github.com/equinor/template-fastapi-react/commit/a7ae71e0ca644b31beff1fc26f22c6e00ccb28b3))
+* remove labeler ([318e259](https://github.com/equinor/template-fastapi-react/commit/318e2590f0b6beaa0207a930278111c3080a1a76))
+* remove unused interrogate config ([8619a8a](https://github.com/equinor/template-fastapi-react/commit/8619a8ad285f35a1c1e87edcc56a4c18cec8dfa3))
+* setup dependabot to run monthly ([6912a7a](https://github.com/equinor/template-fastapi-react/commit/6912a7a0308c20de60e13cbc5d00fad719a388ce))
+* spelling ([930c66c](https://github.com/equinor/template-fastapi-react/commit/930c66c5ff0afa1e7b1e3ef2465b020f475b7417))
+* temporarily disable strict mypy ([0227646](https://github.com/equinor/template-fastapi-react/commit/0227646757164adf1b609fecb299be888aadfb79))
+* update docs dependencies ([13f030c](https://github.com/equinor/template-fastapi-react/commit/13f030c9631356f1719cbb771baa3147fc1ce89b))
+* update pre commit hooks ([9124767](https://github.com/equinor/template-fastapi-react/commit/9124767c4d941d7010caa8b90ba71e0fe686342c))
+* update pre-commit ([866cdef](https://github.com/equinor/template-fastapi-react/commit/866cdeff38f332cc97abc335bb3ab9e8aacb88de))
+* update web packages ([2ed7b1d](https://github.com/equinor/template-fastapi-react/commit/2ed7b1d61aa13cdc7fee9e68fabb3cb718fd9dfb))
+* update yarn dependencies ([66f7545](https://github.com/equinor/template-fastapi-react/commit/66f754574401cdf73d8bab56e8584aead2774548))
+* use biome for 'yarn lint' command ([8e3abc9](https://github.com/equinor/template-fastapi-react/commit/8e3abc903867293420ad85ceecadde318750698f))
+* use correct login function ([0cc2925](https://github.com/equinor/template-fastapi-react/commit/0cc292561f3fbbbec9b2f9c5f07f79895be6a535))
+* use ghcr.io for all images in docker-compose.yml and update mongo image to 7.0.17 ([7f4268a](https://github.com/equinor/template-fastapi-react/commit/7f4268a658d57ad83c271f95a3a31c59c634dc69)), closes [#207](https://github.com/equinor/template-fastapi-react/issues/207)
+* use non-deprecated serialization method ([77697fa](https://github.com/equinor/template-fastapi-react/commit/77697faeb4448adffab2f58717d5839c9f8c7c4d))
+* **workflow:** update upload artifact action to v4 ([c8edeb0](https://github.com/equinor/template-fastapi-react/commit/c8edeb06d8bc407f855d5a960579699309b27d58))
+
+
+### Code Refactoring
+
+* 'dict' is deprecated in Pydantic 2 ([2ea5cad](https://github.com/equinor/template-fastapi-react/commit/2ea5cade1b58aa448739d0ab51322f76930df181))
+* add `handleError`-function to useTodoAPI ([ef0991a](https://github.com/equinor/template-fastapi-react/commit/ef0991aa29987fb3400f66f99fdd52f8e736d4b0))
+* add a TodoItem type alias based on AddTodoResponse in TodoContext ([990e170](https://github.com/equinor/template-fastapi-react/commit/990e170d6058a97c41e0700f7c2a1dded79b67f4))
+* lint web generate script ([99bb48f](https://github.com/equinor/template-fastapi-react/commit/99bb48fb400742a205a82d8c616d70088b439974))
+* make the router tagged with "todo" instead of "todos" to ensure "TodoService" name ([80c7bd7](https://github.com/equinor/template-fastapi-react/commit/80c7bd7751f8b470f07ac05531075038885aff27))
+* move dispatch calls into `useTodoAPI` calls ([dcafe44](https://github.com/equinor/template-fastapi-react/commit/dcafe4485a1a011abae2431f8038e52d498f07c8))
+* moved pydantic class ([fe9d4bf](https://github.com/equinor/template-fastapi-react/commit/fe9d4bf3adfe84a0ec7a8ea89bb264171a0bd5d0))
+* pytest collection and CLI options ([7d8fb3a](https://github.com/equinor/template-fastapi-react/commit/7d8fb3a8d1daa3d1bf7a7eea444d0a1aa60421af))
+* remove codespell ([24b19f4](https://github.com/equinor/template-fastapi-react/commit/24b19f4b47d7f3ac1f5a256e4ffcf10da6641db7))
+* remove deprecated example field ([3ab5a3b](https://github.com/equinor/template-fastapi-react/commit/3ab5a3bb4a0bc872c50d1c0cf948a661582900b8))
+* remove unnecessary statusOf-function ([5b8a97f](https://github.com/equinor/template-fastapi-react/commit/5b8a97f0670a4cec61afd60c6e0b8d3920b71b0d))
+* remove unneeded arguments from functions in scoped component ([a4d219e](https://github.com/equinor/template-fastapi-react/commit/a4d219e496966ca77015901e8d4160ccef5df6f3))
+* rename `todos`-&gt;`todoItems` in context ([d44e84a](https://github.com/equinor/template-fastapi-react/commit/d44e84a80cd37401ab3538853cfe81fe7cca907e))
+* replace "todos" with `todoItem` in useTodoAPI ([7635bae](https://github.com/equinor/template-fastapi-react/commit/7635bae15d73182f0651c177b73319cea62d42ea))
+* replace `promise.then` syntax with `await` ([e0a599f](https://github.com/equinor/template-fastapi-react/commit/e0a599f6cd7ac22c3bf3094ef09a86a220b5f726))
+* use LoggerLevel enum ([3ff2140](https://github.com/equinor/template-fastapi-react/commit/3ff2140633eab6fb1220b4518629be3ee860f2db))
+
+
+### Build System
+
+* **deps-dev:** bump vitest from 2.1.8 to 3.0.6 in /web ([eeb691f](https://github.com/equinor/template-fastapi-react/commit/eeb691fe9d694f840e5fc5b956f02cd1c889d7ab))
+* **deps:** bump certifi from 2023.11.17 to 2025.1.31 in /api ([4dd24b5](https://github.com/equinor/template-fastapi-react/commit/4dd24b53fdcfd7b80c3396e88a957d6655e22db1))
+* **deps:** bump nginx ([6ce5452](https://github.com/equinor/template-fastapi-react/commit/6ce5452e1fbbcf80e7ab89d7b172122c7eee7e3b))
+* **deps:** bump node from 22 to 23 in /web ([1611388](https://github.com/equinor/template-fastapi-react/commit/1611388b3e5c25dd9e19675dc458666197b5c392))
+* **deps:** bump the api group across 1 directory with 8 updates ([926c41b](https://github.com/equinor/template-fastapi-react/commit/926c41b988e517ccc1233b9bd728f5232bfd55db))
+* **deps:** bump the api group in /api with 6 updates ([14c6628](https://github.com/equinor/template-fastapi-react/commit/14c66286f29d987d0cf4de621843ec85d47d58a2))
+* **deps:** bump the dockerfile group across 2 directories with 2 updates ([d1fd731](https://github.com/equinor/template-fastapi-react/commit/d1fd731095ffe3e1ee34e9ae43d357db2e99c388))
+* **deps:** bump the web group across 1 directory with 8 updates ([4e5ccdc](https://github.com/equinor/template-fastapi-react/commit/4e5ccdc4e46e796a93c481a0d6e5eae14c36fd51))
+* **deps:** bump the web group in /web with 8 updates ([f8fc38d](https://github.com/equinor/template-fastapi-react/commit/f8fc38d3fbc85990422e5ca0b4de397d3fdc3279))
+
+
+### Continuous Integration
+
+* add bicep files for resource setup ([2c4db09](https://github.com/equinor/template-fastapi-react/commit/2c4db09264fcf8f2bad1302d901a5d36c88a83f4))
+* add dependabot ([3448e65](https://github.com/equinor/template-fastapi-react/commit/3448e65f0851e6000f05f0192b2795583735d670))
+* add github-action checks to dependabot ([4d0bedf](https://github.com/equinor/template-fastapi-react/commit/4d0bedf97a2b6b6f0a893793a6c8f1615bbffcbd))
+* add staging environment ([53135ca](https://github.com/equinor/template-fastapi-react/commit/53135ca37e88bb7d7a9540393366cccfed81b598))
+* change how codeql is run ([7534117](https://github.com/equinor/template-fastapi-react/commit/75341175e10d8accb510c92b2e22186828a2ea69))
+* move mypy and unit tests ([6e14794](https://github.com/equinor/template-fastapi-react/commit/6e14794a37ed26a89078a5881c26c887d4162062))
+* Replace poetry with uv ([5920fdd](https://github.com/equinor/template-fastapi-react/commit/5920fdd5a239092df659b31b404ed8819c876a32))
+* update action versions ([896e632](https://github.com/equinor/template-fastapi-react/commit/896e632bc774a1f3bca79beb35385574756d7d7a))
+* update tests action ([0caf81e](https://github.com/equinor/template-fastapi-react/commit/0caf81ed3deb44651d93619070887a5e606602ac))
+
 ## [1.5.0](https://github.com/equinor/template-fastapi-react/compare/template-fastapi-react-v1.4.0...template-fastapi-react-v1.5.0) (2024-07-22)
 
 
