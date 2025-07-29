@@ -1,7 +1,9 @@
 version: 2
 updates:
   - package-ecosystem: "npm"
-    directory: "/web"
+    directories:
+      - "/web"
+      - "/documentation"
     schedule:
       interval: "monthly" # when template is used, recommended interval is "weekly"
     groups:
