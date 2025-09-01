@@ -19,7 +19,7 @@ jobs:
   api-unit-tests:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Login to image registry
         run: echo ${{ secrets.GITHUB_TOKEN }} | docker login $IMAGE_REGISTRY -u $GITHUB_ACTOR --password-stdin
@@ -34,7 +34,7 @@ jobs:
   api-integration-tests:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Login to image registry
         run: echo ${{ secrets.GITHUB_TOKEN }} | docker login $IMAGE_REGISTRY -u $GITHUB_ACTOR --password-stdin
@@ -54,7 +54,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ false }} # disable for now as they do not currently work
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Login to image registry
         run: echo ${{ secrets.GITHUB_TOKEN }} | docker login $IMAGE_REGISTRY -u $GITHUB_ACTOR --password-stdin
@@ -75,7 +75,7 @@ jobs:
     steps:
       # If you know your docs does not rely on anything outside of the documentation folder, the commented out code below can be used to only test the docs build if the documentation folder changes.
       - name: Checkout GitHub Action
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         # with:
         #   fetch-depth: 0
 
