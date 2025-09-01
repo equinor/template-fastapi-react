@@ -29,7 +29,7 @@ jobs:
 
       # Checkout repository. By setting `fetch-depth: 0`, this fetch will include all history and tags
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}

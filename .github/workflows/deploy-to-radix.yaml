@@ -35,7 +35,7 @@ jobs:
   deploy-on-radix:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       # You'll need an app registration with a Federated Credential for this to
       # work. Note that the credential will need to specify a branch name. This

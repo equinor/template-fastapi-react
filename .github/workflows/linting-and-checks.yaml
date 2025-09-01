@@ -21,7 +21,7 @@ jobs:
     name: "pre-commit"
     steps:
       - name: "Setup: checkout repository"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: "Setup: add python"
         uses: actions/setup-python@v5
@@ -41,7 +41,7 @@ jobs:
         working-directory: ./api
     steps:
       - name: "Setup: checkout repository"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: "Setup: install uv"
         uses: astral-sh/setup-uv@v6
@@ -62,7 +62,7 @@ jobs:
         working-directory: ./web
     steps:
       - name: "Setup: check out repository"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           sparse-checkout: |
             .github
