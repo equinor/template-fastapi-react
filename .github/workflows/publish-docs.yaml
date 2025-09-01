@@ -37,7 +37,7 @@ jobs:
           cache-dependency-path: documentation/yarn.lock
 
       - name: Download CHANGELOG
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           name: CHANGELOG
 
