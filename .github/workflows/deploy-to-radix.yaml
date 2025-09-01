@@ -56,7 +56,7 @@ jobs:
           echo "APP_SERVICE_ACCOUNT_TOKEN=$token" >> $GITHUB_ENV
 
       - name: Deploy on Radix
-        uses: equinor/radix-github-actions@v1
+        uses: equinor/radix-github-actions@v2
         env:
           APP_SERVICE_ACCOUNT_TOKEN: ${{ env.APP_SERVICE_ACCOUNT_TOKEN }}
         with:
