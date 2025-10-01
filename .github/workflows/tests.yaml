@@ -86,7 +86,7 @@ jobs:
 
       - name: Setup node
         # if: steps.docs-changes.outputs.changes > 0
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: 20
           cache: yarn
