@@ -24,7 +24,7 @@ def get_JWK_client() -> jwt.PyJWKClient:
         oid_conf = oid_conf_response.json()
         return jwt.PyJWKClient(oid_conf["jwks_uri"])
     except Exception as error:
-        logger.error(f"Failed to fetch OpenId Connect configuration for '{config.OAUTH_WELL_KNOWN}': {error}")
+        logger.error(f"Failed to fetch OpenId Connect configuration: {error}")
         raise UnauthorizedException
 
 
