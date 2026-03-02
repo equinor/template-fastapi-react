@@ -104,7 +104,8 @@ That means there is no need to run npm/yarn install.
 However, if you want to add/remove/update packages, you need yarn installed locally.
 
 ```shell
-$ npm install -g yarn
+cd web
+corepack enable
 ```
 
 #### Yarn PnP in Jetbrains IDEs
