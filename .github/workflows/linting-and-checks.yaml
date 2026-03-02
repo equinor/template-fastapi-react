@@ -73,15 +73,21 @@ jobs:
             .github
             web
 
+      - name: Cache dependencies
+        uses: actions/cache@v5
+        with:
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          path: /home/runner/.yarn/berry/cache
+
       - name: "Setup: add node"
         uses: actions/setup-node@v6
         with:
-          node-version: 20
-          cache: yarn
-          cache-dependency-path: web/yarn.lock
+          node-version: 24
 
       - name: "Setup: yarn install"
-        run: yarn install
+        run: |
+          corepack enable
+          yarn install
 
       - name: "Run: compile"
         run: yarn compile
