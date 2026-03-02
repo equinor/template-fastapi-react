@@ -43,13 +43,18 @@ jobs:
       - name: "Setup: checkout repository"
         uses: actions/checkout@v5
 
+      - name: "Setup: add python"
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+
       - name: "Setup: install uv"
         uses: astral-sh/setup-uv@v7
         with:
           enable-cache: true
 
       - name: "Setup: install dependencies"
-        run: uv sync --locked --dev
+        run: uv sync --locked --dev --python "$(which python)"
 
       - name: "Run: mypy"
         run: uv run mypy src
