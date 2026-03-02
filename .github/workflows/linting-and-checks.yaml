@@ -91,3 +91,13 @@ jobs:
 
       - name: "Run: compile"
         run: yarn compile
+
+  validate-radix-config:
+    runs-on: ubuntu-latest
+    name: "validate Radix config"
+    steps:
+      - name: "Setup: checkout repository"
+        uses: actions/checkout@v5
+      - uses: equinor/radix-github-actions@v2
+      - name: "Run: validate radix config"
+        run: rx validate radix-config

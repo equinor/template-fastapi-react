@@ -80,7 +80,9 @@ spec:
     - name: db
       image: bitnami/mongodb:5.0.12
       alwaysPullImageOnDeploy: true
-      command: --auth --quiet
+      command:
+        - --auth
+        - --quiet
       variables:
         MONGODB_USERNAME: root
         MONGODB_DATABASE: test
