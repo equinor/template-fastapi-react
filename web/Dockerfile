@@ -46,8 +46,14 @@ ENV VITE_AUTH_ENDPOINT=https://login.microsoftonline.com/${VITE_AUTH_TENANT}/oau
 ENV VITE_LOGOUT_ENDPOINT=https://login.microsoftonline.com/${VITE_AUTH_TENANT}/oauth2/logout
 
 WORKDIR /code
-COPY ./ ./
-RUN yarn install
+COPY package.json yarn.lock ./
+RUN corepack enable && \
+    yarn install
+
+COPY index.html tsconfig.json vite.config.mts vitest.config.mts ./
+
+COPY public public
+COPY src src
 
 FROM base AS development
 CMD ["yarn", "start"]
