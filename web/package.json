@@ -22,7 +22,7 @@
   "dependencies": {
     "@equinor/eds-core-react": "^0.48.0",
     "@equinor/eds-icons": "^0.22.0",
-    "axios": "^1.11.0",
+    "axios": "^1.13.5",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-oauth2-code-pkce": "^1.23.1",
