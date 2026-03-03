@@ -89,7 +89,7 @@ spec:
       publicPort: nginx
 
     - name: db
-      image: bitnami/mongodb:5.0.12
+      image: mongo:7.0.30
       alwaysPullImageOnDeploy: true
       command:
         - --auth
