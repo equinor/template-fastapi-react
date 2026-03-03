@@ -1,3 +1,5 @@
+import json
+
 import click
 from fastapi import APIRouter, FastAPI, Security
 from starlette.middleware import Middleware
@@ -81,6 +83,15 @@ def run() -> None:
         reload=config.ENVIRONMENT == "local",
         log_level=config.log_level,
     )
+
+
+@cli.command("open-api")
+def open_api() -> None:
+    """Generate the OpenAPI specification without starting a server."""
+    app = create_app()
+    with open(".openapi.json", "w") as f:
+        json.dump(app.openapi(), f, indent=4)
+        f.write("\n")
 
 
 if __name__ == "__main__":

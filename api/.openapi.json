@@ -1,0 +1,1172 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "Template FastAPI React",
+        "description": "\n### Description\nA RESTful API for handling todo items.\n\nAnyone in Equinor are authorized to use the API.\n * Click **Authorize** to login and start testing.\n\n### Resources\n * [Docs](https://equinor.github.io/template-fastapi-react/)\n * [Github](https://github.com/equinor/template-fastapi-react)\n\n For questions about usage or expanding the API, create issue on Github or see docs.\n",
+        "license": {
+            "name": "MIT",
+            "url": "https://github.com/equinor/template-fastapi-react/blob/main/LICENSE.md"
+        },
+        "version": "1.4.0"
+    },
+    "paths": {
+        "/todos": {
+            "get": {
+                "tags": [
+                    "todo"
+                ],
+                "summary": "Get Todo All",
+                "operationId": "get_all",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/GetTodoAllResponse"
+                                    },
+                                    "type": "array",
+                                    "title": "Response Get All"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                },
+                                "example": {
+                                    "status": 400,
+                                    "type": "BadRequestException",
+                                    "message": "Invalid data for the operation",
+                                    "debug": "Unable to complete the requested operation with the given input values."
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                },
+                                "example": {
+                                    "status": 401,
+                                    "type": "UnauthorizedException",
+                                    "message": "Token validation failed",
+                                    "debug": "An unknown and unhandled exception occurred in the API"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                },
+                                "example": {
+                                    "status": 403,
+                                    "type": "MissingPrivilegeException",
+                                    "message": "You do not have the required permissions",
+                                    "debug": "Action denied because of insufficient permissions"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                },
+                                "example": {
+                                    "status": 404,
+                                    "type": "NotFoundException",
+                                    "message": "The requested resource could not be found",
+                                    "debug": "The requested resource could not be found"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Content",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                },
+                                "example": {
+                                    "status": 422,
+                                    "type": "ValidationException",
+                                    "message": "The received data is invalid",
+                                    "debug": "Values are invalid for requested operation."
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                },
+                                "example": {
+                                    "status": 500,
+                                    "type": "ApplicationException",
+                                    "message": "The requested operation failed",
+                                    "debug": "An unknown and unhandled exception occurred in the API"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "OAuth2AuthorizationCodeBearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "todo"
+                ],
+                "summary": "Add Todo",
+                "operationId": "create",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AddTodoRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AddTodoResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                },
+                                "example": {
+                                    "status": 400,
+                                    "type": "BadRequestException",
+                                    "message": "Invalid data for the operation",
+                                    "debug": "Unable to complete the requested operation with the given input values."
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                },
+                                "example": {
+                                    "status": 401,
+                                    "type": "UnauthorizedException",
+                                    "message": "Token validation failed",
+                                    "debug": "An unknown and unhandled exception occurred in the API"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                },
+                                "example": {
+                                    "status": 403,
+                                    "type": "MissingPrivilegeException",
+                                    "message": "You do not have the required permissions",
+                                    "debug": "Action denied because of insufficient permissions"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                },
+                                "example": {
+                                    "status": 404,
+                                    "type": "NotFoundException",
+                                    "message": "The requested resource could not be found",
+                                    "debug": "The requested resource could not be found"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Content",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                },
+                                "example": {
+                                    "status": 422,
+                                    "type": "ValidationException",
+                                    "message": "The received data is invalid",
+                                    "debug": "Values are invalid for requested operation."
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                },
+                                "example": {
+                                    "status": 500,
+                                    "type": "ApplicationException",
+                                    "message": "The requested operation failed",
+                                    "debug": "An unknown and unhandled exception occurred in the API"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "OAuth2AuthorizationCodeBearer": []
+                    }
+                ]
+            }
+        },
+        "/todos/{id}": {
+            "get": {
+                "tags": [
+                    "todo"
+                ],
+                "summary": "Get Todo By Id",
+                "operationId": "get_by_id",
+                "security": [
+                    {
+                        "OAuth2AuthorizationCodeBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetTodoByIdResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": 400,
+                                    "type": "BadRequestException",
+                                    "message": "Invalid data for the operation",
+                                    "debug": "Unable to complete the requested operation with the given input values."
+                                },
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": 401,
+                                    "type": "UnauthorizedException",
+                                    "message": "Token validation failed",
+                                    "debug": "An unknown and unhandled exception occurred in the API"
+                                },
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": 403,
+                                    "type": "MissingPrivilegeException",
+                                    "message": "You do not have the required permissions",
+                                    "debug": "Action denied because of insufficient permissions"
+                                },
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": 404,
+                                    "type": "NotFoundException",
+                                    "message": "The requested resource could not be found",
+                                    "debug": "The requested resource could not be found"
+                                },
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
+                    "422": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": 422,
+                                    "type": "ValidationException",
+                                    "message": "The received data is invalid",
+                                    "debug": "Values are invalid for requested operation."
+                                },
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Unprocessable Content"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": 500,
+                                    "type": "ApplicationException",
+                                    "message": "The requested operation failed",
+                                    "debug": "An unknown and unhandled exception occurred in the API"
+                                },
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Internal Server Error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "todo"
+                ],
+                "summary": "Delete Todo By Id",
+                "operationId": "delete_by_id",
+                "security": [
+                    {
+                        "OAuth2AuthorizationCodeBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DeleteTodoByIdResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": 400,
+                                    "type": "BadRequestException",
+                                    "message": "Invalid data for the operation",
+                                    "debug": "Unable to complete the requested operation with the given input values."
+                                },
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": 401,
+                                    "type": "UnauthorizedException",
+                                    "message": "Token validation failed",
+                                    "debug": "An unknown and unhandled exception occurred in the API"
+                                },
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": 403,
+                                    "type": "MissingPrivilegeException",
+                                    "message": "You do not have the required permissions",
+                                    "debug": "Action denied because of insufficient permissions"
+                                },
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": 404,
+                                    "type": "NotFoundException",
+                                    "message": "The requested resource could not be found",
+                                    "debug": "The requested resource could not be found"
+                                },
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
+                    "422": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": 422,
+                                    "type": "ValidationException",
+                                    "message": "The received data is invalid",
+                                    "debug": "Values are invalid for requested operation."
+                                },
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Unprocessable Content"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": 500,
+                                    "type": "ApplicationException",
+                                    "message": "The requested operation failed",
+                                    "debug": "An unknown and unhandled exception occurred in the API"
+                                },
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Internal Server Error"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "todo"
+                ],
+                "summary": "Update Todo",
+                "operationId": "update_by_id",
+                "security": [
+                    {
+                        "OAuth2AuthorizationCodeBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Id"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateTodoRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UpdateTodoResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": 400,
+                                    "type": "BadRequestException",
+                                    "message": "Invalid data for the operation",
+                                    "debug": "Unable to complete the requested operation with the given input values."
+                                },
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": 401,
+                                    "type": "UnauthorizedException",
+                                    "message": "Token validation failed",
+                                    "debug": "An unknown and unhandled exception occurred in the API"
+                                },
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": 403,
+                                    "type": "MissingPrivilegeException",
+                                    "message": "You do not have the required permissions",
+                                    "debug": "Action denied because of insufficient permissions"
+                                },
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": 404,
+                                    "type": "NotFoundException",
+                                    "message": "The requested resource could not be found",
+                                    "debug": "The requested resource could not be found"
+                                },
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
+                    "422": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": 422,
+                                    "type": "ValidationException",
+                                    "message": "The received data is invalid",
+                                    "debug": "Values are invalid for requested operation."
+                                },
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Unprocessable Content"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": 500,
+                                    "type": "ApplicationException",
+                                    "message": "The requested operation failed",
+                                    "debug": "An unknown and unhandled exception occurred in the API"
+                                },
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/whoami": {
+            "get": {
+                "tags": [
+                    "whoami"
+                ],
+                "summary": "Get Information On Authenticated User",
+                "operationId": "whoami",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                },
+                                "example": {
+                                    "status": 400,
+                                    "type": "BadRequestException",
+                                    "message": "Invalid data for the operation",
+                                    "debug": "Unable to complete the requested operation with the given input values."
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                },
+                                "example": {
+                                    "status": 401,
+                                    "type": "UnauthorizedException",
+                                    "message": "Token validation failed",
+                                    "debug": "An unknown and unhandled exception occurred in the API"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                },
+                                "example": {
+                                    "status": 403,
+                                    "type": "MissingPrivilegeException",
+                                    "message": "You do not have the required permissions",
+                                    "debug": "Action denied because of insufficient permissions"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                },
+                                "example": {
+                                    "status": 404,
+                                    "type": "NotFoundException",
+                                    "message": "The requested resource could not be found",
+                                    "debug": "The requested resource could not be found"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Content",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                },
+                                "example": {
+                                    "status": 422,
+                                    "type": "ValidationException",
+                                    "message": "The received data is invalid",
+                                    "debug": "Values are invalid for requested operation."
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                },
+                                "example": {
+                                    "status": 500,
+                                    "type": "ApplicationException",
+                                    "message": "The requested operation failed",
+                                    "debug": "An unknown and unhandled exception occurred in the API"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "OAuth2AuthorizationCodeBearer": []
+                    }
+                ]
+            }
+        },
+        "/health-check": {
+            "get": {
+                "tags": [
+                    "health_check"
+                ],
+                "summary": "Get",
+                "operationId": "get_health_check_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string",
+                                    "title": "Response 200 Get Health Check Get"
+                                }
+                            },
+                            "plain/text": {
+                                "example": "OK"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                },
+                                "example": {
+                                    "status": 400,
+                                    "type": "BadRequestException",
+                                    "message": "Invalid data for the operation",
+                                    "debug": "Unable to complete the requested operation with the given input values."
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                },
+                                "example": {
+                                    "status": 401,
+                                    "type": "UnauthorizedException",
+                                    "message": "Token validation failed",
+                                    "debug": "An unknown and unhandled exception occurred in the API"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                },
+                                "example": {
+                                    "status": 403,
+                                    "type": "MissingPrivilegeException",
+                                    "message": "You do not have the required permissions",
+                                    "debug": "Action denied because of insufficient permissions"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                },
+                                "example": {
+                                    "status": 404,
+                                    "type": "NotFoundException",
+                                    "message": "The requested resource could not be found",
+                                    "debug": "The requested resource could not be found"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Content",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                },
+                                "example": {
+                                    "status": 422,
+                                    "type": "ValidationException",
+                                    "message": "The received data is invalid",
+                                    "debug": "Values are invalid for requested operation."
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                },
+                                "example": {
+                                    "status": 500,
+                                    "type": "ApplicationException",
+                                    "message": "The requested operation failed",
+                                    "debug": "An unknown and unhandled exception occurred in the API"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "AccessLevel": {
+                "type": "integer",
+                "enum": [
+                    2,
+                    1,
+                    0
+                ],
+                "title": "AccessLevel",
+                "x-enum-varnames": [
+                    "WRITE",
+                    "READ",
+                    "NONE"
+                ]
+            },
+            "AddTodoRequest": {
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "maxLength": 300,
+                        "minLength": 1,
+                        "title": "The title of the item",
+                        "examples": [
+                            "Read about clean architecture"
+                        ]
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "title"
+                ],
+                "title": "AddTodoRequest"
+            },
+            "AddTodoResponse": {
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "title": "Id",
+                        "examples": [
+                            "vytxeTZskVKR7C7WgdSP3d"
+                        ]
+                    },
+                    "title": {
+                        "type": "string",
+                        "title": "Title",
+                        "examples": [
+                            "Read about clean architecture"
+                        ]
+                    },
+                    "is_completed": {
+                        "type": "boolean",
+                        "title": "Is Completed",
+                        "default": false
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id",
+                    "title"
+                ],
+                "title": "AddTodoResponse"
+            },
+            "DeleteTodoByIdResponse": {
+                "properties": {
+                    "success": {
+                        "type": "boolean",
+                        "title": "Success"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "success"
+                ],
+                "title": "DeleteTodoByIdResponse"
+            },
+            "ErrorResponse": {
+                "properties": {
+                    "status": {
+                        "type": "integer",
+                        "title": "Status",
+                        "default": 500
+                    },
+                    "type": {
+                        "type": "string",
+                        "title": "Type",
+                        "default": "ApplicationException"
+                    },
+                    "message": {
+                        "type": "string",
+                        "title": "Message",
+                        "default": "The requested operation failed"
+                    },
+                    "debug": {
+                        "type": "string",
+                        "title": "Debug",
+                        "default": "An unknown and unhandled exception occurred in the API"
+                    },
+                    "extra": {
+                        "anyOf": [
+                            {
+                                "additionalProperties": true,
+                                "type": "object"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Extra"
+                    }
+                },
+                "type": "object",
+                "title": "ErrorResponse"
+            },
+            "GetTodoAllResponse": {
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "title": "Id"
+                    },
+                    "title": {
+                        "type": "string",
+                        "title": "Title"
+                    },
+                    "is_completed": {
+                        "type": "boolean",
+                        "title": "Is Completed"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id",
+                    "title",
+                    "is_completed"
+                ],
+                "title": "GetTodoAllResponse"
+            },
+            "GetTodoByIdResponse": {
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "title": "Id"
+                    },
+                    "title": {
+                        "type": "string",
+                        "title": "Title"
+                    },
+                    "is_completed": {
+                        "type": "boolean",
+                        "title": "Is Completed",
+                        "default": false
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id",
+                    "title"
+                ],
+                "title": "GetTodoByIdResponse"
+            },
+            "UpdateTodoRequest": {
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "maxLength": 300,
+                        "minLength": 1,
+                        "title": "The title of the item",
+                        "default": ""
+                    },
+                    "is_completed": {
+                        "type": "boolean",
+                        "title": "Is Completed"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "is_completed"
+                ],
+                "title": "UpdateTodoRequest"
+            },
+            "UpdateTodoResponse": {
+                "properties": {
+                    "success": {
+                        "type": "boolean",
+                        "title": "Success"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "success"
+                ],
+                "title": "UpdateTodoResponse"
+            },
+            "User": {
+                "properties": {
+                    "user_id": {
+                        "type": "string",
+                        "title": "User Id"
+                    },
+                    "email": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Email"
+                    },
+                    "full_name": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Full Name"
+                    },
+                    "roles": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array",
+                        "title": "Roles",
+                        "default": []
+                    },
+                    "scope": {
+                        "$ref": "#/components/schemas/AccessLevel",
+                        "default": 2
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "user_id"
+                ],
+                "title": "User"
+            }
+        },
+        "securitySchemes": {
+            "OAuth2AuthorizationCodeBearer": {
+                "type": "oauth2",
+                "flows": {
+                    "authorizationCode": {
+                        "scopes": {},
+                        "authorizationUrl": "",
+                        "tokenUrl": ""
+                    }
+                }
+            }
+        }
+    }
+}
