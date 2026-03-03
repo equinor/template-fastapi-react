@@ -1,3 +1,6 @@
-.venv
-.pytest_cache
-.mypy_cache
+*
+!src/*.py
+!src/**/*.py
+!src/init.sh
+!pyproject.toml
+!uv.lock
