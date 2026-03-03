@@ -5,6 +5,9 @@ services:
     build:
       target: nginx-prod
       context: ./web
+    tmpfs:
+      - /var/cache/nginx:uid=65532,gid=65532
+      - /run/nginx:uid=65532,gid=65532
     ports:
       - "80:8080"
     links:
