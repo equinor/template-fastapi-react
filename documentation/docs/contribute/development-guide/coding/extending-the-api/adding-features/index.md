@@ -19,7 +19,7 @@ Import the router of the feature and include it to the app.
 ```mdx-code-block
 import CodeBlock from '@theme/CodeBlock';
 
-import UseCase from '!!raw-loader!@site/../api/src/app.py';
+import UseCase from '!!raw-loader!@site/../api/src/app/app.py';
 
 <CodeBlock language="jsx">{UseCase}</CodeBlock>
 ```
