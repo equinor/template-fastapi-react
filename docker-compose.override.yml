@@ -23,8 +23,6 @@ services:
       OAUTH_AUTH_SCOPE: $AUTH_SCOPE
       OAUTH_CLIENT_ID: $CLIENT_ID
       SECRET_KEY: $SECRET_KEY
-    ports:
-      - "5000:5000"
     depends_on:
       - db
     links:
