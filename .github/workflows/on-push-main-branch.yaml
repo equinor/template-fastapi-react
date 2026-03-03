@@ -46,6 +46,7 @@ jobs:
     needs: tests
     name: "Create or update release PR"
     uses: ./.github/workflows/create-release-pr.yaml
+    secrets: inherit
 
   publish-staging:
     needs: release-please
