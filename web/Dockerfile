@@ -1,37 +1,11 @@
-FROM nginx:1.29.5-alpine AS server
-
-RUN apk upgrade --update-cache
-
-# Run as non-root
-RUN deluser nginx
-RUN adduser --disabled-password --no-create-home --gecos "" --uid 1000  nginx
+# syntax=docker/dockerfile:1
+FROM dhi.io/nginx:1.29.5-debian13 AS server
+HEALTHCHECK CMD ["nginx", "-t"]
 
 # Copy configs
-COPY nginx/nginx.conf /etc/nginx/nginx.conf
-COPY nginx/config/ /etc/nginx/config
+COPY nginx/rootfs/ /
 
-# Remove default nginx config
-RUN rm /etc/nginx/conf.d/default.conf
-
-# Copy sites-available into sites-enabled
-COPY nginx/sites-available/default.conf /etc/nginx/sites-enabled/default.conf
-
-# Create log directory if not present, set permissions
-RUN mkdir -p /var/log/nginx && \
-    chown -R nginx:nginx /var/log/nginx
-
-# Create tmp directory if not present, set permissions
-RUN mkdir -p /tmp/nginx && \
-    chown -R nginx:nginx /tmp/nginx
-
-# Create pidfile, set permissions
-RUN touch /var/run/nginx.pid && \
-    chown -R nginx:nginx /var/run/nginx.pid
-
-# Run master process as non-root user
-USER 1000
-
-FROM node:24 AS base
+FROM dhi.io/node:24.13.1-debian13-dev AS base
 ARG AUTH_ENABLED=0
 # Azure AD requires a scope.
 ARG AUTH_SCOPE=""
@@ -45,15 +19,23 @@ ENV VITE_TOKEN_ENDPOINT=https://login.microsoftonline.com/${VITE_AUTH_TENANT}/oa
 ENV VITE_AUTH_ENDPOINT=https://login.microsoftonline.com/${VITE_AUTH_TENANT}/oauth2/v2.0/authorize
 ENV VITE_LOGOUT_ENDPOINT=https://login.microsoftonline.com/${VITE_AUTH_TENANT}/oauth2/logout
 
+RUN mkdir /code && \
+    chown -R "node:node" /code
+
+RUN corepack enable
+
 WORKDIR /code
-COPY .yarnrc.yml .pnp.cjs .pnp.loader.mjs package.json yarn.lock ./
-RUN corepack enable && \
+USER "node"
+
+COPY --chown="node:node" .yarnrc.yml .pnp.cjs .pnp.loader.mjs package.json yarn.lock ./
+ENV YARN_CACHE_FOLDER="/var/lib/yarn"
+RUN --mount=type=cache,target="$YARN_CACHE_FOLDER" \
     yarn install
 
-COPY index.html tsconfig.json vite.config.mts vitest.config.mts ./
+COPY --chown="node:node" index.html tsconfig.json vite.config.mts vitest.config.mts ./
 
-COPY public public
-COPY src src
+COPY --chown="node:node" public public
+COPY --chown="node:node" src src
 
 FROM base AS development
 CMD ["yarn", "start"]

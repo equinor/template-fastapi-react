@@ -65,6 +65,17 @@ spec:
     - name: proxy
       image: ghcr.io/equinor/template-fastapi-react/nginx:{imageTagName}
       alwaysPullImageOnDeploy: true
+      readOnlyFileSystem: true
+      runAsUser: 65532  # nginx
+      volumeMounts:
+        - name: nginx-cache
+          path: /var/cache/nginx
+          emptyDir:
+            sizeLimit: 10M
+        - name: nginx-pid
+          path: /run/nginx
+          emptyDir:
+            sizeLimit: 1M
       environmentConfig:
         - environment: prod
           imageTagName: latest

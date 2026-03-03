@@ -1,2 +1,21 @@
-node_modules
-src/build
+*
+
+# Single Page Application
+!public/
+!.pnp.cjs
+!.pnp.loader.mjs
+!package.json
+!yarn.lock
+!.yarnrc.yml
+!src/*.ts
+!src/**/*.ts
+!src/*.tsx
+!src/**/*.tsx
+
+!index.html
+!tsconfig.json
+!vite.config.mts
+!vitest.config.mts
+
+# NginX server
+!nginx/**/*.conf
