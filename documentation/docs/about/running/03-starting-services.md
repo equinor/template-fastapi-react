@@ -16,11 +16,11 @@ The OpenAPI spec can be found at [http://localhost/api/openapi.json](http://loca
 <details>
 <summary>Skip Docker (not recommended)</summary>
 
-Navigate to the /api folder, activate local venv, then start backend app.py with Uvicorn:
+Navigate to the /api folder, activate local venv, then start the backend with Uvicorn:
 
 ```shell
-cd api/src/  # go to the location of app.py
-uvicorn app:create_app --reload
+cd api/src/  # go to the src directory
+uvicorn app.app:create_app --reload
 ```
 
 Navigate to the /web folder, and then start web application:
