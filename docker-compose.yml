@@ -21,6 +21,6 @@ services:
       - db
 
   db:
-    image: mongo:7.0.17
+    image: mongo:7.0.30
     restart: unless-stopped
     command: mongod --auth --quiet
