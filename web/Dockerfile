@@ -46,7 +46,7 @@ ENV VITE_AUTH_ENDPOINT=https://login.microsoftonline.com/${VITE_AUTH_TENANT}/oau
 ENV VITE_LOGOUT_ENDPOINT=https://login.microsoftonline.com/${VITE_AUTH_TENANT}/oauth2/logout
 
 WORKDIR /code
-COPY package.json yarn.lock ./
+COPY .yarnrc.yml .pnp.cjs .pnp.loader.mjs package.json yarn.lock ./
 RUN corepack enable && \
     yarn install
 
