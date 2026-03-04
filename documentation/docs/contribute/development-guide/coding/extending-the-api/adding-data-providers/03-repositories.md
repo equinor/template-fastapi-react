@@ -6,7 +6,7 @@ storage details. It can work against local, remote, data services or third party
 ```mdx-code-block
 import CodeBlock from '@theme/CodeBlock';
 
-import TodoRepository from '!!raw-loader!@site/../api/src/features/todo/repository/todo_repository.py';
+import TodoRepository from '!!raw-loader!@site/../api/src/app/features/todo/repository/todo_repository.py';
 
 <CodeBlock language="jsx">{TodoRepository}</CodeBlock>
 ```

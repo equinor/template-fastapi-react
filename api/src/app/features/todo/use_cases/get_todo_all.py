@@ -1,9 +1,9 @@
 from pydantic import BaseModel
 
-from common.logger import logger
-from common.telemetry import tracer
-from features.todo.entities.todo_item import TodoItem
-from features.todo.repository.todo_repository_interface import TodoRepositoryInterface
+from app.common.logger import logger
+from app.common.telemetry import tracer
+from app.features.todo.entities.todo_item import TodoItem
+from app.features.todo.repository.todo_repository_interface import TodoRepositoryInterface
 
 
 class GetTodoAllResponse(BaseModel):

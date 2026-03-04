@@ -3,7 +3,7 @@ import time
 from starlette.datastructures import MutableHeaders
 from starlette.types import ASGIApp, Message, Receive, Scope, Send
 
-from common.logger import logger
+from app.common.logger import logger
 
 
 # These middlewares are written as "pure ASGI middleware", see: https://www.starlette.io/middleware/#pure-asgi-middleware

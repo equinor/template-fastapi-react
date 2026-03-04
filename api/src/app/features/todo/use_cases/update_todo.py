@@ -1,8 +1,8 @@
 from pydantic import BaseModel, Field
 
-from common.exceptions import MissingPrivilegeException
-from features.todo.entities.todo_item import TodoItem
-from features.todo.repository.todo_repository_interface import TodoRepositoryInterface
+from app.common.exceptions import MissingPrivilegeException
+from app.features.todo.entities.todo_item import TodoItem
+from app.features.todo.repository.todo_repository_interface import TodoRepositoryInterface
 
 
 class UpdateTodoRequest(BaseModel):

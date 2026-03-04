@@ -4,7 +4,7 @@ Setup API and Uvicorn logger.
 
 import logging
 
-from config import config
+from app.config import config
 
 uvicorn_logger = logging.getLogger("uvicorn")
 

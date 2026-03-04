@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends
 
-from authentication.authentication import auth_with_jwt
-from authentication.models import User
-from common.exception_handlers import ExceptionHandlingRoute
+from app.authentication.authentication import auth_with_jwt
+from app.authentication.models import User
+from app.common.exception_handlers import ExceptionHandlingRoute
 
 router = APIRouter(tags=["whoami"], prefix="/whoami", route_class=ExceptionHandlingRoute)
 

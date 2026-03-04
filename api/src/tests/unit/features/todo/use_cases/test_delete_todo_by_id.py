@@ -1,8 +1,8 @@
 import pytest as pytest
 
-from common.exceptions import NotFoundException
-from features.todo.repository.todo_repository_interface import TodoRepositoryInterface
-from features.todo.use_cases.delete_todo_by_id import (
+from app.common.exceptions import NotFoundException
+from app.features.todo.repository.todo_repository_interface import TodoRepositoryInterface
+from app.features.todo.use_cases.delete_todo_by_id import (
     DeleteTodoByIdResponse,
     delete_todo_use_case,
 )

@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
-from common.exceptions import MissingPrivilegeException, NotFoundException
-from features.todo.repository.todo_repository_interface import TodoRepositoryInterface
+from app.common.exceptions import MissingPrivilegeException, NotFoundException
+from app.features.todo.repository.todo_repository_interface import TodoRepositoryInterface
 
 
 class DeleteTodoByIdResponse(BaseModel):

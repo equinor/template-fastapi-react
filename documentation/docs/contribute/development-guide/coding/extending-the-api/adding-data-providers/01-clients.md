@@ -5,7 +5,7 @@ The template already ships with a mongo database client for connecting to MongoD
 ```mdx-code-block
 import CodeBlock from '@theme/CodeBlock';
 
-import MongoClient from '!!raw-loader!@site/../api/src/data_providers/clients/mongodb/mongo_database_client.py';
+import MongoClient from '!!raw-loader!@site/../api/src/app/data_providers/clients/mongodb/mongo_database_client.py';
 
 <CodeBlock language="jsx">{MongoClient}</CodeBlock>
 ```

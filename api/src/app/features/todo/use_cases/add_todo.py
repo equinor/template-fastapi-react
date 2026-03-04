@@ -2,8 +2,8 @@ import uuid
 
 from pydantic import BaseModel, Field
 
-from features.todo.entities.todo_item import TodoItem
-from features.todo.repository.todo_repository_interface import TodoRepositoryInterface
+from app.features.todo.entities.todo_item import TodoItem
+from app.features.todo.repository.todo_repository_interface import TodoRepositoryInterface
 
 
 class AddTodoRequest(BaseModel):

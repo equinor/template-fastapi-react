@@ -1,8 +1,8 @@
 from pydantic import Field
 from pydantic_settings import BaseSettings
 
-from authentication.models import User
-from common.logger_level import LoggerLevel
+from app.authentication.models import User
+from app.common.logger_level import LoggerLevel
 
 
 class Config(BaseSettings):

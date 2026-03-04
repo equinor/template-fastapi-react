@@ -7,7 +7,7 @@ The controller (adapter layer) is responsible for validating and transforming re
 ```mdx-code-block
 import CodeBlock from '@theme/CodeBlock';
 
-import Controller from '!!raw-loader!@site/../api/src/features/todo/todo_feature.py';
+import Controller from '!!raw-loader!@site/../api/src/app/features/todo/todo_feature.py';
 
 <CodeBlock language="jsx">{Controller}</CodeBlock>
 ```
