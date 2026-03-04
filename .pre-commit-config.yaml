@@ -3,11 +3,26 @@ default_install_hook_types: [pre-commit, commit-msg]
 repos:
   - repo: local
     hooks:
-      - id: generate-api-client
-        name: "Build: API TypeScript types"
-        entry: ./web/generate-api-typescript-client-pre-commit.sh
-        language: system
+      - id: generate-openapi-spec
+        name: Generate OpenAPI spec
+        entry: mise run generate-openapi-spec
+        language: python
+        files: |
+          (?x)(
+            ^api/src/app/(features|common|authentication|entities)/.*\.py$
+            |^api/src/app/app.py$
+            |^api/pyproject.toml$
+          )
         pass_filenames: false
+
+      - id: generate-api-client-from-spec
+        name: Generate the client for our api
+        entry: mise run generate-api-client-from-spec
+        language: node
+        files: ^api/.openapi.json$
+        pass_filenames: false
+        additional_dependencies:
+          - openapi-typescript-codegen@0.29.0
 
   - repo: https://github.com/compilerla/conventional-pre-commit
     rev: v3.4.0

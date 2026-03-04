@@ -38,7 +38,7 @@ To run the template todo-list application ([Running](#running)):
 
 For development ([Development](#development)):
 - [Docker](https://www.docker.com/)
-- [Python 3.12](https://www.python.org/downloads/) or newer
+- [`mise`](https://mise.jdx.dev/getting-started.html)
 
 ### Configuration
 
