@@ -2,5 +2,7 @@
 !src/*.py
 !src/**/*.py
 !src/init.sh
+!tests/*.py
+!tests/**/*.py
 !pyproject.toml
 !uv.lock

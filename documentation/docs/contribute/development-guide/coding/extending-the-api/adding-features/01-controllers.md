@@ -29,7 +29,7 @@ FastAPI is built around the [OpenAPI Specification](https://github.com/OAI/OpenA
 Use the `test_client` fixture to populate the database with test data and `test_app` fixture to perform REST API calls.
 
 ```mdx-code-block
-import Test from '!!raw-loader!@site/../api/src/tests/integration/features/todo/test_todo_feature.py';
+import Test from '!!raw-loader!@site/../api/tests/integration/features/todo/test_todo_feature.py';
 
 <CodeBlock language="jsx">{Test}</CodeBlock>
 ```
