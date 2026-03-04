@@ -17,7 +17,7 @@ Use the `test_client` fixture as input to TodoRepository. The `test_client` fixt
 real database.
 
 ```mdx-code-block
-import Test from '!!raw-loader!@site/../api/src/tests/unit/features/todo/repository/test_todo_repository.py';
+import Test from '!!raw-loader!@site/../api/tests/unit/features/todo/repository/test_todo_repository.py';
 
 <CodeBlock language="jsx">{Test}</CodeBlock>
 ```

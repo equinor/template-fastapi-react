@@ -62,7 +62,7 @@ repos:
         exclude: ^.*\.(lock)$
       - id: detect-private-key
         name: "Check: no private keys are commited"
-        exclude: api/src/tests/integration/mock_authentication.py
+        exclude: api/tests/integration/mock_authentication.py
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: "v0.9.7"
