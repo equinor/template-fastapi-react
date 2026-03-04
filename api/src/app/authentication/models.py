@@ -1,8 +1,8 @@
 from enum import IntEnum
-from typing import Any
+from typing import Any, Literal, TypedDict, cast
 
-from pydantic import BaseModel, GetJsonSchemaHandler
-from pydantic_core import core_schema
+from pydantic import BaseModel, Field, GetJsonSchemaHandler
+from pydantic_core.core_schema import CoreSchema
 
 
 class AccessLevel(IntEnum):
@@ -16,9 +16,7 @@ class AccessLevel(IntEnum):
         return False
 
     @classmethod
-    def __get_pydantic_json_schema__(
-        cls, core_schema: core_schema.CoreSchema, handler: GetJsonSchemaHandler
-    ) -> dict[str, Any]:
+    def __get_pydantic_json_schema__(cls, core_schema: CoreSchema, handler: GetJsonSchemaHandler, /) -> dict[str, Any]:
         """
         Add a custom field type to the class representing the Enum's field names
         Ref: https://pydantic-docs.helpmanual.io/usage/schema/#modifying-schema-in-custom-fields
@@ -30,6 +28,9 @@ class AccessLevel(IntEnum):
         json_schema = handler(core_schema)
         json_schema["x-enum-varnames"] = [choice.name for choice in cls]
         return json_schema
+
+
+AccessLevelNames = Literal["WRITE", "READ", "NONE"]
 
 
 class User(BaseModel):
@@ -44,6 +45,13 @@ class User(BaseModel):
         return hash(type(self.user_id))
 
 
+class ACLDict(TypedDict):
+    owner: str
+    roles: dict[str, AccessLevelNames]
+    users: dict[str, AccessLevelNames]
+    others: str
+
+
 class ACL(BaseModel):
     """
     acl:
@@ -56,14 +64,14 @@ class ACL(BaseModel):
     """
 
     owner: str
-    roles: dict[str, AccessLevel] = {}
-    users: dict[str, AccessLevel] = {}
+    roles: dict[str, AccessLevel] = Field(default_factory=dict)
+    users: dict[str, AccessLevel] = Field(default_factory=dict)
     others: AccessLevel = AccessLevel.READ
 
-    def dict(self, **kwargs: Any) -> dict[str, str | dict[str, AccessLevel | str]]:
+    def model_dump(self, **kwargs: dict[str, Any]) -> ACLDict:  # type: ignore[override]
         return {
             "owner": self.owner,
-            "roles": {k: v.name for k, v in self.roles.items()},
-            "users": {k: v.name for k, v in self.users.items()},
+            "roles": cast(dict[str, AccessLevelNames], {k: v.name for k, v in self.roles.items()}),
+            "users": cast(dict[str, AccessLevelNames], {k: v.name for k, v in self.users.items()}),
             "others": self.others.name,
         }

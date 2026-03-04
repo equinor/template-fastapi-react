@@ -2,7 +2,7 @@
 name = "api"
 version = "1.4.0"
 description = "API for Template Fastapi React"
-requires-python = ">=3.13"
+requires-python = ">=3.14"
 dependencies = [
   "azure-monitor-opentelemetry>=1.6.5",
   "cachetools>=5.5.2",
