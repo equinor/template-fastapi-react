@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 # First, build the application in the `/app` directory
-FROM python:3.13.12-slim-trixie AS base
+FROM python:3.14.3-slim-trixie AS base
 ENV XDG_CACHE_HOME=/var/lib
 ENV UV_PROJECT_ENVIRONMENT=/usr/local
 
@@ -39,6 +39,6 @@ RUN --mount=type=cache,target="$XDG_CACHE_HOME/uv" \
 COPY --from=source-code /app /app
 
 FROM base AS prod
-ENV SITE_PACKAGES=/usr/local/lib/python3.13/site-packages
+ENV SITE_PACKAGES=/usr/local/lib/python3.14/site-packages
 COPY --from=dependencies $SITE_PACKAGES $SITE_PACKAGES
 COPY --from=source-code /app /app
