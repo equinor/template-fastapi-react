@@ -23,10 +23,9 @@ jobs:
       - name: "Setup: checkout repository"
         uses: actions/checkout@v5
 
-      - name: "Setup: add python"
-        uses: actions/setup-python@v6
-        with:
-          python-version: "3.14"
+      - name: "Setup: Runtimes"
+        uses: jdx/mise-action@v3
+        timeout-minutes: 1
 
       - name: "Run: pre-commit"
         uses: pre-commit/action@v3.0.1
@@ -43,10 +42,9 @@ jobs:
       - name: "Setup: checkout repository"
         uses: actions/checkout@v5
 
-      - name: "Setup: add python"
-        uses: actions/setup-python@v6
-        with:
-          python-version: "3.14"
+      - name: "Setup: Runtimes"
+        uses: jdx/mise-action@v3
+        timeout-minutes: 1
 
       - name: "Setup: install uv"
         uses: astral-sh/setup-uv@v7
@@ -54,10 +52,10 @@ jobs:
           enable-cache: true
 
       - name: "Setup: install dependencies"
-        run: uv sync --locked --dev --python "$(which python)"
+        run: mise run dependencies:api
 
       - name: "Run: mypy"
-        run: uv run mypy src
+        run: mise run typecheck:api
 
   typescript-compile:
     runs-on: ubuntu-latest
@@ -79,18 +77,12 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           path: /home/runner/.yarn/berry/cache
 
-      - name: "Setup: add node"
-        uses: actions/setup-node@v6
-        with:
-          node-version: 24
-
-      - name: "Setup: yarn install"
-        run: |
-          corepack enable
-          yarn install
+      - name: "Setup: Runtimes"
+        uses: jdx/mise-action@v3
+        timeout-minutes: 1
 
       - name: "Run: compile"
-        run: yarn compile
+        run: mise run typecheck:web
 
   validate-radix-config:
     runs-on: ubuntu-latest

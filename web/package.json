@@ -7,7 +7,6 @@
     "build": "tsc && vite build",
     "serve": "vite preview",
     "compile": "tsc --noEmit",
-    "generate": "openapi -i ../api/.openapi.json -o './src/api/generated' -c axios",
     "test": "vitest",
     "lint": "biome check --write --no-errors-on-unmatched"
   },
