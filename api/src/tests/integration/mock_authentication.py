@@ -1,10 +1,10 @@
 import jwt
 from fastapi import Security
 
-from authentication.authentication import oauth2_scheme
-from authentication.models import User
-from common.exceptions import UnauthorizedException
-from config import config, default_user
+from app.authentication.authentication import oauth2_scheme
+from app.authentication.models import User
+from app.common.exceptions import UnauthorizedException
+from app.config import config, default_user
 
 
 def get_mock_rsa_private_key() -> str:

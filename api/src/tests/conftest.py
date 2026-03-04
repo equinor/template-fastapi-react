@@ -9,10 +9,10 @@ from starlette.requests import Request
 from starlette.testclient import TestClient
 
 from app import create_app
-from authentication.authentication import auth_with_jwt
-from config import config as project_config
-from data_providers.clients.mongodb.mongo_database_client import MongoDatabaseClient
-from features.todo.repository.todo_repository import TodoRepository, get_todo_repository
+from app.authentication.authentication import auth_with_jwt
+from app.config import config as project_config
+from app.data_providers.clients.mongodb.mongo_database_client import MongoDatabaseClient
+from app.features.todo.repository.todo_repository import TodoRepository, get_todo_repository
 from tests.integration.mock_authentication import mock_auth_with_jwt
 
 

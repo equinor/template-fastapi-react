@@ -1,6 +1,6 @@
 from typing import Any
 
-from common.exceptions import (
+from app.common.exceptions import (
     ApplicationException,
     BadRequestException,
     ErrorResponse,

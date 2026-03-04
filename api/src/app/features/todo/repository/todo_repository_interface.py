@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 
-from features.todo.entities.todo_item import TodoItem
+from app.features.todo.entities.todo_item import TodoItem
 
 
 class TodoRepositoryInterface(metaclass=ABCMeta):

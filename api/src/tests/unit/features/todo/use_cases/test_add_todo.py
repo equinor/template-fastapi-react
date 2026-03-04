@@ -1,8 +1,8 @@
 import pytest
 from pydantic import ValidationError
 
-from features.todo.repository.todo_repository_interface import TodoRepositoryInterface
-from features.todo.use_cases.add_todo import AddTodoRequest, add_todo_use_case
+from app.features.todo.repository.todo_repository_interface import TodoRepositoryInterface
+from app.features.todo.use_cases.add_todo import AddTodoRequest, add_todo_use_case
 
 
 def test_add_with_valid_title_should_return_todo(todo_repository: TodoRepositoryInterface):

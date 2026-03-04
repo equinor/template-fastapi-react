@@ -7,7 +7,7 @@ If the use case wants to access a database (infrastructure layer), then the use 
 ```mdx-code-block
 import CodeBlock from '@theme/CodeBlock';
 
-import UseCase from '!!raw-loader!@site/../api/src/features/todo/use_cases/add_todo.py';
+import UseCase from '!!raw-loader!@site/../api/src/app/features/todo/use_cases/add_todo.py';
 
 <CodeBlock language="jsx">{UseCase}</CodeBlock>
 ```

@@ -6,9 +6,9 @@ from pymongo.errors import DuplicateKeyError
 from pymongo.mongo_client import MongoClient
 from pymongo.results import DeleteResult, InsertManyResult
 
-from common.exceptions import NotFoundException, ValidationException
-from config import config
-from data_providers.clients.client_interface import ClientInterface
+from app.common.exceptions import NotFoundException, ValidationException
+from app.config import config
+from app.data_providers.clients.client_interface import ClientInterface
 
 MONGO_CLIENT: MongoClient[dict[str, Any]] = MongoClient(
     host=config.MONGODB_HOSTNAME,

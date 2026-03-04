@@ -1,11 +1,11 @@
 from typing import Any
 
-from common.exceptions import NotFoundException
-from config import config
-from data_providers.clients.client_interface import ClientInterface
-from data_providers.clients.mongodb.mongo_database_client import MongoDatabaseClient
-from features.todo.entities.todo_item import TodoItem
-from features.todo.repository.todo_repository_interface import TodoRepositoryInterface
+from app.common.exceptions import NotFoundException
+from app.config import config
+from app.data_providers.clients.client_interface import ClientInterface
+from app.data_providers.clients.mongodb.mongo_database_client import MongoDatabaseClient
+from app.features.todo.entities.todo_item import TodoItem
+from app.features.todo.repository.todo_repository_interface import TodoRepositoryInterface
 
 
 def to_dict(todo_item: TodoItem) -> dict[str, Any]:

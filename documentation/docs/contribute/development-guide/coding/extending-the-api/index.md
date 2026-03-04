@@ -63,11 +63,11 @@ Entities and data providers can be shared between features (the entrypoints and 
 
 ## Configuration
 
-All configuration parameters are expected to be environment variables, and are defined in this file `api/src/config.py`.
+All configuration parameters are expected to be environment variables, and are defined in this file `api/src/app/config.py`.
 
 ```mdx-code-block
 import CodeBlock from '@theme/CodeBlock';
-import auth from '!!raw-loader!@site/../api/src/config.py';
+import auth from '!!raw-loader!@site/../api/src/app/config.py';
 
 <CodeBlock language="jsx">{auth}</CodeBlock>
 ```

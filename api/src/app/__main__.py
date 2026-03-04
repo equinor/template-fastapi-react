@@ -2,7 +2,7 @@ import json
 
 import click
 
-from config import config
+from app.config import config
 
 
 @click.group()

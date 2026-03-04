@@ -4,10 +4,10 @@ from cachetools import TTLCache, cached
 from fastapi import Security
 from fastapi.security import OAuth2AuthorizationCodeBearer
 
-from authentication.models import User
-from common.exceptions import UnauthorizedException
-from common.logger import logger
-from config import config, default_user
+from app.authentication.models import User
+from app.common.exceptions import UnauthorizedException
+from app.common.logger import logger
+from app.config import config, default_user
 
 oauth2_scheme = OAuth2AuthorizationCodeBearer(
     authorizationUrl=config.OAUTH_AUTH_ENDPOINT,

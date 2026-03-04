@@ -1,6 +1,6 @@
 import uuid
 
-from features.todo.entities.todo_item import TodoItem
+from app.features.todo.entities.todo_item import TodoItem
 
 
 def test_todo_item_init():

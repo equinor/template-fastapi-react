@@ -3,11 +3,11 @@ import re
 
 import pytest
 
-from common.exception_handlers import (
+from app.common.exception_handlers import (
     fall_back_exception_handler,
     generic_exception_handler,
 )
-from common.exceptions import (
+from app.common.exceptions import (
     BadRequestException,
     ExceptionSeverity,
     MissingPrivilegeException,

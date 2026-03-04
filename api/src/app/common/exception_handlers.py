@@ -11,7 +11,7 @@ from starlette import status
 from starlette.requests import Request
 from starlette.responses import JSONResponse, Response
 
-from common.exceptions import (
+from app.common.exceptions import (
     ApplicationException,
     BadRequestException,
     ErrorResponse,
@@ -21,7 +21,7 @@ from common.exceptions import (
     UnauthorizedException,
     ValidationException,
 )
-from common.logger import logger
+from app.common.logger import logger
 
 
 def fall_back_exception_handler(request: Request, exc: Exception) -> JSONResponse:
