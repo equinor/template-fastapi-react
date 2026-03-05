@@ -1,0 +1,74 @@
+site_name: Template FastAPI React
+repo_url: https://github.com/equinor/template-fastapi-react
+docs_dir: docs
+nav:
+  - Home: index.md
+  - About:
+      - Introduction: about/01-introduction.md
+      - Overview: about/02-overview.md
+      - Concepts:
+          - Task: about/concepts/01-task.md
+          - Use Case: about/concepts/02-use-case.md
+      - Running:
+          - Prerequisites: about/running/01-prerequisites.md
+          - Configure: about/running/02-configure.md
+          - Starting Services: about/running/03-starting-services.md
+  - Contribute:
+      - How To Start Contributing: contribute/01-how-to-start-contributing.md
+      - Ground Rules: contribute/02-ground-rules.md
+      - Documentation: contribute/03-documentation.md
+      - Development Guide:
+          - Setup: contribute/development-guide/01-setup.md
+          - Testing: contribute/development-guide/03-testing.md
+          - Upgrading: contribute/development-guide/04-upgrading.md
+          - Publishing: contribute/development-guide/05-publishing.md
+          - Coding:
+              - Architecture: contribute/development-guide/coding/01-architecture.md
+              - Generate API Clients: contribute/development-guide/coding/03-generate-api-clients.md
+              - Extending The API:
+                  - Overview: >-
+                      contribute/development-guide/coding/extending-the-api/index.md
+                  - Adding Entities: >-
+                      contribute/development-guide/coding/extending-the-api/02-adding-entities.md
+                  - Adding Features:
+                      - Overview: >-
+                          contribute/development-guide/coding/extending-the-api/adding-features/index.md
+                      - Controllers: >-
+                          contribute/development-guide/coding/extending-the-api/adding-features/01-controllers.md
+                      - Use Cases: >-
+                          contribute/development-guide/coding/extending-the-api/adding-features/02-use-cases.md
+                      - Securing Endpoints: >-
+                          contribute/development-guide/coding/extending-the-api/adding-features/03-securing-endpoints.md
+                  - Adding Data Providers:
+                      - Overview: >-
+                          contribute/development-guide/coding/extending-the-api/adding-data-providers/index.md
+                      - Clients: >-
+                          contribute/development-guide/coding/extending-the-api/adding-data-providers/01-clients.md
+                      - Repository Interfaces: >-
+                          contribute/development-guide/coding/extending-the-api/adding-data-providers/02-repository-interfaces.md
+                      - Repositories: >-
+                          contribute/development-guide/coding/extending-the-api/adding-data-providers/03-repositories.md
+              - Extending The Web: contribute/development-guide/coding/extending-the-web/index.md
+  - Changelog: changelog/changelog.md
+theme:
+  name: material
+plugins:
+  - techdocs-core
+  - search
+  - mermaid2
+markdown_extensions:
+  - admonition
+  - tables
+  - toc:
+      permalink: true
+  - plantuml_markdown:
+      server: http://www.plantuml.com/plantuml
+      format: svg
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:mermaid2.fence_mermaid ''
+validation:
+  links:
+    absolute_links: relative_to_docs

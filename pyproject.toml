@@ -1,0 +1,14 @@
+[project]
+name = "template-fastapi-react"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = []
+
+[dependency-groups]
+docs = [
+    "zensical>=0.0.24",
+    "mkdocs-mermaid2-plugin>=1.2.3",
+    "mkdocs-techdocs-core>=1.6.1",
+]
