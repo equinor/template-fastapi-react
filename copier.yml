@@ -1,0 +1,8 @@
+project_name:
+  type: str
+  help: The name of you project. This will be used in the various components.
+
+api_module_name:
+  type: str
+  help: The name of the Python API module
+  default: '{{ project_name | lower | replace("-", "_") | replace(".", "_") }}'

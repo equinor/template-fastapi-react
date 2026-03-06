@@ -2,7 +2,6 @@ import json
 import re
 
 import pytest
-
 from app.common.exception_handlers import (
     fall_back_exception_handler,
     generic_exception_handler,

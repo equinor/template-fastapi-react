@@ -1,12 +1,11 @@
 import pytest
+from app.data_providers.clients.client_interface import ClientInterface
 from starlette.status import (
     HTTP_200_OK,
     HTTP_404_NOT_FOUND,
     HTTP_422_UNPROCESSABLE_ENTITY,
 )
 from starlette.testclient import TestClient
-
-from app.data_providers.clients.client_interface import ClientInterface
 
 
 class TestTodo:

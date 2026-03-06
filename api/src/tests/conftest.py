@@ -4,15 +4,18 @@ import os
 
 import mongomock
 import pytest
-from starlette.datastructures import Headers
-from starlette.requests import Request
-from starlette.testclient import TestClient
-
 from app import create_app
 from app.authentication.authentication import auth_with_jwt
 from app.config import config as project_config
 from app.data_providers.clients.mongodb.mongo_database_client import MongoDatabaseClient
-from app.features.todo.repository.todo_repository import TodoRepository, get_todo_repository
+from app.features.todo.repository.todo_repository import (
+    TodoRepository,
+    get_todo_repository,
+)
+from starlette.datastructures import Headers
+from starlette.requests import Request
+from starlette.testclient import TestClient
+
 from tests.integration.mock_authentication import mock_auth_with_jwt
 
 
@@ -20,7 +23,9 @@ from tests.integration.mock_authentication import mock_auth_with_jwt
 def test_client():
     mongo_test_client = mongomock.MongoClient()
     client = MongoDatabaseClient(
-        collection_name="todos", database_name=mongo_test_client.TestDB.name, client=mongo_test_client
+        collection_name="todos",
+        database_name=mongo_test_client.TestDB.name,
+        client=mongo_test_client,
     )
     yield client
     client.wipe_db()
@@ -82,13 +87,21 @@ def pytest_configure(config: pytest.Config):
     has_integration_option = config.getoption("integration", default=False)
     marker_expr = config.getoption("markexpr", default="")
     if marker_expr != "" and (has_integration_option or has_unit_option):
-        pytest.exit("Invalid options: Cannot use --markexpr with --unit or --integration options", 4)
+        pytest.exit(
+            "Invalid options: Cannot use --markexpr with --unit or --integration options",
+            4,
+        )
 
 
 def pytest_addoption(parser):
     """Add option to pytest parser for running unit/integration tests."""
     parser.addoption("--unit", action="store_true", default=False, help="run unit tests")
-    parser.addoption("--integration", action="store_true", default=False, help="run integration tests")
+    parser.addoption(
+        "--integration",
+        action="store_true",
+        default=False,
+        help="run integration tests",
+    )
 
 
 def pytest_collection_modifyitems(config: pytest.Config, items: list[pytest.Item]):

@@ -1,5 +1,4 @@
 import pytest
-
 from app.common.exceptions import NotFoundException, ValidationException
 from app.data_providers.clients.mongodb.mongo_database_client import MongoDatabaseClient
 

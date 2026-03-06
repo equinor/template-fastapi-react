@@ -1,5 +1,5 @@
 [project]
-name = "app"
+name = "{{ project_name }}"
 version = "1.4.0"
 description = "API for Template Fastapi React"
 requires-python = ">=3.14"
