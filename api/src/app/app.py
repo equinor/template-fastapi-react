@@ -1,13 +1,12 @@
 from fastapi import APIRouter, FastAPI, Security
 from starlette.middleware import Middleware
 
-from app.authentication.authentication import auth_with_jwt
-from app.common.middleware import LocalLoggerMiddleware
-from app.common.responses import responses
+from app.authentication import auth_with_jwt
+from app.common import LocalLoggerMiddleware, responses
 from app.config import config
-from app.features.health_check import health_check_feature
-from app.features.todo import todo_feature
-from app.features.whoami import whoami_feature
+from app.features.health_check import router as health_check_router
+from app.features.todo import router as todo_router
+from app.features.whoami import router as whoami_router
 
 description_md = """
 ### Description
@@ -26,11 +25,11 @@ Anyone in Equinor are authorized to use the API.
 
 def create_app() -> FastAPI:
     public_routes = APIRouter()
-    public_routes.include_router(health_check_feature.router)
+    public_routes.include_router(health_check_router)
 
     authenticated_routes = APIRouter()
-    authenticated_routes.include_router(todo_feature.router)
-    authenticated_routes.include_router(whoami_feature.router)
+    authenticated_routes.include_router(todo_router)
+    authenticated_routes.include_router(whoami_router)
 
     middleware = [Middleware(LocalLoggerMiddleware)]
 
