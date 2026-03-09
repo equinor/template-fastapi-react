@@ -18,7 +18,7 @@
   "packages": {
     ".": {
       "package-name": "template-fastapi-react",
-      "changelog-path": "documentation/docs/changelog/changelog.md"
+      "changelog-path": "docs/changelog/changelog.md"
     }
   }
 }
