@@ -3,8 +3,8 @@
   "packages": {
     ".": {
       "release-type": "simple",
-      "changelog-path": "documentation/docs/changelog/changelog.md",
-      "extra-files": ["web/package.json", "documentation/package.json"]
+      "changelog-path": "docs/docs/changelog/changelog.md",
+      "extra-files": ["web/package.json"]
     }
   },
   "changelog-sections": [
