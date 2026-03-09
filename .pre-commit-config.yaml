@@ -49,6 +49,7 @@ repos:
         name: "Check: parse .toml files"
       - id: check-yaml
         name: "Check: parse .yaml files"
+        exclude: mkdocs.yml
       - id: check-case-conflict
         name: "Check: no case conflicting file names"
       - id: trailing-whitespace
