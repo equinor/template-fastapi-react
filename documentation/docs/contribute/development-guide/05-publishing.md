@@ -23,7 +23,7 @@ We trigger the reusable workflow like this (note that the chart is slightly outd
 
 Since we are using trunk based development, all pushes to main trigger a release to a test environment.
 
-Release to production is triggered when we merge in the auto-generated pull requests (that contains changelogs) that are created by the `create-release-pr.yaml` Github action.
+Release to production is triggered when we merge in the auto-generated pull requests (that contains changelogs) that are created by the `release-please.yaml` Github workflow.
 
 ### Workflows
 
@@ -36,7 +36,7 @@ Reusable workflows
 | Workflow                                                                                                                                     | Job                        | Purpose                                                               |
 | -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- | --------------------------------------------------------------------- |
 | [codeql-security-analysis.yaml](https://github.com/equinor/template-fastapi-react/blob/main/.github/workflows/codeql-security-analysis.yaml) | analyze                    | Runs `CodeQL` on the source code                                      |
-| [create-release-pr.yaml](https://github.com/equinor/template-fastapi-react/blob/main/.github/workflows/create-release-pr.yaml)               | release-please             | Creates a new release on GitHub                                       |
+| [release-please.yaml](https://github.com/equinor/template-fastapi-react/blob/main/.github/workflows/release-please.yaml)                     | release-please             | Creates a new release on GitHub                                       |
 | [deploy-to-radix.yaml](https://github.com/equinor/template-fastapi-react/blob/main/.github/workflows/deploy-to-radix.yaml)                   | deploy-on-radix            | Deploys the services to Radix                                         |
 | [label-importer.yaml](https://github.com/equinor/template-fastapi-react/blob/main/.github/workflows/label-importer.yaml)                     | labeler                    | Import labels from `labels.yml`                                       |
 | [publish-docs.yaml](https://github.com/equinor/template-fastapi-react/blob/main/.github/workflows/publish-docs.yaml)                         | publish-docs               | Builds and publishes the latest docs to GitHub pages                  |
@@ -70,7 +70,7 @@ Triggerable workflows
 
 A reusable workflow is just like any GitHub Actions workflow with one key difference - it includes a `workflow_call` trigger.
 
-- The [`create-release-pr.yaml`](https://github.com/equinor/template-fastapi-react/blob/main/.github/workflows/create-release-pr.yaml) workflow will automatically create a pull request with an auto-generated changelog. It also bumps the version code (using semantic versioning, depending on the types of commits) and create a tagged release that can be used to deploy to production.
+- The [`release-please.yaml`](https://github.com/equinor/template-fastapi-react/blob/main/.github/workflows/release-please.yaml) workflow will automatically create a pull request with an auto-generated changelog. It also bumps the version code (using semantic versioning, depending on the types of commits) and create a tagged release that can be used to deploy to production.
 
 - The [`tests.yaml`](https://github.com/equinor/template-fastapi-react/blob/main/.github/workflows/tests.yml) workflow will automatically run all types of tests.
 

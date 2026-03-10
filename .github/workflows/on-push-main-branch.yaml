@@ -35,13 +35,16 @@ jobs:
 
   release-please:
     needs: tests
-    name: "Create or update release PR"
-    uses: ./.github/workflows/create-release-pr.yaml
+    permissions:
+      issues: write
+      contents: write
+      pull-requests: write
     secrets: inherit
+    uses: ./.github/workflows/release-please.yaml
 
   publish-staging:
     needs: release-please
-    if: ${{ needs.release-please.outputs.release_created }}
+    if: ${{ needs.release-please.outputs.release_created == 'true' }}
     name: "Publish staging docker images"
     uses: ./.github/workflows/publish-image.yaml
     with:
