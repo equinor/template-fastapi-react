@@ -301,9 +301,9 @@ How to deploy to development environment:
 
 How to deploy to testing environment:
 
-  1. The release-please GitHub action runs on every commit to main, generating a changelog, and proposing a new version bump in a pull-request to main branch.
-  2. Merging the release-please pull request will trigger release-please to run once again and it will detect that there has been a new release.
-  3. The testing environment in Radix will now be built and deployed automatically.
+  1. The `release-please` GitHub action runs on every commit to main, generating a changelog, and proposing a new version bump in a pull-request to main branch.
+  2. Merging an open `release-please` pull request will make the `release-please` workflow create a new GitHub release, with the output of `release_created` as `true`.
+  3. The testing environment in Radix will then be built and deployed automatically.
 
 How to promote testing to production environment:
 

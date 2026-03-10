@@ -1,14 +1,13 @@
-name: "Create release-please PR"
+name: release-please
 
 on:
-  workflow_dispatch:
   workflow_call:
     outputs:
       release_created:
-        description: "If true, a release PR has been merged"
+        description: "If 'true', a release PR was merged and GitHub release was created"
         value: ${{ jobs.release-please.outputs.release_created }}
       tag_name:
-        description: "The release tag. Ex v1.4.0"
+        description: "The released tag. Ex 'template-fastapi-react-v1.2.3'"
         value: ${{ jobs.release-please.outputs.tag_name }}
 
 jobs:
@@ -22,10 +21,11 @@ jobs:
           app-id: ${{ vars.APP_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
 
-      - uses: googleapis/release-please-action@v4
-        id: release
+      - name: release-please
+        id: release-please
+        uses: googleapis/release-please-action@v4
         with:
           token: ${{ steps.generate-token.outputs.token }}
     outputs:
-      release_created: ${{ steps.release.outputs.release_created }}
-      tag_name: ${{ steps.release.outputs.tag_name }}
+      release_created: ${{ steps.release-please.outputs.release_created }}
+      tag_name: ${{ steps.release-please.outputs.tag_name }}
