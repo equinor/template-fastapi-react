@@ -4,7 +4,7 @@
     ".": {
       "release-type": "simple",
       "changelog-path": "documentation/docs/changelog/changelog.md",
-      "extra-files": ["src/app.py"]
+      "extra-files": []
     }
   },
   "changelog-sections": [
