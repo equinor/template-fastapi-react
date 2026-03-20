@@ -1,0 +1,9 @@
+["install-dependencies:api"]
+description = "Install the dependencies for the API"
+dir = "{{config_root}}/api"
+run = "uv sync"
+
+["install-dependencies:web"]
+description = "Install the dependencies for the Web application"
+dir = "{{config_root}}/web"
+run = "yarn install"

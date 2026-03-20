@@ -1,0 +1,10 @@
+["lint:api:typecheck"]
+description = "Typecheck the API, with mypy"
+dir = "{{config_root}}/api"
+run = "uv run mypy src"
+
+["lint:web:typecheck"]
+description = "Typecheck the Web application, by compiling the TypeScript code"
+depends = ["install-dependencies:web"]
+dir = "{{config_root}}/web"
+run = "yarn compile"
