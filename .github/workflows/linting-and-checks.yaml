@@ -69,6 +69,7 @@ jobs:
         with:
           sparse-checkout: |
             .github
+            .mise
             web
 
       - name: Cache dependencies
