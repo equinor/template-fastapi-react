@@ -1,22 +1,8 @@
 name: Generate documentation
 
 on:
-  # Workflow dispatch is used for manual triggers
   workflow_dispatch:
-    inputs:
-      message:
-        description: "A message to shown in the changelog"
-        default: ""
-        required: false
-        type: string
-  # Workflow call is used for called from another workflow
   workflow_call:
-    inputs:
-      message:
-        description: "A message to shown in the changelog"
-        default: ""
-        required: false
-        type: string
 
 env:
   GITHUB_PAGES_BRANCH: gh-pages
@@ -36,22 +22,13 @@ jobs:
           cache: yarn
           cache-dependency-path: documentation/yarn.lock
 
-      - name: Download CHANGELOG
-        uses: actions/download-artifact@v5
-        with:
-          name: CHANGELOG
+      - name: Install dependencies
+        working-directory: documentation
+        run: yarn install --frozen-lockfile
 
-      - name: "Add changelog"
-        shell: bash
-        run: |
-          sed -i -e '1i${{ inputs.message }}\' CHANGELOG.md
-          cp CHANGELOG.md documentation/src/pages/changelog.md
-
-      - name: Install dependencies and build website
-        run: |
-          cd documentation
-          yarn install --frozen-lockfile
-          yarn build
+      - name: Build documentation
+        working-directory: documentation
+        run: yarn build
 
       - name: Push static files to Github Pages branch
         run: |
