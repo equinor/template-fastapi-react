@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-    paths-ignore:
-      - "CHANGELOG.md"
 
 jobs:
   linting-and-checks:
@@ -16,17 +14,10 @@ jobs:
     name: "Tests"
     uses: ./.github/workflows/tests.yaml
 
-  generate-changelog:
-    needs: tests
-    name: "Generate changelog"
-    uses: ./.github/workflows/generate-changelog.yaml
-
   docs:
-    needs: generate-changelog
+    needs: tests
     name: "Build and publish docs"
     uses: ./.github/workflows/publish-docs.yaml
-    with:
-      message: "Warning: This is the development version."
 
   publish-latest:
     needs: tests
