@@ -76,15 +76,11 @@ repos:
         name: "Lint : ruff-format (python)"
         files: ^api/.*\.py$
 
-  - repo: https://github.com/biomejs/pre-commit
-    rev: v2.4.6
+  - repo: local
     hooks:
-      - id: biome-check
-        name: "Lint : biome (ts/js)"
-        additional_dependencies: ["@biomejs/biome@1.9.4"]
-        args: ["--config-path", "web"]
-        exclude: |
-          (?x)(
-            ^web/\.pnp\.cjs$
-            |^web/\.pnp\.loader\.mjs$
-          )
+      - id: biome
+        name: "Lint : biome (ts/js/css/json)"
+        language: system
+        files: "\\.(m?tsx?|jsx?|css|json)$"
+        entry: mise run lint:biome
+        pass_filenames: false

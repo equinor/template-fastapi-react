@@ -18,6 +18,10 @@ depends = ["dependencies:web"]
 dir = "{{config_root}}/web"
 run = "yarn compile"
 
+[tasks."lint:biome"]
+description = "Run biome linter on all relevant files in the project"
+run = "web/node_modules/.bin/biome check . --write"
+
 [tasks."dependencies:api"]
 dir = "{{config_root}}/api"
 run = "uv sync"

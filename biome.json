@@ -1,13 +1,19 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "$schema": "web/node_modules/@biomejs/biome/configuration_schema.json",
   "files": {
-    "ignore": [
-      "build/*",
-      "documentation/*",
-      "api/*",
-      "web/src/api/generated",
-      ".release-please-manifest.json"
+    "ignoreUnknown": true,
+    "includes": [
+      "**",
+      "!web/.pnp.*",
+      "!api/.openapi.json",
+      "!web/src/api/generated",
+      "!.release-please-manifest.json"
     ]
+  },
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
   },
   "javascript": {
     "formatter": {

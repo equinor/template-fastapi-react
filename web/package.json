@@ -7,11 +7,14 @@
     "build": "tsc && vite build",
     "serve": "vite preview",
     "compile": "tsc --noEmit",
-    "test": "vitest",
-    "lint": "biome check --write --no-errors-on-unmatched"
+    "test": "vitest"
   },
   "browserslist": {
-    "production": [">0.2%", "not dead", "not op_mini all"],
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
