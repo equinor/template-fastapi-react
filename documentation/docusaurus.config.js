@@ -1,15 +1,16 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
-const { themes } = require("prism-react-renderer")
+const { themes } = require('prism-react-renderer')
 const lightCodeTheme = themes.github
 const darkCodeTheme = themes.dracula
-const simplePlantUML = require('@akebifiky/remark-simple-plantuml');
+const simplePlantUML = require('@akebifiky/remark-simple-plantuml')
 
 async function createConfig() {
   const mdxMermaid = await import('mdx-mermaid')
   return {
     title: 'Template FastAPI React',
-    tagline: 'A solution template for creating a Single Page App (SPA) with React and FastAPI following the principles of Clean Architecture.',
+    tagline:
+      'A solution template for creating a Single Page App (SPA) with React and FastAPI following the principles of Clean Architecture.',
     url: 'https://template-fastapi-react.app.playground.radix.equinor.com/',
     baseUrl: '/template-fastapi-react/',
     onBrokenLinks: 'throw',
@@ -30,9 +31,7 @@ async function createConfig() {
       locales: ['en'],
     },
 
-    plugins: [
-
-    ],
+    plugins: [],
 
     presets: [
       [
@@ -41,8 +40,7 @@ async function createConfig() {
         ({
           docs: {
             sidebarPath: require.resolve('./sidebars.js'),
-            editUrl:
-              'https://github.com/equinor/template-fastapi-react/tree/main/documentation/',
+            editUrl: 'https://github.com/equinor/template-fastapi-react/tree/main/documentation/',
             remarkPlugins: [mdxMermaid.default, simplePlantUML],
           },
           blog: false,
@@ -141,9 +139,9 @@ async function createConfig() {
           defaultMode: 'dark',
           disableSwitch: false,
           respectPrefersColorScheme: true,
-        }
+        },
       }),
   }
-};
+}
 
-module.exports = createConfig;
+module.exports = createConfig

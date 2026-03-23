@@ -4,60 +4,59 @@
  */
 
 .heroBanner {
-  padding: 4rem 0;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
+	padding: 4rem 0;
+	text-align: center;
+	position: relative;
+	overflow: hidden;
 }
 
 @media screen and (max-width: 996px) {
-  .heroBanner {
-    padding: 2rem;
-  }
+	.heroBanner {
+		padding: 2rem;
+	}
 }
 
 .buttons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .description {
-  text-align: center;
-  font-size: 24px;
-  margin: 32px auto;
-  width: 65%;
+	text-align: center;
+	font-size: 24px;
+	margin: 32px auto;
+	width: 65%;
 }
 
 .features {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin: 10px auto 80px;
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	margin: 10px auto 80px;
 }
 
-
 .feature {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  --feature-size: 220px;
-  height: var(--feature-size);
-  width: var(--feature-size);
-  margin: 10px;
-  padding: 12px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	--feature-size: 220px;
+	height: var(--feature-size);
+	width: var(--feature-size);
+	margin: 10px;
+	padding: 12px;
 
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: center;
 
-  transition: all 0.25s;
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+	transition: all 0.25s;
+	background: rgba(255, 255, 255, 0.08);
+	border-radius: 16px;
+	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+	border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 .feature:hover {
-  background: rgba(255, 255, 255, 0.12);
+	background: rgba(255, 255, 255, 0.12);
 }

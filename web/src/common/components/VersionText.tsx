@@ -35,12 +35,10 @@ export const VersionText = () => {
   return (
     <p>
       Version:{' '}
-      <>
-        <Typography link href={`https://github.com/equinor/template-fastapi-react/commit/${commitInfo.hash}`}>
-          {commitInfo.refs === '' ? commitInfo.hash : commitInfo.refs}
-        </Typography>{' '}
-        {commitInfo.date}
-      </>
+      <Typography link href={`https://github.com/equinor/template-fastapi-react/commit/${commitInfo.hash}`}>
+        {commitInfo.refs === '' ? commitInfo.hash : commitInfo.refs}
+      </Typography>{' '}
+      {commitInfo.date}
     </p>
   )
 }
