@@ -4,7 +4,7 @@
     ".": {
       "release-type": "simple",
       "changelog-path": "documentation/docs/changelog/changelog.md",
-      "extra-files": []
+      "extra-files": ["web/package.json", "documentation/package.json"]
     }
   },
   "changelog-sections": [
