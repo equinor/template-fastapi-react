@@ -7,7 +7,7 @@ on:
         description: "If 'true', a release PR was merged and GitHub release was created"
         value: ${{ jobs.release-please.outputs.release_created }}
       tag_name:
-        description: "The released tag. Ex 'template-fastapi-react-v1.2.3'"
+        description: "The released tag. Ex 'v1.2.3'"
         value: ${{ jobs.release-please.outputs.tag_name }}
 
 jobs:
