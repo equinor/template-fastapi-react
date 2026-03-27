@@ -42,7 +42,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react-router-dom", "npm:5.3.3"],\
           ["@vitejs/plugin-react", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:5.0.2"],\
           ["axios", "npm:1.13.6"],\
-          ["jsdom", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:27.0.0"],\
+          ["jsdom", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:29.0.1"],\
           ["openapi-typescript-codegen", "npm:0.30.0"],\
           ["prettier", "npm:3.8.1"],\
           ["react", "npm:19.2.4"],\
@@ -104,29 +104,29 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@asamuzakjp/css-color", [\
-      ["npm:4.0.5", {\
-        "packageLocation": "../../../.yarn/berry/cache/@asamuzakjp-css-color-npm-4.0.5-aced85c302-10c0.zip/node_modules/@asamuzakjp/css-color/",\
+      ["npm:5.0.1", {\
+        "packageLocation": "../../../.yarn/berry/cache/@asamuzakjp-css-color-npm-5.0.1-9c69cad75b-10c0.zip/node_modules/@asamuzakjp/css-color/",\
         "packageDependencies": [\
-          ["@asamuzakjp/css-color", "npm:4.0.5"],\
-          ["@csstools/css-calc", "virtual:aced85c302315a666034872f822f6a72866f2ea19832d4501770fa3be59c4fd4843900302ce58a7558694b2ef820fc232b0604b6b6655925911ed420638744ad#npm:2.1.4"],\
-          ["@csstools/css-color-parser", "virtual:aced85c302315a666034872f822f6a72866f2ea19832d4501770fa3be59c4fd4843900302ce58a7558694b2ef820fc232b0604b6b6655925911ed420638744ad#npm:3.1.0"],\
-          ["@csstools/css-parser-algorithms", "virtual:aced85c302315a666034872f822f6a72866f2ea19832d4501770fa3be59c4fd4843900302ce58a7558694b2ef820fc232b0604b6b6655925911ed420638744ad#npm:3.0.5"],\
-          ["@csstools/css-tokenizer", "npm:3.0.4"],\
-          ["lru-cache", "npm:11.2.6"]\
+          ["@asamuzakjp/css-color", "npm:5.0.1"],\
+          ["@csstools/css-calc", "virtual:9c69cad75b0745854a233914d6683d55e55091d7d6e0cb3bb75822c30ecc6cbf2dab2c41658ce2663363bd7ea5a4ced214c73974b84cd685718745f816b70a05#npm:3.1.1"],\
+          ["@csstools/css-color-parser", "virtual:9c69cad75b0745854a233914d6683d55e55091d7d6e0cb3bb75822c30ecc6cbf2dab2c41658ce2663363bd7ea5a4ced214c73974b84cd685718745f816b70a05#npm:4.0.2"],\
+          ["@csstools/css-parser-algorithms", "virtual:9c69cad75b0745854a233914d6683d55e55091d7d6e0cb3bb75822c30ecc6cbf2dab2c41658ce2663363bd7ea5a4ced214c73974b84cd685718745f816b70a05#npm:4.0.0"],\
+          ["@csstools/css-tokenizer", "npm:4.0.0"],\
+          ["lru-cache", "npm:11.2.7"]\
         ],\
         "linkType": "HARD"\
       }]\
     ]],\
     ["@asamuzakjp/dom-selector", [\
-      ["npm:6.5.7", {\
-        "packageLocation": "../../../.yarn/berry/cache/@asamuzakjp-dom-selector-npm-6.5.7-355dce101e-10c0.zip/node_modules/@asamuzakjp/dom-selector/",\
+      ["npm:7.0.4", {\
+        "packageLocation": "../../../.yarn/berry/cache/@asamuzakjp-dom-selector-npm-7.0.4-0aeb81f712-10c0.zip/node_modules/@asamuzakjp/dom-selector/",\
         "packageDependencies": [\
-          ["@asamuzakjp/dom-selector", "npm:6.5.7"],\
+          ["@asamuzakjp/dom-selector", "npm:7.0.4"],\
           ["@asamuzakjp/nwsapi", "npm:2.3.9"],\
           ["bidi-js", "npm:1.0.3"],\
-          ["css-tree", "npm:3.1.0"],\
+          ["css-tree", "npm:3.2.1"],\
           ["is-potential-custom-element-name", "npm:1.0.1"],\
-          ["lru-cache", "npm:11.2.6"]\
+          ["lru-cache", "npm:11.2.7"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -498,29 +498,39 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
-    ["@csstools/color-helpers", [\
-      ["npm:5.1.0", {\
-        "packageLocation": "../../../.yarn/berry/cache/@csstools-color-helpers-npm-5.1.0-d44a2a6134-10c0.zip/node_modules/@csstools/color-helpers/",\
+    ["@bramus/specificity", [\
+      ["npm:2.4.2", {\
+        "packageLocation": "../../../.yarn/berry/cache/@bramus-specificity-npm-2.4.2-2237259af3-10c0.zip/node_modules/@bramus/specificity/",\
         "packageDependencies": [\
-          ["@csstools/color-helpers", "npm:5.1.0"]\
+          ["@bramus/specificity", "npm:2.4.2"],\
+          ["css-tree", "npm:3.2.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@csstools/color-helpers", [\
+      ["npm:6.0.2", {\
+        "packageLocation": "../../../.yarn/berry/cache/@csstools-color-helpers-npm-6.0.2-d0267095a4-10c0.zip/node_modules/@csstools/color-helpers/",\
+        "packageDependencies": [\
+          ["@csstools/color-helpers", "npm:6.0.2"]\
         ],\
         "linkType": "HARD"\
       }]\
     ]],\
     ["@csstools/css-calc", [\
-      ["npm:2.1.4", {\
-        "packageLocation": "../../../.yarn/berry/cache/@csstools-css-calc-npm-2.1.4-81c74a3511-10c0.zip/node_modules/@csstools/css-calc/",\
+      ["npm:3.1.1", {\
+        "packageLocation": "../../../.yarn/berry/cache/@csstools-css-calc-npm-3.1.1-c16e581ae9-10c0.zip/node_modules/@csstools/css-calc/",\
         "packageDependencies": [\
-          ["@csstools/css-calc", "npm:2.1.4"]\
+          ["@csstools/css-calc", "npm:3.1.1"]\
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:aced85c302315a666034872f822f6a72866f2ea19832d4501770fa3be59c4fd4843900302ce58a7558694b2ef820fc232b0604b6b6655925911ed420638744ad#npm:2.1.4", {\
-        "packageLocation": "./.yarn/__virtual__/@csstools-css-calc-virtual-e60454d1a3/4/.yarn/berry/cache/@csstools-css-calc-npm-2.1.4-81c74a3511-10c0.zip/node_modules/@csstools/css-calc/",\
+      ["virtual:9c69cad75b0745854a233914d6683d55e55091d7d6e0cb3bb75822c30ecc6cbf2dab2c41658ce2663363bd7ea5a4ced214c73974b84cd685718745f816b70a05#npm:3.1.1", {\
+        "packageLocation": "./.yarn/__virtual__/@csstools-css-calc-virtual-9911d7930c/4/.yarn/berry/cache/@csstools-css-calc-npm-3.1.1-c16e581ae9-10c0.zip/node_modules/@csstools/css-calc/",\
         "packageDependencies": [\
-          ["@csstools/css-calc", "virtual:aced85c302315a666034872f822f6a72866f2ea19832d4501770fa3be59c4fd4843900302ce58a7558694b2ef820fc232b0604b6b6655925911ed420638744ad#npm:2.1.4"],\
-          ["@csstools/css-parser-algorithms", "virtual:aced85c302315a666034872f822f6a72866f2ea19832d4501770fa3be59c4fd4843900302ce58a7558694b2ef820fc232b0604b6b6655925911ed420638744ad#npm:3.0.5"],\
-          ["@csstools/css-tokenizer", "npm:3.0.4"],\
+          ["@csstools/css-calc", "virtual:9c69cad75b0745854a233914d6683d55e55091d7d6e0cb3bb75822c30ecc6cbf2dab2c41658ce2663363bd7ea5a4ced214c73974b84cd685718745f816b70a05#npm:3.1.1"],\
+          ["@csstools/css-parser-algorithms", "virtual:9c69cad75b0745854a233914d6683d55e55091d7d6e0cb3bb75822c30ecc6cbf2dab2c41658ce2663363bd7ea5a4ced214c73974b84cd685718745f816b70a05#npm:4.0.0"],\
+          ["@csstools/css-tokenizer", "npm:4.0.0"],\
           ["@types/csstools__css-parser-algorithms", null],\
           ["@types/csstools__css-tokenizer", null]\
         ],\
@@ -534,21 +544,21 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@csstools/css-color-parser", [\
-      ["npm:3.1.0", {\
-        "packageLocation": "../../../.yarn/berry/cache/@csstools-css-color-parser-npm-3.1.0-005f6b530f-10c0.zip/node_modules/@csstools/css-color-parser/",\
+      ["npm:4.0.2", {\
+        "packageLocation": "../../../.yarn/berry/cache/@csstools-css-color-parser-npm-4.0.2-e3b996f893-10c0.zip/node_modules/@csstools/css-color-parser/",\
         "packageDependencies": [\
-          ["@csstools/css-color-parser", "npm:3.1.0"]\
+          ["@csstools/css-color-parser", "npm:4.0.2"]\
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:aced85c302315a666034872f822f6a72866f2ea19832d4501770fa3be59c4fd4843900302ce58a7558694b2ef820fc232b0604b6b6655925911ed420638744ad#npm:3.1.0", {\
-        "packageLocation": "./.yarn/__virtual__/@csstools-css-color-parser-virtual-99d7ac3c9f/4/.yarn/berry/cache/@csstools-css-color-parser-npm-3.1.0-005f6b530f-10c0.zip/node_modules/@csstools/css-color-parser/",\
+      ["virtual:9c69cad75b0745854a233914d6683d55e55091d7d6e0cb3bb75822c30ecc6cbf2dab2c41658ce2663363bd7ea5a4ced214c73974b84cd685718745f816b70a05#npm:4.0.2", {\
+        "packageLocation": "./.yarn/__virtual__/@csstools-css-color-parser-virtual-5f76d4c337/4/.yarn/berry/cache/@csstools-css-color-parser-npm-4.0.2-e3b996f893-10c0.zip/node_modules/@csstools/css-color-parser/",\
         "packageDependencies": [\
-          ["@csstools/color-helpers", "npm:5.1.0"],\
-          ["@csstools/css-calc", "virtual:aced85c302315a666034872f822f6a72866f2ea19832d4501770fa3be59c4fd4843900302ce58a7558694b2ef820fc232b0604b6b6655925911ed420638744ad#npm:2.1.4"],\
-          ["@csstools/css-color-parser", "virtual:aced85c302315a666034872f822f6a72866f2ea19832d4501770fa3be59c4fd4843900302ce58a7558694b2ef820fc232b0604b6b6655925911ed420638744ad#npm:3.1.0"],\
-          ["@csstools/css-parser-algorithms", "virtual:aced85c302315a666034872f822f6a72866f2ea19832d4501770fa3be59c4fd4843900302ce58a7558694b2ef820fc232b0604b6b6655925911ed420638744ad#npm:3.0.5"],\
-          ["@csstools/css-tokenizer", "npm:3.0.4"],\
+          ["@csstools/color-helpers", "npm:6.0.2"],\
+          ["@csstools/css-calc", "virtual:9c69cad75b0745854a233914d6683d55e55091d7d6e0cb3bb75822c30ecc6cbf2dab2c41658ce2663363bd7ea5a4ced214c73974b84cd685718745f816b70a05#npm:3.1.1"],\
+          ["@csstools/css-color-parser", "virtual:9c69cad75b0745854a233914d6683d55e55091d7d6e0cb3bb75822c30ecc6cbf2dab2c41658ce2663363bd7ea5a4ced214c73974b84cd685718745f816b70a05#npm:4.0.2"],\
+          ["@csstools/css-parser-algorithms", "virtual:9c69cad75b0745854a233914d6683d55e55091d7d6e0cb3bb75822c30ecc6cbf2dab2c41658ce2663363bd7ea5a4ced214c73974b84cd685718745f816b70a05#npm:4.0.0"],\
+          ["@csstools/css-tokenizer", "npm:4.0.0"],\
           ["@types/csstools__css-parser-algorithms", null],\
           ["@types/csstools__css-tokenizer", null]\
         ],\
@@ -562,18 +572,18 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@csstools/css-parser-algorithms", [\
-      ["npm:3.0.5", {\
-        "packageLocation": "../../../.yarn/berry/cache/@csstools-css-parser-algorithms-npm-3.0.5-a0aa2fe05e-10c0.zip/node_modules/@csstools/css-parser-algorithms/",\
+      ["npm:4.0.0", {\
+        "packageLocation": "../../../.yarn/berry/cache/@csstools-css-parser-algorithms-npm-4.0.0-31b0851d2f-10c0.zip/node_modules/@csstools/css-parser-algorithms/",\
         "packageDependencies": [\
-          ["@csstools/css-parser-algorithms", "npm:3.0.5"]\
+          ["@csstools/css-parser-algorithms", "npm:4.0.0"]\
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:aced85c302315a666034872f822f6a72866f2ea19832d4501770fa3be59c4fd4843900302ce58a7558694b2ef820fc232b0604b6b6655925911ed420638744ad#npm:3.0.5", {\
-        "packageLocation": "./.yarn/__virtual__/@csstools-css-parser-algorithms-virtual-03adce3d24/4/.yarn/berry/cache/@csstools-css-parser-algorithms-npm-3.0.5-a0aa2fe05e-10c0.zip/node_modules/@csstools/css-parser-algorithms/",\
+      ["virtual:9c69cad75b0745854a233914d6683d55e55091d7d6e0cb3bb75822c30ecc6cbf2dab2c41658ce2663363bd7ea5a4ced214c73974b84cd685718745f816b70a05#npm:4.0.0", {\
+        "packageLocation": "./.yarn/__virtual__/@csstools-css-parser-algorithms-virtual-e27b7a9f65/4/.yarn/berry/cache/@csstools-css-parser-algorithms-npm-4.0.0-31b0851d2f-10c0.zip/node_modules/@csstools/css-parser-algorithms/",\
         "packageDependencies": [\
-          ["@csstools/css-parser-algorithms", "virtual:aced85c302315a666034872f822f6a72866f2ea19832d4501770fa3be59c4fd4843900302ce58a7558694b2ef820fc232b0604b6b6655925911ed420638744ad#npm:3.0.5"],\
-          ["@csstools/css-tokenizer", "npm:3.0.4"],\
+          ["@csstools/css-parser-algorithms", "virtual:9c69cad75b0745854a233914d6683d55e55091d7d6e0cb3bb75822c30ecc6cbf2dab2c41658ce2663363bd7ea5a4ced214c73974b84cd685718745f816b70a05#npm:4.0.0"],\
+          ["@csstools/css-tokenizer", "npm:4.0.0"],\
           ["@types/csstools__css-tokenizer", null]\
         ],\
         "packagePeers": [\
@@ -584,32 +594,32 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@csstools/css-syntax-patches-for-csstree", [\
-      ["npm:1.0.14", {\
-        "packageLocation": "../../../.yarn/berry/cache/@csstools-css-syntax-patches-for-csstree-npm-1.0.14-e65a9adb88-10c0.zip/node_modules/@csstools/css-syntax-patches-for-csstree/",\
+      ["npm:1.1.2", {\
+        "packageLocation": "../../../.yarn/berry/cache/@csstools-css-syntax-patches-for-csstree-npm-1.1.2-f76616cada-10c0.zip/node_modules/@csstools/css-syntax-patches-for-csstree/",\
         "packageDependencies": [\
-          ["@csstools/css-syntax-patches-for-csstree", "npm:1.0.14"]\
+          ["@csstools/css-syntax-patches-for-csstree", "npm:1.1.2"]\
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:bb38acb68dcc456edd540b5ade388f6f1df16f7a708570409ebd86728bc21ece57e2321e9dd6ce27bbc1c32a280053662728120581e4196207130fcb4246630f#npm:1.0.14", {\
-        "packageLocation": "./.yarn/__virtual__/@csstools-css-syntax-patches-for-csstree-virtual-701d9768c0/4/.yarn/berry/cache/@csstools-css-syntax-patches-for-csstree-npm-1.0.14-e65a9adb88-10c0.zip/node_modules/@csstools/css-syntax-patches-for-csstree/",\
+      ["virtual:7750d2d73b868fa972255208044401473ce0373cbf7d757eddd35eff3d737df5bb9da2fede55a0dd0bf08096cc38b4d48e7e01ade65613262062e3ba5d662f5e#npm:1.1.2", {\
+        "packageLocation": "./.yarn/__virtual__/@csstools-css-syntax-patches-for-csstree-virtual-1619bcf7a1/4/.yarn/berry/cache/@csstools-css-syntax-patches-for-csstree-npm-1.1.2-f76616cada-10c0.zip/node_modules/@csstools/css-syntax-patches-for-csstree/",\
         "packageDependencies": [\
-          ["@csstools/css-syntax-patches-for-csstree", "virtual:bb38acb68dcc456edd540b5ade388f6f1df16f7a708570409ebd86728bc21ece57e2321e9dd6ce27bbc1c32a280053662728120581e4196207130fcb4246630f#npm:1.0.14"],\
-          ["@types/postcss", null],\
-          ["postcss", null]\
+          ["@csstools/css-syntax-patches-for-csstree", "virtual:7750d2d73b868fa972255208044401473ce0373cbf7d757eddd35eff3d737df5bb9da2fede55a0dd0bf08096cc38b4d48e7e01ade65613262062e3ba5d662f5e#npm:1.1.2"],\
+          ["@types/css-tree", null],\
+          ["css-tree", "npm:3.2.1"]\
         ],\
         "packagePeers": [\
-          "@types/postcss",\
-          "postcss"\
+          "@types/css-tree",\
+          "css-tree"\
         ],\
         "linkType": "HARD"\
       }]\
     ]],\
     ["@csstools/css-tokenizer", [\
-      ["npm:3.0.4", {\
-        "packageLocation": "../../../.yarn/berry/cache/@csstools-css-tokenizer-npm-3.0.4-342d48d326-10c0.zip/node_modules/@csstools/css-tokenizer/",\
+      ["npm:4.0.0", {\
+        "packageLocation": "../../../.yarn/berry/cache/@csstools-css-tokenizer-npm-4.0.0-ad04e84b3b-10c0.zip/node_modules/@csstools/css-tokenizer/",\
         "packageDependencies": [\
-          ["@csstools/css-tokenizer", "npm:3.0.4"]\
+          ["@csstools/css-tokenizer", "npm:4.0.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -972,6 +982,28 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/unplugged/@esbuild-win32-x64-npm-0.27.3-c6a1294f67/node_modules/@esbuild/win32-x64/",\
         "packageDependencies": [\
           ["@esbuild/win32-x64", "npm:0.27.3"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@exodus/bytes", [\
+      ["npm:1.15.0", {\
+        "packageLocation": "../../../.yarn/berry/cache/@exodus-bytes-npm-1.15.0-28e5727c43-10c0.zip/node_modules/@exodus/bytes/",\
+        "packageDependencies": [\
+          ["@exodus/bytes", "npm:1.15.0"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:107479fe738b46d9ba616f54ddd1760b0da6893116ebd6fabe5b569b96d6c7fe9f5cac028b0ae1963c7a652f448755a0d8c6ff2fad3c20530b39d427000e39ca#npm:1.15.0", {\
+        "packageLocation": "./.yarn/__virtual__/@exodus-bytes-virtual-504e31fce1/4/.yarn/berry/cache/@exodus-bytes-npm-1.15.0-28e5727c43-10c0.zip/node_modules/@exodus/bytes/",\
+        "packageDependencies": [\
+          ["@exodus/bytes", "virtual:107479fe738b46d9ba616f54ddd1760b0da6893116ebd6fabe5b569b96d6c7fe9f5cac028b0ae1963c7a652f448755a0d8c6ff2fad3c20530b39d427000e39ca#npm:1.15.0"],\
+          ["@noble/hashes", null],\
+          ["@types/noble__hashes", null]\
+        ],\
+        "packagePeers": [\
+          "@noble/hashes",\
+          "@types/noble__hashes"\
         ],\
         "linkType": "HARD"\
       }]\
@@ -5633,11 +5665,11 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["css-tree", [\
-      ["npm:3.1.0", {\
-        "packageLocation": "../../../.yarn/berry/cache/css-tree-npm-3.1.0-19cd308584-10c0.zip/node_modules/css-tree/",\
+      ["npm:3.2.1", {\
+        "packageLocation": "../../../.yarn/berry/cache/css-tree-npm-3.2.1-f5a5ee91c7-10c0.zip/node_modules/css-tree/",\
         "packageDependencies": [\
-          ["css-tree", "npm:3.1.0"],\
-          ["mdn-data", "npm:2.12.2"],\
+          ["css-tree", "npm:3.2.1"],\
+          ["mdn-data", "npm:2.27.1"],\
           ["source-map-js", "npm:1.2.1"]\
         ],\
         "linkType": "HARD"\
@@ -5661,18 +5693,6 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
-    ["cssstyle", [\
-      ["npm:5.3.1", {\
-        "packageLocation": "../../../.yarn/berry/cache/cssstyle-npm-5.3.1-bb38acb68d-10c0.zip/node_modules/cssstyle/",\
-        "packageDependencies": [\
-          ["@asamuzakjp/css-color", "npm:4.0.5"],\
-          ["@csstools/css-syntax-patches-for-csstree", "virtual:bb38acb68dcc456edd540b5ade388f6f1df16f7a708570409ebd86728bc21ece57e2321e9dd6ce27bbc1c32a280053662728120581e4196207130fcb4246630f#npm:1.0.14"],\
-          ["css-tree", "npm:3.1.0"],\
-          ["cssstyle", "npm:5.3.1"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
     ["csstype", [\
       ["npm:3.1.3", {\
         "packageLocation": "../../../.yarn/berry/cache/csstype-npm-3.1.3-e9a1c85013-10c0.zip/node_modules/csstype/",\
@@ -5690,12 +5710,12 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["data-urls", [\
-      ["npm:6.0.0", {\
-        "packageLocation": "../../../.yarn/berry/cache/data-urls-npm-6.0.0-f0731a6320-10c0.zip/node_modules/data-urls/",\
+      ["npm:7.0.0", {\
+        "packageLocation": "../../../.yarn/berry/cache/data-urls-npm-7.0.0-0be7d77a95-10c0.zip/node_modules/data-urls/",\
         "packageDependencies": [\
-          ["data-urls", "npm:6.0.0"],\
-          ["whatwg-mimetype", "npm:4.0.0"],\
-          ["whatwg-url", "npm:15.1.0"]\
+          ["data-urls", "npm:7.0.0"],\
+          ["whatwg-mimetype", "npm:5.0.0"],\
+          ["whatwg-url", "npm:16.0.1"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -6316,11 +6336,11 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["html-encoding-sniffer", [\
-      ["npm:4.0.0", {\
-        "packageLocation": "../../../.yarn/berry/cache/html-encoding-sniffer-npm-4.0.0-5f6627070d-10c0.zip/node_modules/html-encoding-sniffer/",\
+      ["npm:6.0.0", {\
+        "packageLocation": "../../../.yarn/berry/cache/html-encoding-sniffer-npm-6.0.0-1b55926d28-10c0.zip/node_modules/html-encoding-sniffer/",\
         "packageDependencies": [\
-          ["html-encoding-sniffer", "npm:4.0.0"],\
-          ["whatwg-encoding", "npm:3.1.1"]\
+          ["@exodus/bytes", "virtual:107479fe738b46d9ba616f54ddd1760b0da6893116ebd6fabe5b569b96d6c7fe9f5cac028b0ae1963c7a652f448755a0d8c6ff2fad3c20530b39d427000e39ca#npm:1.15.0"],\
+          ["html-encoding-sniffer", "npm:6.0.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -6581,38 +6601,39 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["jsdom", [\
-      ["npm:27.0.0", {\
-        "packageLocation": "../../../.yarn/berry/cache/jsdom-npm-27.0.0-2830e3e1f9-10c0.zip/node_modules/jsdom/",\
+      ["npm:29.0.1", {\
+        "packageLocation": "../../../.yarn/berry/cache/jsdom-npm-29.0.1-60bbdb702d-10c0.zip/node_modules/jsdom/",\
         "packageDependencies": [\
-          ["jsdom", "npm:27.0.0"]\
+          ["jsdom", "npm:29.0.1"]\
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:27.0.0", {\
-        "packageLocation": "./.yarn/__virtual__/jsdom-virtual-75ab8c6bc7/4/.yarn/berry/cache/jsdom-npm-27.0.0-2830e3e1f9-10c0.zip/node_modules/jsdom/",\
+      ["virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:29.0.1", {\
+        "packageLocation": "./.yarn/__virtual__/jsdom-virtual-7750d2d73b/4/.yarn/berry/cache/jsdom-npm-29.0.1-60bbdb702d-10c0.zip/node_modules/jsdom/",\
         "packageDependencies": [\
-          ["@asamuzakjp/dom-selector", "npm:6.5.7"],\
+          ["@asamuzakjp/css-color", "npm:5.0.1"],\
+          ["@asamuzakjp/dom-selector", "npm:7.0.4"],\
+          ["@bramus/specificity", "npm:2.4.2"],\
+          ["@csstools/css-syntax-patches-for-csstree", "virtual:7750d2d73b868fa972255208044401473ce0373cbf7d757eddd35eff3d737df5bb9da2fede55a0dd0bf08096cc38b4d48e7e01ade65613262062e3ba5d662f5e#npm:1.1.2"],\
+          ["@exodus/bytes", "virtual:107479fe738b46d9ba616f54ddd1760b0da6893116ebd6fabe5b569b96d6c7fe9f5cac028b0ae1963c7a652f448755a0d8c6ff2fad3c20530b39d427000e39ca#npm:1.15.0"],\
           ["@types/canvas", null],\
           ["canvas", null],\
-          ["cssstyle", "npm:5.3.1"],\
-          ["data-urls", "npm:6.0.0"],\
+          ["css-tree", "npm:3.2.1"],\
+          ["data-urls", "npm:7.0.0"],\
           ["decimal.js", "npm:10.6.0"],\
-          ["html-encoding-sniffer", "npm:4.0.0"],\
-          ["http-proxy-agent", "npm:7.0.2"],\
-          ["https-proxy-agent", "npm:7.0.6"],\
+          ["html-encoding-sniffer", "npm:6.0.0"],\
           ["is-potential-custom-element-name", "npm:1.0.1"],\
-          ["jsdom", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:27.0.0"],\
-          ["parse5", "npm:7.3.0"],\
-          ["rrweb-cssom", "npm:0.8.0"],\
+          ["jsdom", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:29.0.1"],\
+          ["lru-cache", "npm:11.2.7"],\
+          ["parse5", "npm:8.0.0"],\
           ["saxes", "npm:6.0.0"],\
           ["symbol-tree", "npm:3.2.4"],\
-          ["tough-cookie", "npm:6.0.0"],\
+          ["tough-cookie", "npm:6.0.1"],\
+          ["undici", "npm:7.24.6"],\
           ["w3c-xmlserializer", "npm:5.0.0"],\
-          ["webidl-conversions", "npm:8.0.0"],\
-          ["whatwg-encoding", "npm:3.1.1"],\
-          ["whatwg-mimetype", "npm:4.0.0"],\
-          ["whatwg-url", "npm:15.1.0"],\
-          ["ws", "virtual:75ab8c6bc79943cf706616c3116f4b248a4cef32ed723a61053de0c47567ed8723ad4d8d7d7a6912cda23e410d79a3a7d58fd5eae0ca2fa742bd42dd7a747ca4#npm:8.18.3"],\
+          ["webidl-conversions", "npm:8.0.1"],\
+          ["whatwg-mimetype", "npm:5.0.0"],\
+          ["whatwg-url", "npm:16.0.1"],\
           ["xml-name-validator", "npm:5.0.0"]\
         ],\
         "packagePeers": [\
@@ -6706,6 +6727,13 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "HARD"\
       }],\
+      ["npm:11.2.7", {\
+        "packageLocation": "../../../.yarn/berry/cache/lru-cache-npm-11.2.7-981c412138-10c0.zip/node_modules/lru-cache/",\
+        "packageDependencies": [\
+          ["lru-cache", "npm:11.2.7"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
       ["npm:5.1.1", {\
         "packageLocation": "../../../.yarn/berry/cache/lru-cache-npm-5.1.1-f475882a51-10c0.zip/node_modules/lru-cache/",\
         "packageDependencies": [\
@@ -6764,10 +6792,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["mdn-data", [\
-      ["npm:2.12.2", {\
-        "packageLocation": "../../../.yarn/berry/cache/mdn-data-npm-2.12.2-d75edd5e16-10c0.zip/node_modules/mdn-data/",\
+      ["npm:2.27.1", {\
+        "packageLocation": "../../../.yarn/berry/cache/mdn-data-npm-2.27.1-f4f339e836-10c0.zip/node_modules/mdn-data/",\
         "packageDependencies": [\
-          ["mdn-data", "npm:2.12.2"]\
+          ["mdn-data", "npm:2.27.1"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -7077,6 +7105,14 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["entities", "npm:6.0.1"],\
           ["parse5", "npm:7.3.0"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:8.0.0", {\
+        "packageLocation": "../../../.yarn/berry/cache/parse5-npm-8.0.0-c813f23978-10c0.zip/node_modules/parse5/",\
+        "packageDependencies": [\
+          ["entities", "npm:6.0.1"],\
+          ["parse5", "npm:8.0.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -7574,15 +7610,6 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
-    ["rrweb-cssom", [\
-      ["npm:0.8.0", {\
-        "packageLocation": "../../../.yarn/berry/cache/rrweb-cssom-npm-0.8.0-0c92f2366d-10c0.zip/node_modules/rrweb-cssom/",\
-        "packageDependencies": [\
-          ["rrweb-cssom", "npm:0.8.0"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
     ["safer-buffer", [\
       ["npm:2.1.2", {\
         "packageLocation": "../../../.yarn/berry/cache/safer-buffer-npm-2.1.2-8d5c0b705e-10c0.zip/node_modules/safer-buffer/",\
@@ -7972,11 +7999,11 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["tough-cookie", [\
-      ["npm:6.0.0", {\
-        "packageLocation": "../../../.yarn/berry/cache/tough-cookie-npm-6.0.0-c7d0e8e15a-10c0.zip/node_modules/tough-cookie/",\
+      ["npm:6.0.1", {\
+        "packageLocation": "../../../.yarn/berry/cache/tough-cookie-npm-6.0.1-7a26930694-10c0.zip/node_modules/tough-cookie/",\
         "packageDependencies": [\
           ["tldts", "npm:7.0.16"],\
-          ["tough-cookie", "npm:6.0.0"]\
+          ["tough-cookie", "npm:6.0.1"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -8472,7 +8499,7 @@ const RAW_RUNTIME_STATE =
           ["debug", "virtual:7786c501c79aa105de26d543c50999bc3ffc28c31c1a6f2d58b7186cb22c72362e89eca24786c0d5c6c0538a0bef1031c054fdc988813e6f7e1df708f2aee1cd#npm:4.4.1"],\
           ["expect-type", "npm:1.2.2"],\
           ["happy-dom", null],\
-          ["jsdom", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:27.0.0"],\
+          ["jsdom", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:29.0.1"],\
           ["magic-string", "npm:0.30.17"],\
           ["pathe", "npm:2.0.3"],\
           ["picomatch", "npm:4.0.3"],\
@@ -8541,7 +8568,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react-router-dom", "npm:5.3.3"],\
           ["@vitejs/plugin-react", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:5.0.2"],\
           ["axios", "npm:1.13.6"],\
-          ["jsdom", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:27.0.0"],\
+          ["jsdom", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:29.0.1"],\
           ["openapi-typescript-codegen", "npm:0.30.0"],\
           ["prettier", "npm:3.8.1"],\
           ["react", "npm:19.2.4"],\
@@ -8562,10 +8589,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["webidl-conversions", [\
-      ["npm:8.0.0", {\
-        "packageLocation": "../../../.yarn/berry/cache/webidl-conversions-npm-8.0.0-29c7b11d7f-10c0.zip/node_modules/webidl-conversions/",\
+      ["npm:8.0.1", {\
+        "packageLocation": "../../../.yarn/berry/cache/webidl-conversions-npm-8.0.1-0a5c649859-10c0.zip/node_modules/webidl-conversions/",\
         "packageDependencies": [\
-          ["webidl-conversions", "npm:8.0.0"]\
+          ["webidl-conversions", "npm:8.0.1"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -8587,15 +8614,23 @@ const RAW_RUNTIME_STATE =
           ["whatwg-mimetype", "npm:4.0.0"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:5.0.0", {\
+        "packageLocation": "../../../.yarn/berry/cache/whatwg-mimetype-npm-5.0.0-2b2a97ac39-10c0.zip/node_modules/whatwg-mimetype/",\
+        "packageDependencies": [\
+          ["whatwg-mimetype", "npm:5.0.0"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["whatwg-url", [\
-      ["npm:15.1.0", {\
-        "packageLocation": "../../../.yarn/berry/cache/whatwg-url-npm-15.1.0-0889b0b826-10c0.zip/node_modules/whatwg-url/",\
+      ["npm:16.0.1", {\
+        "packageLocation": "../../../.yarn/berry/cache/whatwg-url-npm-16.0.1-107479fe73-10c0.zip/node_modules/whatwg-url/",\
         "packageDependencies": [\
+          ["@exodus/bytes", "virtual:107479fe738b46d9ba616f54ddd1760b0da6893116ebd6fabe5b569b96d6c7fe9f5cac028b0ae1963c7a652f448755a0d8c6ff2fad3c20530b39d427000e39ca#npm:1.15.0"],\
           ["tr46", "npm:6.0.0"],\
-          ["webidl-conversions", "npm:8.0.0"],\
-          ["whatwg-url", "npm:15.1.0"]\
+          ["webidl-conversions", "npm:8.0.1"],\
+          ["whatwg-url", "npm:16.0.1"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -8626,32 +8661,6 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../../.yarn/berry/cache/wordwrap-npm-1.0.0-ae57a645e8-10c0.zip/node_modules/wordwrap/",\
         "packageDependencies": [\
           ["wordwrap", "npm:1.0.0"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["ws", [\
-      ["npm:8.18.3", {\
-        "packageLocation": "../../../.yarn/berry/cache/ws-npm-8.18.3-665d39209d-10c0.zip/node_modules/ws/",\
-        "packageDependencies": [\
-          ["ws", "npm:8.18.3"]\
-        ],\
-        "linkType": "SOFT"\
-      }],\
-      ["virtual:75ab8c6bc79943cf706616c3116f4b248a4cef32ed723a61053de0c47567ed8723ad4d8d7d7a6912cda23e410d79a3a7d58fd5eae0ca2fa742bd42dd7a747ca4#npm:8.18.3", {\
-        "packageLocation": "./.yarn/__virtual__/ws-virtual-1074b738a2/4/.yarn/berry/cache/ws-npm-8.18.3-665d39209d-10c0.zip/node_modules/ws/",\
-        "packageDependencies": [\
-          ["@types/bufferutil", null],\
-          ["@types/utf-8-validate", null],\
-          ["bufferutil", null],\
-          ["utf-8-validate", null],\
-          ["ws", "virtual:75ab8c6bc79943cf706616c3116f4b248a4cef32ed723a61053de0c47567ed8723ad4d8d7d7a6912cda23e410d79a3a7d58fd5eae0ca2fa742bd42dd7a747ca4#npm:8.18.3"]\
-        ],\
-        "packagePeers": [\
-          "@types/bufferutil",\
-          "@types/utf-8-validate",\
-          "bufferutil",\
-          "utf-8-validate"\
         ],\
         "linkType": "HARD"\
       }]\
