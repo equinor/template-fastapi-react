@@ -35,7 +35,7 @@ const RAW_RUNTIME_STATE =
           ["@testing-library/jest-dom", "npm:6.9.1"],\
           ["@testing-library/react", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:16.3.2"],\
           ["@types/jest", "npm:30.0.0"],\
-          ["@types/node", "npm:24.3.0"],\
+          ["@types/node", "npm:25.5.0"],\
           ["@types/react", "npm:19.2.14"],\
           ["@types/react-dom", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:19.2.3"],\
           ["@types/react-router", "npm:5.1.20"],\
@@ -4926,6 +4926,14 @@ const RAW_RUNTIME_STATE =
           ["undici-types", "npm:7.10.0"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:25.5.0", {\
+        "packageLocation": "../../../.yarn/berry/cache/@types-node-npm-25.5.0-49c7b83d02-10c0.zip/node_modules/@types/node/",\
+        "packageDependencies": [\
+          ["@types/node", "npm:25.5.0"],\
+          ["undici-types", "npm:7.18.2"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["@types/react", [\
@@ -8055,6 +8063,13 @@ const RAW_RUNTIME_STATE =
           ["undici-types", "npm:7.10.0"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:7.18.2", {\
+        "packageLocation": "../../../.yarn/berry/cache/undici-types-npm-7.18.2-3e6d69d829-10c0.zip/node_modules/undici-types/",\
+        "packageDependencies": [\
+          ["undici-types", "npm:7.18.2"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["unicorn-magic", [\
@@ -8155,7 +8170,7 @@ const RAW_RUNTIME_STATE =
           ["@types/jiti", null],\
           ["@types/less", null],\
           ["@types/lightningcss", null],\
-          ["@types/node", "npm:24.3.0"],\
+          ["@types/node", "npm:25.5.0"],\
           ["@types/sass", null],\
           ["@types/sass-embedded", null],\
           ["@types/stylus", null],\
@@ -8441,7 +8456,7 @@ const RAW_RUNTIME_STATE =
           ["@types/edge-runtime__vm", null],\
           ["@types/happy-dom", null],\
           ["@types/jsdom", null],\
-          ["@types/node", "npm:24.3.0"],\
+          ["@types/node", "npm:25.5.0"],\
           ["@types/vitest__browser", null],\
           ["@types/vitest__ui", null],\
           ["@vitest/browser", null],\
@@ -8519,7 +8534,7 @@ const RAW_RUNTIME_STATE =
           ["@testing-library/jest-dom", "npm:6.9.1"],\
           ["@testing-library/react", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:16.3.2"],\
           ["@types/jest", "npm:30.0.0"],\
-          ["@types/node", "npm:24.3.0"],\
+          ["@types/node", "npm:25.5.0"],\
           ["@types/react", "npm:19.2.14"],\
           ["@types/react-dom", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:19.2.3"],\
           ["@types/react-router", "npm:5.1.20"],\
