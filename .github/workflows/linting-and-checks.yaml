@@ -21,7 +21,7 @@ jobs:
     name: "pre-commit"
     steps:
       - name: "Setup: checkout repository"
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: "Setup: Runtimes"
         uses: jdx/mise-action@v3
@@ -40,7 +40,7 @@ jobs:
         working-directory: ./api
     steps:
       - name: "Setup: checkout repository"
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: "Setup: Runtimes"
         uses: jdx/mise-action@v3
@@ -65,7 +65,7 @@ jobs:
         working-directory: ./web
     steps:
       - name: "Setup: check out repository"
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           sparse-checkout: |
             .github
@@ -89,7 +89,7 @@ jobs:
     name: "validate Radix config"
     steps:
       - name: "Setup: checkout repository"
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - uses: equinor/radix-github-actions@v2
       - name: "Run: validate radix config"
         run: rx validate radix-config
