@@ -77,7 +77,7 @@ repos:
         files: ^api/.*\.py$
 
   - repo: https://github.com/biomejs/pre-commit
-    rev: v2.4.6
+    rev: v2.4.9
     hooks:
       - id: biome-check
         name: "Lint : biome (ts/js)"
