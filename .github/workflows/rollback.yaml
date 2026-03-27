@@ -12,10 +12,6 @@ permissions:
   id-token: write
   packages: write
 
-env:
-  IMAGE_REGISTRY: ghcr.io
-  API_IMAGE: ghcr.io/equinor/neqsimapi
-
 jobs:
   set-prod-tag:
     runs-on: ubuntu-latest
@@ -29,14 +25,18 @@ jobs:
           ]
     steps:
       - name: "Login to image registry"
-        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login $IMAGE_REGISTRY -u $GITHUB_ACTOR --password-stdin
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: "Set prod tag on older image"
         run: |
           echo "Tagging ${{ matrix.image }}:${{ inputs.release-tag }} with 'production'"
           docker pull ${{ matrix.image }}:${{ inputs.release-tag }}
           docker tag ${{ matrix.image }}:${{ inputs.release-tag }} ${{ matrix.image }}:production
-          docker push $API_IMAGE:production
+          docker push ${{ matrix.image }}:production
 
   # uncomment to apply rollback to radix
   # deploy:
