@@ -30,7 +30,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@biomejs/biome", "npm:2.4.9"],\
           ["@equinor/eds-core-react", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:0.48.0"],\
-          ["@equinor/eds-icons", "npm:0.22.0"],\
+          ["@equinor/eds-icons", "npm:1.3.0"],\
           ["@testing-library/dom", "npm:10.4.1"],\
           ["@testing-library/jest-dom", "npm:6.9.1"],\
           ["@testing-library/react", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:16.3.2"],\
@@ -690,6 +690,13 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../../.yarn/berry/cache/@equinor-eds-icons-npm-0.22.0-436dd279e2-10c0.zip/node_modules/@equinor/eds-icons/",\
         "packageDependencies": [\
           ["@equinor/eds-icons", "npm:0.22.0"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:1.3.0", {\
+        "packageLocation": "../../../.yarn/berry/cache/@equinor-eds-icons-npm-1.3.0-b0d7b9c465-10c0.zip/node_modules/@equinor/eds-icons/",\
+        "packageDependencies": [\
+          ["@equinor/eds-icons", "npm:1.3.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -8507,7 +8514,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@biomejs/biome", "npm:2.4.9"],\
           ["@equinor/eds-core-react", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:0.48.0"],\
-          ["@equinor/eds-icons", "npm:0.22.0"],\
+          ["@equinor/eds-icons", "npm:1.3.0"],\
           ["@testing-library/dom", "npm:10.4.1"],\
           ["@testing-library/jest-dom", "npm:6.9.1"],\
           ["@testing-library/react", "virtual:5f667c73984ed00ed0af2d2ee5bb7487501bcb7981faa0f3174f6b4e10779d128272858d90e1bd616db7bd20b70e6922af9582ba35aeace0a368e003ee8b65c2#npm:16.3.2"],\

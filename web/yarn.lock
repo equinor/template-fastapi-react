@@ -478,6 +478,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@equinor/eds-icons@npm:^1.3.0":
+  version: 1.3.0
+  resolution: "@equinor/eds-icons@npm:1.3.0"
+  checksum: 10c0/7c3f2f8d5ce3950b0e860f002be01ad3b7bf65d9068ff78901a6aef9d3a2472b0f587a36dac27637c7fdc686f1098888c3d88bd121a92f35170461e544c6cb72
+  languageName: node
+  linkType: hard
+
 "@equinor/eds-tokens@npm:0.9.2":
   version: 0.9.2
   resolution: "@equinor/eds-tokens@npm:0.9.2"
@@ -6073,7 +6080,7 @@ __metadata:
   dependencies:
     "@biomejs/biome": "npm:^2.4.9"
     "@equinor/eds-core-react": "npm:^0.48.0"
-    "@equinor/eds-icons": "npm:^0.22.0"
+    "@equinor/eds-icons": "npm:^1.3.0"
     "@testing-library/dom": "npm:^10.4.1"
     "@testing-library/jest-dom": "npm:^6.9.1"
     "@testing-library/react": "npm:^16.3.2"
