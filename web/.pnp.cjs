@@ -6250,10 +6250,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["handlebars", [\
-      ["npm:4.7.8", {\
-        "packageLocation": "../../../.yarn/berry/cache/handlebars-npm-4.7.8-25244c2c82-10c0.zip/node_modules/handlebars/",\
+      ["npm:4.7.9", {\
+        "packageLocation": "../../../.yarn/berry/cache/handlebars-npm-4.7.9-46c3c68605-10c0.zip/node_modules/handlebars/",\
         "packageDependencies": [\
-          ["handlebars", "npm:4.7.8"],\
+          ["handlebars", "npm:4.7.9"],\
           ["minimist", "npm:1.2.8"],\
           ["neo-async", "npm:2.6.2"],\
           ["source-map", "npm:0.6.1"],\
@@ -7019,7 +7019,7 @@ const RAW_RUNTIME_STATE =
           ["camelcase", "npm:6.3.0"],\
           ["commander", "npm:12.1.0"],\
           ["fs-extra", "npm:11.2.0"],\
-          ["handlebars", "npm:4.7.8"],\
+          ["handlebars", "npm:4.7.9"],\
           ["openapi-typescript-codegen", "npm:0.29.0"]\
         ],\
         "linkType": "HARD"\
