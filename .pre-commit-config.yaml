@@ -82,7 +82,6 @@ repos:
       - id: biome-check
         name: "Lint : biome (ts/js)"
         additional_dependencies: ["@biomejs/biome@2.4.9"]
-        args: ["--config-path", "web"]
         exclude: |
           (?x)(
             ^web/\.pnp\.cjs$

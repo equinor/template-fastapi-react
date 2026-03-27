@@ -1,6 +1,6 @@
 import { Button, Icon, Tooltip } from '@equinor/eds-core-react'
 import type { IconData } from '@equinor/eds-icons'
-import { type Ref, forwardRef } from 'react'
+import { forwardRef, type Ref } from 'react'
 
 interface IconButtonProps {
   title: string
