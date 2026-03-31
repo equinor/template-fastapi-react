@@ -5,7 +5,7 @@ repos:
     hooks:
       - id: generate-openapi-spec
         name: Generate OpenAPI spec
-        entry: mise run generate-openapi-spec
+        entry: mise run generate:openapi-spec
         language: python
         files: |
           (?x)(
@@ -17,7 +17,7 @@ repos:
 
       - id: generate-api-client-from-spec
         name: Generate the client for our api
-        entry: mise run generate-api-client-from-spec
+        entry: mise run generate:api-client-from-spec
         language: node
         files: ^api/.openapi.json$
         pass_filenames: false
