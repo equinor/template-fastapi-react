@@ -33,12 +33,9 @@ A demo is running at https://template-fastapi-react.app.playground.radix.equinor
 
 ### Prerequisites
 
-To run the template todo-list application ([Running](#running)):
-- [Docker](https://www.docker.com/)
+The minimum requirements to run the application locally are:
 
-For development ([Development](#development)):
-- [Docker](https://www.docker.com/)
-- [`mise`](https://mise.jdx.dev/getting-started.html)
+- [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/)
 
 ### Configuration
 
