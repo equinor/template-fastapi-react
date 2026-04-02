@@ -5851,7 +5851,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../../.yarn/berry/cache/glob-npm-13.0.6-864eb0cece-10c0.zip/node_modules/glob/",\
         "packageDependencies": [\
           ["glob", "npm:13.0.6"],\
-          ["minimatch", "npm:10.2.4"],\
+          ["minimatch", "npm:10.2.5"],\
           ["minipass", "npm:7.1.3"],\
           ["path-scurry", "npm:2.0.2"]\
         ],\
@@ -6546,11 +6546,11 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["minimatch", [\
-      ["npm:10.2.4", {\
-        "packageLocation": "../../../.yarn/berry/cache/minimatch-npm-10.2.4-11f0605299-10c0.zip/node_modules/minimatch/",\
+      ["npm:10.2.5", {\
+        "packageLocation": "../../../.yarn/berry/cache/minimatch-npm-10.2.5-f1c8297822-10c0.zip/node_modules/minimatch/",\
         "packageDependencies": [\
           ["brace-expansion", "npm:5.0.5"],\
-          ["minimatch", "npm:10.2.4"]\
+          ["minimatch", "npm:10.2.5"]\
         ],\
         "linkType": "HARD"\
       }]\
