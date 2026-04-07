@@ -1,5 +1,4 @@
 import { Typography } from '@equinor/eds-core-react'
-import axios, { type AxiosError, type AxiosResponse } from 'axios'
 import { useEffect, useState } from 'react'
 
 type CommitInfo = {
@@ -17,12 +16,12 @@ const useCommitInfo = () => {
 
   useEffect(() => {
     const fetchVersionFile = () =>
-      axios
-        .get('version.txt')
-        .then((res: AxiosResponse<string>) => Object.fromEntries(res.data.split('\n').map((line) => line.split(': '))))
-        .catch((error: AxiosError) => {
-          throw new Error(`Could not read version file, ${error.response?.data ?? error}`)
+      fetch('version.txt')
+        .then((res) => {
+          if (!res.ok) throw new Error(`Could not read version file, ${res.statusText}`)
+          return res.text()
         })
+        .then((text) => Object.fromEntries(text.split('\n').map((line) => line.split(': '))))
     fetchVersionFile().then((commitInfo) => setCommitInfo(commitInfo))
   }, [])
 
