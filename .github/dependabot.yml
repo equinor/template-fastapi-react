@@ -1,4 +1,10 @@
 version: 2
+registries:
+  dhi-io:
+    type: docker-registry
+    url: https://dhi.io
+    username: ${{secrets.DHI_USERNAME}}
+    password: ${{secrets.DHI_PASSWORD}}
 updates:
   - package-ecosystem: "npm"
     directories:
@@ -26,6 +32,8 @@ updates:
     directories:
       - "/web"
       - "/api"
+    registries:
+      - dhi-io
     schedule:
       interval: "monthly" # when template is used, recommended interval is "weekly"
     groups:
