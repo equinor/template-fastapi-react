@@ -5,7 +5,7 @@ HEALTHCHECK CMD ["nginx", "-t"]
 # Copy configs
 COPY nginx/rootfs/ /
 
-FROM dhi.io/node:24.13.1-debian13-dev AS base
+FROM dhi.io/node:25.9.0-debian13-dev AS base
 ARG AUTH_ENABLED=0
 # Azure AD requires a scope.
 ARG AUTH_SCOPE=""
