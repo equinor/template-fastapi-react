@@ -5700,9 +5700,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^8.0.6":
-  version: 8.0.6
-  resolution: "vite@npm:8.0.6"
+"vite@npm:^8.0.7":
+  version: 8.0.7
+  resolution: "vite@npm:8.0.7"
   dependencies:
     fsevents: "npm:~2.3.3"
     lightningcss: "npm:^1.32.0"
@@ -5753,7 +5753,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 10c0/a92a9a065a84bb7babe85a3f09d7580171155b42c0663892861205e0c707a86eb567c09ac6649730479b675dd447c4ae051a79be57acfbe6b60b2df50a31807f
+  checksum: 10c0/88f8ec4e86275f32e88ae98df3bfda7e25f12e33e06b868b1abeee57740c9f043c9feaa3e5e993a903d6949e5cece358f7a527e6c19d9670d7401fded6d2f201
   languageName: node
   linkType: hard
 
@@ -5867,7 +5867,7 @@ __metadata:
     react-router-dom: "npm:^7.14.0"
     styled-components: "npm:^6.3.12"
     typescript: "npm:~6.0.2"
-    vite: "npm:^8.0.6"
+    vite: "npm:^8.0.7"
     vite-plugin-checker: "npm:^0.12.0"
     vite-plugin-csp-guard: "npm:^3.0.0"
     vite-plugin-svgr: "npm:^5.2.0"
