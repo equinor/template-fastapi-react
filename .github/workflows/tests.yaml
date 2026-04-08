@@ -91,6 +91,6 @@ jobs:
       - name: Install dependencies and build website
         # if: steps.docs-changes.outputs.changes > 0
         run: |
-          uv sync --group docs
-          source .venv/bin/activate
-          zensical build
+          cd docs
+          uv sync --locked
+          uv run zensical build

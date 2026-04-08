@@ -64,6 +64,12 @@ The API documentation can be found at http://localhost:5000/docs
 
 See the [docs](https://equinor.github.io/template-fastapi-react/) if you want to start developing.
 
+Or run the docs locally:
+
+```sh
+mise run docs-serve
+```
+
 <a id="contributing"></a>
 ## :+1: Contributing
 

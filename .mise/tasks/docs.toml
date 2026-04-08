@@ -1,0 +1,7 @@
+["docs:build"]
+dir = "{{config_root}}/docs"
+run = "uv sync --locked && uv run zensical build"
+
+["docs:serve"]
+dir = "{{config_root}}/docs"
+run = "uv sync --locked && uv run zensical serve"
