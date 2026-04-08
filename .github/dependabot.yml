@@ -17,16 +17,6 @@ updates:
           - "minor"
           - "patch"
 
-  - package-ecosystem: "pip"
-    directory: "/api"
-    schedule:
-      interval: "monthly" # when template is used, recommended interval is "weekly"
-    groups:
-      api:
-        update-types:
-          - "minor"
-          - "patch"
-
   - package-ecosystem: "docker"
     directories:
       - "/web"
@@ -42,7 +32,9 @@ updates:
           - "patch"
 
   - package-ecosystem: "uv"
-    directory: "/docs"
+    directories:
+      - "/docs"
+      - "/api"
     schedule:
       interval: "monthly" # when template is used, recommended interval is "weekly"
     groups:
