@@ -1,0 +1,10 @@
+["generate:openapi-spec"]
+description = "Generate the OpenAPI JSON Schema for the API"
+depends = ["install-dependencies:api"]
+dir = "{{config_root}}/api"
+run = "uv run python -m app open-api"
+
+["generate:api-client-from-spec"]
+description = "Generate typescript types from the OpenAPI JSON Schema"
+dir = "{{config_root}}/web"
+run = "openapi -i ../api/.openapi.json -o './src/api/generated'"

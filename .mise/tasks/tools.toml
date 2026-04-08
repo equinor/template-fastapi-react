@@ -1,0 +1,4 @@
+["tools:yarn"]
+hide = true
+dir = "{{config_root}}/web"
+run = ["corepack enable", "corepack install"]
