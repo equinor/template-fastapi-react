@@ -41,6 +41,16 @@ updates:
           - "minor"
           - "patch"
 
+  - package-ecosystem: "uv"
+    directory: "/docs"
+    schedule:
+      interval: "monthly" # when template is used, recommended interval is "weekly"
+    groups:
+      docs:
+        update-types:
+          - "minor"
+          - "patch"
+
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:

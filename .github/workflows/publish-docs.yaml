@@ -15,24 +15,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - name: Setup node
-        uses: actions/setup-node@v6
-        with:
-          node-version: 20
-          cache: yarn
-          cache-dependency-path: documentation/yarn.lock
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
 
-      - name: Install dependencies
-        working-directory: documentation
-        run: yarn install --frozen-lockfile
-
-      - name: Build documentation
-        working-directory: documentation
-        run: yarn build
+      - name: Install dependencies and build website
+        run: |
+          cd docs
+          uv sync --locked
+          uv run zensical build
 
       - name: Push static files to Github Pages branch
         run: |
-          cd documentation/build
+          cd docs/site
           CREATED_FROM_REF=$(git rev-parse --short HEAD)
           git init
           git config user.name "GitHub Actions Bot"

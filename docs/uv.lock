@@ -586,21 +586,17 @@ wheels = [
 ]
 
 [[package]]
-name = "template-fastapi-react"
+name = "template-fastapi-react-docs"
 version = "0.1.0"
 source = { virtual = "." }
-
-[package.dev-dependencies]
-docs = [
+dependencies = [
     { name = "mkdocs-mermaid2-plugin" },
     { name = "mkdocs-techdocs-core" },
     { name = "zensical" },
 ]
 
 [package.metadata]
-
-[package.metadata.requires-dev]
-docs = [
+requires-dist = [
     { name = "mkdocs-mermaid2-plugin", specifier = ">=1.2.3" },
     { name = "mkdocs-techdocs-core", specifier = ">=1.6.1" },
     { name = "zensical", specifier = ">=0.0.24" },
