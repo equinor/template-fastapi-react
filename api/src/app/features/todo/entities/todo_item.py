@@ -1,4 +1,5 @@
 from dataclasses import asdict, dataclass, fields
+from typing import Self
 
 
 @dataclass(frozen=True)
@@ -12,9 +13,9 @@ class TodoItem:
         return asdict(self)
 
     @classmethod
-    def from_dict(cls, dict_: dict[str, str | bool]) -> "TodoItem":
+    def from_dict(cls, dict_: dict[str, str | bool]) -> Self:
         class_fields = {f.name for f in fields(cls)}
         if "_id" in dict_:
             dict_["id"] = dict_.pop("_id")
         data = {k: v for k, v in dict_.items() if k in class_fields}
-        return TodoItem(**data)  # type:ignore
+        return cls(**data)  # type:ignore

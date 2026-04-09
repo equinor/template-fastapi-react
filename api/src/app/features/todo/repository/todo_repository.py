@@ -14,11 +14,6 @@ def to_dict(todo_item: TodoItem) -> dict[str, Any]:
     return _dict
 
 
-def get_todo_repository() -> "TodoRepository":
-    mongo_database_client = MongoDatabaseClient(collection_name="todos", database_name=config.MONGODB_DATABASE)
-    return TodoRepository(client=mongo_database_client)
-
-
 class TodoRepository(TodoRepositoryInterface):
     client: ClientInterface
 
@@ -56,3 +51,8 @@ class TodoRepository(TodoRepositoryInterface):
         if todo_item:
             return TodoItem.from_dict(todo_item)
         return None
+
+
+def get_todo_repository() -> TodoRepository:
+    mongo_database_client = MongoDatabaseClient(collection_name="todos", database_name=config.MONGODB_DATABASE)
+    return TodoRepository(client=mongo_database_client)
