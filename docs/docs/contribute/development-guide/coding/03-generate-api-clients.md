@@ -1,10 +1,10 @@
 # Generate API clients
 
-To generate typescript client for API run:
+To generate the typescript client for the API, run:
 
 ```shell
 cd web
-./generate-api-client.sh
+yarn generate
 ```
 
-This will populate `web/src/api/generated` with new typescript files that matches the API OpenAPI specification.
+This uses the configuration in `web/openapi-ts.config.ts` and populates `web/src/api/generated` with new typescript files that match the API's OpenAPI specification.

@@ -1,9 +1,9 @@
 import { Button, Progress, Typography } from '@equinor/eds-core-react'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { AuthContext } from 'react-oauth2-code-pkce'
 import { RouterProvider } from 'react-router-dom'
 import styled from 'styled-components'
-import { OpenAPI } from './api/generated'
+import { client } from './api/generated/client.gen'
 import Header from './common/components/Header'
 import { router } from './router'
 
@@ -22,7 +22,11 @@ const CenterContainer = styled.div`
 function App() {
   const { token, error, logIn, loginInProgress } = useContext(AuthContext)
 
-  OpenAPI.TOKEN = token
+  useEffect(() => {
+    client.setConfig({
+      auth: hasAuthConfig && token ? token : undefined,
+    })
+  }, [token])
 
   if (hasAuthConfig && error) {
     return <CenterContainer>{error}</CenterContainer>
