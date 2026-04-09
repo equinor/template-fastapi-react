@@ -1,4 +1,5 @@
 import uuid
+from typing import Self
 
 from pydantic import BaseModel, Field
 
@@ -30,9 +31,9 @@ class AddTodoResponse(BaseModel):
     )
     is_completed: bool = False
 
-    @staticmethod
-    def from_entity(todo_item: TodoItem) -> "AddTodoResponse":
-        return AddTodoResponse(id=todo_item.id, title=todo_item.title, is_completed=todo_item.is_completed)
+    @classmethod
+    def from_entity(cls, todo_item: TodoItem) -> Self:
+        return cls(id=todo_item.id, title=todo_item.title, is_completed=todo_item.is_completed)
 
 
 def add_todo_use_case(

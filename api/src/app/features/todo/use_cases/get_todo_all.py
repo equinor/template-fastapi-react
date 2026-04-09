@@ -1,3 +1,5 @@
+from typing import Self
+
 from pydantic import BaseModel
 
 from app.common.logger import logger
@@ -11,9 +13,9 @@ class GetTodoAllResponse(BaseModel):
     title: str
     is_completed: bool
 
-    @staticmethod
-    def from_entity(todo_item: TodoItem) -> "GetTodoAllResponse":
-        return GetTodoAllResponse(id=todo_item.id, title=todo_item.title, is_completed=todo_item.is_completed)
+    @classmethod
+    def from_entity(cls, todo_item: TodoItem) -> Self:
+        return cls(id=todo_item.id, title=todo_item.title, is_completed=todo_item.is_completed)
 
 
 # Telemetry example: Initialize a span that will be used to log telemetry data

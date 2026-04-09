@@ -43,7 +43,7 @@ disallow_subclassing_any = false
 
 [tool.ruff]
 src = ["src"]
-target-version = "py312"
+target-version = "py314"
 line-length = 119
 
 [tool.ruff.lint]
@@ -67,10 +67,6 @@ ignore = [
   "E402",
 ] # Ignore `E402` (import violations) in all `__init__.py` files
 "tests/*" = ["S101"] # Allow the use of ´assert´ in tests
-
-[tool.codespell]
-skip = "*.lock,*.cjs"
-ignore-words-list = "ignored-word"
 
 [tool.pytest.ini_options]
 # Makes pytest CLI discover markers and conftest settings:

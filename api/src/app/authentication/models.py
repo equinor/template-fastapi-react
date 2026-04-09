@@ -1,5 +1,5 @@
 from enum import IntEnum
-from typing import Any, Literal, TypedDict, cast
+from typing import Any, Literal, Self, TypedDict, cast
 
 from pydantic import BaseModel, Field, GetJsonSchemaHandler
 from pydantic_core.core_schema import CoreSchema
@@ -10,7 +10,7 @@ class AccessLevel(IntEnum):
     READ = 1
     NONE = 0
 
-    def check_privilege(self, required_level: "AccessLevel") -> bool:
+    def check_privilege(self, required_level: Self) -> bool:
         if self.value >= required_level.value:
             return True
         return False
