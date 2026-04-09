@@ -21,7 +21,7 @@ from app.features.todo.use_cases import (
 router = APIRouter(tags=["todo"], prefix="/todos", route_class=ExceptionHandlingRoute)
 
 
-@router.post("", operation_id="create")
+@router.post("", operation_id="createTodo")
 def add_todo(
     data: AddTodoRequest,
     user: User = Depends(auth_with_jwt),
@@ -30,7 +30,7 @@ def add_todo(
     return add_todo_use_case(data=data, user_id=user.user_id, todo_repository=todo_repository)
 
 
-@router.get("/{id}", operation_id="get_by_id")
+@router.get("/{id}", operation_id="getTodoById")
 def get_todo_by_id(
     id: str,
     user: User = Depends(auth_with_jwt),
@@ -39,7 +39,7 @@ def get_todo_by_id(
     return get_todo_by_id_use_case(id=id, user_id=user.user_id, todo_repository=todo_repository)
 
 
-@router.delete("/{id}", operation_id="delete_by_id")
+@router.delete("/{id}", operation_id="deleteTodoById")
 def delete_todo_by_id(
     id: str,
     user: User = Depends(auth_with_jwt),
@@ -48,14 +48,14 @@ def delete_todo_by_id(
     return delete_todo_use_case(id=id, user_id=user.user_id, todo_repository=todo_repository)
 
 
-@router.get("", operation_id="get_all")
+@router.get("", operation_id="getAllTodos")
 def get_todo_all(
     user: User = Depends(auth_with_jwt), todo_repository: TodoRepositoryInterface = Depends(get_todo_repository)
 ) -> list[GetTodoAllResponse]:
     return get_todo_all_use_case(user_id=user.user_id, todo_repository=todo_repository)  # type: ignore
 
 
-@router.put("/{id}", operation_id="update_by_id")
+@router.put("/{id}", operation_id="updateTodoById")
 def update_todo(
     id: str,
     data: UpdateTodoRequest,

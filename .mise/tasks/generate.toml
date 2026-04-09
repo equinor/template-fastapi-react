@@ -6,5 +6,6 @@ run = "uv run python -m app open-api"
 
 ["generate:api-client-from-spec"]
 description = "Generate typescript types from the OpenAPI JSON Schema"
+depends = ["generate:openapi-spec"]
 dir = "{{config_root}}/web"
-run = "openapi -i ../api/.openapi.json -o './src/api/generated'"
+run = "yarn install && yarn generate"

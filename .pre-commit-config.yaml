@@ -18,11 +18,9 @@ repos:
       - id: generate-api-client-from-spec
         name: Generate the client for our api
         entry: mise run generate:api-client-from-spec
-        language: node
+        language: system
         files: ^api/.openapi.json$
         pass_filenames: false
-        additional_dependencies:
-          - openapi-typescript-codegen@0.29.0
 
   - repo: https://github.com/compilerla/conventional-pre-commit
     rev: v4.4.0

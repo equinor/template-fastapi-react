@@ -16,7 +16,7 @@
                     "todo"
                 ],
                 "summary": "Get Todo All",
-                "operationId": "get_all",
+                "operationId": "getAllTodos",
                 "responses": {
                     "200": {
                         "description": "Successful Response",
@@ -27,7 +27,7 @@
                                         "$ref": "#/components/schemas/GetTodoAllResponse"
                                     },
                                     "type": "array",
-                                    "title": "Response Get All"
+                                    "title": "Response Getalltodos"
                                 }
                             }
                         }
@@ -140,7 +140,7 @@
                     "todo"
                 ],
                 "summary": "Add Todo",
-                "operationId": "create",
+                "operationId": "createTodo",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -272,7 +272,7 @@
                     "todo"
                 ],
                 "summary": "Get Todo By Id",
-                "operationId": "get_by_id",
+                "operationId": "getTodoById",
                 "security": [
                     {
                         "OAuth2AuthorizationCodeBearer": []
@@ -403,7 +403,7 @@
                     "todo"
                 ],
                 "summary": "Delete Todo By Id",
-                "operationId": "delete_by_id",
+                "operationId": "deleteTodoById",
                 "security": [
                     {
                         "OAuth2AuthorizationCodeBearer": []
@@ -534,7 +534,7 @@
                     "todo"
                 ],
                 "summary": "Update Todo",
-                "operationId": "update_by_id",
+                "operationId": "updateTodoById",
                 "security": [
                     {
                         "OAuth2AuthorizationCodeBearer": []

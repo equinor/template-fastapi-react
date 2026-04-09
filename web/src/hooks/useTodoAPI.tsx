@@ -1,10 +1,13 @@
 import { useCallback } from 'react'
-import { type AddTodoResponse, ApiError, type ErrorResponse, TodoService } from '../api/generated'
+import type { AddTodoResponse, ErrorResponse } from '../api/generated'
+import { createTodo, deleteTodoById, getAllTodos, updateTodoById } from '../api/generated'
 import { useTodos } from '../contexts/TodoContext'
 
 function handleError(error: unknown): void {
-  if (error instanceof ApiError) {
-    console.error((error.body as ErrorResponse).message)
+  if (typeof error === 'object' && error !== null && 'message' in error) {
+    console.error((error as ErrorResponse).message)
+  } else {
+    console.error(error)
   }
   throw error
 }
@@ -14,7 +17,10 @@ export function useTodoAPI() {
 
   const addTodoItem = useCallback(async (title: string) => {
     try {
-      const todoItem = await TodoService.create({ title })
+      const { data: todoItem } = await createTodo({
+        body: { title },
+        throwOnError: true,
+      })
       dispatch({ type: 'ADD_TODO', payload: todoItem })
       return todoItem
     } catch (error) {
@@ -24,7 +30,9 @@ export function useTodoAPI() {
 
   const getAllTodoItems = useCallback(async () => {
     try {
-      const todoItems = await TodoService.getAll()
+      const { data: todoItems } = await getAllTodos({
+        throwOnError: true,
+      })
       dispatch({ type: 'INITIALIZE', payload: todoItems })
       return todoItems
     } catch (error) {
@@ -34,9 +42,13 @@ export function useTodoAPI() {
 
   const toggleTodoItem = useCallback(async (todoItem: AddTodoResponse) => {
     try {
-      await TodoService.updateById(todoItem.id, {
-        is_completed: !todoItem.is_completed,
-        title: todoItem.title,
+      await updateTodoById({
+        path: { id: todoItem.id },
+        body: {
+          is_completed: !todoItem.is_completed,
+          title: todoItem.title,
+        },
+        throwOnError: true,
       })
       dispatch({ type: 'TOGGLE_TODO', payload: todoItem })
     } catch (error) {
@@ -46,7 +58,10 @@ export function useTodoAPI() {
 
   const removeTodoItem = useCallback(async (todoItem: AddTodoResponse) => {
     try {
-      await TodoService.deleteById(todoItem.id)
+      await deleteTodoById({
+        path: { id: todoItem.id },
+        throwOnError: true,
+      })
       dispatch({ type: 'REMOVE_TODO', payload: todoItem })
     } catch (error) {
       handleError(error)
