@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 # First, build the application in the `/app` directory
-FROM python:3.14.3-slim-trixie AS base
+FROM python:3.14.4-slim-trixie AS base
 ENV XDG_CACHE_HOME=/var/lib
 ENV UV_PROJECT_ENVIRONMENT=/usr/local
 
@@ -11,7 +11,7 @@ EXPOSE 5000
 ENV PYTHONPATH=/app/src
 
 FROM base AS dependencies
-COPY --from=docker.io/astral/uv:0.10.7 /uv /uvx /usr/local/bin/
+COPY --from=docker.io/astral/uv:0.11.6 /uv /uvx /usr/local/bin/
 ENV UV_COMPILE_BYTECODE=1
 ENV UV_LINK_MODE=copy
 

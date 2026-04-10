@@ -1,8 +1,8 @@
 [tools]
-python = "3.14.3"
-node = { version = "24.13.1", postinstall = "mise tasks run tools:yarn" }
+python = "3.14.4"
+node = { version = "24.14.1", postinstall = "mise tasks run tools:yarn" }
 pre-commit = "4.5.1"
-uv = "0.10.8"
+uv = "0.11.6"
 
 [task_config]
 includes = [".mise/tasks/*.toml"]
