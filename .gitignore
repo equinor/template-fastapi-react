@@ -10,8 +10,7 @@ __pycache__/
 
 # Dependency directories
 node_modules
-web/.pnp
-.pnp.js
+web/.pnp.*
 web/package-lock.json
 
 # Testing
@@ -157,13 +156,11 @@ data
 
 # Yarn stuff
 web/.yarn/*
-!web/.yarn/cache
 !web/.yarn/patches
 !web/.yarn/plugins
 !web/.yarn/releases
 !web/.yarn/sdks
 !web/.yarn/versions
-!web/.yarn/**/lib/
 
 # Asdf package manager
 /*/.tool-versions

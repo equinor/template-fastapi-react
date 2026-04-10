@@ -93,12 +93,12 @@ From inside the /web folder.
 ### Package management
 
 This project uses __Yarn 2 Plug'n'Play__ to manage web package dependencies.
-That means there is no need to run npm/yarn install.
-However, if you want to add/remove/update packages, you need yarn installed locally.
+After cloning or switching branches, you need to run `yarn install` to generate the PnP resolution files.
 
 ```shell
 cd web
 corepack enable
+yarn install
 ```
 
 #### Yarn PnP in Jetbrains IDEs
