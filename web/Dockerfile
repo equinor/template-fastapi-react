@@ -27,7 +27,7 @@ RUN corepack enable
 WORKDIR /code
 USER "node"
 
-COPY --chown="node:node" .yarnrc.yml .pnp.cjs .pnp.loader.mjs package.json yarn.lock ./
+COPY --chown="node:node" .yarnrc.yml package.json yarn.lock ./
 ENV YARN_CACHE_FOLDER="/var/lib/yarn"
 RUN --mount=type=cache,target="$YARN_CACHE_FOLDER" \
     yarn install
