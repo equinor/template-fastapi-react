@@ -5,7 +5,7 @@ description = "Docs for FastAPI React Template from Team Hermes"
 readme = "../README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "zensical>=0.0.24",
+    "zensical>=0.0.33",
     "mkdocs-mermaid2-plugin>=1.2.3",
     "mkdocs-techdocs-core>=1.6.1",
 ]
