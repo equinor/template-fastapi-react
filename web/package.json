@@ -14,7 +14,6 @@
   "dependencies": {
     "@equinor/eds-core-react": "^2.4.1",
     "@equinor/eds-icons": "^1.3.0",
-    "@hey-api/client-fetch": "^0.7.0",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
     "react-oauth2-code-pkce": "^1.24.0",
@@ -23,7 +22,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.10",
-    "@hey-api/openapi-ts": "^0.82.0",
+    "@hey-api/openapi-ts": "0.96.0",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
@@ -42,7 +41,7 @@
   },
   "packageManager": "yarn@4.12.0",
   "dependenciesMeta": {
-    "@hey-api/openapi-ts@0.82.5": {
+    "@hey-api/openapi-ts@0.96.0": {
       "unplugged": true
     }
   }
