@@ -1,6 +1,6 @@
-import { defineConfig } from '@hey-api/openapi-ts'
+import type { UserConfig } from '@hey-api/openapi-ts'
 
-export default defineConfig({
+export default {
   input: '../api/.openapi.json',
   output: './src/api/generated',
   plugins: [
@@ -10,4 +10,4 @@ export default defineConfig({
     '@hey-api/typescript',
     '@hey-api/sdk',
   ],
-})
+} satisfies UserConfig

@@ -12,9 +12,8 @@ import { getUrl } from '../core/utils.gen';
 import type { Client, ClientOptions, Config, RequestOptions } from './types.gen';
 
 export const createQuerySerializer = <T = unknown>({
-  allowReserved,
-  array,
-  object,
+  parameters = {},
+  ...args
 }: QuerySerializerOptions = {}) => {
   const querySerializer = (queryParams: T) => {
     const search: string[] = [];
@@ -26,29 +25,31 @@ export const createQuerySerializer = <T = unknown>({
           continue;
         }
 
+        const options = parameters[name] || args;
+
         if (Array.isArray(value)) {
           const serializedArray = serializeArrayParam({
-            allowReserved,
+            allowReserved: options.allowReserved,
             explode: true,
             name,
             style: 'form',
             value,
-            ...array,
+            ...options.array,
           });
           if (serializedArray) search.push(serializedArray);
         } else if (typeof value === 'object') {
           const serializedObject = serializeObjectParam({
-            allowReserved,
+            allowReserved: options.allowReserved,
             explode: true,
             name,
             style: 'deepObject',
             value: value as Record<string, unknown>,
-            ...object,
+            ...options.object,
           });
           if (serializedObject) search.push(serializedObject);
         } else {
           const serializedPrimitive = serializePrimitiveParam({
-            allowReserved,
+            allowReserved: options.allowReserved,
             name,
             value: value as string,
           });
@@ -64,9 +65,7 @@ export const createQuerySerializer = <T = unknown>({
 /**
  * Infers parseAs value from provided Content-Type header.
  */
-export const getParseAs = (
-  contentType: string | null,
-): Exclude<Config['parseAs'], 'auto'> => {
+export const getParseAs = (contentType: string | null): Exclude<Config['parseAs'], 'auto'> => {
   if (!contentType) {
     // If no Content-Type header is provided, the best we can do is return the raw response body,
     // which is effectively the same as the 'stream' option.
@@ -79,10 +78,7 @@ export const getParseAs = (
     return;
   }
 
-  if (
-    cleanContent.startsWith('application/json') ||
-    cleanContent.endsWith('+json')
-  ) {
+  if (cleanContent.startsWith('application/json') || cleanContent.endsWith('+json')) {
     return 'json';
   }
 
@@ -91,9 +87,7 @@ export const getParseAs = (
   }
 
   if (
-    ['application/', 'audio/', 'image/', 'video/'].some((type) =>
-      cleanContent.startsWith(type),
-    )
+    ['application/', 'audio/', 'image/', 'video/'].some((type) => cleanContent.startsWith(type))
   ) {
     return 'blob';
   }
@@ -200,10 +194,7 @@ export const mergeHeaders = (
       continue;
     }
 
-    const iterator =
-      header instanceof Headers
-        ? headersEntries(header)
-        : Object.entries(header);
+    const iterator = header instanceof Headers ? headersEntries(header) : Object.entries(header);
 
     for (const [key, value] of iterator) {
       if (value === null) {
@@ -213,7 +204,7 @@ export const mergeHeaders = (
           mergedHeaders.append(key, v as string);
         }
       } else if (value !== undefined) {
-        // assume object headers are meant to be JSON stringified, i.e. their
+        // assume object headers are meant to be JSON stringified, i.e., their
         // content value in OpenAPI specification is 'application/json'
         mergedHeaders.set(
           key,
@@ -232,10 +223,7 @@ type ErrInterceptor<Err, Res, Req, Options> = (
   options: Options,
 ) => Err | Promise<Err>;
 
-type ReqInterceptor<Req, Options> = (
-  request: Req,
-  options: Options,
-) => Req | Promise<Req>;
+type ReqInterceptor<Req, Options> = (request: Req, options: Options) => Req | Promise<Req>;
 
 type ResInterceptor<Res, Req, Options> = (
   response: Res,
@@ -244,67 +232,58 @@ type ResInterceptor<Res, Req, Options> = (
 ) => Res | Promise<Res>;
 
 class Interceptors<Interceptor> {
-  _fns: (Interceptor | null)[];
+  fns: Array<Interceptor | null> = [];
 
-  constructor() {
-    this._fns = [];
+  clear(): void {
+    this.fns = [];
   }
 
-  clear() {
-    this._fns = [];
+  eject(id: number | Interceptor): void {
+    const index = this.getInterceptorIndex(id);
+    if (this.fns[index]) {
+      this.fns[index] = null;
+    }
+  }
+
+  exists(id: number | Interceptor): boolean {
+    const index = this.getInterceptorIndex(id);
+    return Boolean(this.fns[index]);
   }
 
   getInterceptorIndex(id: number | Interceptor): number {
     if (typeof id === 'number') {
-      return this._fns[id] ? id : -1;
-    } else {
-      return this._fns.indexOf(id);
+      return this.fns[id] ? id : -1;
     }
-  }
-  exists(id: number | Interceptor) {
-    const index = this.getInterceptorIndex(id);
-    return !!this._fns[index];
+    return this.fns.indexOf(id);
   }
 
-  eject(id: number | Interceptor) {
+  update(id: number | Interceptor, fn: Interceptor): number | Interceptor | false {
     const index = this.getInterceptorIndex(id);
-    if (this._fns[index]) {
-      this._fns[index] = null;
-    }
-  }
-
-  update(id: number | Interceptor, fn: Interceptor) {
-    const index = this.getInterceptorIndex(id);
-    if (this._fns[index]) {
-      this._fns[index] = fn;
+    if (this.fns[index]) {
+      this.fns[index] = fn;
       return id;
-    } else {
-      return false;
     }
+    return false;
   }
 
-  use(fn: Interceptor) {
-    this._fns = [...this._fns, fn];
-    return this._fns.length - 1;
+  use(fn: Interceptor): number {
+    this.fns.push(fn);
+    return this.fns.length - 1;
   }
 }
 
-// `createInterceptors()` response, meant for external use as it does not
-// expose internals
 export interface Middleware<Req, Res, Err, Options> {
-  error: Pick<
-    Interceptors<ErrInterceptor<Err, Res, Req, Options>>,
-    'eject' | 'use'
-  >;
-  request: Pick<Interceptors<ReqInterceptor<Req, Options>>, 'eject' | 'use'>;
-  response: Pick<
-    Interceptors<ResInterceptor<Res, Req, Options>>,
-    'eject' | 'use'
-  >;
+  error: Interceptors<ErrInterceptor<Err, Res, Req, Options>>;
+  request: Interceptors<ReqInterceptor<Req, Options>>;
+  response: Interceptors<ResInterceptor<Res, Req, Options>>;
 }
 
-// do not add `Middleware` as return type so we can use _fns internally
-export const createInterceptors = <Req, Res, Err, Options>() => ({
+export const createInterceptors = <Req, Res, Err, Options>(): Middleware<
+  Req,
+  Res,
+  Err,
+  Options
+> => ({
   error: new Interceptors<ErrInterceptor<Err, Res, Req, Options>>(),
   request: new Interceptors<ReqInterceptor<Req, Options>>(),
   response: new Interceptors<ResInterceptor<Res, Req, Options>>(),
