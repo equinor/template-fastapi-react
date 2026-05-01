@@ -1701,10 +1701,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"csp-toolkit@npm:1.4.0":
-  version: 1.4.0
-  resolution: "csp-toolkit@npm:1.4.0"
-  checksum: 10c0/6dc983211387003e71fb1c897a6d6581c5b0e7b233adc9f83573db385e8c8010a0d4327c77b890611e0ce98b6507c070ef23d816b79d475c4dce9ade7b28846f
+"csp-toolkit@npm:^1.5.0":
+  version: 1.5.0
+  resolution: "csp-toolkit@npm:1.5.0"
+  checksum: 10c0/3a5f937fb22246a3e3edc07adb8864f94d1196e212a2969fa73091383c649577d844bcc1e7628a3f23c0eb7d97da7a3ac1ad56ad2f8995b5625ab918946a1cfc
   languageName: node
   linkType: hard
 
@@ -3644,15 +3644,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite-plugin-csp-guard@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "vite-plugin-csp-guard@npm:3.0.0"
+"vite-plugin-csp-guard@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "vite-plugin-csp-guard@npm:4.0.1"
   dependencies:
     cheerio: "npm:^1.1.2"
-    csp-toolkit: "npm:1.4.0"
+    csp-toolkit: "npm:^1.5.0"
   peerDependencies:
-    vite: ^7.0.0
-  checksum: 10c0/3904df9d857ce16f6b7f65761c4d54bf2598a025cbe1b97e7103a9568af1f7f4ac79b0e34727c0510b702182368fadaff70110be88a17fd5ad6c316fd9f7ef21
+    vite: ^8.0.0
+  checksum: 10c0/9f992c4d22eb4375da47e767924a62c7917432b92f56e7e765ba585272d039c492fdb8faa2c3cc13ab39232dfc8f0775a03076ee497f0e382b10fedc82c74cda
   languageName: node
   linkType: hard
 
@@ -3847,7 +3847,7 @@ __metadata:
     typescript: "npm:~6.0.2"
     vite: "npm:^8.0.8"
     vite-plugin-checker: "npm:^0.12.0"
-    vite-plugin-csp-guard: "npm:^3.0.0"
+    vite-plugin-csp-guard: "npm:^4.0.1"
     vite-plugin-svgr: "npm:^5.2.0"
     vite-tsconfig-paths: "npm:^6.1.1"
     vitest: "npm:^4.1.4"
