@@ -1,25 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { AuthProvider } from 'react-oauth2-code-pkce'
-import App from './App'
-import { client } from './api/generated/client.gen'
-import { authConfig } from './auth'
+import './app/styles/index.css'
+import { App } from './app/App'
+import { AppProviders } from './app/AppProviders'
+import { registerGlobalErrorHandlers } from './shared/platform/telemetry/registerGlobalErrorHandlers'
 
-const hasAuthConfig = import.meta.env.VITE_AUTH === '1'
-
-client.setConfig({
-  baseUrl: `${window.location.origin}/api`,
-})
+registerGlobalErrorHandlers()
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
-    {hasAuthConfig ? (
-      <AuthProvider authConfig={authConfig}>
-        <App />
-      </AuthProvider>
-    ) : (
+    <AppProviders>
       <App />
-    )}
+    </AppProviders>
   </React.StrictMode>
 )

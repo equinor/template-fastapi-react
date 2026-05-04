@@ -9,29 +9,48 @@
     "compile": "tsc --noEmit",
     "generate": "openapi-ts",
     "test": "vitest",
-    "lint": "biome check --write --no-errors-on-unmatched"
+    "lint": "biome check --write --no-errors-on-unmatched",
+    "lint:query": "eslint 'src/**/*.{ts,tsx}'"
   },
   "dependencies": {
     "@equinor/eds-core-react": "^2.4.1",
     "@equinor/eds-icons": "^1.3.0",
+    "@equinor/eds-tokens": "^2.2.0",
+    "@hookform/resolvers": "^5.2.2",
+    "@microsoft/applicationinsights-react-js": "^19.4.0",
+    "@microsoft/applicationinsights-web": "^3.4.1",
+    "@tailwindcss/vite": "^4.2.4",
+    "@tanstack/react-query": "^5.100.9",
+    "@tanstack/react-query-devtools": "^5.100.9",
+    "clsx": "^2.1.1",
+    "nuqs": "^2.8.9",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
+    "react-hook-form": "^7.75.0",
     "react-oauth2-code-pkce": "^1.24.0",
-    "react-router-dom": "^7.14.2",
-    "styled-components": "^6.4.1"
+    "react-router": "^7.14.2",
+    "styled-components": "^6.4.1",
+    "tailwind-merge": "^3.5.0",
+    "tailwindcss": "^4.2.4",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.14",
     "@hey-api/openapi-ts": "0.97.1",
+    "@tanstack/eslint-plugin-query": "^5.100.9",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
     "@types/node": "^25.5.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.1",
+    "eslint": "^10.3.0",
     "jsdom": "^29.1.1",
+    "msw": "^2.14.2",
     "typescript": "~6.0.3",
+    "typescript-eslint": "^8.59.2",
     "vite": "^8.0.10",
     "vite-plugin-checker": "^0.13.0",
     "vite-plugin-csp-guard": "^4.0.1",
@@ -41,7 +60,13 @@
   },
   "packageManager": "yarn@4.12.0",
   "dependenciesMeta": {
+    "@equinor/eds-core-react@2.5.0": {
+      "unplugged": true
+    },
     "@hey-api/openapi-ts@0.96.0": {
+      "unplugged": true
+    },
+    "nuqs@2.8.9": {
       "unplugged": true
     }
   }

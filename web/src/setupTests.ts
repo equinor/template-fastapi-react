@@ -4,15 +4,28 @@
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom'
 import { cleanup } from '@testing-library/react'
-import { afterEach } from 'vitest'
-import { client } from './api/generated/client.gen'
+import { afterAll, afterEach, beforeAll } from 'vitest'
+import { resetDb } from './mocks/db'
+import { server } from './mocks/server'
+import { configureApiClient } from './shared/api/apiClient'
 
-// @hey-api/client-fetch requires an absolute URL for the base; in tests there's
-// no browser origin, so we provide a dummy to prevent URL parse errors.
-client.setConfig({
-  baseUrl: 'http://localhost',
-})
+// Wire the generated SDK to httpClient with a test-safe baseUrl.
+configureApiClient()
 
+// jsdom has no Popover API (used by EDS Tooltip/Dialog). Stub the methods
+// so components that mount popovers don't crash during tests.
+if (typeof HTMLElement !== 'undefined') {
+  // biome-ignore lint/suspicious/noExplicitAny: jsdom polyfill
+  const proto = HTMLElement.prototype as any
+  if (typeof proto.showPopover !== 'function') proto.showPopover = () => {}
+  if (typeof proto.hidePopover !== 'function') proto.hidePopover = () => {}
+  if (typeof proto.togglePopover !== 'function') proto.togglePopover = () => {}
+}
+
+beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
 afterEach(() => {
   cleanup()
+  server.resetHandlers()
+  resetDb()
 })
+afterAll(() => server.close())

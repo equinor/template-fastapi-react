@@ -1,7 +1,13 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.4.9/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.4.14/schema.json",
   "files": {
-    "includes": ["web/**", "!web/build", "!web/src/api/generated"]
+    "includes": [
+      "web/**",
+      "!web/build",
+      "!web/.yarn",
+      "!web/.pnp.*",
+      "!web/src/api-generated"
+    ]
   },
   "javascript": {
     "formatter": {
@@ -17,6 +23,11 @@
     "formatter": {
       "indentStyle": "space",
       "indentWidth": 2
+    }
+  },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
     }
   },
   "linter": {
