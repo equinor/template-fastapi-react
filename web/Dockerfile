@@ -1,11 +1,11 @@
 # syntax=docker/dockerfile:1
-FROM dhi.io/nginx:1.29.8-debian13 AS server
+FROM dhi.io/nginx:1.30.0-debian13 AS server
 HEALTHCHECK CMD ["nginx", "-t"]
 
 # Copy configs
 COPY nginx/rootfs/ /
 
-FROM dhi.io/node:24.14.1-debian13-dev AS base
+FROM dhi.io/node:24.15.0-debian13-dev AS base
 ARG AUTH_ENABLED=0
 # Azure AD requires a scope.
 ARG AUTH_SCOPE=""
