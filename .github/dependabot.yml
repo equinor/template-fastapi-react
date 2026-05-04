@@ -13,9 +13,14 @@ updates:
       interval: "monthly" # when template is used, recommended interval is "weekly"
     groups:
       web:
+        exclude-patterns:
+          - "@hey-api/openapi-ts"
         update-types:
           - "minor"
           - "patch"
+      openapi-ts:
+        patterns:
+          - "@hey-api/openapi-ts"
 
   - package-ecosystem: "docker"
     directories:
