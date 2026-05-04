@@ -1,0 +1,13 @@
+# Project config for the Web app. Discovered automatically by `prek` workspace
+# mode. Hooks here run with this directory as their working directory and only
+# receive files inside `web/`. The @biomejs/biome version is pinned in
+# `package.json` under `devDependencies`.
+
+repos:
+  - repo: local
+    hooks:
+      - id: biome-check
+        name: "Lint : biome (ts/js)"
+        entry: yarn biome check --write --no-errors-on-unmatched --files-ignore-unknown=true --colors=off
+        language: system
+        types_or: [javascript, jsx, ts, tsx, json, css]

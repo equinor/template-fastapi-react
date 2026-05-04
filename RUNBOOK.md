@@ -64,7 +64,7 @@ See [resources](#resources) section for overview of all resources used by the ap
 * [React](https://react.dev/)
 * [Oauth2](https://oauth.net/2/)
 * [Python](https://www.python.org/)
-* [Pre-commit](https://pre-commit.com/)
+* [Pre-commit (via prek)](https://prek.j178.dev/)
 * [Git](https://git-scm.com/)
 
 </details>
