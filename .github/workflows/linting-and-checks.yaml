@@ -27,10 +27,14 @@ jobs:
         uses: jdx/mise-action@v4
         timeout-minutes: 5
 
-      - name: "Run: pre-commit"
-        uses: pre-commit/action@v3.0.1
-        with:
-          extra_args: --all-files
+      - name: "Setup: install API dependencies"
+        run: mise run install-dependencies:api
+
+      - name: "Setup: install Web dependencies"
+        run: mise run install-dependencies:web
+
+      - name: "Run: prek"
+        run: mise exec -- prek run --all-files --show-diff-on-failure
 
   mypy:
     runs-on: ubuntu-latest

@@ -21,6 +21,7 @@ dev = [
   "mongomock>=4.1.2",
   "mypy>=1.20.2",
   "pytest>=8.3.0",
+  "ruff>=0.15.12",
   "types-cachetools>=7.0.0.20260503",
 ]
 

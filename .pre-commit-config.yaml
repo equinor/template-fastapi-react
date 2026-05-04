@@ -1,12 +1,17 @@
 default_stages: [pre-commit]
 default_install_hook_types: [pre-commit, commit-msg]
+
+# Workspace-mode root config (run via `prek`).
+# Project-specific hooks live in `api/.pre-commit-config.yaml` and
+# `web/.pre-commit-config.yaml`. See https://prek.j178.dev/workspace/.
+
 repos:
   - repo: local
     hooks:
       - id: generate-openapi-spec
-        name: Generate OpenAPI spec
+        name: "Build: generate OpenAPI spec"
         entry: mise run generate:openapi-spec
-        language: python
+        language: system
         files: |
           (?x)(
             ^api/src/app/(features|common|authentication|entities)/.*\.py$
@@ -16,7 +21,7 @@ repos:
         pass_filenames: false
 
       - id: generate-api-client-from-spec
-        name: Generate the client for our api
+        name: "Build: generate API client from spec"
         entry: mise run generate:api-client-from-spec
         language: system
         files: ^api/.openapi.json$
@@ -62,27 +67,3 @@ repos:
       - id: detect-private-key
         name: "Check: no private keys are commited"
         exclude: api/tests/integration/mock_authentication.py
-
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: "v0.15.12"
-    hooks:
-      - id: ruff-check
-        name: "Lint : ruff (python)"
-        files: ^api/.*\.py$
-        args: ["--fix"]
-
-      - id: ruff-format
-        name: "Lint : ruff-format (python)"
-        files: ^api/.*\.py$
-
-  - repo: https://github.com/biomejs/pre-commit
-    rev: v2.4.14
-    hooks:
-      - id: biome-check
-        name: "Lint : biome (ts/js)"
-        additional_dependencies: ["@biomejs/biome@2.4.14"]
-        exclude: |
-          (?x)(
-            ^web/\.pnp\.cjs$
-            |^web/\.pnp\.loader\.mjs$
-          )
