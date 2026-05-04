@@ -23,7 +23,21 @@ dev = [
   "mongomock>=4.1.2",
   "mypy>=2.1.0",
   "pytest>=8.3.0",
+  "ruff>=0.15.12",
   "types-cachetools>=7.0.0.20260518",
+]
+
+[tool.uv]
+# opentelemetry-sdk 1.39 removed `LogData` from `opentelemetry.sdk._logs`,
+# which breaks azure-monitor-opentelemetry-exporter (still on the old API
+# as of 1.0.0b45). Override the transitive resolution to keep us on the
+# last working SDK line until the exporter migrates to LogRecord. Pinning
+# in `dependencies` doesn't work — the instrumentation packages declare
+# matching `semantic-conventions` versions that drag the SDK back up.
+override-dependencies = [
+  "opentelemetry-sdk<1.39",
+  "opentelemetry-api<1.39",
+  "opentelemetry-semantic-conventions<0.60b0",
 ]
 
 [build-system]

@@ -1,0 +1,19 @@
+# Project config for the API. Discovered automatically by `prek` workspace mode.
+# Hooks here run with this directory as their working directory and only
+# receive files inside `api/`. The ruff version is pinned in `pyproject.toml`
+# under `[dependency-groups] dev`.
+
+repos:
+  - repo: local
+    hooks:
+      - id: ruff-check
+        name: "Lint : ruff (python)"
+        entry: uv run ruff check --fix
+        language: system
+        types_or: [python, pyi]
+
+      - id: ruff-format
+        name: "Lint : ruff-format (python)"
+        entry: uv run ruff format
+        language: system
+        types_or: [python, pyi]
