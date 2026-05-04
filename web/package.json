@@ -17,12 +17,12 @@
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
     "react-oauth2-code-pkce": "^1.24.0",
-    "react-router-dom": "^7.14.0",
-    "styled-components": "^6.3.12"
+    "react-router-dom": "^7.14.2",
+    "styled-components": "^6.4.1"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.4.10",
-    "@hey-api/openapi-ts": "0.96.0",
+    "@biomejs/biome": "^2.4.14",
+    "@hey-api/openapi-ts": "0.97.1",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
@@ -30,14 +30,14 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.1",
-    "jsdom": "^29.0.2",
-    "typescript": "~6.0.2",
-    "vite": "^8.0.8",
-    "vite-plugin-checker": "^0.12.0",
+    "jsdom": "^29.1.1",
+    "typescript": "~6.0.3",
+    "vite": "^8.0.10",
+    "vite-plugin-checker": "^0.13.0",
     "vite-plugin-csp-guard": "^4.0.1",
     "vite-plugin-svgr": "^5.2.0",
     "vite-tsconfig-paths": "^6.1.1",
-    "vitest": "^4.1.4"
+    "vitest": "^4.1.5"
   },
   "packageManager": "yarn@4.12.0",
   "dependenciesMeta": {
