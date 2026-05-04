@@ -33,7 +33,7 @@ prek run --all-files
 Hooks can be skipped on commits with `git commit --no-verify`.
 
 !!! caution "Caution"
-    If you have to skip the pre-commit tests, you're probably doing something you're not supposed to, and whoever commits after you might have to fix your "mistakes". Consider updating the pre-commit hooks if your code is non-compliant.
+    If you have to skip the hooks, you're probably doing something you're not supposed to, and whoever commits after you might have to fix your "mistakes". Consider updating the hooks if your code is non-compliant.
 
 ### Hooks
 <details>
