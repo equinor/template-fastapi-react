@@ -1,4 +1,4 @@
-from pydantic import Field
+from pydantic import Field, SecretStr
 from pydantic_settings import BaseSettings
 
 from app.authentication.models import User
@@ -33,9 +33,20 @@ class Config(BaseSettings):
     OAUTH_TOKEN_ENDPOINT: str = ""
     OAUTH_AUTH_ENDPOINT: str = ""
     OAUTH_CLIENT_ID: str = ""
+    OAUTH_CLIENT_SECRET: SecretStr = SecretStr("")
     OAUTH_AUTH_SCOPE: str = ""
     OAUTH_AUDIENCE: str = ""
+    AZURE_TENANT_ID: str = ""
     MICROSOFT_AUTH_PROVIDER: str = "login.microsoftonline.com"
+
+    @property
+    def has_azure_service_principal(self) -> bool:
+        """True when AZURE_TENANT_ID, OAUTH_CLIENT_ID and OAUTH_CLIENT_SECRET
+        are all set — i.e. a ClientSecretCredential can be built. Used to
+        decide whether Azure Monitor ingestion uses Entra ID tokens or
+        falls back to the instrumentation key in APPINSIGHTS_CONSTRING.
+        """
+        return bool(self.AZURE_TENANT_ID and self.OAUTH_CLIENT_ID and self.OAUTH_CLIENT_SECRET.get_secret_value())
 
     @property
     def log_level(self) -> str:

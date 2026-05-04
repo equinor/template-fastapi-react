@@ -10,12 +10,18 @@ from app.features.todo.repository.todo_repository_interface import TodoRepositor
 
 class GetTodoAllResponse(BaseModel):
     id: str
+    user_id: str
     title: str
     is_completed: bool
 
     @classmethod
     def from_entity(cls, todo_item: TodoItem) -> Self:
-        return cls(id=todo_item.id, title=todo_item.title, is_completed=todo_item.is_completed)
+        return cls(
+            id=todo_item.id,
+            user_id=todo_item.user_id,
+            title=todo_item.title,
+            is_completed=todo_item.is_completed,
+        )
 
 
 # Telemetry example: Initialize a span that will be used to log telemetry data

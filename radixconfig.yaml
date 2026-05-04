@@ -50,11 +50,7 @@ spec:
         AUTH_ENABLED: "True"
         ENVIRONMENT: production
         OAUTH_WELL_KNOWN: https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/v2.0/.well-known/openid-configuration
-        OAUTH_TOKEN_ENDPOINT: https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/oauth2/v2.0/token
-        OAUTH_AUTH_ENDPOINT: https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/oauth2/v2.0/authorize
-        OAUTH_CLIENT_ID: 4a761bec-628d-4c4b-860a-4903cbecc963
         OAUTH_AUDIENCE: api://4a761bec-628d-4c4b-860a-4903cbecc963
-        OAUTH_AUTH_SCOPE: api://4a761bec-628d-4c4b-860a-4903cbecc963/api
         MONGODB_USERNAME: root
         MONGODB_DATABASE: test
       ports:
@@ -104,6 +100,55 @@ spec:
         - name: dbport
           port: 27017
       publicPort: dbport
+
+    - name: oauth2
+      image: ghcr.io/equinor/template-fastapi-react/oauth2:{imageTagName}
+      runAsUser: 65532  # nonroot
+      environmentConfig:
+        - environment: prod
+          imageTagName: latest
+          variables:
+            OAUTH2_PROXY_REDIRECT_URL: https://template-fastapi-react.equinor.com/oauth2/callback
+            # Replace with the SPA-facing client id of your Azure AD app registration.
+            OAUTH_CLIENT_ID: 00000000-0000-0000-0000-000000000000
+            OAUTH_AUTH_SCOPE: api://4a761bec-628d-4c4b-860a-4903cbecc963/api
+        - environment: staging
+          imageTagName: latest
+          variables:
+            OAUTH2_PROXY_REDIRECT_URL: https://proxy-template-fastapi-react-staging.radix.equinor.com/oauth2/callback
+            OAUTH_CLIENT_ID: 00000000-0000-0000-0000-000000000000
+            OAUTH_AUTH_SCOPE: api://4a761bec-628d-4c4b-860a-4903cbecc963/api
+        - environment: dev
+          imageTagName: latest
+          variables:
+            OAUTH2_PROXY_REDIRECT_URL: https://proxy-template-fastapi-react-dev.radix.equinor.com/oauth2/callback
+            OAUTH_CLIENT_ID: 00000000-0000-0000-0000-000000000000
+            OAUTH_AUTH_SCOPE: api://4a761bec-628d-4c4b-860a-4903cbecc963/api
+      variables:
+        AZURE_TENANT_ID: 3aa4a235-b6e2-48d5-9195-7fcf05b459b0
+      secrets:
+        - CLIENT_SECRET
+        - OAUTH2_PROXY_REDIS_PASSWORD
+        - OAUTH2_PROXY_COOKIE_SECRET
+      ports:
+        - name: oauth2
+          port: 8081
+
+    - name: cookie-cache
+      image: ghcr.io/equinor/template-fastapi-react/redis:{imageTagName}
+      runAsUser: 65532  # nonroot
+      environmentConfig:
+        - environment: prod
+          imageTagName: latest
+        - environment: staging
+          imageTagName: latest
+        - environment: dev
+          imageTagName: latest
+      ports:
+        - name: cookie-cache
+          port: 6379
+      secrets:
+        - REDIS_PASSWORD
 
   dnsAppAlias:
     environment: prod

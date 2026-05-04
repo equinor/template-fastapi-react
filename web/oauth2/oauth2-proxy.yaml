@@ -1,0 +1,45 @@
+injectResponseHeaders:
+  - name: X-Auth-Request-Access-Token
+    values:
+      - claimSource:
+          claim: access_token
+  - name: Authorization
+    values:
+      - claimSource:
+          claim: id_token
+          prefix: "Bearer "
+
+providers:
+  - provider: oidc
+    id: Microsoft Entra ID
+    clientID: ${OAUTH_CLIENT_ID}
+    clientSecret: ${CLIENT_SECRET}
+    clientSecretFile: ${CLIENT_SECRET_FILE}
+    scope: openid profile offline_access email ${OAUTH_AUTH_SCOPE}
+    oidcConfig:
+      emailClaim: email
+      # Map Entra "App Roles" (defined on the API app registration and
+      # assigned per user/group in Enterprise Applications) into
+      # oauth2-proxy's session.Groups. Exposed as `groups` on
+      # /oauth2/userinfo, then translated to SPA roles by auth.ts.
+      groupsClaim: groups
+      audienceClaims:
+        - aud
+      insecureAllowUnverifiedEmail: false
+      issuerURL: "https://login.microsoftonline.com/${AZURE_TENANT_ID}/v2.0"
+      # Disable userinfo discovery — we don't need AAD group memberships, and
+      # auto-discovery causes oauth2-proxy to attempt fetching them and fail.
+      skipDiscovery: true
+      jwksURL: "https://login.microsoftonline.com/${AZURE_TENANT_ID}/discovery/v2.0/keys"
+    loginURL: "https://login.microsoftonline.com/${AZURE_TENANT_ID}/oauth2/v2.0/authorize"
+    redeemURL: "https://login.microsoftonline.com/${AZURE_TENANT_ID}/oauth2/v2.0/token"
+    code_challenge_method: S256
+
+server:
+  BindAddress: 0.0.0.0:8081
+
+upstreamConfig:
+  upstreams:
+    - id: nginx
+      path: /
+      uri: http://nginx:8080/

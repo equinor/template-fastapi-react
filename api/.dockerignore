@@ -1,4 +1,5 @@
 *
+!bin/install-equinor-certificates.sh
 !src/*.py
 !src/**/*.py
 !src/init.sh

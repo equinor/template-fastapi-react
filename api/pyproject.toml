@@ -5,11 +5,13 @@ description = "API for Template Fastapi React"
 requires-python = ">=3.14"
 readme = "../README.md"
 dependencies = [
-  "azure-monitor-opentelemetry>=1.6.5",
+  "azure-identity>=1.19.0",
+  "azure-monitor-opentelemetry>=1.8.7",
+  "azure-monitor-opentelemetry-exporter>=1.0.0b49",
   "cachetools>=7.1.1",
   "fastapi[standard]>=0.136.1",
   "httpx>=0.28",
-  "opentelemetry-instrumentation-fastapi>=0.62b1",
+  "opentelemetry-instrumentation-fastapi>=0.61b0",
   "pydantic>=2.13.3",
   "pydantic-settings>=2.14.0",
   "pyjwt>=2.8.0",

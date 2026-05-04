@@ -10,8 +10,9 @@ services:
       - /run/nginx:uid=65532,gid=65532
     ports:
       - "80:8080"
-    links:
+    depends_on:
       - api
+      - oauth2
 
   api:
     image: ghcr.io/equinor/template-fastapi-react/api
@@ -24,3 +25,46 @@ services:
     image: mongo:7.0.30
     restart: unless-stopped
     command: mongod --auth --quiet
+
+  oauth2:
+    image: ghcr.io/equinor/template-fastapi-react/oauth2:latest
+    build: ./web/oauth2
+    restart: unless-stopped
+    depends_on:
+      - cookie-cache
+    secrets:
+      - oauth2-client-secret
+      - redis-password
+      - oauth2-cookie-secret
+    environment:
+      CLIENT_SECRET_FILE: /run/secrets/oauth2-client-secret
+      OAUTH2_PROXY_REDIS_PASSWORD_FILE: /run/secrets/redis-password
+      OAUTH2_PROXY_COOKIE_SECRET_FILE: /run/secrets/oauth2-cookie-secret
+      OAUTH2_PROXY_REDIRECT_URL: http://localhost/oauth2/callback
+      # Replace with values matching your Azure AD app registration.
+      AZURE_TENANT_ID: ${AZURE_TENANT_ID:-00000000-0000-0000-0000-000000000000}
+      OAUTH_CLIENT_ID: b99889c5-58d4-4df1-bbca-0d46c3dd369d # ${OAUTH_CLIENT_ID:-00000000-0000-0000-0000-000000000000}
+      OAUTH_AUTH_SCOPE: https://dev.template-fastapi-react.equinor.com/api/access # ${OAUTH_AUTH_SCOPE:-api://00000000-0000-0000-0000-000000000000/api}
+
+  cookie-cache:
+    image: ghcr.io/equinor/template-fastapi-react/redis:latest
+    build:
+      context: ./redis
+    restart: unless-stopped
+    volumes:
+      - cookie_cache_data:/data
+    secrets:
+      - redis-password
+    environment:
+      REDIS_PASSWORD_FILE: /run/secrets/redis-password
+
+volumes:
+  cookie_cache_data:
+
+secrets:
+  oauth2-client-secret:
+    file: secrets/OAUTH2_CLIENT_SECRET.txt
+  redis-password:
+    file: secrets/REDIS_PASSWORD.txt
+  oauth2-cookie-secret:
+    file: secrets/OAUTH2_PROXY_COOKIE_SECRET.txt

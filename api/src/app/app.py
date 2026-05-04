@@ -5,6 +5,7 @@ from app.authentication import auth_with_jwt
 from app.common import LocalLoggerMiddleware, responses
 from app.config import config
 from app.features.health_check import router as health_check_router
+from app.features.monitoring import router as monitoring_router
 from app.features.todo import router as todo_router
 from app.features.whoami import router as whoami_router
 
@@ -28,6 +29,7 @@ def create_app() -> FastAPI:
     public_routes.include_router(health_check_router)
 
     authenticated_routes = APIRouter()
+    authenticated_routes.include_router(monitoring_router)
     authenticated_routes.include_router(todo_router)
     authenticated_routes.include_router(whoami_router)
 
@@ -53,7 +55,25 @@ def create_app() -> FastAPI:
         from azure.monitor.opentelemetry import configure_azure_monitor
         from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
 
-        configure_azure_monitor(connection_string=config.APPINSIGHTS_CONSTRING, logger_name="API")
+        # Mirror CoreDM: when a service principal is fully configured
+        # (AZURE_TENANT_ID + OAUTH_CLIENT_ID + OAUTH_CLIENT_SECRET) build a
+        # ClientSecretCredential so ingestion works even on App Insights
+        # resources with "Local Authentication" disabled. Otherwise fall
+        # back to instrumentation-key auth from the connection string —
+        # the credential-free path that works in dev and CI.
+        kwargs: dict[str, object] = {
+            "connection_string": config.APPINSIGHTS_CONSTRING,
+            "logger_name": "API",
+        }
+        if config.has_azure_service_principal:
+            from azure.identity import ClientSecretCredential
+
+            kwargs["credential"] = ClientSecretCredential(
+                tenant_id=config.AZURE_TENANT_ID,
+                client_id=config.OAUTH_CLIENT_ID,
+                client_secret=config.OAUTH_CLIENT_SECRET.get_secret_value(),
+            )
+        configure_azure_monitor(**kwargs)
         FastAPIInstrumentor.instrument_app(app, excluded_urls="healthcheck")
 
     app.include_router(authenticated_routes, dependencies=[Security(auth_with_jwt)])

@@ -14,6 +14,16 @@
 
 <body>
   <div id="root"></div>
+  <script>
+    // Apply saved color-scheme before React mounts to prevent a flash.
+    // Mirrors the logic in src/shared/platform/theme/useColorScheme.ts.
+    try {
+      const saved = localStorage.getItem('color-scheme')
+      if (saved === 'light' || saved === 'dark') {
+        document.documentElement.style.colorScheme = saved
+      }
+    } catch (_) {}
+  </script>
   <script type="module" src="./src/index.tsx"></script>
 </body>
 

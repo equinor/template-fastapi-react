@@ -16,13 +16,16 @@ services:
       AUTH_ENABLED: $AUTH_ENABLED
       MONGODB_HOSTNAME: db
       MONGODB_PORT: $MONGODB_PORT
-      OAUTH_TOKEN_ENDPOINT: $OAUTH_TOKEN_ENDPOINT
-      OAUTH_AUTH_ENDPOINT: $OAUTH_AUTH_ENDPOINT
       OAUTH_WELL_KNOWN: $OAUTH_WELL_KNOWN
       OAUTH_AUDIENCE: $OAUTH_AUDIENCE
-      OAUTH_AUTH_SCOPE: $AUTH_SCOPE
-      OAUTH_CLIENT_ID: $CLIENT_ID
       SECRET_KEY: $SECRET_KEY
+      APPINSIGHTS_CONSTRING: $APPINSIGHTS_CONSTRING
+      # Service principal used to authenticate Azure Monitor ingestion
+      # (mirrors CoreDM). Optional — when unset the SDK falls back to
+      # instrumentation-key auth from APPINSIGHTS_CONSTRING.
+      AZURE_TENANT_ID: $AZURE_TENANT_ID
+      OAUTH_CLIENT_ID: $OAUTH_CLIENT_ID
+      OAUTH_CLIENT_SECRET: $OAUTH_CLIENT_SECRET
     depends_on:
       - db
     links:
@@ -37,11 +40,6 @@ services:
     build:
       target: development
       context: ./web
-      args:
-        AUTH_ENABLED: $AUTH_ENABLED
-        AUTH_SCOPE: $AUTH_SCOPE
-        CLIENT_ID: $CLIENT_ID
-        TENANT_ID: $TENANT_ID
     image: template-web-dev
     stdin_open: true
     volumes:
@@ -50,6 +48,16 @@ services:
       - .env
     environment:
       - NODE_ENV=development
+      # Vite reads VITE_-prefixed env vars at dev-server start. The Dockerfile
+      # bakes a default of 0 from the build arg; override it here so the SPA
+      # actually fetches /oauth2/userinfo instead of falling back to the
+      # local-developer anonymous user.
+      - VITE_AUTH=$AUTH_ENABLED
+      # Telemetry: SPA ships events to `/api/monitoring/v2/track` (see
+      # appInsightsProxyPath default) and the API re-exports them to Azure
+      # Monitor using its own APPINSIGHTS_CONSTRING. The SPA needs no
+      # connection string of its own — see web/src/config/env.ts.
+      - VITE_TELEMETRY=${VITE_TELEMETRY:-appinsights}
 
   db:
     volumes:
@@ -59,6 +67,14 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: $MONGODB_USERNAME
       MONGO_INITDB_ROOT_PASSWORD: $MONGODB_PASSWORD
+
+  oauth2:
+    environment:
+      OAUTH2_PROXY_SHOW_DEBUG_ON_ERROR: "true"
+    volumes:
+      - ./web/oauth2/entrypoint.sh:/usr/local/bin/entrypoint.sh
+      - ./web/oauth2/oauth2-proxy.toml:/etc/oauth2-proxy.toml
+      - ./web/oauth2/oauth2-proxy.yaml:/etc/oauth2-proxy.yaml
 
 volumes:
   database:
