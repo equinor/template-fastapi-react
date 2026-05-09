@@ -50,6 +50,8 @@ See [resources](#resources) section for overview of all resources used by the ap
   * Apply for the Application Developer role through https://accessit.equinor.com
     * Need to be a certified developer to get this role.
   * Added as owners to the Azure [App registration][app-registration]
+* **For building service images locally**
+  * A Docker account with access to [Docker Hardened Images](https://docs.docker.com/dhi/) (free). Run `docker login dhi.io` once before `docker compose build`/`up`, otherwise pulls of `dhi.io/{nginx,node,busybox,oauth2-proxy,redis}` fail with `unauthorized`. Dependabot uses the `DHI_USERNAME` / `DHI_PASSWORD` repository secrets to track updates for these images (see [.github/dependabot.yml](.github/dependabot.yml)).
 
 </details>
 

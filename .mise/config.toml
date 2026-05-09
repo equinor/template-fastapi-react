@@ -1,11 +1,36 @@
 [tools]
 python = "3.14.4"
-node = { version = "24.14.1", postinstall = "mise tasks run tools:yarn" }
+# Keep in sync with the `dhi.io/node:<version>-debian13-dev` tag in web/Dockerfile.
+node = { version = "24.13.1", postinstall = "mise tasks run tools:yarn" }
 pre-commit = "4.5.1"
 uv = "0.11.6"
+shellcheck = "0.10.0"
+
+[env]
+# Name for resource group, Azure resources, app registrations, and Docker image tags.
+# Lowercase alphanumeric and hyphens only. Change once when adopting this template.
+APPLICATION_NAME = "<REPLACE_ME>"
+
+# Entra ID security group whose members co-own the app registrations alongside the deployer.
+# Empty groups are rejected.
+APP_OWNERS_GROUP = "<REPLACE_ME>"
+
+# ServiceNow Business Application ID written to each app registration's
+# `serviceManagementReference` field. Required by Equinor compliance for
+# any app registration.
+SERVICE_MANAGEMENT_REFERENCE = "<REPLACE_ME>"
+
+# Azure subscription (name or id) all `iac:*` tasks deploy into.
+# The task aborts if `az account show` returns anything else.
+AZURE_SUBSCRIPTION = "<REPLACE_ME>"
+
+# Recipients for App Insights exception alerts (severity 1, 1-hour window).
+# JSON array of email addresses, e.g. '["a@equinor.com","b@equinor.com"]'.
+# "[]" disables alert delivery.
+ALERT_EMAIL_RECIPIENTS = "[]"
 
 [task_config]
-includes = [".mise/tasks/*.toml"]
+includes = [".mise/tasks/*.toml", ".mise/tasks"]
 
 [settings]
 experimental = true

@@ -25,7 +25,6 @@ class Config(BaseSettings):
     APPLICATION_ADMIN_ROLE: str = "admin"
 
     # Authentication
-    SECRET_KEY: str | None = None
     AUTH_ENABLED: bool = False
     JWT_SELF_SIGNING_ISSUER: str = "APPLICATION"  # Which value will be used to sign self-signed JWT's
     TEST_TOKEN: bool = False  # This value should only be changed at runtime by test setup

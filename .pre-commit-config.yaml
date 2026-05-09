@@ -86,3 +86,18 @@ repos:
             ^web/\.pnp\.cjs$
             |^web/\.pnp\.loader\.mjs$
           )
+
+  - repo: https://github.com/scop/pre-commit-shfmt
+    rev: v3.13.1-1
+    hooks:
+      - id: shfmt
+        name: "Lint : shfmt (bash)"
+        args: ["-w", "-i", "4", "-ci"]
+        files: ^(IaC/.*\.sh|\.mise/tasks/iac/[^/]+)$
+
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.11.0.1
+    hooks:
+      - id: shellcheck
+        name: "Lint : shellcheck (bash)"
+        files: ^(IaC/.*\.sh|\.mise/tasks/iac/[^/]+|redis/rootfs/usr/local/sbin/.*\.sh|web/oauth2/.*\.sh|api/src/.*\.sh)$

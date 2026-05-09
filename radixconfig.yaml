@@ -8,7 +8,7 @@ spec:
     useBuildCache: true
   environments:
     - name: prod
-    - name: staging
+    - name: test
       build:
         from: main
     - name: dev
@@ -18,6 +18,7 @@ spec:
     - name: api
       image: ghcr.io/equinor/template-fastapi-react/api:{imageTagName}
       alwaysPullImageOnDeploy: true
+      runAsUser: 65532  # nonroot
       resources:
         requests:
           memory: "256Mi"
@@ -31,7 +32,7 @@ spec:
           horizontalScaling:
             minReplicas: 1
             maxReplicas: 4
-        - environment: staging
+        - environment: test
           imageTagName: latest
           horizontalScaling:
             minReplicas: 1
@@ -42,19 +43,18 @@ spec:
             minReplicas: 1
             maxReplicas: 1
       secrets:
-        - SECRET_KEY
         - MONGODB_PASSWORD
         - APPINSIGHTS_CONSTRING
       variables:
         LOGGING_LEVEL: "debug"
         AUTH_ENABLED: "True"
         ENVIRONMENT: production
-        OAUTH_WELL_KNOWN: https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/v2.0/.well-known/openid-configuration
-        OAUTH_TOKEN_ENDPOINT: https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/oauth2/v2.0/token
-        OAUTH_AUTH_ENDPOINT: https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/oauth2/v2.0/authorize
-        OAUTH_CLIENT_ID: 4a761bec-628d-4c4b-860a-4903cbecc963
-        OAUTH_AUDIENCE: api://4a761bec-628d-4c4b-860a-4903cbecc963
-        OAUTH_AUTH_SCOPE: api://4a761bec-628d-4c4b-860a-4903cbecc963/api
+        # Replace the zero-GUID tenant id with your Azure AD tenant id.
+        OAUTH_WELL_KNOWN: https://login.microsoftonline.com/00000000-0000-0000-0000-000000000000/v2.0/.well-known/openid-configuration
+        OAUTH_TOKEN_ENDPOINT: https://login.microsoftonline.com/00000000-0000-0000-0000-000000000000/oauth2/v2.0/token
+        OAUTH_AUTH_ENDPOINT: https://login.microsoftonline.com/00000000-0000-0000-0000-000000000000/oauth2/v2.0/authorize
+        OAUTH_AUDIENCE: api://00000000-0000-0000-0000-000000000000
+        MONGODB_HOSTNAME: db
         MONGODB_USERNAME: root
         MONGODB_DATABASE: test
       ports:
@@ -79,7 +79,7 @@ spec:
       environmentConfig:
         - environment: prod
           imageTagName: latest
-        - environment: staging
+        - environment: test
           imageTagName: latest
         - environment: dev
           imageTagName: latest
@@ -99,11 +99,58 @@ spec:
         MONGODB_DATABASE: test
       secrets:
         - MONGODB_PASSWORD
-        - MONGODB_ROOT_PASSWORD
       ports:
         - name: dbport
           port: 27017
-      publicPort: dbport
+
+    - name: oauth2
+      image: ghcr.io/equinor/template-fastapi-react/oauth2:{imageTagName}
+      alwaysPullImageOnDeploy: true
+      runAsUser: 65532  # nonroot
+      environmentConfig:
+        - environment: prod
+          imageTagName: latest
+          variables:
+            OAUTH2_PROXY_REDIRECT_URL: https://template-fastapi-react.equinor.com/oauth2/callback
+        - environment: test
+          imageTagName: latest
+          variables:
+            OAUTH2_PROXY_REDIRECT_URL: https://proxy-template-fastapi-react-test.radix.equinor.com/oauth2/callback
+        - environment: dev
+          imageTagName: latest
+          variables:
+            OAUTH2_PROXY_REDIRECT_URL: https://proxy-template-fastapi-react-dev.radix.equinor.com/oauth2/callback
+      variables:
+        AZURE_TENANT_ID: 00000000-0000-0000-0000-000000000000
+        # Replace with the SPA-facing client id of your Azure AD app registration.
+        OAUTH_CLIENT_ID: 00000000-0000-0000-0000-000000000000
+        OAUTH_AUTH_SCOPE: api://00000000-0000-0000-0000-000000000000/api
+        # Comma-separated allowlist of email domains accepted at sign-in.
+        OAUTH2_PROXY_EMAIL_DOMAINS: example.com
+      secrets:
+        - CLIENT_SECRET
+        - OAUTH2_PROXY_REDIS_PASSWORD
+        - OAUTH2_PROXY_COOKIE_SECRET
+      ports:
+        - name: oauth2
+          port: 8081
+
+    - name: cookie-cache
+      image: ghcr.io/equinor/template-fastapi-react/redis:{imageTagName}
+      alwaysPullImageOnDeploy: true
+      runAsUser: 65532  # nonroot
+      environmentConfig:
+        - environment: prod
+          imageTagName: latest
+        - environment: test
+          imageTagName: latest
+        - environment: dev
+          imageTagName: latest
+      ports:
+        - name: cookie-cache
+          port: 6379
+      secrets:
+        - REDIS_PASSWORD
 
   dnsAppAlias:
     environment: prod

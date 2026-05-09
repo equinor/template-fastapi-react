@@ -10,17 +10,87 @@ services:
       - /run/nginx:uid=65532,gid=65532
     ports:
       - "80:8080"
-    links:
+    depends_on:
       - api
+      - oauth2
 
   api:
     image: ghcr.io/equinor/template-fastapi-react/api
-    build: ./api
+    build:
+      context: ./api
+      target: prod
     restart: unless-stopped
+    env_file:
+      - .env
     depends_on:
-      - db
+      db:
+        condition: service_healthy
+    environment:
+      OTEL_SERVICE_NAME: template-fastapi-react-api
+      MONGODB_HOSTNAME: db
+      MONGODB_PORT: "27017"
+      MONGODB_DATABASE: ${MONGODB_DATABASE:-test}
+      MONGODB_USERNAME: ${MONGODB_USERNAME:-root}
+      MONGODB_PASSWORD: ${MONGODB_PASSWORD:-mongodb}
 
   db:
     image: mongo:7.0.30
     restart: unless-stopped
     command: mongod --auth --quiet
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USERNAME:-root}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD:-mongodb}
+    healthcheck:
+      test:
+        - CMD
+        - mongosh
+        - --quiet
+        - --eval
+        - "db.adminCommand({ ping: 1 }).ok"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  oauth2:
+    image: ghcr.io/equinor/template-fastapi-react/oauth2:latest
+    build: ./web/oauth2
+    restart: unless-stopped
+    env_file:
+      - .env
+    depends_on:
+      - cookie-cache
+    secrets:
+      - oauth2-client-secret
+      - cookie-cache-password
+      - oauth2-cookie-secret
+    environment:
+      # Wired to docker secrets (file paths inside the container, not values).
+      CLIENT_SECRET_FILE: /run/secrets/oauth2-client-secret
+      OAUTH2_PROXY_REDIS_PASSWORD_FILE: /run/secrets/cookie-cache-password
+      OAUTH2_PROXY_COOKIE_SECRET_FILE: /run/secrets/oauth2-cookie-secret
+      # Local-only redirect
+      OAUTH2_PROXY_REDIRECT_URL: http://localhost/oauth2/callback
+
+  cookie-cache:
+    image: ghcr.io/equinor/template-fastapi-react/redis:latest
+    build:
+      context: ./redis
+    restart: unless-stopped
+    volumes:
+      - cookie_cache_data:/data
+    secrets:
+      - cookie-cache-password
+    environment:
+      REDIS_PASSWORD_FILE: /run/secrets/cookie-cache-password
+
+volumes:
+  cookie_cache_data:
+
+secrets:
+  oauth2-client-secret:
+    file: secrets/OAUTH2_CLIENT_SECRET.txt
+  cookie-cache-password:
+    file: secrets/COOKIE_CACHE_PASSWORD.txt
+  oauth2-cookie-secret:
+    file: secrets/OAUTH2_PROXY_COOKIE_SECRET.txt

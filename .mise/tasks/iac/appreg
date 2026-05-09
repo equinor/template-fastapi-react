@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+#MISE description="Deploy app registrations and create the oauth2-proxy client secret"
+#MISE dir="{{config_root}}"
+#MISE raw=true
+#USAGE arg "<env>" help="Target environment (dev|test|prod)"
+#USAGE flag "--dry-run" help="Run what-if; do not modify resources"
+#USAGE flag "--validate" help="Build template only; do not deploy"
+#USAGE flag "--rotate" help="Generate a new oauth2-proxy client secret"
+
+source IaC/_lib.sh
+init_task "${usage_env:-}"
+require_config APP_OWNERS_GROUP
+require_config SERVICE_MANAGEMENT_REFERENCE
+require_active_app_developer_role
+if [[ "${usage_validate:-false}" == 'true' ]]; then
+    MODE='--validate'
+elif [[ "${usage_dry_run:-false}" == 'true' ]]; then
+    MODE='--dry-run'
+else
+    MODE=''
+fi
+ROTATE=
+if [[ "${usage_rotate:-false}" == "true" ]]; then
+    ROTATE='--rotate'
+fi
+OWNER_OBJECT_IDS=$(resolve_owners)
+export OWNER_OBJECT_IDS
+deploy_bicep sub "$APPLICATION_NAME-app-registration-$ENVIRONMENT" \
+    IaC/app-registration.bicep IaC/app-registration.bicepparam \
+    $MODE
+# validate/dry-run: skip post-deploy secret creation
+if [[ -n "$MODE" ]]; then
+    info "Skipping oauth2-proxy client secret creation ($MODE mode)."
+    exit 0
+fi
+create_oauth2_secret "$ENVIRONMENT" $ROTATE
