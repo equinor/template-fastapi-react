@@ -47,6 +47,45 @@ Create a copy of `.env-template` called `.env` and populate it with values:
 
 **Note:** The template doesn't have any values that you need to replace, but any instantiated project probably will.
 
+### Backend-for-Frontend (BFF) auth
+
+User authentication is terminated at the edge by [oauth2-proxy](https://oauth2-proxy.github.io/oauth2-proxy/),
+which sets an HttpOnly session cookie and forwards a bearer token to the
+FastAPI service. Browser → `nginx :80` → `oauth2-proxy` → `nginx` → `api`.
+
+Two Entra ID app registrations are required per environment: one for the
+**API** (resource server) and one for **oauth2-proxy** (OIDC client). They
+are provisioned by [`IaC/app-registration.bicep`](IaC/app-registration.bicep),
+wrapped by [`IaC/deploy-app-registration.sh`](IaC/deploy-app-registration.sh).
+For each environment:
+
+For each environment, run:
+
+```sh
+./IaC/deploy-app-registration.sh
+```
+
+The script prompts for `APPLICATION_NAME`, `ENVIRONMENT`, `OWNERS_GROUP`
+(default `Team Hermes Radix Admin`), and an optional
+`SERVICE_MANAGEMENT_REFERENCE`. Set any of these as environment variables
+beforehand to skip the prompt. Owners are taken from the members of the
+named Entra group.
+
+The script deploys both registrations, prints `apiApplicationId`,
+`apiScope`, `oauth2ApplicationId`, and writes a fresh BFF client secret
+to `secrets/OAUTH2_CLIENT_SECRET.txt`.
+
+Map the deployment outputs into local config:
+
+- `OAUTH_CLIENT_ID` ← `oauth2ApplicationId`
+- `OAUTH_AUDIENCE` ← `apiApplicationId`
+- `OAUTH_AUTH_SCOPE` ← `apiScope` (`api://<apiAppId>/access`)
+
+Also create the other secrets listed in [`secrets/README.md`](secrets/README.md):
+`OAUTH2_PROXY_COOKIE_SECRET.txt` and `REDIS_PASSWORD.txt`. The dev redirect
+URI (`http://localhost/oauth2/callback`) is already registered by the Bicep
+deployment.
+
 ### Running
 
 Once you have done the configuration, you can start running:

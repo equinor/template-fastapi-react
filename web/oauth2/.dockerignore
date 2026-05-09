@@ -1,0 +1,6 @@
+*
+!Dockerfile
+!entrypoint.sh
+!install-equinor-certificates.sh
+!oauth2-proxy.toml
+!oauth2-proxy.yaml

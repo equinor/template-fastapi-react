@@ -1,0 +1,28 @@
+# Provider information
+email_domains = [
+    "equinor.com",
+]
+
+reverse_proxy = true
+
+## Automatic redirect to the IdP login page
+skip_provider_button = true
+
+# Cookie settings
+cookie_samesite = "lax"
+cookie_secure = false  # set to true behind TLS in deployed environments
+cookie_httponly = true
+cookie_refresh = "1m"
+cookie_expire = "2m"
+cookie_csrf_per_request = true
+cookie_csrf_per_request_limit = 20
+
+## Cookie storage
+session_store_type = "redis"
+redis_connection_url = "redis://cookie-cache:6379"
+
+## Mark paths as API routes so oauth2-proxy returns HTTP 401 instead of
+## redirecting to the IdP login page.
+api_routes = [
+    "^/api/.*",
+]
