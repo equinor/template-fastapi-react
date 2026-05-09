@@ -1,0 +1,49 @@
+/*
+ * EDS-component re-skinning via private CSS variables.
+ *
+ * ⚠️  ESCAPE HATCH — read before adding rules here.
+ *
+ * EDS components expose internal CSS vars (--eds_*, --eds-color-*) that
+ * we can override to make them inherit our semantic palette without
+ * touching className. This is *powerful* (one rule re-themes hundreds
+ * of usages) and *fragile* (these vars are EDS implementation detail
+ * and can rename between minor versions).
+ *
+ * Rules of engagement:
+ *   1. Prefer wrapping an EDS component over overriding its internals.
+ *      Build <PrimaryButton> from scratch with Tailwind if you need a
+ *      different look. Reach for this file only when wrapping isn't
+ *      feasible (e.g. EDS Tabs uses internal vars deeply).
+ *
+ *   2. Every override below MUST cite the EDS version it was verified
+ *      against. When you upgrade EDS, search this file and re-verify.
+ *
+ *   3. If you find yourself adding more than ~10 overrides, the design
+ *      system has diverged from EDS — that's a real conversation to
+ *      have with design, not a CSS problem to solve here.
+ *
+ * Tested against: @equinor/eds-core-react 2.4.x  (update on upgrade)
+ */
+
+:root {
+	/* Dark-mode parity for EDS components.
+	 *
+	 * EDS 2.4.x ships static light-mode token values, so <Typography>,
+	 * <Button>, <TopBar>, etc. paint dark text on our dark surfaces and
+	 * become invisible. Wrapping the same tokens in `light-dark()` here
+	 * makes every EDS component respect the page's `color-scheme` without
+	 * touching component code.
+	 *
+	 * Each override is a deliberate trade: zero work in components, but
+	 * EDS upgrades may rename these tokens — re-verify on bump.
+	 */
+	--eds-color-text-neutral-strong: light-dark(#3d3d3d, #f1f3f4);
+	--eds-color-text-neutral-subtle: light-dark(#6f6f6f, #a8adb3);
+	--eds-color-text-static-icons-default: light-dark(#3d3d3d, #f1f3f4);
+	--eds-color-text-static-icons-tertiary: light-dark(#6f6f6f, #a8adb3);
+	--eds-color-border-neutral-subtle: light-dark(#dcdcdc, #3a3a3c);
+	--eds-color-border-neutral-strong: light-dark(#6f6f6f, #5a5a5c);
+
+	/* TopBar paints its own white background; force it onto our surface. */
+	--eds-color-bg-default: light-dark(#fff, var(--bg-surface));
+}
