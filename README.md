@@ -31,52 +31,78 @@ A demo is running at https://template-fastapi-react.app.playground.radix.equinor
 <a id="quickstart"></a>
 ## :zap: Quickstart
 
-### Prerequisites
+Prerequisites: [Docker](https://www.docker.com/) and Docker Compose.
 
-The minimum requirements to run the application locally are:
-
-- [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/)
-
-### Configuration
-
-Environment variables is used for configuration and must be set before running.
-
-Create a copy of `.env-template` called `.env` and populate it with values:
-
-- `XYZ`: Specifies the [RESOURCE NAME] connection string
-
-**Note:** The template doesn't have any values that you need to replace, but any instantiated project probably will.
-
-### Running
-
-Once you have done the configuration, you can start running:
+The service images build `FROM dhi.io/...` ([Docker Hardened Images](https://docs.docker.com/dhi/)). These images are free but the `dhi.io` registry requires authentication, so a one-time `docker login` is needed before the first build (otherwise the build fails with an opaque `unauthorized` error):
 
 ```sh
+docker login dhi.io   # one-time; free Docker Hub account works
+cp .env-template .env
 docker compose up --build
 ```
 
-The application will be served at http://localhost
+- App: http://localhost
+- API docs: http://localhost:5000/docs
 
-The API documentation can be found at http://localhost:5000/docs
+For auth, keep `AUTH_ENABLED=1` and fill in `AZURE_TENANT_ID`, `OAUTH_CLIENT_ID`,
+`OAUTH_AUDIENCE`, and `OAUTH_AUTH_SCOPE` in `.env` — see
+[Authentication & Azure setup](#lock-authentication--azure-setup).
 
-<a id="development"></a>
+## :lock: Authentication & Azure setup
+
+[oauth2-proxy](https://oauth2-proxy.github.io/oauth2-proxy/) sits in front of the API and forwards a bearer token to FastAPI for JWT validation. Flow: `browser → nginx :80 → oauth2-proxy → nginx → api`.
+
+Each environment needs two Entra ID app registrations (API + oauth2-proxy), provisioned by [IaC/app-registration.bicep](IaC/app-registration.bicep). Requires the `Application Developer` directory role (activate via PIM):
+
+```sh
+mise run iac:appreg <env>            # dev | test | prod
+mise run iac:appreg <env> --dry-run  # what-if only
+mise run iac:appreg <env> --rotate   # redeploy + new BFF client secret
+```
+
+Rotate only the oauth2-proxy client secret (needs app-owner only, not `Application Developer`):
+
+```sh
+mise run iac:rotate-secret <env>
+```
+
+Azure resources (Postgres, Key Vault, App Insights, alerts) deploy separately:
+
+```sh
+mise run iac:infra <env>
+```
+
+Before deploying, edit the `[env]` section in [.mise/config.toml](.mise/config.toml) and replace every `<REPLACE_ME>` placeholder:
+
+- `APPLICATION_NAME`
+- `APP_OWNERS_GROUP`
+- `SERVICE_MANAGEMENT_REFERENCE`
+- `AZURE_SUBSCRIPTION`
+- `ALERT_EMAIL_RECIPIENTS`
+
+After deployment, copy the Bicep outputs into your `.env`:
+
+| `.env` var         | Bicep output          |
+| ------------------ | --------------------- |
+| `OAUTH_CLIENT_ID`  | `oauth2ApplicationId` |
+| `OAUTH_AUDIENCE`   | `apiApplicationId`    |
+| `OAUTH_AUTH_SCOPE` | `apiScope`            |
+
+Additional secrets are documented in [secrets/README.md](secrets/README.md).
+
 ## :dizzy: Development
 
-See the [docs](https://equinor.github.io/template-fastapi-react/) if you want to start developing.
-
-Or run the docs locally:
+See the [docs](https://equinor.github.io/template-fastapi-react/) or run locally:
 
 ```sh
 mise run docs-serve
 ```
 
-<a id="contributing"></a>
 ## :+1: Contributing
 
-Thanks for your interest in contributing! There are many ways to contribute to this project. Get started [here](CONTRIBUTING.md).
+See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 [license-badge]: https://img.shields.io/badge/License-MIT-yellow.svg
 [license]: https://github.com/equinor/boilerplate-clean-architecture/blob/main/LICENSE
-[releases]: https://github.com/equinor/boilerplate-clean-architecture/releases
 [on-push-main-branch-badge]: https://github.com/equinor/boilerplate-clean-architecture/actions/workflows/on-push-main-branch.yaml/badge.svg
 [on-push-main-branch-action]: https://github.com/equinor/boilerplate-clean-architecture/actions/workflows/on-push-main-branch.yaml

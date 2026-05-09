@@ -1,0 +1,36 @@
+# Allowlist of email domains accepted at sign-in. Empty = no restriction.
+# Override per environment via OAUTH2_PROXY_EMAIL_DOMAINS=foo.com,bar.com
+# (set in radixconfig.yaml / docker-compose.yml / .env). The entrypoint
+# refuses to start if the variable is unset.
+email_domains = []
+
+reverse_proxy = true
+
+## Automatic redirect to the IdP login page
+skip_provider_button = true
+
+# Cookie settings
+cookie_samesite = "lax"
+cookie_secure = true
+cookie_httponly = true
+cookie_refresh = "15m"
+cookie_expire = "1h"
+cookie_csrf_per_request = true
+cookie_csrf_per_request_limit = 20
+
+## Cookie storage
+session_store_type = "redis"
+redis_connection_url = "redis://cookie-cache:6379"
+
+## Mark paths as API routes so oauth2-proxy returns HTTP 401 instead of
+## redirecting to the IdP login page.
+api_routes = [
+    "^/api/.*",
+]
+
+## Logging: keep an audit trail of sign-ins / sign-outs / auth failures
+## without spamming per-request access logs (nginx already logs those).
+logging_filename = ""
+standard_logging = false
+request_logging = false
+auth_logging = true

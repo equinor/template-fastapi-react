@@ -1,85 +1,209 @@
-extension microsoftGraph
-param applicationName string = 'template-fastapi-react'
-param repositoryName string = 'template-fastapi-react'
+extension 'br:mcr.microsoft.com/bicep/extensions/microsoftgraph/v1.0:1.0.0'
+targetScope = 'subscription'
 
-// The Entra ID application
-// Resource format https://learn.microsoft.com/en-us/graph/templates/reference/applications?view=graph-bicep-1.0
-resource app 'Microsoft.Graph/applications@v1.0' = {
-  displayName: '${applicationName}'
+// Provisions the two Entra ID app registrations required by the BFF auth setup:
+//   * <name>-api-<env>     — resource server. FastAPI validates JWTs whose
+//                            `aud` claim equals this app's appId.
+//   * <name>-oauth2-<env>  — OIDC client used by oauth2-proxy.
+//
+// Run via ./deploy-app-registration.sh (which also mints the BFF client secret).
+
+@description('Lowercase application slug, used as both the unique app name and to derive Radix URLs.')
+param applicationName string
+
+@description('GitHub repository name under equinor/, used as the subject of the API app federated identity credential for GitHub Actions OIDC.')
+param repositoryName string = applicationName
+
+@description('Environment slug. Affects the registration suffix and the redirect URIs registered.')
+@allowed(['dev', 'test', 'prod'])
+param environment string
+
+@description('ServiceNow Configuration Item / Business Application ID. Required by Equinor IAM compliance for production use; may be empty for sandbox deployments.')
+param serviceManagementReference string = ''
+
+@description('Object IDs of users/groups that should own both App Registrations.')
+param ownerObjectIds string[]
+
+@description('Extra production hostnames whose /oauth2/callback should be a valid redirect URI.')
+param productionHostnames string[] = []
+
+var apiAccessScopeId = guid('api-access-${applicationName}')
+var adminRoleId = guid('admin-role-${applicationName}')
+var defaultRoleId = guid('default-role-${applicationName}')
+
+var productionRedirectUris = [for host in productionHostnames: 'https://${host}/oauth2/callback']
+var productionSwaggerRedirectUris = [for host in productionHostnames: 'https://${host}/api/docs/oauth2-redirect']
+
+var bffRedirectUris = concat(
+  [
+    'https://proxy-${applicationName}-${environment}.radix.equinor.com/oauth2/callback'
+    'https://proxy-${applicationName}-${environment}.radix.equinor.com/api/docs/oauth2-redirect'
+  ],
+  environment == 'prod'
+    ? concat(
+        [
+          'https://${applicationName}.app.radix.equinor.com/oauth2/callback'
+          'https://${applicationName}.app.radix.equinor.com/api/docs/oauth2-redirect'
+        ],
+        productionRedirectUris,
+        productionSwaggerRedirectUris
+      )
+    : environment == 'dev'
+        ? [
+            'http://localhost/oauth2/callback'
+            'http://localhost/api/docs/oauth2-redirect'
+          ]
+        : []
+)
+
+var graphAppId = '00000003-0000-0000-c000-000000000000'
+
+// ------------------------------------------------------------------
+// API app registration — the resource server.
+// ------------------------------------------------------------------
+resource apiApp 'Microsoft.Graph/applications@v1.0' = {
+  displayName: '${applicationName}-api-${environment}'
+  uniqueName: '${applicationName}-api-${environment}'
   signInAudience: 'AzureADMyOrg'
-  uniqueName: '${applicationName}'
-  spa: {
-    // The callback URL is the URL that the user is redirected to after the login,
-    // and it contains the URL of the application that is registered in Radix and localhost for doing development.
-    redirectUris: [
-      // Development
-      'https://proxy-${applicationName}-dev.radix.equinor.com/api/docs/oauth2-redirect'
-      'https://proxy-${applicationName}-dev.radix.equinor.com'
-      'https://proxy-${applicationName}-dev.radix.equinor.com/'
-      // Staging
-      'https://proxy-${applicationName}-staging.radix.equinor.com/api/docs/oauth2-redirect'
-      'https://proxy-${applicationName}-staging.radix.equinor.com'
-      'https://proxy-${applicationName}-staging.radix.equinor.com/'
-      // Production
-      'https://${applicationName}.app.radix.equinor.com/api/docs/oauth2-redirect'
-      'https://proxy-${applicationName}-prod.radix.equinor.com/'
-      'https://${applicationName}.app.radix.equinor.com/'
-      'https://${applicationName}.app.radix.equinor.com'
-      // For development
-      'http://localhost/api/docs/oauth2-redirect'
-      'http://localhost/'
-      'http://localhost:5000/docs/oauth2-redirect'
-    ]
+  // Emit Entra security group memberships as the `groups` claim in tokens.
+  // Required for oauth2-proxy's `groupsClaim: groups` mapping to receive any
+  // values; without this the claim is always absent.
+  groupMembershipClaims: 'SecurityGroup'
+  serviceManagementReference: empty(serviceManagementReference) ? null : serviceManagementReference
+  owners: {
+    relationships: ownerObjectIds
+    relationshipSemantics: 'replace'
   }
+  identifierUris: [
+    'https://${environment}.${applicationName}.equinor.com/api'
+  ]
   api: {
-    // In version 2 the audience is always the client id, and does not contain the api:// in the decoded JWT.
-    // It is important to know this because the API expects a JWT token with a specific signature for validation,
-    // and this is specified in the configuration settings and must match.
+    // v2 access tokens carry the appId (a GUID) in `aud`, not api://...
     requestedAccessTokenVersion: 2
-    // To allow OpenAPI and clients to talk to the API, we need to add the scope to the API.
     oauth2PermissionScopes: [
-        {
-            id: '31a61854-0d6d-4c60-918b-efffd4fac373'
-            adminConsentDescription: 'Allow users to access the API'
-            adminConsentDisplayName: 'Read'
-            isEnabled: true
-            type: 'User'
-            userConsentDescription: 'Access the API'
-            userConsentDisplayName: 'Access the API'
-            value: 'api${app.appId}'
-        }
+      {
+        id: apiAccessScopeId
+        adminConsentDescription: 'Allow users to access the API'
+        adminConsentDisplayName: 'Read'
+        isEnabled: true
+        type: 'User'
+        userConsentDescription: 'Access the API'
+        userConsentDisplayName: 'Access the API'
+        value: 'access'
+      }
     ]
   }
   appRoles: [
     {
-        id: '31a61854-0d6d-4c60-918b-efffd4fac379'
-        allowedMemberTypes: [
-          'User'
-          'Application'
-        ]
-        description: '${applicationName} administrators. Access to all fields. Permission to edit admin values.'
-        displayName: 'Admin'
-        isEnabled: true
-        value: 'admin'
-      }
+      id: defaultRoleId
+      allowedMemberTypes: ['User']
+      description: 'Default User Role'
+      displayName: 'default'
+      isEnabled: true
+      value: 'default'
+    }
+    {
+      id: adminRoleId
+      allowedMemberTypes: ['User']
+      description: 'Administrator Role'
+      displayName: 'admin'
+      isEnabled: true
+      value: 'admin'
+    }
   ]
-  // Resource format https://learn.microsoft.com/en-us/graph/templates/reference/federatedidentitycredentials?view=graph-bicep-1.0
+  requiredResourceAccess: [
+    {
+      resourceAppId: graphAppId
+      resourceAccess: [
+        // User.Read
+        { id: 'e1fe6dd8-ba31-4d61-89e7-88639da4683d', type: 'Scope' }
+      ]
+    }
+  ]
+
+  // Federated Identity Credential for GitHub Actions OIDC. Lets workflows
+  // on the default branch authenticate to Entra-protected resources without
+  // a stored client secret.
+  // https://learn.microsoft.com/en-us/graph/templates/reference/federatedidentitycredentials?view=graph-bicep-1.0
   resource githubFic 'federatedIdentityCredentials' = {
-    name: '${app.uniqueName}/githubFic'
-    audiences: [
-        'api://AzureADTokenExchange'
-    ]
-    description: 'Federated Identity Credentials for Github Actions to access Entra protected resources'
+    name: '${apiApp.uniqueName}/githubFic'
+    audiences: ['api://AzureADTokenExchange']
+    description: 'Federated Identity Credentials for GitHub Actions to access Entra protected resources'
     issuer: 'https://token.actions.githubusercontent.com'
-    // Subject is checked before issuing an Entra ID access token to access Azure resources.
-    // GitHub Actions subject examples can be found in https://docs.github.com/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect#example-subject-claims
     subject: 'repo:equinor/${repositoryName}:ref:refs/heads/main'
   }
 }
 
-// The Service Principle (or Enterprise App)
-resource appSP 'Microsoft.Graph/servicePrincipals@v1.0' = {
-  appId: app.appId
-  displayName: '${applicationName}'
-
+resource apiAppSP 'Microsoft.Graph/servicePrincipals@v1.0' = {
+  appId: apiApp.appId
+  owners: {
+    relationships: ownerObjectIds
+    relationshipSemantics: 'replace'
+  }
 }
+
+// ------------------------------------------------------------------
+// BFF (oauth2-proxy) app registration — the OIDC client.
+// ------------------------------------------------------------------
+resource oauth2App 'Microsoft.Graph/applications@v1.0' = {
+  displayName: '${applicationName}-oauth2-${environment}'
+  uniqueName: '${applicationName}-oauth2-${environment}'
+  signInAudience: 'AzureADMyOrg'
+  serviceManagementReference: empty(serviceManagementReference) ? null : serviceManagementReference
+  owners: {
+    relationships: ownerObjectIds
+    relationshipSemantics: 'replace'
+  }
+  web: {
+    redirectUris: bffRedirectUris
+  }
+  requiredResourceAccess: [
+    {
+      // The matching API registration.
+      resourceAppId: apiApp.appId
+      resourceAccess: [
+        { id: apiAccessScopeId, type: 'Scope' }
+      ]
+    }
+    {
+      resourceAppId: graphAppId
+      resourceAccess: [
+        { id: '37f7f235-527c-4136-accd-4a02d197296e', type: 'Scope' } // openid
+        { id: '14dad69e-099b-42c9-810b-d002981feec1', type: 'Scope' } // profile
+        { id: '64a6cdd6-aab1-4aaf-94b8-3cc8405e90d0', type: 'Scope' } // email
+        { id: '7427e0e9-2fba-42fe-b0c0-848c9e6a8182', type: 'Scope' } // offline_access
+        { id: 'e1fe6dd8-ba31-4d61-89e7-88639da4683d', type: 'Scope' } // User.Read
+      ]
+    }
+  ]
+  appRoles: [
+    {
+      id: defaultRoleId
+      allowedMemberTypes: ['User']
+      description: 'Default User Role'
+      displayName: 'default'
+      isEnabled: true
+      value: 'default'
+    }
+    {
+      id: adminRoleId
+      allowedMemberTypes: ['User']
+      description: 'Administrator Role'
+      displayName: 'admin'
+      isEnabled: true
+      value: 'admin'
+    }
+  ]
+}
+
+resource oauth2AppSP 'Microsoft.Graph/servicePrincipals@v1.0' = {
+  appId: oauth2App.appId
+  owners: {
+    relationships: ownerObjectIds
+    relationshipSemantics: 'replace'
+  }
+}
+
+output apiApplicationId string = apiApp.appId
+output apiScope string = 'api://${apiApp.appId}/access'
+output oauth2ApplicationId string = oauth2App.appId

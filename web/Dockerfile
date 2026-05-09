@@ -5,19 +5,10 @@ HEALTHCHECK CMD ["nginx", "-t"]
 # Copy configs
 COPY nginx/rootfs/ /
 
-FROM dhi.io/node:24.15.0-debian13-dev AS base
+# Keep the node patch in sync with `node = ...` in .mise/config.toml.
+FROM dhi.io/node:24.13.1-debian13-dev AS base
 ARG AUTH_ENABLED=0
-# Azure AD requires a scope.
-ARG AUTH_SCOPE=""
-ARG CLIENT_ID=""
-ARG TENANT_ID=""
-ENV VITE_AUTH_SCOPE=$AUTH_SCOPE
 ENV VITE_AUTH=$AUTH_ENABLED
-ENV VITE_AUTH_CLIENT_ID=$CLIENT_ID
-ENV VITE_AUTH_TENANT=$TENANT_ID
-ENV VITE_TOKEN_ENDPOINT=https://login.microsoftonline.com/${VITE_AUTH_TENANT}/oauth2/v2.0/token
-ENV VITE_AUTH_ENDPOINT=https://login.microsoftonline.com/${VITE_AUTH_TENANT}/oauth2/v2.0/authorize
-ENV VITE_LOGOUT_ENDPOINT=https://login.microsoftonline.com/${VITE_AUTH_TENANT}/oauth2/logout
 
 RUN mkdir /code && \
     chown -R "node:node" /code

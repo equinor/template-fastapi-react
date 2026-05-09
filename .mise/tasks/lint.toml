@@ -21,10 +21,12 @@ run = [
     "mise run lint:web:typecheck",
 ]
 
+["lint:shell"]
+description = "Lint shell scripts with shellcheck"
+dir = "{{config_root}}"
+run = "shellcheck --external-sources IaC/*.sh .mise/tasks/iac/* redis/rootfs/usr/local/sbin/*.sh web/oauth2/*.sh api/src/*.sh"
+
 [lint]
 description = "Lint the entire project"
-run = [
-    "mise fmt",
-    "mise run lint:api",
-    "mise run lint:web",
-]
+depends = ["lint:shell", "lint:api", "lint:web"]
+run = "mise fmt"

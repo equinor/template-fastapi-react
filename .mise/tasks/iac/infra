@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+#MISE description="Deploy Azure resources for an environment"
+#MISE dir="{{config_root}}"
+#MISE raw=true
+#USAGE arg "<env>" help="Target environment (dev|test|prod)"
+#USAGE flag "--dry-run" help="Run what-if; do not modify resources"
+#USAGE flag "--validate" help="Build template only; do not deploy"
+
+source IaC/_lib.sh
+init_task "${usage_env:-}"
+require_config POSTGRES_DB_PASSWORD
+if [[ "${usage_validate:-false}" == 'true' ]]; then
+    MODE='--validate'
+elif [[ "${usage_dry_run:-false}" == 'true' ]]; then
+    MODE='--dry-run'
+else
+    MODE=''
+fi
+deploy_bicep stack "$APPLICATION_NAME-$ENVIRONMENT-resources" \
+    IaC/main.bicep IaC/main.bicepparam \
+    $MODE

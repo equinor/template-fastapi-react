@@ -1,0 +1,4 @@
+*
+!rootfs/
+!scripts/
+!Dockerfile

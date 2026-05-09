@@ -3,30 +3,20 @@ services:
     build:
       target: development
     image: template-api-dev
-    volumes:
-      - ./api/src/:/app/src
-    env_file:
-      - .env
     environment:
       ENVIRONMENT: local
       LOGGING_LEVEL: debug
-      MONGODB_DATABASE: $MONGODB_DATABASE
-      MONGODB_USERNAME: $MONGODB_USERNAME
-      MONGODB_PASSWORD: $MONGODB_PASSWORD
-      AUTH_ENABLED: $AUTH_ENABLED
-      MONGODB_HOSTNAME: db
-      MONGODB_PORT: $MONGODB_PORT
-      OAUTH_TOKEN_ENDPOINT: $OAUTH_TOKEN_ENDPOINT
-      OAUTH_AUTH_ENDPOINT: $OAUTH_AUTH_ENDPOINT
-      OAUTH_WELL_KNOWN: $OAUTH_WELL_KNOWN
-      OAUTH_AUDIENCE: $OAUTH_AUDIENCE
-      OAUTH_AUTH_SCOPE: $AUTH_SCOPE
-      OAUTH_CLIENT_ID: $CLIENT_ID
-      SECRET_KEY: $SECRET_KEY
-    depends_on:
-      - db
-    links:
-      - db
+    develop:
+      watch:
+        - action: sync+restart
+          path: ./api/src
+          target: /app/src
+          ignore:
+            - .venv/
+        - action: rebuild
+          path: ./api/uv.lock
+        - action: restart
+          path: ./.env
 
   nginx:
     build:
@@ -37,41 +27,29 @@ services:
     build:
       target: development
       context: ./web
-      args:
-        AUTH_ENABLED: $AUTH_ENABLED
-        AUTH_SCOPE: $AUTH_SCOPE
-        CLIENT_ID: $CLIENT_ID
-        TENANT_ID: $TENANT_ID
     image: template-web-dev
     stdin_open: true
-    volumes:
-      - ./web/src:/code/src
-    env_file:
-      - .env
     environment:
-      - NODE_ENV=development
+      NODE_ENV: development
+    develop:
+      watch:
+        - action: sync
+          path: ./web/src
+          target: /code/src
+        - action: rebuild
+          path: ./web/yarn.lock
 
   db:
     volumes:
       - database:/data/db
-    env_file:
-      - .env
+
+  oauth2:
     environment:
-      MONGO_INITDB_ROOT_USERNAME: $MONGODB_USERNAME
-      MONGO_INITDB_ROOT_PASSWORD: $MONGODB_PASSWORD
+      OAUTH2_PROXY_SHOW_DEBUG_ON_ERROR: "true"
+    volumes:
+      - ./web/oauth2/entrypoint.sh:/usr/local/bin/entrypoint.sh
+      - ./web/oauth2/oauth2-proxy.toml:/etc/oauth2-proxy.toml
+      - ./web/oauth2/oauth2-proxy.yaml:/etc/oauth2-proxy.yaml
 
 volumes:
   database:
-
-  # db-ui:
-  #   image: mongo-express:0.49
-  #   restart: unless-stopped
-  #   ports:
-  #     - "8081:8081"
-  #   env_file:
-  #     - .env
-  #   environment:
-  #     ME_CONFIG_MONGODB_SERVER: db
-  #     ME_CONFIG_MONGODB_ADMINUSERNAME: $MONGODB_USERNAME
-  #     ME_CONFIG_MONGODB_ADMINPASSWORD: $MONGODB_PASSWORD
-  #     ME_CONFIG_MONGODB_ENABLE_ADMIN: "true"
