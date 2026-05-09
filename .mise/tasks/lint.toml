@@ -15,10 +15,17 @@ depends = ["install-dependencies:web"]
 dir = "{{config_root}}/web"
 run = "yarn compile"
 
+["lint:web:query"]
+description = "Lint TanStack Query usage in the Web application"
+depends = ["install-dependencies:web"]
+dir = "{{config_root}}/web"
+run = "yarn lint:query"
+
 ["lint:web"]
 description = "Lint the Web application"
 run = [
     "mise run lint:web:typecheck",
+    "mise run lint:web:query",
 ]
 
 ["lint:shell"]
