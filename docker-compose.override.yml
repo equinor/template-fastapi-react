@@ -48,6 +48,16 @@ services:
       - .env
     environment:
       - NODE_ENV=development
+      # Vite reads VITE_-prefixed env vars at dev-server start. The Dockerfile
+      # bakes a default of 0 from the build arg; override it here so the SPA
+      # actually fetches /oauth2/userinfo instead of falling back to the
+      # local-developer anonymous user.
+      - VITE_AUTH=$AUTH_ENABLED
+      # Telemetry: SPA ships events to `/api/monitoring/v2/track` (see
+      # appInsightsProxyPath default) and the API re-exports them to Azure
+      # Monitor using its own APPINSIGHTS_CONSTRING. The SPA needs no
+      # connection string of its own — see web/src/config/env.ts.
+      - VITE_TELEMETRY=${VITE_TELEMETRY:-appinsights}
 
   db:
     volumes:
