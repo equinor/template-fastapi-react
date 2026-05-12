@@ -15,20 +15,13 @@ export const ErrorPanel = ({ error }: { error: unknown }) => {
       role="alert"
       className="flex items-start gap-md rounded-card border border-l-4 border-border border-l-danger bg-danger-bg p-md text-left"
     >
-      <Icon data={error_outlined} className="mt-xs shrink-0 text-danger" size={24} />
-      <div className="flex min-w-0 flex-1 flex-col gap-xs">
-        <Typography variant="h5" className="!m-0 text-strong">
-          {titleFor(error)}
-        </Typography>
-        <Typography variant="body_short" className="!m-0 text-default">
-          {messageFor(error)}
-        </Typography>
+      <Icon data={error_outlined} className="mt-xs shrink-0" size={24} />
+      <div className="flex min-w-0 flex-1 flex-col">
+        <h5 className="font-bold text-lg">{titleFor(error)}</h5>
+        <p>{messageFor(error)}</p>
         {traceId && (
-          <Typography variant="caption" className="!m-0 mt-xs text-muted">
-            Trace ID:{' '}
-            <code className="rounded-sm bg-elevated px-xs py-[2px] font-mono text-[0.8em] text-default">
-              {traceId}
-            </code>
+          <Typography variant="caption" className="mt-s">
+            Trace ID: <code className="py-0.5 font-mono">{traceId}</code>
           </Typography>
         )}
       </div>
