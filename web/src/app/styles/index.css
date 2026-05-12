@@ -34,24 +34,21 @@
  */
 :root {
 	color-scheme: light dark;
-
 	/* Backgrounds */
-	--bg-canvas: light-dark(var(--eds-color-bg-canvas), #1a1a1a);
-	--bg-surface: light-dark(var(--eds-color-bg-neutral-canvas), #222224);
-	--bg-elevated: light-dark(var(--eds-color-bg-floating), #2a2a2c);
-	--bg-workspace: light-dark(#f5f6f7, #1a1a1a);
-	--bg-hover: light-dark(#818f9019, #ade2e619);
-	--bg-input: light-dark(#fff, #2a2a2c);
+	--bg-canvas: var(--eds-color-bg-canvas);
+	--bg-surface: var(--eds-color-bg-surface);
+	--bg-elevated: var(--eds-color-bg-floating);
+	--bg-hover: var(--eds-color-bg-surface);
 
-	/* Text — EDS tokens are static (no auto-dark), so swap manually. */
-	--text-strong: light-dark(var(--eds-color-text-neutral-strong), #f1f3f4);
-	--text-default: light-dark(var(--eds-color-text-neutral-strong), #e5e7e9);
-	--text-muted: light-dark(var(--eds-color-text-neutral-subtle), #a8adb3);
+
+	--text-strong: var(--eds-color-text-neutral-strong);
+	--text-default: var(--eds-color-text-neutral-strong);
+	--text-muted: var(--eds-color-text-neutral-subtle);
 	--text-on-accent: var(--eds-color-text-accent-strong-on-emphasis);
 
 	/* Borders & focus — same story; EDS subtle border is invisible on dark surfaces. */
-	--border-subtle: light-dark(var(--eds-color-border-neutral-subtle), #3a3a3c);
-	--border-strong: light-dark(var(--eds-color-border-neutral-strong), #5a5a5c);
+	--border-subtle: var(--eds-color-border-neutral-subtle);
+	--border-strong: var(--eds-color-border-neutral-strong);
 	--border-focus: var(--eds-color-border-focus);
 
 	/* Accent (brand interactive surfaces) */
@@ -72,11 +69,6 @@
 	/* Elevation — EDS 2.x has no shadow tokens, define our own */
 	--shadow-card: 0 2px 8px rgba(0, 0, 0, 0.08);
 	--shadow-md: 0 2px 4px rgba(0, 0, 0, 0.14), 0 3px 4px rgba(0, 0, 0, 0.12);
-
-	/* Radii */
-	--radius-sm: 4px;
-	--radius-card: 8px;
-	--radius-pill: 9999px;
 }
 
 /* ── 5. Tailwind theme — expose semantic tokens as utility classes ──── */
@@ -85,9 +77,7 @@
 	--color-canvas: var(--bg-canvas);
 	--color-surface: var(--bg-surface);
 	--color-elevated: var(--bg-elevated);
-	--color-workspace: var(--bg-workspace);
 	--color-hover: var(--bg-hover);
-	--color-input: var(--bg-input);
 
 	--color-strong: var(--text-strong);
 	--color-default: var(--text-default);
@@ -118,11 +108,6 @@
 	--spacing-lg: 1.5rem;
 	--spacing-xl: 2rem;
 
-	/* Radii → rounded-card, rounded-pill, rounded-sm */
-	--radius-sm: var(--radius-sm);
-	--radius-card: var(--radius-card);
-	--radius-pill: var(--radius-pill);
-
 	/* Shadows → shadow-card, shadow-md */
 	--shadow-card: var(--shadow-card);
 	--shadow-md: var(--shadow-md);
@@ -137,8 +122,8 @@
 	body {
 		margin: 0;
 		height: 100%;
-		background: var(--bg-workspace);
-		color: var(--text-default);
+		background: var(--bg-default);
+		color: var(--eds-color-text-strong);
 		font-family: var(--font-sans);
 	}
 	:focus-visible {
