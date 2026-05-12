@@ -13,7 +13,7 @@ export const ErrorPanel = ({ error }: { error: unknown }) => {
   return (
     <div
       role="alert"
-      className="flex items-start gap-md rounded-card border border-l-4 border-border border-l-danger bg-danger-bg p-md text-left"
+      className="flex items-start gap-md rounded border border-l-4 border-border border-l-danger bg-danger-bg p-md text-left"
     >
       <Icon data={error_outlined} className="mt-xs shrink-0" size={24} />
       <div className="flex min-w-0 flex-1 flex-col">

@@ -10,11 +10,11 @@ import type { PageHeaderProps } from './PageHeader.types'
 export const PageHeader = ({ title, meta, actions, className }: PageHeaderProps) => (
   <header className={cn('flex flex-wrap items-baseline justify-between gap-md', className)}>
     <div className="flex items-baseline gap-md">
-      <Typography variant="h2" className="!m-0">
+      <Typography as="h1" variant="h2">
         {title}
       </Typography>
       {meta && (
-        <Typography variant="body_short" className="!m-0 text-muted">
+        <Typography variant="body_short" className="text-muted">
           {meta}
         </Typography>
       )}
