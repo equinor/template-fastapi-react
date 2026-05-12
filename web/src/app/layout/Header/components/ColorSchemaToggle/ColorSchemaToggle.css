@@ -1,0 +1,14 @@
+@reference "tailwindcss";
+
+.color-schema-radio {
+    @apply flex flex-1 flex-col items-center text-center px-4 py-2 border border-border rounded cursor-pointer;
+    @apply text-sm;
+
+    &:has(input:focus-visible) {
+		outline: var(--focus-outline);
+	}
+
+    &[data-selected='true'] {
+        @apply bg-(--eds_interactive_primary__resting) text-(--text-on-accent);
+    }
+}

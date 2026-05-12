@@ -37,7 +37,7 @@ export const TodosPage = () => {
       <PageHeader title="My todos" meta={`${visibleTodos.length} ${visibleTodos.length === 1 ? 'item' : 'items'}`} />
 
       <FeatureToggle featureFlag={FeatureFlagName.NEW_TODO_FORM}>
-        <section className="p-lg bg-surface rounded-card shadow-card border border-border">
+        <section className="p-lg bg-surface rounded shadow-card border border-border">
           <NewTodoForm />
         </section>
       </FeatureToggle>

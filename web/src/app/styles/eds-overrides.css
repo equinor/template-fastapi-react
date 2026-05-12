@@ -1,49 +1,58 @@
-/*
- * EDS-component re-skinning via private CSS variables.
- *
- * ⚠️  ESCAPE HATCH — read before adding rules here.
- *
- * EDS components expose internal CSS vars (--eds_*, --eds-color-*) that
- * we can override to make them inherit our semantic palette without
- * touching className. This is *powerful* (one rule re-themes hundreds
- * of usages) and *fragile* (these vars are EDS implementation detail
- * and can rename between minor versions).
- *
- * Rules of engagement:
- *   1. Prefer wrapping an EDS component over overriding its internals.
- *      Build <PrimaryButton> from scratch with Tailwind if you need a
- *      different look. Reach for this file only when wrapping isn't
- *      feasible (e.g. EDS Tabs uses internal vars deeply).
- *
- *   2. Every override below MUST cite the EDS version it was verified
- *      against. When you upgrade EDS, search this file and re-verify.
- *
- *   3. If you find yourself adding more than ~10 overrides, the design
- *      system has diverged from EDS — that's a real conversation to
- *      have with design, not a CSS problem to solve here.
- *
- * Tested against: @equinor/eds-core-react 2.4.x  (update on upgrade)
- */
+@import '@equinor/eds-tokens/css/variables';
 
 :root {
-	/* Dark-mode parity for EDS components.
-	 *
-	 * EDS 2.4.x ships static light-mode token values, so <Typography>,
-	 * <Button>, <TopBar>, etc. paint dark text on our dark surfaces and
-	 * become invisible. Wrapping the same tokens in `light-dark()` here
-	 * makes every EDS component respect the page's `color-scheme` without
-	 * touching component code.
-	 *
-	 * Each override is a deliberate trade: zero work in components, but
-	 * EDS upgrades may rename these tokens — re-verify on bump.
-	 */
-	--eds-color-text-neutral-strong: light-dark(#3d3d3d, #f1f3f4);
-	--eds-color-text-neutral-subtle: light-dark(#6f6f6f, #a8adb3);
-	--eds-color-text-static-icons-default: light-dark(#3d3d3d, #f1f3f4);
-	--eds-color-text-static-icons-tertiary: light-dark(#6f6f6f, #a8adb3);
-	--eds-color-border-neutral-subtle: light-dark(#dcdcdc, #3a3a3c);
-	--eds-color-border-neutral-strong: light-dark(#6f6f6f, #5a5a5c);
+	/* Backgrounds */
+    --eds_ui_background__default: var(--eds-color-bg-neutral-surface);
+    --eds_ui_background__light: var(--eds-color-bg-neutral-canvas);
+    --eds_ui_background__medium: var(--eds-color-bg-neutral-fill-muted-default);
 
-	/* TopBar paints its own white background; force it onto our surface. */
-	--eds-color-bg-default: light-dark(#fff, var(--bg-surface));
+
+    --eds_ui__accordion_header_color: var(--text-primary-color);
+    --eds_primary: var(--eds-color-bg-accent-fill-emphasis-default);
+	--eds_primary_resting: var(--eds-color-bg-accent-fill-emphasis-subtle);
+    --eds_text__static_icons__primary_white: var(--eds-color-text-strong-on-emphasis);
+
+    /** Interactive components */
+    --eds_interactive_primary__resting: var(--eds-color-bg-accent-fill-emphasis-default);
+    --eds_interactive_primary__hover: var(--eds-color-bg-accent-fill-emphasis-hover);
+    --eds_interactive_primary__hover_alt: var(--eds-color-bg-accent-fill-muted-hover);
+    --eds_interactive__disabled__fill: var(--eds-color-bg-accent-fill-muted-default);
+    --eds_interactive__disabled__border: var(--eds-color-border-accent-subtle);
+    --eds_interactive__disabled__text: var(--eds-color-text-muted);
+    --eds_interactive_danger__resting: var(--eds-color-bg-danger-fill-emphasis-default);
+    --eds_interactive_danger__hover: var(--eds-color-bg-danger-fill-emphasis-hover);
+    --eds_interactive_danger__highlight: var(--eds-color-bg-danger-fill-muted-hover);
+    --eds_interactive_secondary__resting: var(--eds-color-bg-neutral-fill-emphasis-default);
+    --eds_interactive_secondary__link_hover: var(--eds-color-bg-neutral-fill-emphasis-hover);
+    --eds_interactive_secondary__highlight: var(--eds-color-bg-neutral-fill-muted-hover);
+
+    /* Interactive components  text */
+    --eds_navigation__menu_title_color: var(--eds-color-text-strong);
+    --eds_navigation__menu_tabs_color: var(--eds-color-text-strong);
+
+    /* Text colors*/
+    --eds_paragraph__body_short_color: var(--eds-color-text-strong);
+    --eds_heading__h1_color: var(--eds-color-text-strong);
+    --eds_heading__h2_color: var(--eds-color-text-strong);
+    --eds_heading__h3_color: var(--eds-color-text-strong);
+    --eds_heading__h4_color: var(--eds-color-text-strong);
+    --eds_heading__h5_color: var(--eds-color-text-strong);
+    --eds_heading__h6_color: var(--eds-color-text-strong);
+    --eds_paragraph__overline_color: var(--eds-color-text-subtle);
+    --eds_paragraph__caption_color: var(--eds-color-text-subtle);
+    --eds_paragraph__meta_color: var(--eds-color-text-subtle);
+    --eds_navigation__button_color: var(--eds-color-text-strong);
+    --eds_text__static_icons__tertiary: var(--eds-color-text-muted);
+    --eds_input__label_color: var(--eds-color-text-muted);
+    --eds_paragraph__body_short_link_color: var(--eds-color-text-link);
+    --eds_text__static_icons__default: var(--eds-color-text-subtle);
+	--eds_ui__accordion_header_color: var(--eds-color-text-strong);
+
+    /* Loading indicator */
+    --eds_infographic_primary__moss_green_13: var(--eds_interactive_primary__hover_alt);
+    --eds_infographic_primary__moss_green_100:  var(--eds_interactive_primary__resting);
+
+    [role="tooltip"] {
+        --eds_text__static_icons__primary_white: white;
+    }
 }

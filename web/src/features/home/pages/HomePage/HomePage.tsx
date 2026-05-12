@@ -1,16 +1,19 @@
+import { Button, Icon } from '@equinor/eds-core-react'
+import { arrow_forward } from '@equinor/eds-icons'
+import { createLink } from '@tanstack/react-router'
 import { PageHeader } from '@/shared/components/PageHeader/PageHeader'
 
-/**
- * Landing page. Intentionally minimal — replace with real content when
- * the home experience is designed. Kept as its own feature so cross-cutting
- * imports stay routed through `@/features/home` and remain consistent
- * with `@/features/todos`.
- */
+const PageLink = createLink(Button)
+
 export const HomePage = () => {
   return (
-    <div className="flex flex-col gap-lg">
+    <div className="flex flex-col items-start gap-lg">
       <PageHeader title="Welcome" />
       <p>Template FastAPI + React is running.</p>
+      <PageLink to="/todos" variant="ghost">
+        My Todos
+        <Icon data={arrow_forward} />
+      </PageLink>
     </div>
   )
 }
