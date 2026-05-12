@@ -42,7 +42,7 @@ export const TodoItem = ({ todo }: { todo: Todo }) => {
     <div
       ref={rootRef}
       className={cn(
-        'flex items-center gap-md px-md py-sm rounded-card border border-border bg-surface shadow-card',
+        'flex items-center gap-md px-md py-sm rounded border border-border bg-surface shadow-card',
         'transition-colors hover:bg-hover',
         todo.is_completed && 'border-l-4 border-l-success',
         isBusy && 'opacity-60'
@@ -58,13 +58,22 @@ export const TodoItem = ({ todo }: { todo: Todo }) => {
       </div>
       {canUpdate && (
         <IconButton
+          aria-label={`Mark as ${todo.is_completed ? 'todo' : 'done'}`}
           title={`Mark as ${todo.is_completed ? 'todo' : 'done'}`}
           icon={todo.is_completed ? undo : done}
           onClick={() => toggleMutation.mutate(todo)}
           disabled={isBusy}
         />
       )}
-      {canDelete && <IconButton title={'Remove'} icon={remove_outlined} onClick={handleDelete} disabled={isBusy} />}
+      {canDelete && (
+        <IconButton
+          aria-label={`Remove ${todo.title}`}
+          title="Remove"
+          icon={remove_outlined}
+          onClick={handleDelete}
+          disabled={isBusy}
+        />
+      )}
     </div>
   )
 }

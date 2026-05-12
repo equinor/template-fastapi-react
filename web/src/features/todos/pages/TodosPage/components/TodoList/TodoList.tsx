@@ -9,7 +9,7 @@ import type { TodoListProps } from './TodoList.types'
 export const TodoList = ({ todos, emptyMessage = 'No todos to show.' }: TodoListProps) => {
   if (todos.length === 0) {
     return (
-      <div className="rounded-card border border-dashed border-border">
+      <div className="rounded border border-dashed border-border">
         <EmptyState message={emptyMessage} />
       </div>
     )
