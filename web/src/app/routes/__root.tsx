@@ -1,6 +1,6 @@
 import type { QueryClient } from '@tanstack/react-query'
 import { createRootRouteWithContext } from '@tanstack/react-router'
-import { NotFoundPage } from '@/app/error-pages/NotFoundPage/NotFoundPage'
+import { ErrorPage } from '@/app/error-pages/ErrorPage/ErrorPage'
 import { RouteErrorBoundary } from '@/app/error-pages/RouteErrorBoundary/RouteErrorBoundary'
 import { RootLayout } from '@/app/layout/RootLayout/RootLayout'
 import { userQuery } from '@/shared/platform/auth'
@@ -20,5 +20,5 @@ export const Route = createRootRouteWithContext<RouterContext>()({
   },
   component: RootLayout,
   errorComponent: RouteErrorBoundary,
-  notFoundComponent: NotFoundPage,
+  notFoundComponent: () => <ErrorPage errorCode={404} />,
 })

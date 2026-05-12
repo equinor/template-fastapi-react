@@ -6,10 +6,8 @@
  * session-expired dialog, 403/404 → dedicated page, otherwise
  * UnexpectedErrorPage).
  *
- * Client-side 4xx (401/403/404) are normal navigation outcomes — a user
- * landing on a stale link or hitting a permission gate isn't a bug.
- * Reporting them as exceptions would drown out real failures in App
- * Insights, so they're skipped. 5xx and unexpected throws still report.
+ * Client-side 4xx (401/403/404) are skipped by default.
+ * 5xx and unexpected throws still report.
  *
  * TanStack Router calls this with the thrown value as the `error` prop
  * (replacement for react-router's `useRouteError()`). The component
@@ -19,9 +17,7 @@
 
 import { useEffect, useRef } from 'react'
 import { useTelemetry } from '@/shared/platform/telemetry'
-import { ForbiddenPage } from '../ForbiddenPage/ForbiddenPage'
-import { NotFoundPage } from '../NotFoundPage/NotFoundPage'
-import { UnexpectedErrorPage } from '../UnexpectedErrorPage/UnexpectedErrorPage'
+import { ErrorPage } from '../ErrorPage/ErrorPage'
 import { isExpectedClientError, statusOf } from './RouteErrorBoundary.utils'
 
 interface RouteErrorBoundaryProps {
@@ -46,16 +42,10 @@ export const RouteErrorBoundary = ({ error }: RouteErrorBoundaryProps = {}) => {
   }, [error, telemetry])
 
   // Called as `notFoundComponent` (no error) → render 404.
-  if (error === undefined) return <NotFoundPage />
+  if (error === undefined) return <ErrorPage errorCode={404} />
 
   const status = statusOf(error)
-  // 401: `httpClient` already latched `sessionExpiredStore`, so
-  // `<SessionExpiredDialog>` is open over us with its own dimmed
-  // backdrop and call-to-action. Render nothing here — a spinner or
-  // chrome behind the dialog would either lie ("signing in…" before
-  // the user clicks) or flash unrelated UI for a frame.
+  // 401: `httpClient` already handles in `sessionExpiredStore`
   if (status === 401) return null
-  if (status === 404) return <NotFoundPage />
-  if (status === 403) return <ForbiddenPage />
-  return <UnexpectedErrorPage error={error} />
+  return <ErrorPage errorCode={status} error={error} />
 }
