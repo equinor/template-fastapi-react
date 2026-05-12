@@ -1,37 +1,45 @@
 import { Icon, TopBar, Typography } from '@equinor/eds-core-react'
 import { info_circle, log_out, receipt } from '@equinor/eds-icons'
+import { createLink } from '@tanstack/react-router'
 import { useRef, useState } from 'react'
 import { IconButton } from '@/shared/components/IconButton/IconButton'
 import { Popover } from '@/shared/components/Popover/Popover'
 import { useCurrentUser, useSignOut } from '@/shared/platform/auth'
-import { useColorScheme } from '@/shared/platform/theme'
 import { VersionText } from '../VersionText/VersionText'
-import { ICON, NEXT, TITLE } from './Header.utils'
+import { ColorSchemaToggle } from './components/ColorSchemaToggle/ColorSchemaToggle'
+
+const HomeLink = createLink(TopBar.Header)
 
 export const Header = () => {
   const { data: user } = useCurrentUser()
   const username = user.name
-  const [scheme, setScheme] = useColorScheme()
-  const [isPopoverOpen, setPopoverOpen] = useState(false)
+
+  const [isAboutOpen, setAboutOpen] = useState(false)
+
   const aboutRef = useRef<HTMLButtonElement>(null)
   const signOut = useSignOut()
-
-  const togglePopover = () => setPopoverOpen((open) => !open)
 
   return (
     <>
       <TopBar>
-        <TopBar.Header>
+        <HomeLink to="/" className="cursor-pointer hover:underline">
           <Icon data={receipt} />
           Todo App
-        </TopBar.Header>
+        </HomeLink>
         <TopBar.Actions style={{ gap: 8 }}>
-          <IconButton title={TITLE[scheme]} icon={ICON[scheme]} onClick={() => setScheme(NEXT[scheme])} />
-          <IconButton title={'Log out'} icon={log_out} onClick={signOut} />
-          <IconButton title={'Application info'} icon={info_circle} onClick={togglePopover} ref={aboutRef} />
+          <ColorSchemaToggle />
+          <IconButton aria-label="Log out" title={'Log out'} icon={log_out} onClick={signOut} />
+          <IconButton
+            aria-label="Application info"
+            title={'Application info'}
+            icon={info_circle}
+            onClick={() => setAboutOpen(!isAboutOpen)}
+            ref={aboutRef}
+          />
         </TopBar.Actions>
       </TopBar>
-      <Popover title={'About'} isOpen={isPopoverOpen} toggle={togglePopover} anchor={aboutRef.current}>
+
+      <Popover title={'About'} isOpen={isAboutOpen} toggle={() => setAboutOpen(false)} anchor={aboutRef.current}>
         {username && (
           <Typography variant="caption" className="text-muted">
             {`Logged in as ${username}`}
