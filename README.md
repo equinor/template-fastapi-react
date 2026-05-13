@@ -37,16 +37,25 @@ The service images build `FROM dhi.io/...` ([Docker Hardened Images](https://doc
 
 ```sh
 docker login dhi.io   # one-time; free Docker Hub account works
-cp .env-template .env
-docker compose up --build
+docker compose -f docker-compose.yml -f docker-compose.no-auth.yml up --build
 ```
 
 - App: http://localhost
 - API docs: http://localhost:5000/docs
 
-For auth, keep `AUTH_ENABLED=1` and fill in `AZURE_TENANT_ID`, `OAUTH_CLIENT_ID`,
-`OAUTH_AUDIENCE`, and `OAUTH_AUTH_SCOPE` in `.env` — see
-[Authentication & Azure setup](#lock-authentication--azure-setup).
+This brings up the stack **without** Entra ID / oauth2-proxy: the SPA loads,
+calls the API directly, and sees the built-in `nologin` user. Useful for
+bare-fork local development — no app registrations, no `secrets/*.txt`, no
+`.env` required.
+
+To run **with** authentication enabled (the production-equivalent flow), see
+[Authentication & Azure setup](#lock-authentication--azure-setup) — fill in
+`.env` from `.env-template`, populate `secrets/`, then:
+
+```sh
+cp .env-template .env
+docker compose up --build
+```
 
 ## :lock: Authentication & Azure setup
 

@@ -47,7 +47,10 @@ repos:
         name: "Check: parse .toml files"
       - id: check-yaml
         name: "Check: parse .yaml files"
-        exclude: mkdocs.yml
+        # mkdocs.yml uses Python-tagged YAML for mermaid2; docker-compose
+        # overrides use Compose-specific !override / !reset tags. Both are
+        # valid for their own parsers but not for the standard YAML loader.
+        exclude: (^|/)(mkdocs\.yml|docker-compose\.(no-auth|ci)\.yml)$
       - id: check-case-conflict
         name: "Check: no case conflicting file names"
       - id: trailing-whitespace

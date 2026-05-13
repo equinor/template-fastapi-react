@@ -40,3 +40,17 @@ RUN yarn build
 FROM server AS nginx-prod
 COPY nginx/environments/web.prod.conf /etc/nginx/environments/
 COPY --from=build /code/build /data/www
+
+# No-auth local-dev variant: same as nginx-prod but overrides default.conf
+# with a version that drops the oauth2-proxy auth_request hops.
+# Use via: docker compose -f docker-compose.yml -f docker-compose.no-auth.yml up
+FROM server AS nginx-noauth
+COPY nginx/environments/web.prod.conf /etc/nginx/environments/
+COPY --from=build /code/build /data/www
+COPY nginx/conf.d/default.noauth.conf /etc/nginx/conf.d/default.conf
+
+# No-auth + hot-reload variant: proxies / to the vite dev server (web:3000)
+# and drops the oauth2-proxy auth_request hops. Used by docker-compose.no-auth.yml.
+FROM server AS nginx-dev-noauth
+COPY nginx/environments/web.dev.conf /etc/nginx/environments/
+COPY nginx/conf.d/default.noauth.conf /etc/nginx/conf.d/default.conf
