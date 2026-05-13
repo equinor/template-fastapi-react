@@ -1,0 +1,67 @@
+# Local-dev override: run the stack without oauth2-proxy / Entra ID,
+# with API + SPA hot-reload via source bind-mounts.
+#
+# Usage:
+#   docker compose -f docker-compose.yml -f docker-compose.no-auth.yml up --build
+#
+# - `api`   runs from the `development` Dockerfile target (uvicorn --reload
+#           is auto-enabled in api/src/app/__main__.py when ENVIRONMENT=local,
+#           which is the default).
+# - `web`   runs the Vite dev server with HMR.
+# - `nginx` proxies / -> http://web:3000 (vite) and /api/ -> http://api:5000,
+#           with no oauth2-proxy auth_request hops.
+# - `oauth2` and `cookie-cache` are skipped (unactivated profile).
+#
+# No `secrets/*.txt`, no `.env`, no Entra app registrations needed.
+# See no-auth.md (workspace root) for the design rationale.
+services:
+  nginx:
+    # Drop the inherited :latest tag so the new build target is actually used
+    # instead of any cached prod image.
+    image: !reset null
+    build:
+      target: nginx-dev-noauth
+      context: ./web
+      args:
+        AUTH_ENABLED: "0"
+    # Compose merges depends_on by default; !override is required to actually
+    # remove `oauth2` and add `web` instead.
+    depends_on: !override
+      - api
+      - web
+    # No secrets needed in the no-auth path.
+    secrets: !reset []
+
+  api:
+    image: !reset null
+    build:
+      target: development
+    # Force AUTH off regardless of any value in `.env`.
+    environment:
+      AUTH_ENABLED: "False"
+    # Don't require `.env` — the no-auth path needs no Entra config.
+    env_file: !reset []
+    # Hot-reload: uvicorn watches /app/src (see api/src/app/__main__.py).
+    volumes:
+      - ./api/src:/app/src
+
+  web:
+    build:
+      context: ./web
+      target: development
+      args:
+        AUTH_ENABLED: "0"
+    # Vite dev server with HMR. vite.config.mts already binds host: true
+    # on port 3000, so nginx can reach it as http://web:3000.
+    volumes:
+      - ./web/src:/code/src
+      - ./web/public:/code/public
+
+  # BFF services are defined in the base compose file but skipped here
+  # via a profile that is never activated. Cleaner than redeclaring them
+  # as no-ops.
+  oauth2:
+    profiles: ["disabled"]
+
+  cookie-cache:
+    profiles: ["disabled"]

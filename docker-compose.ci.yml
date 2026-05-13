@@ -3,22 +3,16 @@ services:
     build:
       target: development
     image: development
+    # CI has no `.env` file; the base compose's defaults cover MONGODB_*,
+    # ENVIRONMENT defaults to "local" in api/src/app/config.py, and
+    # AUTH_ENABLED defaults to False — but pin it here as defense-in-depth
+    # in case that default ever flips.
+    env_file: !reset []
     environment:
-      ENVIRONMENT: local
-      MONGODB_DATABASE: db
-      MONGODB_USERNAME: root
-      MONGODB_PASSWORD: mongodb
-      MONGODB_HOSTNAME: db
-      MONGODB_PORT: 27017
-      SECRET_KEY: sg9aeUM5i1JO4gNN8fQadokJa3_gXQMLBjSGGYcfscs=
       AUTH_ENABLED: "False"
     depends_on:
       - db
     links:
       - db
 
-  db:
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: mongodb
-      MONGO_INITDB_DATABASE: db
+  db: {}
