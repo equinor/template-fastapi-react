@@ -1,7 +1,7 @@
 import { Button, Popover as EDSPopover } from '@equinor/eds-core-react'
 import type { PopoverProps } from './Popover.types'
 
-const Popover = ({ children, title, toggle, isOpen, anchor }: PopoverProps) => {
+export const Popover = ({ children, title, toggle, isOpen, anchor }: PopoverProps) => {
   return (
     <EDSPopover open={isOpen} anchorEl={anchor} onClose={toggle} trapFocus>
       <EDSPopover.Header>
@@ -14,5 +14,3 @@ const Popover = ({ children, title, toggle, isOpen, anchor }: PopoverProps) => {
     </EDSPopover>
   )
 }
-
-export { Popover }
