@@ -4,7 +4,7 @@ import { ENV } from '@/config/env'
 import type { CommitInfo } from './VersionText.types'
 import { EMPTY_COMMIT_INFO, parseVersionFile } from './VersionText.utils'
 
-const useCommitInfo = () => {
+export const VersionText = () => {
   const [commitInfo, setCommitInfo] = useState<CommitInfo>(EMPTY_COMMIT_INFO)
 
   useEffect(() => {
@@ -17,11 +17,6 @@ const useCommitInfo = () => {
       .catch(() => setCommitInfo(EMPTY_COMMIT_INFO))
   }, [])
 
-  return commitInfo
-}
-
-export const VersionText = () => {
-  const commitInfo = useCommitInfo()
   const label = commitInfo.refs || commitInfo.hash || 'unknown'
 
   return (

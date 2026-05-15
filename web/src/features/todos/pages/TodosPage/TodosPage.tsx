@@ -12,17 +12,11 @@ import { useTodosFilter } from './TodosPage.hooks'
  * Route component. Composition only: the data fetch + URL-state +
  * filtering live in `useTodosFilter`; this file just wires hooks to
  * presentational children.
- *
- * The create form is hidden behind a feature flag — demonstrates the
- * `<FeatureToggle>` wiring; flip `NEW_TODO_FORM` in `featureFlags.ts`.
  */
 export const TodosPage = () => {
   const { status, setStatusFilter, visibleTodos, totalCount, completedCount } = useTodosFilter()
   const clearCompleted = useClearCompletedTodos()
 
-  // Empty state has two flavours: a fresh list ("add your first") vs a
-  // filter that hides everything ("no <status> todos"). The user needs
-  // different next steps in each case.
   const emptyMessage =
     totalCount === 0
       ? 'No todos yet — add your first one above.'
@@ -44,8 +38,6 @@ export const TodosPage = () => {
 
       <div className="flex items-center justify-center gap-md">
         <TodosFilter value={status} onChange={setStatusFilter} />
-        {/* Role-gated example: `BULK_TOOLS` is admin-only (see featureFlags.ts).
-         *  The flag is the gate; permission is still enforced server-side. */}
         <FeatureToggle featureFlag={FeatureFlagName.BULK_TOOLS}>
           {completedCount > 0 && (
             <Button variant="ghost" onClick={() => clearCompleted.mutate()} disabled={clearCompleted.isPending}>
@@ -55,8 +47,6 @@ export const TodosPage = () => {
         </FeatureToggle>
       </div>
 
-      {/* aria-busy lets screen readers announce the bulk operation;
-       *  visual feedback is handled per-item by TodoItem. */}
       <div aria-busy={clearCompleted.isPending}>
         <TodoList todos={visibleTodos} emptyMessage={emptyMessage} />
       </div>

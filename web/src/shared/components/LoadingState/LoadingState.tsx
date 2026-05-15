@@ -1,9 +1,6 @@
 /**
  * Standard loading surface. Use for in-page suspense fallbacks and
  * route-level hydrate fallbacks.
- *
- * `aria-busy` + visible label means screen readers announce the wait;
- * the dotted progress is purely visual.
  */
 
 import { Progress, Typography } from '@equinor/eds-core-react'
