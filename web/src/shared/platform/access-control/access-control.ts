@@ -1,18 +1,3 @@
-// Generic role-based access control factory. Given a roles table
-// (see `RolesWithPermissions`), returns a checker:
-//   (user, resource, action, data?) => boolean | 'loading'
-//
-// Semantics:
-//   - Most-permissive wins across the user's roles; no deny override.
-//   - Predicate rules are denied (warned in DEV) when called without
-//     `data`, since they cannot be evaluated.
-//   - Returns `'loading'` until `user.id` is populated, so UIs can
-//     render a skeleton instead of flashing "denied".
-//
-// `createIsAllowed` wraps a checker into a strict boolean predicate
-// (`'loading'` collapses to `false`) so components and tests don't
-// repeat `=== true` at every call site.
-
 import type {
   HasPermission,
   IsAllowed,
@@ -24,6 +9,12 @@ import type {
   UserWithRoles,
 } from './types'
 
+/**
+ * createHasPermission is a factory that generates a hasPermission checker based on a provided roles configuration.
+ * Returns `'loading'` until `user.id` is populated, so UIs can render a skeleton instead of flashing "denied".
+ * @param rolesConfig
+ * @returns
+ */
 export const createHasPermission = <Role extends string, P extends PermissionMap, User extends UserWithRoles>(
   rolesConfig: RolesWithPermissions<Role, P, User>
 ): HasPermission<P, User> => {
@@ -58,13 +49,12 @@ export const createHasPermission = <Role extends string, P extends PermissionMap
 }
 
 /**
- * Wraps a {@link HasPermission} checker into a strict boolean predicate:
- * `'loading'` collapses to `false`. Use in components and tests so
- * `=== true` boilerplate disappears at every call site.
+ * createIsAllowed
+ * Wraps a {@link HasPermission} checker into a strict boolean predicate: 'loading'` collapses to `false`.
+ * Use in components and tests so `=== true` boilerplate disappears at every call site.
  *
  * ```ts
  * export const isAllowed = createIsAllowed(hasPermissionCheck)
- * // …
  * const canDelete = isAllowed(user, 'todos', 'delete', todo)
  * ```
  */

@@ -130,6 +130,8 @@
 		outline: 2px dashed var(--border-focus);
 		outline-offset: 2px;
 	}
+	/* Fix tailwind reset on EDS dialog */
+	dialog { margin: auto }
 	dialog::backdrop {
 		background: rgba(0, 0, 0, 0.4);
 	}

@@ -12,9 +12,8 @@ export interface RouterContext {
 }
 
 export const Route = createRootRouteWithContext<RouterContext>()({
-  // Resolve the user once before any component mounts so suspense reads
-  // are synchronous, and bridge identity to telemetry in the same step.
   beforeLoad: async ({ context: { queryClient, telemetry } }) => {
+    // Resolve the user once before any component mounts
     const user = await queryClient.ensureQueryData(userQuery())
     telemetry.setUser(user.id)
   },
