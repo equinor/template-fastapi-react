@@ -1,4 +1,4 @@
-@reference "tailwindcss";
+@reference "../../../../styles/index.css";
 
 .color-schema-radio {
     @apply flex flex-1 flex-col items-center text-center px-4 py-2 border border-border rounded cursor-pointer;

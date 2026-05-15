@@ -1,7 +1,3 @@
-// Public types for the access-control platform module. Kept separate
-// from the runtime so consumers (app config, tests) can import types
-// without pulling in the factory.
-
 export type PermissionMap = Record<
   string,
   {
