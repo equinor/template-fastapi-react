@@ -48,7 +48,8 @@ nav:
                           contribute/development-guide/coding/extending-the-api/adding-data-providers/02-repository-interfaces.md
                       - Repositories: >-
                           contribute/development-guide/coding/extending-the-api/adding-data-providers/03-repositories.md
-              - Extending The Web: contribute/development-guide/coding/extending-the-web/index.md
+              - Extending The Web: >-
+                  contribute/development-guide/coding/extending-the-web/index.md
   - Changelog: changelog/changelog.md
 theme:
   name: material
@@ -69,6 +70,10 @@ markdown_extensions:
         - name: mermaid
           class: mermaid
           format: !!python/name:mermaid2.fence_mermaid ''
+  - pymdownx.snippets:
+      base_path:
+        - !relative $config_dir/..
+      check_paths: true
 validation:
   links:
     absolute_links: relative_to_docs
