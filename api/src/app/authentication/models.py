@@ -42,7 +42,7 @@ class User(BaseModel):
     scope: AccessLevel = AccessLevel.WRITE
 
     def __hash__(self) -> int:
-        return hash(type(self.user_id))
+        return hash(self.user_id)
 
 
 class ACLDict(TypedDict):
