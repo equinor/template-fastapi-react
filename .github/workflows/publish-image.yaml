@@ -41,9 +41,9 @@ jobs:
           printf "$(git log -n 1 --format=format:'hash: %h%ndate: %cs%nrefs: %d' --decorate=short --decorate-refs=refs/tags | sed 's/ (tag: \([^\s]*\))/\1/')" > ./web/public/version.txt
           docker build \
           --build-arg AUTH_ENABLED=1 \
-          --build-arg AUTH_SCOPE=api://4a761bec-628d-4c4b-860a-4903cbecc963/api \
-          --build-arg CLIENT_ID=4a761bec-628d-4c4b-860a-4903cbecc963 \
-          --build-arg TENANT_ID=3aa4a235-b6e2-48d5-9195-7fcf05b459b0 \
+          --build-arg AUTH_SCOPE=api://${{ vars.AZURE_CLIENT_ID }}/api \
+          --build-arg CLIENT_ID=${{ vars.AZURE_CLIENT_ID }} \
+          --build-arg TENANT_ID=${{ vars.AZURE_TENANT_ID }} \
           --cache-from ${NGINX_IMAGE} \
           --tag ${NGINX_IMAGE} \
           --target nginx-prod \
