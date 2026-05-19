@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+
 jobs:
   linting-and-checks:
     name: "Linting and checks"
@@ -12,16 +15,24 @@ jobs:
 
   tests:
     name: "Tests"
+    permissions:
+      contents: read
+      packages: read
     uses: ./.github/workflows/tests.yaml
 
   docs:
     needs: tests
     name: "Build and publish docs"
+    permissions:
+      contents: write
     uses: ./.github/workflows/publish-docs.yaml
 
   publish-latest:
     needs: tests
     name: "Publish dev docker images"
+    permissions:
+      contents: read
+      packages: write
     uses: ./.github/workflows/publish-image.yaml
     with:
       image-tags: latest
@@ -46,6 +57,9 @@ jobs:
     needs: release-please
     if: ${{ needs.release-please.outputs.release_created == 'true' }}
     name: "Publish staging docker images"
+    permissions:
+      contents: read
+      packages: write
     uses: ./.github/workflows/publish-image.yaml
     with:
       image-tags: ${{ needs.release-please.outputs.tag_name }}

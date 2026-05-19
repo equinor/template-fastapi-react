@@ -9,6 +9,9 @@ on:
         description: "Secret to authenticate if using an other container registry than Github"
         required: false
 
+permissions:
+  contents: read
+
 env:
   IMAGE_REGISTRY: ghcr.io
   REGISTRY_USER: $GITHUB_ACTOR

@@ -4,6 +4,9 @@ on:
   workflow_dispatch:
   workflow_call:
 
+permissions:
+  contents: write
+
 env:
   GITHUB_PAGES_BRANCH: gh-pages
 
