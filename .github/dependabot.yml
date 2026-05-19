@@ -66,13 +66,10 @@ updates:
     directory: "/web"
     groups:
       web:
-        exclude-patterns:
-          - "@hey-api/openapi-ts"
         update-types:
           - "minor"
           - "patch"
-      openapi-ts:
-        patterns:
+        exclude-patterns:
           - "@hey-api/openapi-ts"
     schedule:
       interval: "monthly" # when template is used, recommended interval is "weekly"
