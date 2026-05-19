@@ -29,6 +29,13 @@ def get_JWK_client() -> jwt.PyJWKClient:
 
 
 def auth_with_jwt(jwt_token: str = Security(oauth2_scheme)) -> User:
+    """Validate the caller's id_token (Authorization header) and return a `User`.
+
+    oauth2-proxy injects the id_token as `Authorization: Bearer ...`. The
+    id_token's `aud` claim is the OIDC client app id (`OAUTH_AUDIENCE`).
+    Roles are read from the `roles` claim, populated by the API app's
+    optional claims with `emit_as_roles` (so group GUIDs land in `roles`).
+    """
     if not config.AUTH_ENABLED:
         return default_user
     if not jwt_token:
@@ -37,8 +44,12 @@ def auth_with_jwt(jwt_token: str = Security(oauth2_scheme)) -> User:
     try:
         payload = jwt.decode(jwt_token, key, algorithms=["RS256"], audience=config.OAUTH_AUDIENCE)
         if config.MICROSOFT_AUTH_PROVIDER in payload["iss"]:
-            # Azure AD uses an oid string to uniquely identify users. Each user has a unique oid value.
-            user = User(user_id=payload["oid"], **payload)
+            user = User(
+                user_id=payload["oid"],
+                full_name=payload.get("name"),
+                email=payload.get("preferred_username") or payload.get("upn"),
+                roles=payload.get("roles", []),
+            )
         else:
             user = User(user_id=payload["sub"], **payload)
     except jwt.exceptions.InvalidTokenError as error:

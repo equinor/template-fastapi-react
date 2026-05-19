@@ -28,6 +28,10 @@ export type AddTodoResponse = {
      */
     id: string;
     /**
+     * User Id
+     */
+    user_id: string;
+    /**
      * Title
      */
     title: string;
@@ -76,6 +80,93 @@ export type ErrorResponse = {
 };
 
 /**
+ * Event
+ */
+export type Event = {
+    /**
+     * Name
+     */
+    name: string;
+    /**
+     * Tags
+     */
+    tags: {
+        [key: string]: string;
+    };
+    /**
+     * Time
+     */
+    time: string;
+    data: EventBase;
+};
+
+/**
+ * EventBase
+ */
+export type EventBase = {
+    /**
+     * Basetype
+     */
+    baseType: string;
+    /**
+     * Basedata
+     */
+    baseData: EventData | MetricsData | ExceptionData;
+};
+
+/**
+ * EventData
+ */
+export type EventData = {
+    /**
+     * Ver
+     */
+    ver: number;
+    /**
+     * Properties
+     */
+    properties: {
+        [key: string]: unknown;
+    };
+    /**
+     * Name
+     */
+    name: string;
+    /**
+     * Url
+     */
+    url?: string;
+    /**
+     * Measurements
+     */
+    measurements?: {
+        [key: string]: number;
+    };
+};
+
+/**
+ * ExceptionData
+ */
+export type ExceptionData = {
+    /**
+     * Ver
+     */
+    ver: number;
+    /**
+     * Exceptions
+     */
+    exceptions: Array<{
+        [key: string]: unknown;
+    }>;
+    /**
+     * Properties
+     */
+    properties: {
+        [key: string]: unknown;
+    };
+};
+
+/**
  * GetTodoAllResponse
  */
 export type GetTodoAllResponse = {
@@ -83,6 +174,10 @@ export type GetTodoAllResponse = {
      * Id
      */
     id: string;
+    /**
+     * User Id
+     */
+    user_id: string;
     /**
      * Title
      */
@@ -102,6 +197,10 @@ export type GetTodoByIdResponse = {
      */
     id: string;
     /**
+     * User Id
+     */
+    user_id: string;
+    /**
      * Title
      */
     title: string;
@@ -109,6 +208,64 @@ export type GetTodoByIdResponse = {
      * Is Completed
      */
     is_completed?: boolean;
+};
+
+/**
+ * MetricsData
+ */
+export type MetricsData = {
+    /**
+     * Ver
+     */
+    ver: number;
+    /**
+     * Metrics
+     */
+    metrics: Array<{
+        [key: string]: unknown;
+    }>;
+    /**
+     * Properties
+     */
+    properties: {
+        [key: string]: unknown;
+    };
+};
+
+/**
+ * TelemetryErrorDetails
+ */
+export type TelemetryErrorDetails = {
+    /**
+     * Index
+     */
+    index: number;
+    /**
+     * Statuscode
+     */
+    statusCode: number;
+    /**
+     * Message
+     */
+    message: string;
+};
+
+/**
+ * TelemetryResult
+ */
+export type TelemetryResult = {
+    /**
+     * Items Received
+     */
+    items_received: number;
+    /**
+     * Items Accepted
+     */
+    items_accepted: number;
+    /**
+     * Errors
+     */
+    errors: Array<TelemetryErrorDetails>;
 };
 
 /**
@@ -157,6 +314,56 @@ export type User = {
     roles?: Array<string>;
     scope?: AccessLevel;
 };
+
+export type TrackData = {
+    /**
+     * Events
+     */
+    body: Array<Event>;
+    path?: never;
+    query?: never;
+    url: '/monitoring/v2/track';
+};
+
+export type TrackErrors = {
+    /**
+     * Bad Request
+     */
+    400: ErrorResponse;
+    /**
+     * Unauthorized
+     */
+    401: ErrorResponse;
+    /**
+     * Forbidden
+     */
+    403: ErrorResponse;
+    /**
+     * Not Found
+     */
+    404: ErrorResponse;
+    /**
+     * Unprocessable Content
+     */
+    422: ErrorResponse;
+    /**
+     * Internal Server Error
+     */
+    500: ErrorResponse;
+};
+
+export type TrackError = TrackErrors[keyof TrackErrors];
+
+export type TrackResponses = {
+    /**
+     * Response Track
+     *
+     * Successful Response
+     */
+    200: TelemetryResult | null;
+};
+
+export type TrackResponse = TrackResponses[keyof TrackResponses];
 
 export type GetAllTodosData = {
     body?: never;

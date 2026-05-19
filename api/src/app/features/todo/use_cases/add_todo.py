@@ -24,6 +24,7 @@ class AddTodoResponse(BaseModel):
             "examples": ["vytxeTZskVKR7C7WgdSP3d"],
         }
     )
+    user_id: str
     title: str = Field(
         json_schema_extra={
             "examples": ["Read about clean architecture"],
@@ -33,7 +34,12 @@ class AddTodoResponse(BaseModel):
 
     @classmethod
     def from_entity(cls, todo_item: TodoItem) -> Self:
-        return cls(id=todo_item.id, title=todo_item.title, is_completed=todo_item.is_completed)
+        return cls(
+            id=todo_item.id,
+            user_id=todo_item.user_id,
+            title=todo_item.title,
+            is_completed=todo_item.is_completed,
+        )
 
 
 def add_todo_use_case(

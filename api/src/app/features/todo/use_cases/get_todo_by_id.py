@@ -9,12 +9,18 @@ from app.features.todo.repository.todo_repository_interface import TodoRepositor
 
 class GetTodoByIdResponse(BaseModel):
     id: str
+    user_id: str
     title: str
     is_completed: bool = False
 
     @classmethod
     def from_entity(cls, todo_item: TodoItem) -> Self:
-        return cls(id=todo_item.id, title=todo_item.title, is_completed=todo_item.is_completed)
+        return cls(
+            id=todo_item.id,
+            user_id=todo_item.user_id,
+            title=todo_item.title,
+            is_completed=todo_item.is_completed,
+        )
 
 
 def get_todo_by_id_use_case(id: str, user_id: str, todo_repository: TodoRepositoryInterface) -> GetTodoByIdResponse:
