@@ -49,9 +49,19 @@ updates:
       default-days: 7
 
   - package-ecosystem: "uv"
-    directories:
-      - "/api"
-      - "/docs"
+    directory: "/api"
+    groups:
+      api:
+        update-types:
+          - "minor"
+          - "patch"
+    schedule:
+      interval: "monthly" # when template is used, recommended interval is "weekly"
+    cooldown:
+      default-days: 7
+
+  - package-ecosystem: "uv"
+    directory: "/docs"
     groups:
       docs:
         update-types:
