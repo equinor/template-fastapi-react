@@ -21,14 +21,14 @@ jobs:
     name: "pre-commit"
     steps:
       - name: "Setup: checkout repository"
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: "Setup: Runtimes"
-        uses: jdx/mise-action@v4
+        uses: jdx/mise-action@1648a7812b9aeae629881980618f079932869151 # v4.0.1
         timeout-minutes: 5
 
       - name: "Run: pre-commit"
-        uses: pre-commit/action@v3.0.1
+        uses: pre-commit/action@2c7b3805fd2a0fd8c1884dcaebf91fc102a13ecd # v3.0.1
         with:
           extra_args: --all-files
 
@@ -40,14 +40,14 @@ jobs:
         working-directory: ./api
     steps:
       - name: "Setup: checkout repository"
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: "Setup: Runtimes"
-        uses: jdx/mise-action@v4
+        uses: jdx/mise-action@1648a7812b9aeae629881980618f079932869151 # v4.0.1
         timeout-minutes: 5
 
       - name: "Setup: install uv"
-        uses: astral-sh/setup-uv@v7
+        uses: astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78 # v7.6.0
         with:
           enable-cache: true
 
@@ -65,7 +65,7 @@ jobs:
         working-directory: ./web
     steps:
       - name: "Setup: check out repository"
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           sparse-checkout: |
             .github
@@ -73,13 +73,13 @@ jobs:
             web
 
       - name: Cache dependencies
-        uses: actions/cache@v5
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
         with:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           path: /home/runner/.yarn/berry/cache
 
       - name: "Setup: Runtimes"
-        uses: jdx/mise-action@v4
+        uses: jdx/mise-action@1648a7812b9aeae629881980618f079932869151 # v4.0.1
         timeout-minutes: 5
 
       - name: "Run: compile"
@@ -90,7 +90,7 @@ jobs:
     name: "validate Radix config"
     steps:
       - name: "Setup: checkout repository"
-        uses: actions/checkout@v6
-      - uses: equinor/radix-github-actions@v2
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: equinor/radix-github-actions@b23674a56b82a1da783b507bc7f15e7ca7067dd8 # v2.0.2
       - name: "Run: validate radix config"
         run: rx validate radix-config
