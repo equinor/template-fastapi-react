@@ -1,0 +1,5 @@
+["test:api:unit"]
+description = "Run the API unit tests"
+depends = ["install-dependencies:api"]
+dir = "{{config_root}}/api"
+run = "uv run pytest --unit"
