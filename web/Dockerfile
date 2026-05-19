@@ -21,7 +21,7 @@ USER "node"
 COPY --chown="node:node" .yarnrc.yml package.json yarn.lock ./
 ENV YARN_CACHE_FOLDER="/var/lib/yarn"
 RUN --mount=type=cache,target="$YARN_CACHE_FOLDER" \
-    yarn install
+    yarn install --immutable
 
 COPY --chown="node:node" index.html tsconfig.json vite.config.mts vitest.config.mts ./
 

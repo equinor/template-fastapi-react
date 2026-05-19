@@ -25,6 +25,10 @@ jobs:
         with:
           enable-cache: true
 
+      - name: "Setup: install dependencies"
+        working-directory: ./api
+        run: uv sync --locked
+
       - name: "Run: pytest unit tests"
         working-directory: ./api
         run: uv run pytest --unit

@@ -11,6 +11,8 @@ updates:
       - "/web"
     schedule:
       interval: "monthly" # when template is used, recommended interval is "weekly"
+    cooldown:
+      default-days: 7
     groups:
       web:
         exclude-patterns:
@@ -30,6 +32,8 @@ updates:
       - dhi-io
     schedule:
       interval: "monthly" # when template is used, recommended interval is "weekly"
+    cooldown:
+      default-days: 7
     groups:
       dockerfile:
         update-types:
@@ -42,6 +46,8 @@ updates:
       - "/api"
     schedule:
       interval: "monthly" # when template is used, recommended interval is "weekly"
+    cooldown:
+      default-days: 7
     groups:
       docs:
         update-types:
@@ -52,8 +58,12 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly" # when template is used, recommended interval is "weekly"
+    cooldown:
+      default-days: 7
 
   - package-ecosystem: "pre-commit"
     directory: "/"
     schedule:
       interval: "monthly" # when template is used, recommended interval is "weekly"
+    cooldown:
+      default-days: 7

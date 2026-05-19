@@ -8,4 +8,4 @@ run = "uv run python -m app open-api"
 description = "Generate typescript types from the OpenAPI JSON Schema"
 depends = ["generate:openapi-spec"]
 dir = "{{config_root}}/web"
-run = "yarn install && yarn generate"
+run = "yarn install --immutable && yarn generate"
