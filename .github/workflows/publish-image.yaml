@@ -35,29 +35,36 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: "Build web"
-        run: |
-          docker pull $NGINX_IMAGE
-          printf "$(git log -n 1 --format=format:'hash: %h%ndate: %cs%nrefs: %d' --decorate=short --decorate-refs=refs/tags | sed 's/ (tag: \([^\s]*\))/\1/')" > ./web/public/version.txt
-          docker build \
-          --build-arg AUTH_ENABLED=1 \
-          --build-arg AUTH_SCOPE=api://${{ vars.AZURE_CLIENT_ID }}/api \
-          --build-arg CLIENT_ID=${{ vars.AZURE_CLIENT_ID }} \
-          --build-arg TENANT_ID=${{ vars.AZURE_TENANT_ID }} \
-          --cache-from ${NGINX_IMAGE} \
-          --tag ${NGINX_IMAGE} \
-          --target nginx-prod \
-          ./web
+      - name: "Setup: Buildx"
+        uses: docker/setup-buildx-action@4d04d5d9486b7bd6fa91e7baf45bbb4f8b9deedd # v4.0.0
 
-      - name: "Publish web"
+      - name: "Prepare: version.txt and tags"
+        id: prep
         run: |
-          IFS=','
-          for IMAGE_TAG in $(echo ${{ inputs.image-tags }})
-          do
-            echo "Tagging with $IMAGE_TAG"
-            docker tag $NGINX_IMAGE $NGINX_IMAGE:$IMAGE_TAG
-            docker push $NGINX_IMAGE:$IMAGE_TAG
-          done
+          printf "$(git log -n 1 --format=format:'hash: %h%ndate: %cs%nrefs: %d' --decorate=short --decorate-refs=refs/tags | sed 's/ (tag: \([^\s]*\))/\1/')" > ./web/public/version.txt
+          {
+            echo "tags<<EOF"
+            IFS=','
+            for t in ${{ inputs.image-tags }}; do
+              echo "${NGINX_IMAGE}:${t}"
+            done
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: "Build & publish web"
+        uses: docker/build-push-action@bcafcacb16a39f128d818304e6c9c0c18556b85f # v7.1.0
+        with:
+          context: ./web
+          target: nginx-prod
+          push: true
+          tags: ${{ steps.prep.outputs.tags }}
+          cache-from: type=registry,ref=${{ env.NGINX_IMAGE }}:latest
+          cache-to: type=inline
+          build-args: |
+            AUTH_ENABLED=1
+            AUTH_SCOPE=api://${{ vars.AZURE_CLIENT_ID }}/api
+            CLIENT_ID=${{ vars.AZURE_CLIENT_ID }}
+            TENANT_ID=${{ vars.AZURE_TENANT_ID }}
 
   build-and-publish-api-main:
     runs-on: ubuntu-latest
@@ -73,18 +80,28 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: "Build API"
-        run: |
-          docker pull $API_IMAGE
-          printf "$(git log -n 1 --format=format:'hash: %h%ndate: %cs%nrefs: %d' --decorate=short --decorate-refs=refs/tags | sed 's/ (tag: \([^\s]*\))/\1/')" > ./api/src/version.txt
-          docker build --cache-from $API_IMAGE --target prod --tag $API_IMAGE ./api
+      - name: "Setup: Buildx"
+        uses: docker/setup-buildx-action@4d04d5d9486b7bd6fa91e7baf45bbb4f8b9deedd # v4.0.0
 
-      - name: "Publish API"
+      - name: "Prepare: version.txt and tags"
+        id: prep
         run: |
-          IFS=','
-          for IMAGE_TAG in $(echo ${{ inputs.image-tags }})
-          do
-            echo "Tagging with $IMAGE_TAG"
-            docker tag $API_IMAGE $API_IMAGE:$IMAGE_TAG
-            docker push $API_IMAGE:$IMAGE_TAG
-          done
+          printf "$(git log -n 1 --format=format:'hash: %h%ndate: %cs%nrefs: %d' --decorate=short --decorate-refs=refs/tags | sed 's/ (tag: \([^\s]*\))/\1/')" > ./api/src/version.txt
+          {
+            echo "tags<<EOF"
+            IFS=','
+            for t in ${{ inputs.image-tags }}; do
+              echo "${API_IMAGE}:${t}"
+            done
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: "Build & publish API"
+        uses: docker/build-push-action@bcafcacb16a39f128d818304e6c9c0c18556b85f # v7.1.0
+        with:
+          context: ./api
+          target: prod
+          push: true
+          tags: ${{ steps.prep.outputs.tags }}
+          cache-from: type=registry,ref=${{ env.API_IMAGE }}:latest
+          cache-to: type=inline
