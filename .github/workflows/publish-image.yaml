@@ -12,6 +12,10 @@ on:
         description: "Secret to authenticate if using an other container registry than Github"
         required: false
 
+permissions:
+  contents: read
+  packages: write
+
 env:
   API_IMAGE: ghcr.io/equinor/template-fastapi-react/api
   NGINX_IMAGE: ghcr.io/equinor/template-fastapi-react/nginx
