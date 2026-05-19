@@ -1,33 +1,31 @@
 version: 2
+
 registries:
   dhi-io:
     type: docker-registry
     url: https://dhi.io
     username: ${{secrets.DHI_USERNAME}}
     password: ${{secrets.DHI_PASSWORD}}
+
 updates:
-  - package-ecosystem: "npm"
-    directories:
-      - "/web"
+  - package-ecosystem: "github-actions"
+    directory: "/"
     schedule:
       interval: "monthly" # when template is used, recommended interval is "weekly"
     cooldown:
       default-days: 7
-    groups:
-      web:
-        exclude-patterns:
-          - "@hey-api/openapi-ts"
-        update-types:
-          - "minor"
-          - "patch"
-      openapi-ts:
-        patterns:
-          - "@hey-api/openapi-ts"
+
+  - package-ecosystem: "pre-commit"
+    directory: "/"
+    schedule:
+      interval: "monthly" # when template is used, recommended interval is "weekly"
+    cooldown:
+      default-days: 7
 
   - package-ecosystem: "docker"
     directories:
-      - "/web"
       - "/api"
+      - "/web"
     registries:
       - dhi-io
     schedule:
@@ -42,8 +40,8 @@ updates:
 
   - package-ecosystem: "uv"
     directories:
-      - "/docs"
       - "/api"
+      - "/docs"
     schedule:
       interval: "monthly" # when template is used, recommended interval is "weekly"
     cooldown:
@@ -54,16 +52,19 @@ updates:
           - "minor"
           - "patch"
 
-  - package-ecosystem: "github-actions"
-    directory: "/"
+  - package-ecosystem: "npm"
+    directory: "/web"
     schedule:
       interval: "monthly" # when template is used, recommended interval is "weekly"
     cooldown:
       default-days: 7
-
-  - package-ecosystem: "pre-commit"
-    directory: "/"
-    schedule:
-      interval: "monthly" # when template is used, recommended interval is "weekly"
-    cooldown:
-      default-days: 7
+    groups:
+      web:
+        exclude-patterns:
+          - "@hey-api/openapi-ts"
+        update-types:
+          - "minor"
+          - "patch"
+      openapi-ts:
+        patterns:
+          - "@hey-api/openapi-ts"
