@@ -20,7 +20,6 @@ jobs:
         image:
           [
             ghcr.io/equinor/template-fastapi-react/api,
-            ghcr.io/equinor/template-fastapi-react/web,
             ghcr.io/equinor/template-fastapi-react/nginx,
           ]
     steps:
