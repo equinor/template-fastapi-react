@@ -28,36 +28,32 @@ updates:
       - "/web"
     registries:
       - dhi-io
-    schedule:
-      interval: "monthly" # when template is used, recommended interval is "weekly"
-    cooldown:
-      default-days: 7
     groups:
       dockerfile:
         update-types:
           - "minor"
           - "patch"
+    schedule:
+      interval: "monthly" # when template is used, recommended interval is "weekly"
+    cooldown:
+      default-days: 7
 
   - package-ecosystem: "uv"
     directories:
       - "/api"
       - "/docs"
-    schedule:
-      interval: "monthly" # when template is used, recommended interval is "weekly"
-    cooldown:
-      default-days: 7
     groups:
       docs:
         update-types:
           - "minor"
           - "patch"
-
-  - package-ecosystem: "npm"
-    directory: "/web"
     schedule:
       interval: "monthly" # when template is used, recommended interval is "weekly"
     cooldown:
       default-days: 7
+
+  - package-ecosystem: "npm"
+    directory: "/web"
     groups:
       web:
         exclude-patterns:
@@ -68,3 +64,7 @@ updates:
       openapi-ts:
         patterns:
           - "@hey-api/openapi-ts"
+    schedule:
+      interval: "monthly" # when template is used, recommended interval is "weekly"
+    cooldown:
+      default-days: 7
