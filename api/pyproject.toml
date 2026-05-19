@@ -10,8 +10,8 @@ dependencies = [
   "fastapi[standard]>=0.136.1",
   "httpx>=0.28",
   "opentelemetry-instrumentation-fastapi>=0.62b1",
-  "pydantic>=2.13.3",
-  "pydantic-settings>=2.14.0",
+  "pydantic>=2.13.4",
+  "pydantic-settings>=2.14.1",
   "pyjwt>=2.8.0",
   "pymongo>=4.17.0",
 ]
