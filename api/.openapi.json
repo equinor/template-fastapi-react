@@ -10,6 +10,150 @@
         "version": "1.4.0"
     },
     "paths": {
+        "/monitoring/v2/track": {
+            "post": {
+                "tags": [
+                    "monitoring"
+                ],
+                "summary": "Track",
+                "operationId": "track",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "items": {
+                                    "$ref": "#/components/schemas/Event"
+                                },
+                                "type": "array",
+                                "title": "Events"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "anyOf": [
+                                        {
+                                            "$ref": "#/components/schemas/TelemetryResult"
+                                        },
+                                        {
+                                            "type": "null"
+                                        }
+                                    ],
+                                    "title": "Response Track"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                },
+                                "example": {
+                                    "status": 400,
+                                    "type": "BadRequestException",
+                                    "message": "Invalid data for the operation",
+                                    "debug": "Unable to complete the requested operation with the given input values."
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                },
+                                "example": {
+                                    "status": 401,
+                                    "type": "UnauthorizedException",
+                                    "message": "Token validation failed",
+                                    "debug": "An unknown and unhandled exception occurred in the API"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                },
+                                "example": {
+                                    "status": 403,
+                                    "type": "MissingPrivilegeException",
+                                    "message": "You do not have the required permissions",
+                                    "debug": "Action denied because of insufficient permissions"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                },
+                                "example": {
+                                    "status": 404,
+                                    "type": "NotFoundException",
+                                    "message": "The requested resource could not be found",
+                                    "debug": "The requested resource could not be found"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Content",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                },
+                                "example": {
+                                    "status": 422,
+                                    "type": "ValidationException",
+                                    "message": "The received data is invalid",
+                                    "debug": "Values are invalid for requested operation."
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                },
+                                "example": {
+                                    "status": 500,
+                                    "type": "ApplicationException",
+                                    "message": "The requested operation failed",
+                                    "debug": "An unknown and unhandled exception occurred in the API"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "OAuth2AuthorizationCodeBearer": []
+                    }
+                ]
+            }
+        },
         "/todos": {
             "get": {
                 "tags": [
@@ -958,6 +1102,10 @@
                             "vytxeTZskVKR7C7WgdSP3d"
                         ]
                     },
+                    "user_id": {
+                        "type": "string",
+                        "title": "User Id"
+                    },
                     "title": {
                         "type": "string",
                         "title": "Title",
@@ -974,6 +1122,7 @@
                 "type": "object",
                 "required": [
                     "id",
+                    "user_id",
                     "title"
                 ],
                 "title": "AddTodoResponse"
@@ -1029,11 +1178,137 @@
                 "type": "object",
                 "title": "ErrorResponse"
             },
+            "Event": {
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "title": "Name"
+                    },
+                    "tags": {
+                        "additionalProperties": {
+                            "type": "string"
+                        },
+                        "type": "object",
+                        "title": "Tags"
+                    },
+                    "time": {
+                        "type": "string",
+                        "format": "date-time",
+                        "title": "Time"
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/EventBase"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name",
+                    "tags",
+                    "time",
+                    "data"
+                ],
+                "title": "Event"
+            },
+            "EventBase": {
+                "properties": {
+                    "baseType": {
+                        "type": "string",
+                        "title": "Basetype"
+                    },
+                    "baseData": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/EventData"
+                            },
+                            {
+                                "$ref": "#/components/schemas/MetricsData"
+                            },
+                            {
+                                "$ref": "#/components/schemas/ExceptionData"
+                            }
+                        ],
+                        "title": "Basedata"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "baseType",
+                    "baseData"
+                ],
+                "title": "EventBase"
+            },
+            "EventData": {
+                "properties": {
+                    "ver": {
+                        "type": "integer",
+                        "title": "Ver"
+                    },
+                    "properties": {
+                        "additionalProperties": true,
+                        "type": "object",
+                        "title": "Properties"
+                    },
+                    "name": {
+                        "type": "string",
+                        "title": "Name"
+                    },
+                    "url": {
+                        "type": "string",
+                        "title": "Url"
+                    },
+                    "measurements": {
+                        "additionalProperties": {
+                            "type": "number"
+                        },
+                        "type": "object",
+                        "title": "Measurements"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "ver",
+                    "properties",
+                    "name"
+                ],
+                "title": "EventData"
+            },
+            "ExceptionData": {
+                "properties": {
+                    "ver": {
+                        "type": "integer",
+                        "title": "Ver"
+                    },
+                    "exceptions": {
+                        "items": {
+                            "additionalProperties": true,
+                            "type": "object"
+                        },
+                        "type": "array",
+                        "title": "Exceptions"
+                    },
+                    "properties": {
+                        "additionalProperties": true,
+                        "type": "object",
+                        "title": "Properties"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "ver",
+                    "exceptions",
+                    "properties"
+                ],
+                "title": "ExceptionData"
+            },
             "GetTodoAllResponse": {
                 "properties": {
                     "id": {
                         "type": "string",
                         "title": "Id"
+                    },
+                    "user_id": {
+                        "type": "string",
+                        "title": "User Id"
                     },
                     "title": {
                         "type": "string",
@@ -1047,6 +1322,7 @@
                 "type": "object",
                 "required": [
                     "id",
+                    "user_id",
                     "title",
                     "is_completed"
                 ],
@@ -1057,6 +1333,10 @@
                     "id": {
                         "type": "string",
                         "title": "Id"
+                    },
+                    "user_id": {
+                        "type": "string",
+                        "title": "User Id"
                     },
                     "title": {
                         "type": "string",
@@ -1071,9 +1351,87 @@
                 "type": "object",
                 "required": [
                     "id",
+                    "user_id",
                     "title"
                 ],
                 "title": "GetTodoByIdResponse"
+            },
+            "MetricsData": {
+                "properties": {
+                    "ver": {
+                        "type": "integer",
+                        "title": "Ver"
+                    },
+                    "metrics": {
+                        "items": {
+                            "additionalProperties": true,
+                            "type": "object"
+                        },
+                        "type": "array",
+                        "title": "Metrics"
+                    },
+                    "properties": {
+                        "additionalProperties": true,
+                        "type": "object",
+                        "title": "Properties"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "ver",
+                    "metrics",
+                    "properties"
+                ],
+                "title": "MetricsData"
+            },
+            "TelemetryErrorDetails": {
+                "properties": {
+                    "index": {
+                        "type": "integer",
+                        "title": "Index"
+                    },
+                    "statusCode": {
+                        "type": "integer",
+                        "title": "Statuscode"
+                    },
+                    "message": {
+                        "type": "string",
+                        "title": "Message"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "index",
+                    "statusCode",
+                    "message"
+                ],
+                "title": "TelemetryErrorDetails"
+            },
+            "TelemetryResult": {
+                "properties": {
+                    "items_received": {
+                        "type": "integer",
+                        "title": "Items Received"
+                    },
+                    "items_accepted": {
+                        "type": "integer",
+                        "title": "Items Accepted"
+                    },
+                    "errors": {
+                        "items": {
+                            "$ref": "#/components/schemas/TelemetryErrorDetails"
+                        },
+                        "type": "array",
+                        "title": "Errors"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "items_received",
+                    "items_accepted",
+                    "errors"
+                ],
+                "title": "TelemetryResult"
             },
             "UpdateTodoRequest": {
                 "properties": {

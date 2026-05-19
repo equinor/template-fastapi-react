@@ -2,7 +2,7 @@
 
 import type { Client, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { CreateTodoData, CreateTodoErrors, CreateTodoResponses, DeleteTodoByIdData, DeleteTodoByIdErrors, DeleteTodoByIdResponses, GetAllTodosData, GetAllTodosErrors, GetAllTodosResponses, GetHealthCheckGetData, GetHealthCheckGetErrors, GetHealthCheckGetResponses, GetTodoByIdData, GetTodoByIdErrors, GetTodoByIdResponses, UpdateTodoByIdData, UpdateTodoByIdErrors, UpdateTodoByIdResponses, WhoamiData, WhoamiErrors, WhoamiResponses } from './types.gen';
+import type { CreateTodoData, CreateTodoErrors, CreateTodoResponses, DeleteTodoByIdData, DeleteTodoByIdErrors, DeleteTodoByIdResponses, GetAllTodosData, GetAllTodosErrors, GetAllTodosResponses, GetHealthCheckGetData, GetHealthCheckGetErrors, GetHealthCheckGetResponses, GetTodoByIdData, GetTodoByIdErrors, GetTodoByIdResponses, TrackData, TrackErrors, TrackResponses, UpdateTodoByIdData, UpdateTodoByIdErrors, UpdateTodoByIdResponses, WhoamiData, WhoamiErrors, WhoamiResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -17,6 +17,19 @@ export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends 
      */
     meta?: Record<string, unknown>;
 };
+
+/**
+ * Track
+ */
+export const track = <ThrowOnError extends boolean = false>(options: Options<TrackData, ThrowOnError>) => (options.client ?? client).post<TrackResponses, TrackErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/monitoring/v2/track',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
 
 /**
  * Get Todo All
