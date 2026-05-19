@@ -10,6 +10,11 @@ registries:
 updates:
   - package-ecosystem: "github-actions"
     directory: "/"
+    groups:
+      actions:
+        update-types:
+          - "minor"
+          - "patch"
     schedule:
       interval: "monthly" # when template is used, recommended interval is "weekly"
     cooldown:
@@ -17,6 +22,11 @@ updates:
 
   - package-ecosystem: "pre-commit"
     directory: "/"
+    groups:
+      pre-commit:
+        update-types:
+          - "minor"
+          - "patch"
     schedule:
       interval: "monthly" # when template is used, recommended interval is "weekly"
     cooldown:
