@@ -4,38 +4,56 @@ on:
   workflow_dispatch:
   workflow_call:
 
+# actions/deploy-pages uses OIDC (id-token: write) and the Pages REST API
+# (pages: write); contents: read is enough for the checkout in the build job.
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
 
-env:
-  GITHUB_PAGES_BRANCH: gh-pages
+# Pages deployments must not run in parallel. Do not cancel an in-flight
+# deployment, otherwise we risk leaving the site in a broken state.
+concurrency:
+  group: pages
+  cancel-in-progress: false
 
 jobs:
-  publish-docs:
+  build:
+    name: "Build docs site"
     runs-on: ubuntu-latest
-
+    timeout-minutes: 10
     steps:
       - name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Install uv
         uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+        with:
+          enable-cache: true
 
       - name: Install dependencies and build website
+        working-directory: ./docs
         run: |
-          cd docs
           uv sync --locked
           uv run zensical build
 
-      - name: Push static files to Github Pages branch
-        run: |
-          cd docs/site
-          CREATED_FROM_REF=$(git rev-parse --short HEAD)
-          git init
-          git config user.name "GitHub Actions Bot"
-          git config user.email "<>"
-          git checkout -b $GITHUB_PAGES_BRANCH
-          git remote add $GITHUB_PAGES_BRANCH https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/equinor/template-fastapi-react
-          git add .
-          git commit -m "Built from commit '$CREATED_FROM_REF'"
-          git push -f --set-upstream gh-pages gh-pages
+      - name: Configure Pages
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: ./docs/site
+
+  deploy:
+    name: "Deploy to GitHub Pages"
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5.0.0
