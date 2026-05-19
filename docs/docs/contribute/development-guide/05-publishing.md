@@ -36,7 +36,6 @@ Reusable workflows
 
 | Workflow                                                                                                                                     | Job                        | Purpose                                                               |
 | -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- | --------------------------------------------------------------------- |
-| [codeql-security-analysis.yaml](https://github.com/equinor/template-fastapi-react/blob/main/.github/workflows/codeql-security-analysis.yaml) | analyze                    | Runs `CodeQL` on the source code                                      |
 | [release-please.yaml](https://github.com/equinor/template-fastapi-react/blob/main/.github/workflows/release-please.yaml)                     | release-please             | Creates a new release on GitHub                                       |
 | [deploy-to-radix.yaml](https://github.com/equinor/template-fastapi-react/blob/main/.github/workflows/deploy-to-radix.yaml)                   | deploy-on-radix            | Deploys the services to Radix                                         |
 | [label-importer.yaml](https://github.com/equinor/template-fastapi-react/blob/main/.github/workflows/label-importer.yaml)                     | labeler                    | Import labels from `labels.yml`                                       |
@@ -53,17 +52,14 @@ Triggerable workflows
 
 | Workflow                                                                                                                           | Job                | Purpose                                                                               |
 | ---------------------------------------------------------------------------------------------------------------------------------- | ------------------ | ------------------------------------------------------------------------------------- |
-| [on-pull-request.yaml](https://github.com/equinor/template-fastapi-react/blob/main/.github/workflows/on-pull-request.yaml)         | codeql             | Uses the `codeql-security-analysis` workflow                                          |
-|                                                                                                                                    | tests              | Uses the `tests` workflow                                                             |
-| [on-push-main-branch.yaml](https://github.com/equinor/template-fastapi-react/blob/main/.github/workflows/on-push-main-branch.yaml) | codeql             | Uses the `codeql-security-analysis` workflow                                          |
-|                                                                                                                                    | tests              | Uses the `tests` workflow                                                             |
+| [on-pull-request.yaml](https://github.com/equinor/template-fastapi-react/blob/main/.github/workflows/on-pull-request.yaml)         | tests              | Uses the `tests` workflow                                                             |
+| [on-push-main-branch.yaml](https://github.com/equinor/template-fastapi-react/blob/main/.github/workflows/on-push-main-branch.yaml) | tests              | Uses the `tests` workflow                                                             |
 |                                                                                                                                    | docs               | Uses the `publish-docs` workflow                                                      |
 |                                                                                                                                    | publish-latest     | Uses the `publish-image` workflow to create a docker image for the `test` environment |
 |                                                                                                                                    | deploy-test        | Uses the `deploy-to-radix` workflow to deploy to the `test` environment               |
 |                                                                                                                                    | release-please     | Creates a new release PR on GitHub                                                    |
 |                                                                                                                                    | publish-production | Uses the `publish-image` workflow to create a docker image for the `prod` environment |
 |                                                                                                                                    | deploy-prod        | Uses the `deploy-to-radix` workflow to deploy to the `prod` environment               |
-| [on-weekly.yaml](https://github.com/equinor/template-fastapi-react/blob/main/.github/workflows/on-weekly.yaml)                     | codeql             | Uses the `codeql-security-analysis` workflow                                          |
 
 </details>
 
