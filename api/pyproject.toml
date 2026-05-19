@@ -21,7 +21,7 @@ dependencies = [
 [dependency-groups]
 dev = [
   "mongomock>=4.1.2",
-  "mypy>=1.20.2",
+  "mypy>=2.1.0",
   "pytest>=8.3.0",
   "types-cachetools>=7.0.0.20260503",
 ]
