@@ -1,4 +1,4 @@
-import { Button, Icon, Typography } from '@equinor/eds-core-react'
+import { Button, Icon } from '@equinor/eds-core-react'
 import { arrow_back } from '@equinor/eds-icons'
 import { createLink } from '@tanstack/react-router'
 

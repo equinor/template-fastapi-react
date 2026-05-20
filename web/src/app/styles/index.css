@@ -40,7 +40,6 @@
 	--bg-elevated: var(--eds-color-bg-floating);
 	--bg-hover: var(--eds-color-bg-surface);
 
-
 	--text-strong: var(--eds-color-text-neutral-strong);
 	--text-default: var(--eds-color-text-neutral-strong);
 	--text-muted: var(--eds-color-text-neutral-subtle);
@@ -131,7 +130,9 @@
 		outline-offset: 2px;
 	}
 	/* Fix tailwind reset on EDS dialog */
-	dialog { margin: auto }
+	dialog {
+		margin: auto;
+	}
 	dialog::backdrop {
 		background: rgba(0, 0, 0, 0.4);
 	}

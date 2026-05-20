@@ -9,6 +9,7 @@
 !src/**/*.ts
 !src/*.tsx
 !src/**/*.tsx
+!src/**/*.css
 
 !index.html
 !tsconfig.json
