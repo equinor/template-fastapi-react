@@ -1,8 +1,8 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { type QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { SessionExpiredDialog } from '@/app/auth/SessionExpiredDialog/SessionExpiredDialog'
 import { ApplicationError } from '@/app/bootstrap/ApplicationError'
-import { Telemetry, TelemetryErrorBoundary, TelemetryProvider } from '@/shared/platform/telemetry'
+import { type Telemetry, TelemetryErrorBoundary, TelemetryProvider } from '@/shared/platform/telemetry'
 import { ToastContainer } from '@/shared/platform/toast'
 
 export interface ProvidersProps {

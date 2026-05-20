@@ -1,5 +1,5 @@
-import { Button, ButtonProps, Icon, Tooltip } from '@equinor/eds-core-react'
-import { IconData } from '@equinor/eds-icons'
+import { Button, type ButtonProps, Icon, Tooltip } from '@equinor/eds-core-react'
+import type { IconData } from '@equinor/eds-icons'
 
 export type IconButtonProps = {
   'aria-label': string // Required on IconButtons for accessibility

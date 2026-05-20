@@ -10,13 +10,6 @@ EXPOSE 5000
 
 ENV PYTHONPATH=/app/src
 
-# Install Equinor's root CA bundle so requests through the corporate
-# TLS-inspecting proxy (e.g. local dev behind Zscaler) succeed. The
-# script is a no-op on networks where the corporate root isn't presented
-# in the chain, so it's safe to keep enabled in CI/Radix.
-RUN --mount=type=bind,source=bin/install-equinor-certificates.sh,target=/tmp/install-equinor-certificates.sh \
-    /tmp/install-equinor-certificates.sh debian
-
 FROM base AS dependencies
 COPY --from=docker.io/astral/uv:0.11.6 /uv /uvx /usr/local/bin/
 ENV UV_COMPILE_BYTECODE=1

@@ -1,5 +1,5 @@
 import { Icon, Popover } from '@equinor/eds-core-react'
-import { close, IconData, light, lightbulb, settings } from '@equinor/eds-icons'
+import { close, type IconData, light, lightbulb, settings } from '@equinor/eds-icons'
 import { useId, useRef, useState } from 'react'
 import { IconButton } from '@/shared/components/IconButton/IconButton'
 import type { ColorScheme } from '@/shared/platform/theme'

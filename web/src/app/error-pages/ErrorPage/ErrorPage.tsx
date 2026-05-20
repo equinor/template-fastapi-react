@@ -12,7 +12,7 @@ export function ErrorPage(props: ErrorPageProps) {
       403: 'Forbidden',
       404: 'Not Found',
     }
-    return !!code && errorTitles[code] ? errorTitles[code] : 'Something went wrong'
+    return code && errorTitles[code] ? errorTitles[code] : 'Something went wrong'
   }
 
   function getErrorBody(code: number | null): string | React.ReactNode {
@@ -20,7 +20,7 @@ export function ErrorPage(props: ErrorPageProps) {
       403: "You don't have permission to view this page.",
       404: "The page you're looking for can't be found. It might have been removed, renamed, or is temporarily unavailable.",
     }
-    return !!code && errorBodies[code] ? errorBodies[code] : <ErrorPanel error={props.error} />
+    return code && errorBodies[code] ? errorBodies[code] : <ErrorPanel error={props.error} />
   }
 
   return (

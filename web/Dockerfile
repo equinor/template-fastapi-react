@@ -15,6 +15,12 @@ RUN mkdir /code && \
 
 RUN corepack enable
 
+# Workaround: repo.yarnpkg.com (GitHub Pages mirror corepack uses by default)
+# is currently returning 404, which makes corepack silently cache an empty
+# yarn.js. Pointing corepack at the npm registry uses @yarnpkg/cli-dist
+# instead and produces a working yarn binary.
+ENV COREPACK_NPM_REGISTRY=https://registry.npmjs.org
+
 WORKDIR /code
 USER "node"
 
