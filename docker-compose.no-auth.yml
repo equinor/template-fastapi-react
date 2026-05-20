@@ -51,6 +51,12 @@ services:
       target: development
       args:
         AUTH_ENABLED: "0"
+    # Vite's dev server reads stdin for keyboard shortcuts (r/q/…).
+    # Without an open stdin it sees EOF at startup and exits 0, which
+    # combined with `restart: unless-stopped` produces an infinite
+    # "web-1 exited with code 0 (restarting)" loop.
+    stdin_open: true
+    tty: true
     # Vite dev server with HMR. vite.config.mts already binds host: true
     # on port 3000, so nginx can reach it as http://web:3000.
     volumes:
