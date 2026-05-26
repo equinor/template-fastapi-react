@@ -3,7 +3,6 @@
   "version": "1.5.0",
   "private": true,
   "scripts": {
-    "preinstall": "npx -y only-allow yarn",
     "start": "vite",
     "build": "tsc && vite build",
     "serve": "vite preview",
