@@ -31,6 +31,8 @@ services:
     stdin_open: true
     environment:
       NODE_ENV: development
+      VITE_AUTH: $AUTH_ENABLED
+    tty: true
     develop:
       watch:
         - action: sync

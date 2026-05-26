@@ -1,0 +1,139 @@
+/*
+ * Single styling entrypoint. Imported once from src/index.tsx.
+ *
+ * Layers (top → bottom):
+ *   1. Tailwind                — utilities + preflight
+ *   2. EDS tokens              — every --eds-* CSS variable
+ *   3. App semantic tokens     — purpose-named vars layered on top
+ *   4. Optional EDS overrides  — escape hatch (see eds-overrides.css)
+ *   5. @theme                  — exposes our tokens as Tailwind utilities
+ *   6. Base                    — global resets
+ *
+ * Rule: components reference *semantic tokens* (--bg-canvas, --text-strong),
+ * never raw --eds-* tokens. The mapping lives here. Change one var, the
+ * whole app follows.
+ */
+
+@import "tailwindcss";
+@import "@equinor/eds-tokens/css/variables.css";
+@import "./eds-overrides.css";
+
+/* ── 3. Semantic tokens ────────────────────────────────────────────────
+ * Naming convention:
+ *   --bg-*       backgrounds (surfaces, hover states)
+ *   --text-*     foreground text
+ *   --border-*   borders + focus rings
+ *   --accent-*   brand-coloured interactive surfaces
+ *   --feedback-* status colours (success/warning/danger/info) + their bg
+ *   --shadow-*   elevation
+ *   --radius-*   corner radii
+ *
+ * Dark mode is automatic via CSS `light-dark()`. The browser picks based
+ * on `:root { color-scheme: light dark }` (set below) and the OS setting.
+ * No theme provider, no `dark:` prefixes anywhere in component code.
+ */
+:root {
+	color-scheme: light dark;
+	/* Backgrounds */
+	--bg-canvas: var(--eds-color-bg-canvas);
+	--bg-surface: var(--eds-color-bg-surface);
+	--bg-elevated: var(--eds-color-bg-floating);
+	--bg-hover: var(--eds-color-bg-surface);
+
+	--text-strong: var(--eds-color-text-neutral-strong);
+	--text-default: var(--eds-color-text-neutral-strong);
+	--text-muted: var(--eds-color-text-neutral-subtle);
+	--text-on-accent: var(--eds-color-text-accent-strong-on-emphasis);
+
+	/* Borders & focus — same story; EDS subtle border is invisible on dark surfaces. */
+	--border-subtle: var(--eds-color-border-neutral-subtle);
+	--border-strong: var(--eds-color-border-neutral-strong);
+	--border-focus: var(--eds-color-border-focus);
+
+	/* Accent (brand interactive surfaces) */
+	--accent-fg: var(--eds-color-bg-accent-fill-emphasis-default);
+	--accent-fg-hover: var(--eds-color-bg-accent-fill-emphasis-hover);
+	--accent-bg: var(--eds-color-bg-accent-surface);
+
+	/* Feedback — paired emphasis + surface for badges, alerts, panels */
+	--feedback-success-fg: var(--eds-color-bg-success-fill-emphasis-default);
+	--feedback-success-bg: var(--eds-color-bg-success-surface);
+	--feedback-info-fg: var(--eds-color-bg-info-fill-emphasis-default);
+	--feedback-info-bg: var(--eds-color-bg-info-surface);
+	--feedback-warning-fg: var(--eds-color-bg-warning-fill-emphasis-default);
+	--feedback-warning-bg: var(--eds-color-bg-warning-surface);
+	--feedback-danger-fg: var(--eds-color-text-danger-strong);
+	--feedback-danger-bg: var(--eds-color-bg-danger-surface);
+
+	/* Elevation — EDS 2.x has no shadow tokens, define our own */
+	--shadow-card: 0 2px 8px rgba(0, 0, 0, 0.08);
+	--shadow-md: 0 2px 4px rgba(0, 0, 0, 0.14), 0 3px 4px rgba(0, 0, 0, 0.12);
+}
+
+/* ── 5. Tailwind theme — expose semantic tokens as utility classes ──── */
+@theme {
+	/* Colors → bg-canvas, text-strong, border-focus, etc. */
+	--color-canvas: var(--bg-canvas);
+	--color-surface: var(--bg-surface);
+	--color-elevated: var(--bg-elevated);
+	--color-hover: var(--bg-hover);
+
+	--color-strong: var(--text-strong);
+	--color-default: var(--text-default);
+	--color-muted: var(--text-muted);
+	--color-on-accent: var(--text-on-accent);
+
+	--color-border: var(--border-subtle);
+	--color-border-strong: var(--border-strong);
+	--color-border-focus: var(--border-focus);
+
+	--color-accent: var(--accent-fg);
+	--color-accent-hover: var(--accent-fg-hover);
+	--color-accent-bg: var(--accent-bg);
+
+	--color-success: var(--feedback-success-fg);
+	--color-success-bg: var(--feedback-success-bg);
+	--color-info: var(--feedback-info-fg);
+	--color-info-bg: var(--feedback-info-bg);
+	--color-warning: var(--feedback-warning-fg);
+	--color-warning-bg: var(--feedback-warning-bg);
+	--color-danger: var(--feedback-danger-fg);
+	--color-danger-bg: var(--feedback-danger-bg);
+
+	/* Spacing scale */
+	--spacing-xs: 0.25rem;
+	--spacing-sm: 0.5rem;
+	--spacing-md: 1rem;
+	--spacing-lg: 1.5rem;
+	--spacing-xl: 2rem;
+
+	/* Shadows → shadow-card, shadow-md */
+	--shadow-card: var(--shadow-card);
+	--shadow-md: var(--shadow-md);
+
+	/* Type */
+	--font-sans: "Equinor", "Inter", system-ui, sans-serif;
+}
+
+/* ── 6. Base layer ──────────────────────────────────────────────────── */
+@layer base {
+	html,
+	body {
+		margin: 0;
+		height: 100%;
+		background: var(--bg-default);
+		color: var(--eds-color-text-strong);
+		font-family: var(--font-sans);
+	}
+	:focus-visible {
+		outline: 2px dashed var(--border-focus);
+		outline-offset: 2px;
+	}
+	/* Fix tailwind reset on EDS dialog */
+	dialog {
+		margin: auto;
+	}
+	dialog::backdrop {
+		background: rgba(0, 0, 0, 0.4);
+	}
+}

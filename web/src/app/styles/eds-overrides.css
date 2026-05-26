@@ -1,0 +1,82 @@
+@import "@equinor/eds-tokens/css/variables";
+
+:root {
+	/* Backgrounds */
+	--eds_ui_background__default: var(--eds-color-bg-neutral-surface);
+	--eds_ui_background__light: var(--eds-color-bg-neutral-canvas);
+	--eds_ui_background__medium: var(--eds-color-bg-neutral-fill-muted-default);
+
+	--eds_ui__accordion_header_color: var(--eds-color-text-strong);
+	--eds_primary: var(--eds-color-bg-accent-fill-emphasis-default);
+	--eds_primary_resting: var(--eds-color-bg-accent-fill-emphasis-subtle);
+	--eds_text__static_icons__primary_white: var(
+		--eds-color-text-strong-on-emphasis
+	);
+
+	/** Interactive components */
+	--eds_interactive_primary__resting: var(
+		--eds-color-bg-accent-fill-emphasis-default
+	);
+	--eds_interactive_primary__hover: var(
+		--eds-color-bg-accent-fill-emphasis-hover
+	);
+	--eds_interactive_primary__hover_alt: var(
+		--eds-color-bg-accent-fill-muted-hover
+	);
+	--eds_interactive__disabled__fill: var(
+		--eds-color-bg-accent-fill-muted-default
+	);
+	--eds_interactive__disabled__border: var(--eds-color-border-accent-subtle);
+	--eds_interactive__disabled__text: var(--eds-color-text-muted);
+	--eds_interactive_danger__resting: var(
+		--eds-color-bg-danger-fill-emphasis-default
+	);
+	--eds_interactive_danger__hover: var(
+		--eds-color-bg-danger-fill-emphasis-hover
+	);
+	--eds_interactive_danger__highlight: var(
+		--eds-color-bg-danger-fill-muted-hover
+	);
+	--eds_interactive_secondary__resting: var(
+		--eds-color-bg-neutral-fill-emphasis-default
+	);
+	--eds_interactive_secondary__link_hover: var(
+		--eds-color-bg-neutral-fill-emphasis-hover
+	);
+	--eds_interactive_secondary__highlight: var(
+		--eds-color-bg-neutral-fill-muted-hover
+	);
+
+	/* Interactive components  text */
+	--eds_navigation__menu_title_color: var(--eds-color-text-strong);
+	--eds_navigation__menu_tabs_color: var(--eds-color-text-strong);
+
+	/* Text colors*/
+	--eds_paragraph__body_short_color: var(--eds-color-text-strong);
+	--eds_heading__h1_color: var(--eds-color-text-strong);
+	--eds_heading__h2_color: var(--eds-color-text-strong);
+	--eds_heading__h3_color: var(--eds-color-text-strong);
+	--eds_heading__h4_color: var(--eds-color-text-strong);
+	--eds_heading__h5_color: var(--eds-color-text-strong);
+	--eds_heading__h6_color: var(--eds-color-text-strong);
+	--eds_paragraph__overline_color: var(--eds-color-text-subtle);
+	--eds_paragraph__caption_color: var(--eds-color-text-subtle);
+	--eds_paragraph__meta_color: var(--eds-color-text-subtle);
+	--eds_navigation__button_color: var(--eds-color-text-strong);
+	--eds_text__static_icons__tertiary: var(--eds-color-text-muted);
+	--eds_input__label_color: var(--eds-color-text-muted);
+	--eds_paragraph__body_short_link_color: var(--eds-color-text-link);
+	--eds_text__static_icons__default: var(--eds-color-text-subtle);
+
+	/* Loading indicator */
+	--eds_infographic_primary__moss_green_13: var(
+		--eds_interactive_primary__hover_alt
+	);
+	--eds_infographic_primary__moss_green_100: var(
+		--eds_interactive_primary__resting
+	);
+
+	[role="tooltip"] {
+		--eds_text__static_icons__primary_white: white;
+	}
+}

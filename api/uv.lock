@@ -82,7 +82,7 @@ dev = [
     { name = "mongomock", specifier = ">=4.1.2" },
     { name = "mypy", specifier = ">=2.1.0" },
     { name = "pytest", specifier = ">=8.3.0" },
-    { name = "types-cachetools", specifier = ">=7.0.0.20260503" },
+    { name = "types-cachetools", specifier = ">=5.5.0.20240820" },
 ]
 
 [[package]]
