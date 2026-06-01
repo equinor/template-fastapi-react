@@ -24,7 +24,9 @@ jobs:
     needs: tests
     name: "Build and publish docs"
     permissions:
-      contents: write
+      contents: read
+      pages: write
+      id-token: write
     uses: ./.github/workflows/publish-docs.yaml
 
   publish-latest:
