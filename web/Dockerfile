@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM dhi.io/nginx:1.30.0-debian13 AS server
+FROM dhi.io/nginx:1.31.1-debian13 AS server
 HEALTHCHECK CMD ["nginx", "-t"]
 
 # Copy configs
