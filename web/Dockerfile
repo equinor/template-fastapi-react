@@ -6,7 +6,7 @@ HEALTHCHECK CMD ["nginx", "-t"]
 COPY nginx/rootfs/ /
 
 # Keep the node patch in sync with `node = ...` in .mise/config.toml.
-FROM dhi.io/node:24.13.1-debian13-dev AS base
+FROM dhi.io/node:26.2.0-debian13-dev AS base
 ARG AUTH_ENABLED=0
 ENV VITE_AUTH=$AUTH_ENABLED
 
