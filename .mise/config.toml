@@ -7,6 +7,11 @@ uv = "0.11.6"
 shellcheck = "0.10.0"
 
 [env]
+# Disable corepack's interactive "about to download" prompt. mise runs tasks
+# (including the node postinstall hook) in a pseudo-TTY, so corepack would
+# otherwise block forever waiting for confirmation in non-interactive CI.
+COREPACK_ENABLE_DOWNLOAD_PROMPT = "0"
+
 # Name for resource group, Azure resources, app registrations, and Docker image tags.
 # Lowercase alphanumeric and hyphens only. Change once when adopting this template.
 APPLICATION_NAME = "<REPLACE_ME>"
