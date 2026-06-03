@@ -9,7 +9,9 @@ registries:
 
 updates:
   - package-ecosystem: "github-actions"
-    directory: "/"
+    directories:
+      - "/.github/workflows"
+      - "/.github/actions/*"
     groups:
       actions:
         update-types:

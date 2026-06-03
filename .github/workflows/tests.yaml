@@ -16,14 +16,9 @@ jobs:
       - name: "Setup: checkout repository"
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
-      - name: "Setup: Runtimes"
-        uses: jdx/mise-action@1648a7812b9aeae629881980618f079932869151 # v4.0.1
+      - name: "Setup: Environment"
+        uses: ./.github/actions/setup-environment
         timeout-minutes: 5
-
-      - name: "Setup: install uv"
-        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
-        with:
-          enable-cache: true
 
       - name: "Run: pytest unit tests"
         run: mise run test:api:unit
@@ -85,14 +80,9 @@ jobs:
       - name: "Setup: checkout repository"
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
-      - name: "Setup: Runtimes"
-        uses: jdx/mise-action@1648a7812b9aeae629881980618f079932869151 # v4.0.1
+      - name: "Setup: Environment"
+        uses: ./.github/actions/setup-environment
         timeout-minutes: 5
-
-      - name: "Setup: install uv"
-        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
-        with:
-          enable-cache: true
 
       - name: "Run: build docs site"
         run: mise run docs:build
