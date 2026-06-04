@@ -8,32 +8,32 @@ To work with the template monorepo you'll need to install [these tools](../../ab
 
 When contributing to this project, pre-commits are necessary, as they run certain tests, sanitisers, and formatters.
 
-The project provides a `.pre-commit-config.yaml` file that is used to setup git _pre-commit hooks_.
+We use [`prek`](https://prek.j178.dev/) — a faster, drop-in compatible alternative to [`pre-commit`](https://pre-commit.com/) — to run hooks. Hooks are configured in [`.pre-commit-config.yaml`](https://github.com/equinor/template-fastapi-react/blob/main/.pre-commit-config.yaml) at the repository root, with project-specific hooks in `api/.pre-commit-config.yaml` and `web/.pre-commit-config.yaml` (see [prek workspace mode](https://prek.j178.dev/workspace/)).
 
-On commit locally, code is automatically formatted and checked for security vulnerabilities using pre-commit git hooks.
+On commit locally, code is automatically formatted and checked for security vulnerabilities using these hooks.
 
 ### Installation
 
-To initialize pre-commit in your local repository, run
+Install `prek` via [`mise`](https://mise.jdx.dev/) (recommended), `uv`, or `pip`, and then run:
 
 ```shell
-pre-commit install
+prek install
 ```
 
-This tells pre-commit to run for this repository on every commit.
+This tells `prek` to run for this repository on every commit.
 
 ### Usage
 
-Pre-commit will run on every commit, but can also be run manually on all files:
+Hooks run on every commit, but can also be triggered manually on all files:
 
 ```shell
-pre-commit run --all-files
+prek run --all-files
 ```
 
-Pre-commit tests can be skipped on commits with `git commit --no-verify`.
+Hooks can be skipped on commits with `git commit --no-verify`.
 
 !!! caution "Caution"
-    If you have to skip the pre-commit tests, you're probably doing something you're not supposed to, and whoever commits after you might have to fix your "mistakes". Consider updating the pre-commit hooks if your code is non-compliant.
+    If you have to skip the hooks, you're probably doing something you're not supposed to, and whoever commits after you might have to fix your "mistakes". Consider updating the hooks if your code is non-compliant.
 
 ### Hooks
 <details>

@@ -1,4 +1,11 @@
 ["tools:yarn"]
 hide = true
 dir = "{{config_root}}/web"
-run = ["corepack enable", "corepack install"]
+# Set the corepack prompt flag on the command itself (mise's postinstall hook
+# does not reliably forward outer env into the spawned process) and redirect
+# stdin from /dev/null so corepack can never block on an interactive prompt and
+# stall the CI runtime-setup step until it times out.
+run = [
+  "corepack enable </dev/null",
+  "COREPACK_ENABLE_DOWNLOAD_PROMPT=0 corepack install </dev/null",
+]

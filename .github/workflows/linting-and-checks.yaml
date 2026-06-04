@@ -17,6 +17,11 @@ env:
   REGISTRY_USER: $GITHUB_ACTOR
   API_IMAGE: ghcr.io/equinor/template-fastapi-react/api
   WEB_IMAGE: ghcr.io/equinor/template-fastapi-react/web
+  # mise runs the node postinstall hook (corepack install) in a pseudo-TTY.
+  # Without this, corepack shows an interactive download prompt and blocks the
+  # "Setup: Runtimes" step until it times out. Set at workflow scope so it is in
+  # the process environment that mise install and the hook inherit.
+  COREPACK_ENABLE_DOWNLOAD_PROMPT: "0"
 
 jobs:
   pre-commit:
@@ -30,10 +35,14 @@ jobs:
         uses: ./.github/actions/setup-environment
         timeout-minutes: 5
 
-      - name: "Run: pre-commit"
-        uses: pre-commit/action@2c7b3805fd2a0fd8c1884dcaebf91fc102a13ecd # v3.0.1
-        with:
-          extra_args: --all-files
+      - name: "Setup: install API dependencies"
+        run: mise run install-dependencies:api
+
+      - name: "Setup: install Web dependencies"
+        run: mise run install-dependencies:web
+
+      - name: "Run: prek"
+        run: mise exec -- prek run --all-files --show-diff-on-failure
 
   mypy:
     runs-on: ubuntu-latest
