@@ -23,8 +23,6 @@ jobs:
 
       - name: "Setup: Environment"
         uses: ./.github/actions/setup-environment
-        with:
-          sparse-setup: api
         timeout-minutes: 5
 
       - name: "Run: pytest unit tests"
@@ -94,8 +92,6 @@ jobs:
 
       - name: "Setup: Environment"
         uses: ./.github/actions/setup-environment
-        with:
-          sparse-setup: docs
         timeout-minutes: 5
 
       - name: "Run: build docs site"

@@ -52,8 +52,6 @@ jobs:
 
       - name: "Setup: Environment"
         uses: ./.github/actions/setup-environment
-        with:
-          sparse-setup: api
         timeout-minutes: 5
 
       - name: "Run: mypy"
@@ -76,8 +74,6 @@ jobs:
 
       - name: "Setup: Environment"
         uses: ./.github/actions/setup-environment
-        with:
-          sparse-setup: web
         timeout-minutes: 5
 
       - name: "Run: compile"
