@@ -1,11 +1,18 @@
 name: Set up environment
 description: Configure development environment with all runtimes and dependencies
 
+inputs:
+  sparse-setup:
+    description: 'Comma separated list of components to set up. Defaults to "api, web, docs".'
+    required: false
+    default: "api, web, docs"
+
 runs:
   using: composite
   steps:
     - name: "Cache: API dependencies"
       id: cache-api
+      if: contains(inputs.sparse-setup, 'api')
       uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
       with:
         path: api/.venv
@@ -13,6 +20,7 @@ runs:
 
     - name: "Cache: web dependencies"
       id: cache-web
+      if: contains(inputs.sparse-setup, 'web')
       uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
       with:
         path: /home/runner/.yarn/berry/cache
@@ -20,6 +28,7 @@ runs:
 
     - name: "Cache: docs dependencies"
       id: cache-docs
+      if: contains(inputs.sparse-setup, 'docs')
       uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
       with:
         path: docs/.venv
@@ -29,14 +38,17 @@ runs:
       uses: jdx/mise-action@1648a7812b9aeae629881980618f079932869151 # v4.0.1
 
     - name: "Setup: install API dependencies"
+      if: contains(inputs.sparse-setup, 'api')
       shell: bash
       run: mise run install-dependencies:api
 
     - name: "Setup: web dependencies"
+      if: contains(inputs.sparse-setup, 'web')
       shell: bash
       run: mise run install-dependencies:web
 
     - name: "Setup: install docs dependencies"
+      if: contains(inputs.sparse-setup, 'docs')
       working-directory: ./docs
       shell: bash
       run: uv sync --locked

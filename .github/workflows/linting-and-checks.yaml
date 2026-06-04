@@ -44,9 +44,16 @@ jobs:
     steps:
       - name: "Setup: checkout repository"
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          sparse-checkout: |
+            .github
+            .mise
+            api
 
       - name: "Setup: Environment"
         uses: ./.github/actions/setup-environment
+        with:
+          sparse-setup: api
         timeout-minutes: 5
 
       - name: "Run: mypy"
@@ -61,9 +68,16 @@ jobs:
     steps:
       - name: "Setup: check out repository"
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          sparse-checkout: |
+            .github
+            .mise
+            web
 
       - name: "Setup: Environment"
         uses: ./.github/actions/setup-environment
+        with:
+          sparse-setup: web
         timeout-minutes: 5
 
       - name: "Run: compile"
