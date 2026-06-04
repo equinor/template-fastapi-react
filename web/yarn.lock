@@ -52,7 +52,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/code-frame@npm:^7.0.0, @babel/code-frame@npm:^7.10.4, @babel/code-frame@npm:^7.27.1, @babel/code-frame@npm:^7.28.6, @babel/code-frame@npm:^7.29.0":
+"@babel/code-frame@npm:^7.0.0, @babel/code-frame@npm:^7.10.4, @babel/code-frame@npm:^7.28.6, @babel/code-frame@npm:^7.29.0":
   version: 7.29.0
   resolution: "@babel/code-frame@npm:7.29.0"
   dependencies:
@@ -234,18 +234,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@biomejs/biome@npm:^2.4.15":
-  version: 2.4.15
-  resolution: "@biomejs/biome@npm:2.4.15"
+"@biomejs/biome@npm:^2.4.16":
+  version: 2.4.16
+  resolution: "@biomejs/biome@npm:2.4.16"
   dependencies:
-    "@biomejs/cli-darwin-arm64": "npm:2.4.15"
-    "@biomejs/cli-darwin-x64": "npm:2.4.15"
-    "@biomejs/cli-linux-arm64": "npm:2.4.15"
-    "@biomejs/cli-linux-arm64-musl": "npm:2.4.15"
-    "@biomejs/cli-linux-x64": "npm:2.4.15"
-    "@biomejs/cli-linux-x64-musl": "npm:2.4.15"
-    "@biomejs/cli-win32-arm64": "npm:2.4.15"
-    "@biomejs/cli-win32-x64": "npm:2.4.15"
+    "@biomejs/cli-darwin-arm64": "npm:2.4.16"
+    "@biomejs/cli-darwin-x64": "npm:2.4.16"
+    "@biomejs/cli-linux-arm64": "npm:2.4.16"
+    "@biomejs/cli-linux-arm64-musl": "npm:2.4.16"
+    "@biomejs/cli-linux-x64": "npm:2.4.16"
+    "@biomejs/cli-linux-x64-musl": "npm:2.4.16"
+    "@biomejs/cli-win32-arm64": "npm:2.4.16"
+    "@biomejs/cli-win32-x64": "npm:2.4.16"
   dependenciesMeta:
     "@biomejs/cli-darwin-arm64":
       optional: true
@@ -265,62 +265,62 @@ __metadata:
       optional: true
   bin:
     biome: bin/biome
-  checksum: 10c0/46ac114b97f00e5fe0d22590337c80c7a2467d2aabf57d7f99b92356fd01cf76bb7d972782508e0f51c34e08a1a7f8e9eefec6fe72aa7b5f53b9161b7fe582e2
+  checksum: 10c0/c52c4309daf241888b43912a43d1ba8bae7c2160751c33900088517da3e47d1428bb1c1f64f657efa5f42f5866e6400325b39fc41c3adf7cc7aa3f237f6fa286
   languageName: node
   linkType: hard
 
-"@biomejs/cli-darwin-arm64@npm:2.4.15":
-  version: 2.4.15
-  resolution: "@biomejs/cli-darwin-arm64@npm:2.4.15"
+"@biomejs/cli-darwin-arm64@npm:2.4.16":
+  version: 2.4.16
+  resolution: "@biomejs/cli-darwin-arm64@npm:2.4.16"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@biomejs/cli-darwin-x64@npm:2.4.15":
-  version: 2.4.15
-  resolution: "@biomejs/cli-darwin-x64@npm:2.4.15"
+"@biomejs/cli-darwin-x64@npm:2.4.16":
+  version: 2.4.16
+  resolution: "@biomejs/cli-darwin-x64@npm:2.4.16"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@biomejs/cli-linux-arm64-musl@npm:2.4.15":
-  version: 2.4.15
-  resolution: "@biomejs/cli-linux-arm64-musl@npm:2.4.15"
+"@biomejs/cli-linux-arm64-musl@npm:2.4.16":
+  version: 2.4.16
+  resolution: "@biomejs/cli-linux-arm64-musl@npm:2.4.16"
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
 
-"@biomejs/cli-linux-arm64@npm:2.4.15":
-  version: 2.4.15
-  resolution: "@biomejs/cli-linux-arm64@npm:2.4.15"
+"@biomejs/cli-linux-arm64@npm:2.4.16":
+  version: 2.4.16
+  resolution: "@biomejs/cli-linux-arm64@npm:2.4.16"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@biomejs/cli-linux-x64-musl@npm:2.4.15":
-  version: 2.4.15
-  resolution: "@biomejs/cli-linux-x64-musl@npm:2.4.15"
+"@biomejs/cli-linux-x64-musl@npm:2.4.16":
+  version: 2.4.16
+  resolution: "@biomejs/cli-linux-x64-musl@npm:2.4.16"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
-"@biomejs/cli-linux-x64@npm:2.4.15":
-  version: 2.4.15
-  resolution: "@biomejs/cli-linux-x64@npm:2.4.15"
+"@biomejs/cli-linux-x64@npm:2.4.16":
+  version: 2.4.16
+  resolution: "@biomejs/cli-linux-x64@npm:2.4.16"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@biomejs/cli-win32-arm64@npm:2.4.15":
-  version: 2.4.15
-  resolution: "@biomejs/cli-win32-arm64@npm:2.4.15"
+"@biomejs/cli-win32-arm64@npm:2.4.16":
+  version: 2.4.16
+  resolution: "@biomejs/cli-win32-arm64@npm:2.4.16"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"@biomejs/cli-win32-x64@npm:2.4.15":
-  version: 2.4.15
-  resolution: "@biomejs/cli-win32-x64@npm:2.4.15"
+"@biomejs/cli-win32-x64@npm:2.4.16":
+  version: 2.4.16
+  resolution: "@biomejs/cli-win32-x64@npm:2.4.16"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
@@ -1737,15 +1737,6 @@ __metadata:
     undici: "npm:^7.19.0"
     whatwg-mimetype: "npm:^4.0.0"
   checksum: 10c0/91a566aabfa9962f28056045bb7d92d79c0f8f3abb1fb86a852a9d1760556adddeb01a36b6f08fa7c133282375d387ae450a181a659e76c6a64016c30cc3f611
-  languageName: node
-  linkType: hard
-
-"chokidar@npm:^4.0.3":
-  version: 4.0.3
-  resolution: "chokidar@npm:4.0.3"
-  dependencies:
-    readdirp: "npm:^4.0.1"
-  checksum: 10c0/a58b9df05bb452f7d105d9e7229ac82fa873741c0c40ddcc7bb82f8a909fbe3f7814c9ebe9bc9a2bef9b737c0ec6e2d699d179048ef06ad3ec46315df0ebe6ad
   languageName: node
   linkType: hard
 
@@ -3294,13 +3285,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"readdirp@npm:^4.0.1":
-  version: 4.1.2
-  resolution: "readdirp@npm:4.1.2"
-  checksum: 10c0/60a14f7619dec48c9c850255cd523e2717001b0e179dc7037cfa0895da7b9e9ab07532d324bfb118d73a710887d1e35f79c495fa91582784493e085d18c72c62
-  languageName: node
-  linkType: hard
-
 "readdirp@npm:^5.0.0":
   version: 5.0.0
   resolution: "readdirp@npm:5.0.0"
@@ -3848,21 +3832,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite-plugin-checker@npm:^0.13.0":
-  version: 0.13.0
-  resolution: "vite-plugin-checker@npm:0.13.0"
+"vite-plugin-checker@npm:^0.14.1":
+  version: 0.14.1
+  resolution: "vite-plugin-checker@npm:0.14.1"
   dependencies:
-    "@babel/code-frame": "npm:^7.27.1"
-    chokidar: "npm:^4.0.3"
+    "@babel/code-frame": "npm:^7.29.0"
+    chokidar: "npm:^5.0.0"
     npm-run-path: "npm:^6.0.0"
     picocolors: "npm:^1.1.1"
     picomatch: "npm:^4.0.4"
     proper-lockfile: "npm:^4.1.2"
     tiny-invariant: "npm:^1.3.3"
-    tinyglobby: "npm:^0.2.15"
-    vscode-uri: "npm:^3.1.0"
   peerDependencies:
-    "@biomejs/biome": ">=1.7"
+    "@biomejs/biome": ">=2.4.12"
     eslint: ">=9.39.4"
     meow: ^13.2.0 || ^14.0.0
     optionator: ^0.9.4
@@ -3870,8 +3852,6 @@ __metadata:
     stylelint: ">=16.26.1"
     typescript: "*"
     vite: ">=5.4.21"
-    vls: "*"
-    vti: "*"
     vue-tsc: ~2.2.10 || ^3.0.0
   peerDependenciesMeta:
     "@biomejs/biome":
@@ -3888,13 +3868,9 @@ __metadata:
       optional: true
     typescript:
       optional: true
-    vls:
-      optional: true
-    vti:
-      optional: true
     vue-tsc:
       optional: true
-  checksum: 10c0/85c5e5d33b96b08ef844fe66c4e648ae6bd8b6b42fa6e1910a903cb7bc726aa06c379a5784a726247a4fab1005d72b4f706eef556e19f271dbbd6a598ba0d366
+  checksum: 10c0/1be1cb1ac0a420b5124647a245332dca720cdb9d5fc0103f6df2d3bde579fb920517def8cf76a73518670c9f10f224f45cff850b06d800962ac36a94a2db10f4
   languageName: node
   linkType: hard
 
@@ -4118,13 +4094,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vscode-uri@npm:^3.1.0":
-  version: 3.1.0
-  resolution: "vscode-uri@npm:3.1.0"
-  checksum: 10c0/5f6c9c10fd9b1664d71fab4e9fbbae6be93c7f75bb3a1d9d74399a88ab8649e99691223fd7cef4644376cac6e94fa2c086d802521b9a8e31c5af3e60f0f35624
-  languageName: node
-  linkType: hard
-
 "w3c-xmlserializer@npm:^5.0.0":
   version: 5.0.0
   resolution: "w3c-xmlserializer@npm:5.0.0"
@@ -4138,7 +4107,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "web@workspace:."
   dependencies:
-    "@biomejs/biome": "npm:^2.4.15"
+    "@biomejs/biome": "npm:^2.4.16"
     "@equinor/eds-core-react": "npm:^2.6.1"
     "@equinor/eds-icons": "npm:^1.5.0"
     "@hey-api/openapi-ts": "npm:0.97.3"
@@ -4157,7 +4126,7 @@ __metadata:
     styled-components: "npm:^6.4.2"
     typescript: "npm:~6.0.3"
     vite: "npm:^8.0.14"
-    vite-plugin-checker: "npm:^0.13.0"
+    vite-plugin-checker: "npm:^0.14.1"
     vite-plugin-csp-guard: "npm:^4.0.1"
     vite-plugin-svgr: "npm:^5.2.0"
     vite-tsconfig-paths: "npm:^6.1.1"
