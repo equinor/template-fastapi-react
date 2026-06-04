@@ -42,10 +42,19 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: "Setup: Buildx"
+        uses: docker/setup-buildx-action@4d04d5d9486b7bd6fa91e7baf45bbb4f8b9deedd # v4.0.0
+
       - name: Build API image
-        run: |
-          docker pull $API_IMAGE
-          docker build --target development --tag api-development ./api # TODO: --cache-from $API_IMAGE
+        uses: docker/build-push-action@bcafcacb16a39f128d818304e6c9c0c18556b85f # v7.1.0
+        with:
+          context: ./api
+          target: development
+          tags: api-development:latest
+          load: true
+          push: false
+          cache-from: type=registry,ref=${{ env.API_IMAGE }}:latest
+
       - name: BDD Integration tests
         if: ${{ false }} # disable for now
         run: docker compose -f docker-compose.yml -f docker-compose.ci.yml run api behave
@@ -68,10 +77,18 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: "Setup: Buildx"
+        uses: docker/setup-buildx-action@4d04d5d9486b7bd6fa91e7baf45bbb4f8b9deedd # v4.0.0
+
       - name: Build Web Image
-        run: |
-          docker pull $NGINX_IMAGE
-          docker build --cache-from $NGINX_IMAGE --target development --tag web-dev ./web
+        uses: docker/build-push-action@bcafcacb16a39f128d818304e6c9c0c18556b85f # v7.1.0
+        with:
+          context: ./web
+          target: development
+          tags: web-dev:latest
+          load: true
+          push: false
+          cache-from: type=registry,ref=${{ env.NGINX_IMAGE }}:latest
 
       - name: Run Web tests
         if: ${{ false }} # disable for now as they do not currently work
