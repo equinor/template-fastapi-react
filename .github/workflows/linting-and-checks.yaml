@@ -26,8 +26,8 @@ jobs:
       - name: "Setup: checkout repository"
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
-      - name: "Setup: Runtimes"
-        uses: jdx/mise-action@1648a7812b9aeae629881980618f079932869151 # v4.0.1
+      - name: "Setup: Environment"
+        uses: ./.github/actions/setup-environment
         timeout-minutes: 5
 
       - name: "Run: pre-commit"
@@ -44,18 +44,15 @@ jobs:
     steps:
       - name: "Setup: checkout repository"
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-
-      - name: "Setup: Runtimes"
-        uses: jdx/mise-action@1648a7812b9aeae629881980618f079932869151 # v4.0.1
-        timeout-minutes: 5
-
-      - name: "Setup: install uv"
-        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
         with:
-          enable-cache: true
+          sparse-checkout: |
+            .github
+            .mise
+            api
 
-      - name: "Setup: install dependencies"
-        run: mise run install-dependencies:api
+      - name: "Setup: Environment"
+        uses: ./.github/actions/setup-environment
+        timeout-minutes: 5
 
       - name: "Run: mypy"
         run: mise run lint:api:typecheck
@@ -75,14 +72,8 @@ jobs:
             .mise
             web
 
-      - name: Cache dependencies
-        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
-        with:
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          path: /home/runner/.yarn/berry/cache
-
-      - name: "Setup: Runtimes"
-        uses: jdx/mise-action@1648a7812b9aeae629881980618f079932869151 # v4.0.1
+      - name: "Setup: Environment"
+        uses: ./.github/actions/setup-environment
         timeout-minutes: 5
 
       - name: "Run: compile"

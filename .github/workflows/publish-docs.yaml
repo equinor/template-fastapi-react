@@ -25,17 +25,19 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-
-      - name: Install uv
-        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
         with:
-          enable-cache: true
+          sparse-checkout: |
+            .github
+            .mise
+            docs
 
-      - name: Install dependencies and build website
+      - name: "Setup: Environment"
+        uses: ./.github/actions/setup-environment
+        timeout-minutes: 5
+
+      - name: Build website
         working-directory: ./docs
-        run: |
-          uv sync --locked
-          uv run zensical build
+        run: uv run zensical build
 
       - name: Configure Pages
         uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
