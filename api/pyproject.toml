@@ -13,7 +13,7 @@ dependencies = [
   "httpx>=0.28",
   "opentelemetry-instrumentation-fastapi>=0.61b0",
   "pydantic>=2.13.3",
-  "pydantic-settings>=2.14.0",
+  "pydantic-settings>=2.14.2",
   "pyjwt>=2.13.0",
   "pymongo>=4.17.0",
 ]
