@@ -1,12 +1,12 @@
 # syntax=docker/dockerfile:1
-FROM dhi.io/nginx:1.31.1-debian13 AS server
+FROM dhi.io/nginx:1.31.2-debian13 AS server
 HEALTHCHECK CMD ["nginx", "-t"]
 
 # Copy configs
 COPY nginx/rootfs/ /
 
 # Keep the node patch in sync with `node = ...` in .mise/config.toml.
-FROM dhi.io/node:24.13.1-debian13-dev AS base
+FROM dhi.io/node:24.18.0-debian13-dev AS base
 ARG AUTH_ENABLED=0
 ENV VITE_AUTH=$AUTH_ENABLED
 
