@@ -37,7 +37,7 @@
     "vite-plugin-csp-guard": "^4.0.1",
     "vite-plugin-svgr": "^5.2.0",
     "vite-tsconfig-paths": "^6.1.1",
-    "vitest": "^4.1.7"
+    "vitest": "^5.0.2"
   },
   "packageManager": "yarn@4.12.0",
   "dependenciesMeta": {
