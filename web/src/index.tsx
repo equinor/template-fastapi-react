@@ -4,9 +4,9 @@ import { createRoot } from 'react-dom/client'
 import { ApplicationError } from './app/bootstrap/ApplicationError'
 import { createQueryClient } from './app/bootstrap/createQueryClient'
 import { Providers } from './app/bootstrap/Providers'
+import { routerDefaults } from './app/bootstrap/routerDefaults'
 import { routeTree } from './app/routeTree.gen'
 import { ENV } from './config/env'
-import { LoadingState } from './shared/components/LoadingState/LoadingState'
 import { configureApiClient } from './shared/platform/api'
 import { startSessionWatcher } from './shared/platform/auth'
 import { createTelemetry, registerGlobalErrorHandlers } from './shared/platform/telemetry'
@@ -26,11 +26,7 @@ try {
   const router = createRouter({
     routeTree,
     context: { queryClient, telemetry },
-    defaultPreload: 'intent',
-    // Shown while a route's `loader`/`beforeLoad` is pending. Without
-    // this, TanStack Router renders nothing, which flashes a blank
-    // screen on cold navigations.
-    defaultPendingComponent: () => <LoadingState variant="fullscreen" label="Loading…" />,
+    ...routerDefaults,
   })
   root.render(
     <StrictMode>

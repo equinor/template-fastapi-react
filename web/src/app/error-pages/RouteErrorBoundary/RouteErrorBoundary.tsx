@@ -1,10 +1,12 @@
 /**
  * Catches loader and render errors thrown anywhere inside the route tree.
- * Mounted via `errorComponent` on the root route in `routes/__root.tsx`.
- * Logs once via telemetry, then renders the specialised app-shell page
- * that matches the status code (401 → quiet fallback under the
- * session-expired dialog, 403/404 → dedicated page, otherwise
- * UnexpectedErrorPage).
+ * Mounted as the router's `defaultErrorComponent` (see
+ * `app/bootstrap/routerDefaults.tsx`), so every route gets its own
+ * boundary and the layout stays mounted, and as `errorComponent` on the
+ * root route in `routes/__root.tsx`. Logs once via telemetry, then
+ * renders the `ErrorPage` that matches the status code (401 → sign-in
+ * required, shown under the session-expired dialog; 403/404 → dedicated
+ * page; otherwise a generic error page).
  *
  * Client-side 4xx (401/403/404) are skipped by default.
  * 5xx and unexpected throws still report.
@@ -44,8 +46,8 @@ export const RouteErrorBoundary = ({ error }: RouteErrorBoundaryProps = {}) => {
   // Called as `notFoundComponent` (no error) → render 404.
   if (error === undefined) return <ErrorPage errorCode={404} />
 
-  const status = statusOf(error)
-  // 401: `httpClient` already handles in `sessionExpiredStore`
-  if (status === 401) return null
-  return <ErrorPage errorCode={status} error={error} />
+  // 401 renders a sign-in-required page rather than nothing: when the 401
+  // came through `httpClient`, the session-expired dialog sits on top of
+  // it; otherwise this page is the only feedback the user gets.
+  return <ErrorPage errorCode={statusOf(error)} error={error} />
 }

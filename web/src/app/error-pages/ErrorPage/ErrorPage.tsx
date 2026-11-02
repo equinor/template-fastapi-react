@@ -9,6 +9,7 @@ type ErrorPageProps = {
 export function ErrorPage(props: ErrorPageProps) {
   function getErrorTitle(code: number | null): string {
     const errorTitles: Record<number, string> = {
+      401: 'Sign-in required',
       403: 'Forbidden',
       404: 'Not Found',
     }
@@ -17,6 +18,7 @@ export function ErrorPage(props: ErrorPageProps) {
 
   function getErrorBody(code: number | null): string | React.ReactNode {
     const errorBodies: Record<number, string> = {
+      401: "Your session has expired or you're not signed in. Please sign in again to continue.",
       403: "You don't have permission to view this page.",
       404: "The page you're looking for can't be found. It might have been removed, renamed, or is temporarily unavailable.",
     }
