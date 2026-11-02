@@ -1,5 +1,3 @@
-@import "@equinor/eds-tokens/css/variables";
-
 :root {
 	/* Backgrounds */
 	--eds_ui_background__default: var(--eds-color-bg-neutral-surface);
@@ -8,7 +6,6 @@
 
 	--eds_ui__accordion_header_color: var(--eds-color-text-strong);
 	--eds_primary: var(--eds-color-bg-accent-fill-emphasis-default);
-	--eds_primary_resting: var(--eds-color-bg-accent-fill-emphasis-subtle);
 	--eds_text__static_icons__primary_white: var(
 		--eds-color-text-strong-on-emphasis
 	);
@@ -27,7 +24,7 @@
 		--eds-color-bg-accent-fill-muted-default
 	);
 	--eds_interactive__disabled__border: var(--eds-color-border-accent-subtle);
-	--eds_interactive__disabled__text: var(--eds-color-text-muted);
+	--eds_interactive__disabled__text: var(--eds-color-text-disabled);
 	--eds_interactive_danger__resting: var(
 		--eds-color-bg-danger-fill-emphasis-default
 	);
@@ -63,8 +60,8 @@
 	--eds_paragraph__caption_color: var(--eds-color-text-subtle);
 	--eds_paragraph__meta_color: var(--eds-color-text-subtle);
 	--eds_navigation__button_color: var(--eds-color-text-strong);
-	--eds_text__static_icons__tertiary: var(--eds-color-text-muted);
-	--eds_input__label_color: var(--eds-color-text-muted);
+	--eds_text__static_icons__tertiary: var(--eds-color-text-subtle);
+	--eds_input__label_color: var(--eds-color-text-subtle);
 	--eds_paragraph__body_short_link_color: var(--eds-color-text-link);
 	--eds_text__static_icons__default: var(--eds-color-text-subtle);
 

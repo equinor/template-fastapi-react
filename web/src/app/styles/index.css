@@ -120,8 +120,8 @@
 	body {
 		margin: 0;
 		height: 100%;
-		background: var(--bg-default);
-		color: var(--eds-color-text-strong);
+		background: var(--bg-canvas);
+		color: var(--text-strong);
 		font-family: var(--font-sans);
 	}
 	:focus-visible {
