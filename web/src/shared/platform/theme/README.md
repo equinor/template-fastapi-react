@@ -1,9 +1,9 @@
 # Theme
 
 Tiny color-scheme toggle for `light` / `dark` / `auto`. No theme
-provider, no `dark:` Tailwind variants — the CSS layer uses
-`light-dark(<lightVal>, <darkVal>)` and we just toggle the active
-`color-scheme` on `<html>`.
+provider, no `dark:` Tailwind variants — the CSS layer uses EDS tokens
+(and `light-dark(<lightVal>, <darkVal>)`), and we just toggle the active
+`color-scheme` and `data-color-scheme` on `<html>`.
 
 ## Files
 
@@ -32,14 +32,16 @@ automatically; no per-component `dark:` styles needed.
 
 ## How it works
 
-| `scheme` | Effect on `<html>` style |
+| `scheme` | Effect on `<html>` |
 |---|---|
-| `light` | `color-scheme: light` |
-| `dark` | `color-scheme: dark` |
-| `auto` | inline style removed; falls back to `:root { color-scheme: light dark }` from CSS |
+| `light` | `color-scheme: light` + `data-color-scheme="light"` |
+| `dark` | `color-scheme: dark` + `data-color-scheme="dark"` |
+| `auto` | inline style and attribute removed; falls back to `:root { color-scheme: light dark }` from CSS and the OS preference |
 
-The browser then resolves `light-dark(...)` based on the active
-declaration.
+The browser then resolves `light-dark(...)` and native widgets based on
+the active `color-scheme`. EDS tokens (from `@equinor/eds-tokens` 2.3)
+pick their light/dark values from the `data-color-scheme` attribute, so
+both must be set.
 
 ## Persistence & FOUC
 
@@ -51,5 +53,7 @@ saved preference.
 ## SSR / non-browser
 
 `useColorScheme` returns `'auto'` as the server snapshot. If you
-render outside a browser (tests, SSR), avoid calling `setColorScheme`
-— it touches `window.localStorage` directly.
+render outside a browser (SSR), avoid calling `setColorScheme` — it
+touches `window` and `document` directly. Storage failures (blocked
+site data, sandboxed iframes, quota errors) are ignored: the scheme
+still applies for the session, it just isn't persisted.
