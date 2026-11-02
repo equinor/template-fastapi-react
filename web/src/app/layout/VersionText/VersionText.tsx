@@ -8,7 +8,10 @@ export const VersionText = () => {
   const [commitInfo, setCommitInfo] = useState<CommitInfo>(EMPTY_COMMIT_INFO)
 
   useEffect(() => {
-    fetch('version.txt')
+    // Base-relative path: a plain relative fetch resolves against the
+    // current route's URL, so it would 404 (or hit the SPA fallback) on
+    // nested routes. `BASE_URL` already ends with a slash.
+    fetch(`${import.meta.env.BASE_URL}version.txt`)
       .then((res) => {
         if (!res.ok) throw new Error(`Could not read version file, ${res.statusText}`)
         return res.text()
@@ -22,9 +25,13 @@ export const VersionText = () => {
   return (
     <p>
       Version:{' '}
-      <Typography link href={`${ENV.repoUrl}/commit/${commitInfo.hash}`}>
-        {label}
-      </Typography>{' '}
+      {commitInfo.hash ? (
+        <Typography link href={`${ENV.repoUrl}/commit/${commitInfo.hash}`}>
+          {label}
+        </Typography>
+      ) : (
+        <span>{label}</span>
+      )}{' '}
       {commitInfo.date}
     </p>
   )
