@@ -14,7 +14,7 @@ dependencies = [
   "pydantic>=2.13.3",
   "pydantic-settings>=2.14.0",
   "pyjwt>=2.15.0",
-  "pymongo>=4.17.0",
+  "pymongo>=4.18.3",
 ]
 
 [dependency-groups]
