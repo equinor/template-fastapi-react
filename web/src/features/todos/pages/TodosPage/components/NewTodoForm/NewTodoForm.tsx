@@ -36,8 +36,8 @@ export const NewTodoForm = () => {
   })
 
   return (
-    <form onSubmit={onSubmit} noValidate className="flex flex-col gap-sm">
-      <div className="flex gap-sm items-start">
+    <form onSubmit={onSubmit} noValidate className="flex flex-col gap-2">
+      <div className="flex gap-2 items-start">
         <Input
           {...register('title')}
           className="flex-1"

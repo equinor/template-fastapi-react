@@ -29,7 +29,7 @@ export const ToastContainer = () => {
 
   return (
     <section
-      className="fixed right-md bottom-md z-[1400] flex flex-col gap-sm pointer-events-none"
+      className="fixed right-4 bottom-4 z-[1400] flex flex-col gap-2 pointer-events-none"
       aria-label="Notifications"
     >
       {toasts.map((t) => (

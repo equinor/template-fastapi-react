@@ -7,7 +7,7 @@ const PageLink = createLink(Button)
 
 export const HomePage = () => {
   return (
-    <div className="flex flex-col items-start gap-lg">
+    <div className="flex flex-col items-start gap-6">
       <PageHeader title="Welcome" />
       <p>Template FastAPI + React is running.</p>
       <PageLink to="/todos" variant="ghost">

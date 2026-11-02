@@ -11,7 +11,7 @@ export const RootLayout = () => {
   return (
     <FeatureFlagsProvider flags={FEATURE_FLAGS} user={user}>
       <Header />
-      <main className="max-w-[720px] mx-auto px-md py-xl">
+      <main className="max-w-[720px] mx-auto px-4 py-8">
         <Suspense fallback={<LoadingState variant="inline" label="Loading…" />}>
           <Outlet />
         </Suspense>

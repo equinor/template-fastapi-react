@@ -102,12 +102,9 @@
 	--color-danger: var(--feedback-danger-fg);
 	--color-danger-bg: var(--feedback-danger-bg);
 
-	/* Spacing scale */
-	--spacing-xs: 0.25rem;
-	--spacing-sm: 0.5rem;
-	--spacing-md: 1rem;
-	--spacing-lg: 1.5rem;
-	--spacing-xl: 2rem;
+	/* Spacing: use Tailwind's numeric scale (p-4 = 1rem). Don't add named
+	 * --spacing-* tokens: Tailwind also resolves w-*, max-w-* and basis-*
+	 * through them, so e.g. --spacing-md would turn max-w-md into 1rem. */
 
 	/* Shadows → shadow-card, shadow-md */
 	--shadow-card: var(--shadow-card);

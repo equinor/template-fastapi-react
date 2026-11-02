@@ -27,16 +27,16 @@ export const TodosPage = () => {
           : 'No todos match this filter.'
 
   return (
-    <div className="flex flex-col gap-lg">
+    <div className="flex flex-col gap-6">
       <PageHeader title="My todos" meta={`${visibleTodos.length} ${visibleTodos.length === 1 ? 'item' : 'items'}`} />
 
       <FeatureToggle featureFlag={FeatureFlagName.NEW_TODO_FORM}>
-        <section className="p-lg bg-surface rounded shadow-card border border-border">
+        <section className="p-6 bg-surface rounded shadow-card border border-border">
           <NewTodoForm />
         </section>
       </FeatureToggle>
 
-      <div className="flex items-center justify-center gap-md">
+      <div className="flex items-center justify-center gap-4">
         <TodosFilter value={status} onChange={setStatusFilter} />
         <FeatureToggle featureFlag={FeatureFlagName.BULK_TOOLS}>
           {completedCount > 0 && (

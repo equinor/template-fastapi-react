@@ -12,7 +12,7 @@ export type PageHeaderProps = {
 }
 
 export const PageHeader = ({ title, meta, className }: PageHeaderProps) => (
-  <header className={cn('flex flex-wrap items-baseline gap-md', className)}>
+  <header className={cn('flex flex-wrap items-baseline gap-4', className)}>
     <Typography as="h1" variant="h2">
       {title}
     </Typography>
