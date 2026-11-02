@@ -51,6 +51,7 @@
 	--border-subtle: var(--eds-color-border-neutral-subtle);
 	--border-strong: var(--eds-color-border-neutral-strong);
 	--border-focus: var(--eds-color-border-focus);
+	--focus-outline: 2px dashed var(--border-focus);
 
 	/* Accent (brand interactive surfaces) */
 	--accent-fg: var(--eds-color-bg-accent-fill-emphasis-default);
@@ -125,7 +126,7 @@
 		font-family: var(--font-sans);
 	}
 	:focus-visible {
-		outline: 2px dashed var(--border-focus);
+		outline: var(--focus-outline);
 		outline-offset: 2px;
 	}
 	/* Fix tailwind reset on EDS dialog */
