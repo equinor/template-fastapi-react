@@ -85,4 +85,27 @@ describe('ErrorPanel', () => {
     expect(screen.queryByText(/undefined/)).toBeNull()
     expect(screen.queryByText(/Trace ID/)).toBeNull()
   })
+
+  test('shows unknown plain objects as JSON instead of "[object Object]"', () => {
+    render(<ErrorPanel error={{ detail: 'nope' }} />)
+    expect(screen.getByText('{"detail":"nope"}')).toBeInTheDocument()
+  })
+
+  test('does not crash rendering an unknown error with a circular reference', () => {
+    const circular: Record<string, unknown> = { a: 1 }
+    circular.self = circular
+    expect(() => render(<ErrorPanel error={circular} />)).not.toThrow()
+    expect(screen.getByText('Something went wrong')).toBeInTheDocument()
+    expect(screen.getByText('[object Object]')).toBeInTheDocument()
+  })
+
+  test('does not crash rendering an unknown error holding a BigInt', () => {
+    expect(() => render(<ErrorPanel error={{ id: 1n }} />)).not.toThrow()
+    expect(screen.getByText('Something went wrong')).toBeInTheDocument()
+  })
+
+  test('shows thrown strings verbatim, without JSON quotes', () => {
+    render(<ErrorPanel error="oops" />)
+    expect(screen.getByText('oops')).toBeInTheDocument()
+  })
 })

@@ -15,11 +15,24 @@ export const titleFor = (error: unknown): string => {
   }
 }
 
+// Render unknown thrown objects as JSON rather than "[object Object]".
+// JSON.stringify throws on circular references and BigInt values, and this
+// runs while rendering the error UI itself — a throw here would crash the
+// page that is trying to show an error, so it must never throw.
+const safeStringify = (value: object): string => {
+  try {
+    return JSON.stringify(value) ?? String(value)
+  } catch {
+    return Object.prototype.toString.call(value)
+  }
+}
+
 export const messageFor = (error: unknown): string => {
   if (isApiError(error)) return error.message
   if (error instanceof Response) return `${error.status} ${error.statusText || 'Error'}`.trim()
   if (error instanceof Error) return error.message
   if (error == null) return 'Unknown error'
+  if (typeof error === 'object') return safeStringify(error)
   return String(error)
 }
 
