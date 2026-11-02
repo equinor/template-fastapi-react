@@ -26,7 +26,7 @@ afterEach(() => {
 
 describe('VersionText', () => {
   test('renders refs label and date when version.txt parses', async () => {
-    mockFetchOk('hash: abc123\ndate: 2026-05-04\nrefs: v1.2.3')
+    const fetchMock = mockFetchOk('hash: abc123\ndate: 2026-05-04\nrefs: v1.2.3')
     render(<VersionText />)
     await waitFor(() => expect(screen.getByText('v1.2.3')).toBeInTheDocument())
     expect(screen.getByText(/2026-05-04/)).toBeInTheDocument()
@@ -34,6 +34,8 @@ describe('VersionText', () => {
       'href',
       'https://github.com/equinor/template-fastapi-react/commit/abc123'
     )
+    // Base-relative, so it resolves the same way on nested routes.
+    expect(fetchMock).toHaveBeenCalledWith(`${import.meta.env.BASE_URL}version.txt`)
   })
 
   test('falls back to hash when refs is missing', async () => {
@@ -48,6 +50,14 @@ describe('VersionText', () => {
     // The component renders "unknown" synchronously from the initial state;
     // wait a tick to ensure the catch handler ran without changing it.
     await waitFor(() => expect(screen.getByText('unknown')).toBeInTheDocument())
+    expect(screen.queryByRole('link')).not.toBeInTheDocument()
+  })
+
+  test('renders the label as plain text when there is no hash to link to', async () => {
+    mockFetchOk('refs: v1.2.3\ndate: 2026-05-04')
+    render(<VersionText />)
+    await waitFor(() => expect(screen.getByText('v1.2.3')).toBeInTheDocument())
+    expect(screen.queryByRole('link')).not.toBeInTheDocument()
   })
 
   test('shows "unknown" when fetch rejects', async () => {
