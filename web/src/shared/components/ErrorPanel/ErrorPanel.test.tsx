@@ -78,4 +78,11 @@ describe('ErrorPanel', () => {
     expect(screen.getByText(/boom/)).toBeInTheDocument()
     expect(screen.queryByText(/traceId/)).toBeNull()
   })
+
+  test('treats an ApiError-like object with a missing status as unknown', () => {
+    render(<ErrorPanel error={{ kind: 'http', traceId: 't', message: 'no status' }} />)
+    expect(screen.getByText('Something went wrong')).toBeInTheDocument()
+    expect(screen.queryByText(/undefined/)).toBeNull()
+    expect(screen.queryByText(/Trace ID/)).toBeNull()
+  })
 })
