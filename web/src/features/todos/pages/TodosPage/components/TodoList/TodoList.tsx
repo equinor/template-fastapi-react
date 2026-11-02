@@ -15,7 +15,7 @@ export const TodoList = ({ todos, emptyMessage = 'No todos to show.' }: TodoList
     )
   }
   return (
-    <ul className="flex flex-col gap-sm list-none p-0 m-0">
+    <ul className="flex flex-col gap-2 list-none p-0 m-0">
       {todos.map((todo) => (
         <li key={todo.id}>
           <TodoItem todo={todo} />

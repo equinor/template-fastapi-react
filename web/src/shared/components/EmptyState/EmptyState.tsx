@@ -9,9 +9,9 @@ export type EmptyStateProps = {
 }
 
 export const EmptyState = ({ title, message, action, className }: EmptyStateProps) => (
-  <div role="status" className={cn('flex flex-col items-center gap-sm py-xl text-center text-muted', className)}>
+  <div role="status" className={cn('flex flex-col items-center gap-2 py-8 text-center text-muted', className)}>
     {title && <Typography variant="h5">{title}</Typography>}
     {message && <Typography variant="body_short">{message}</Typography>}
-    {action && <div className="mt-sm">{action}</div>}
+    {action && <div className="mt-2">{action}</div>}
   </div>
 )

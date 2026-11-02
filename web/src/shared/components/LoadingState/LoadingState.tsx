@@ -13,8 +13,8 @@ export const LoadingState = ({ label = 'Loading…', variant = 'inline', classNa
     aria-busy="true"
     aria-live="polite"
     className={cn(
-      'flex flex-col items-center justify-center gap-sm',
-      variant === 'fullscreen' ? 'w-screen h-screen' : 'py-xl',
+      'flex flex-col items-center justify-center gap-2',
+      variant === 'fullscreen' ? 'w-screen h-screen' : 'py-8',
       className
     )}
   >

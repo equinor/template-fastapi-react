@@ -10,7 +10,7 @@ import { ErrorPanel } from '@/shared/components/ErrorPanel/ErrorPanel'
 export const ApplicationError = ({ error }: { error: unknown }) => {
   const normalised = error instanceof Error ? error : new Error(String(error))
   return (
-    <div className="max-w-[720px] mx-auto px-md py-xl flex flex-col gap-md">
+    <div className="max-w-[720px] mx-auto px-4 py-8 flex flex-col gap-4">
       <Typography variant="h1">The application failed to load</Typography>
       <ErrorPanel error={normalised} />
       <div>

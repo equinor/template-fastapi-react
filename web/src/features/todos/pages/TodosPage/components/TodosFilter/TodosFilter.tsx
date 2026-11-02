@@ -37,7 +37,7 @@ export const TodosFilter = ({ value, onChange }: TodosFilterProps) => {
             <label
               htmlFor={id}
               className={cn(
-                'cursor-pointer select-none px-md py-xs rounded-full text-sm font-medium',
+                'cursor-pointer select-none px-4 py-1 rounded-full text-sm font-medium',
                 'transition-colors',
                 isChecked ? 'bg-accent text-on-accent shadow-sm' : 'text-muted hover:text-strong hover:bg-hover'
               )}

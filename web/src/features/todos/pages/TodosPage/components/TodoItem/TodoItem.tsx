@@ -42,7 +42,7 @@ export const TodoItem = ({ todo }: { todo: Todo }) => {
     <div
       ref={rootRef}
       className={cn(
-        'flex items-center gap-md px-md py-sm rounded border border-border bg-surface shadow-card',
+        'flex items-center gap-4 px-4 py-2 rounded border border-border bg-surface shadow-card',
         'transition-colors hover:bg-hover',
         todo.is_completed && 'border-l-4 border-l-success',
         isBusy && 'opacity-60'
