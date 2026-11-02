@@ -1,3 +1,4 @@
+/// <reference types="vitest/jsdom" />
 // jest-dom adds custom jest matchers for asserting on DOM nodes.
 // allows you to do things like:
 // expect(element).toHaveTextContent(/react/i)
@@ -49,10 +50,19 @@ if (typeof HTMLDialogElement !== 'undefined') {
   }
 }
 
+// Node >= 25 has built-in `localStorage`/`sessionStorage` globals that Vitest 4's
+// jsdom environment doesn't replace (without `--localstorage-file`, Node's
+// `localStorage` is undefined). Use jsdom's so tests behave the same on every
+// Node version. Vitest 5 does this itself; drop this block after upgrading.
+for (const key of ['localStorage', 'sessionStorage'] as const) {
+  Object.defineProperty(globalThis, key, { configurable: true, value: jsdom.window[key] })
+}
+
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
 afterEach(() => {
   cleanup()
   server.resetHandlers()
   resetDb()
+  localStorage.clear()
 })
 afterAll(() => server.close())
