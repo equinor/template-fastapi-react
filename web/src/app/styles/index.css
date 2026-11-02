@@ -28,9 +28,11 @@
  *   --shadow-*   elevation
  *   --radius-*   corner radii
  *
- * Dark mode is automatic via CSS `light-dark()`. The browser picks based
- * on `:root { color-scheme: light dark }` (set below) and the OS setting.
- * No theme provider, no `dark:` prefixes anywhere in component code.
+ * Dark mode: `:root { color-scheme: light dark }` (set below) follows the OS
+ * setting; the theme toggle overrides it by setting `color-scheme` and
+ * `data-color-scheme` on <html> (see shared/platform/theme). EDS tokens
+ * resolve their light/dark values from those. No theme provider, no `dark:`
+ * prefixes anywhere in component code.
  */
 :root {
 	color-scheme: light dark;
