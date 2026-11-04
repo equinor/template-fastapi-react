@@ -5,7 +5,7 @@
  *   2. popup posts AUTH_SUCCESS_MESSAGE → store is cleared
  */
 
-import { render, screen, waitFor } from '@testing-library/react'
+import { act, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, describe, expect, test, vi } from 'vitest'
 import { createQueryClient } from '@/app/bootstrap/createQueryClient'
@@ -14,15 +14,28 @@ import { AUTH_SUCCESS_MESSAGE, sessionExpiredStore } from '@/shared/platform/aut
 import { createTelemetry, TelemetryBackend } from '@/shared/platform/telemetry'
 
 const telemetry = createTelemetry(TelemetryBackend.None)
-const renderProviders = () =>
+const renderProviders = (onReauthenticated = vi.fn()) => {
+  const queryClient = createQueryClient({ telemetry })
   render(
-    <Providers queryClient={createQueryClient({ telemetry })} telemetry={telemetry}>
+    <Providers queryClient={queryClient} telemetry={telemetry} onReauthenticated={onReauthenticated}>
       {null}
     </Providers>
   )
+  return { queryClient, onReauthenticated }
+}
+
+const notifyAuthSuccess = () =>
+  act(async () => {
+    window.dispatchEvent(
+      new MessageEvent('message', {
+        data: AUTH_SUCCESS_MESSAGE,
+        origin: window.location.origin,
+      })
+    )
+  })
 
 afterEach(() => {
-  sessionExpiredStore._reset()
+  act(() => sessionExpiredStore._reset())
   vi.restoreAllMocks()
 })
 
@@ -32,7 +45,7 @@ describe('SessionExpiredDialog', () => {
 
     expect(screen.queryByText('Session expired')).toBeNull()
 
-    sessionExpiredStore.notify()
+    act(() => sessionExpiredStore.notify())
 
     await waitFor(() => {
       expect(screen.getByText('Session expired')).toBeDefined()
@@ -48,23 +61,53 @@ describe('SessionExpiredDialog', () => {
     expect(screen.getByText('Session expired')).toBeDefined()
   })
 
-  test('clears the latch when the popup posts AUTH_SUCCESS_MESSAGE', async () => {
+  test('verifies a fresh session before dismissing the dialog and retrying the page', async () => {
     sessionExpiredStore.notify()
-    renderProviders()
+    const { queryClient, onReauthenticated } = renderProviders()
+    const fetchUser = vi.spyOn(queryClient, 'fetchQuery')
     expect(screen.getByText('Session expired')).toBeDefined()
 
     // Simulate the popup landing on `/auth-success` and posting back.
-    window.dispatchEvent(
-      new MessageEvent('message', {
-        data: AUTH_SUCCESS_MESSAGE,
-        origin: window.location.origin,
-      })
-    )
+    await notifyAuthSuccess()
 
     await waitFor(() => {
       expect(sessionExpiredStore.getSnapshot()).toBe(false)
     })
     expect(screen.queryByText('Session expired')).toBeNull()
+    expect(fetchUser).toHaveBeenCalledWith(expect.objectContaining({ queryKey: ['auth', 'user'], staleTime: 0 }))
+    expect(onReauthenticated).toHaveBeenCalledOnce()
+  })
+
+  test('keeps the dialog open when session verification fails, without retrying the page', async () => {
+    sessionExpiredStore.notify()
+    const { queryClient, onReauthenticated } = renderProviders()
+    const fetchUser = vi.spyOn(queryClient, 'fetchQuery').mockRejectedValueOnce(new Error('Still signed out'))
+
+    await notifyAuthSuccess()
+
+    expect(await screen.findByRole('alert')).toHaveTextContent('Could not complete sign-in. Please try again.')
+    expect(sessionExpiredStore.getSnapshot()).toBe(true)
+    expect(onReauthenticated).not.toHaveBeenCalled()
+    expect(screen.getByRole('button', { name: 'Sign in' })).toBeEnabled()
+
+    await notifyAuthSuccess()
+
+    await waitFor(() => expect(onReauthenticated).toHaveBeenCalledOnce())
+    expect(fetchUser).toHaveBeenCalledTimes(2)
+    expect(screen.queryByText('Session expired')).toBeNull()
+    expect(screen.queryByRole('alert')).toBeNull()
+  })
+
+  test('shows an error and reopens the dialog if resuming the page fails', async () => {
+    sessionExpiredStore.notify()
+    const onReauthenticated = vi.fn().mockRejectedValueOnce(new Error('Could not reload the route'))
+    renderProviders(onReauthenticated)
+
+    await notifyAuthSuccess()
+
+    expect(await screen.findByRole('alert')).toHaveTextContent('Could not complete sign-in. Please try again.')
+    expect(sessionExpiredStore.getSnapshot()).toBe(true)
+    expect(onReauthenticated).toHaveBeenCalledOnce()
   })
 
   test('ignores AUTH_SUCCESS_MESSAGE from a foreign origin', async () => {
