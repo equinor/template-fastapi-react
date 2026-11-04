@@ -17,6 +17,9 @@ updates:
         update-types:
           - "minor"
           - "patch"
+      actions-security:
+        applies-to: security-updates
+        patterns: ["*"]
     schedule:
       interval: "monthly" # when template is used, recommended interval is "weekly"
     cooldown:
@@ -57,6 +60,9 @@ updates:
         update-types:
           - "minor"
           - "patch"
+      api-security:
+        applies-to: security-updates
+        patterns: ["*"]
     schedule:
       interval: "monthly" # when template is used, recommended interval is "weekly"
     cooldown:
@@ -69,6 +75,9 @@ updates:
         update-types:
           - "minor"
           - "patch"
+      docs-security:
+        applies-to: security-updates
+        patterns: ["*"]
     schedule:
       interval: "monthly" # when template is used, recommended interval is "weekly"
     cooldown:
@@ -83,6 +92,9 @@ updates:
           - "patch"
         exclude-patterns:
           - "@hey-api/openapi-ts"
+      web-security:
+        applies-to: security-updates
+        patterns: ["*"]
     schedule:
       interval: "monthly" # when template is used, recommended interval is "weekly"
     cooldown:
