@@ -51,7 +51,7 @@
 	--border-subtle: var(--eds-color-border-neutral-subtle);
 	--border-strong: var(--eds-color-border-neutral-strong);
 	--border-focus: var(--eds-color-border-focus);
-	--focus-outline: 2px dashed var(--border-focus);
+	--focus-outline: 2px dashed var(--text-strong);
 
 	/* Accent (brand interactive surfaces) */
 	--accent-fg: var(--eds-color-bg-accent-fill-emphasis-default);
