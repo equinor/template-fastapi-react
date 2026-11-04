@@ -2,7 +2,7 @@
  * Reactive view of the re-auth flow consumed by `<SessionExpiredDialog>`.
  *
  * Owns the popup lifecycle and the success handshake; the dialog
- * component supplies the UI (modal chrome, focus trap, buttons).
+ * supplies the UI, and the app supplies route recovery after sign-in.
  *
  * Takes `QueryClient` explicitly so tests can pass a fresh client and
  * features don't reach into `app/bootstrap/createQueryClient` directly (matches the
@@ -21,23 +21,32 @@ export interface ReauthFlow {
   open: boolean
   /** True between popup open and handshake completion (or popup close). */
   signingIn: boolean
+  /** True when verifying the session or resuming the page failed. */
+  signInFailed: boolean
   /** Open the re-auth popup; falls back to same-tab redirect when blocked. */
   requestSignIn: () => void
 }
 
-export const useReauthFlow = (queryClient: QueryClient): ReauthFlow => {
+export const useReauthFlow = (queryClient: QueryClient, onReauthenticated: () => void | Promise<void>): ReauthFlow => {
   const open = useSyncExternalStore(sessionExpiredStore.subscribe, sessionExpiredStore.getSnapshot)
   const popupRef = useRef<Window | null>(null)
   const [signingIn, setSigningIn] = useState(false)
+  const [signInFailed, setSignInFailed] = useState(false)
 
   useEffect(() => {
     if (!open) return
     // Confirm the new session is real before dismissing — guards
     // against a popup that resolved without actually signing in.
     const finishSignIn = async () => {
+      setSigningIn(true)
+      setSignInFailed(false)
       try {
-        await queryClient.refetchQueries({ queryKey: userQuery().queryKey })
+        await queryClient.fetchQuery({ ...userQuery(), staleTime: 0 })
         sessionExpiredStore.clear()
+        await onReauthenticated()
+      } catch {
+        sessionExpiredStore.notify()
+        setSignInFailed(true)
       } finally {
         popupRef.current?.close()
         popupRef.current = null
@@ -45,9 +54,10 @@ export const useReauthFlow = (queryClient: QueryClient): ReauthFlow => {
       }
     }
     return subscribeAuthSuccess(finishSignIn)
-  }, [open, queryClient])
+  }, [open, queryClient, onReauthenticated])
 
   const requestSignIn = () => {
+    setSignInFailed(false)
     setSigningIn(true)
     popupRef.current = window.open(REAUTH_URL, 'reauth', POPUP_FEATURES)
     if (popupRef.current) return
@@ -57,5 +67,5 @@ export const useReauthFlow = (queryClient: QueryClient): ReauthFlow => {
     signIn()
   }
 
-  return { open, signingIn, requestSignIn }
+  return { open, signingIn, signInFailed, requestSignIn }
 }

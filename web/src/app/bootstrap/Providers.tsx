@@ -8,14 +8,15 @@ import { ToastContainer } from '@/shared/platform/toast'
 export interface ProvidersProps {
   telemetry: Telemetry
   queryClient: QueryClient
+  onReauthenticated: () => void | Promise<void>
   children: React.ReactNode
 }
 
-export const Providers = ({ telemetry, queryClient, children }: ProvidersProps) => (
+export const Providers = ({ telemetry, queryClient, onReauthenticated, children }: ProvidersProps) => (
   <TelemetryProvider telemetry={telemetry}>
     <TelemetryErrorBoundary telemetry={telemetry} fallback={ApplicationError}>
       <QueryClientProvider client={queryClient}>
-        <SessionExpiredDialog />
+        <SessionExpiredDialog onReauthenticated={onReauthenticated} />
         {children}
         <ToastContainer />
         {import.meta.env.DEV && <ReactQueryDevtools initialIsOpen={false} />}

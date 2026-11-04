@@ -30,7 +30,7 @@ try {
   })
   root.render(
     <StrictMode>
-      <Providers telemetry={telemetry} queryClient={queryClient}>
+      <Providers telemetry={telemetry} queryClient={queryClient} onReauthenticated={router.invalidate}>
         <RouterProvider router={router} />
       </Providers>
     </StrictMode>

@@ -63,14 +63,16 @@ const buildRouter = (initialEntry: string) => {
   })
 }
 
-const renderPage = (search = '') =>
-  render(
-    <Providers queryClient={queryClient} telemetry={telemetry}>
+const renderPage = (search = '') => {
+  const router = buildRouter(`/todos${search}`)
+  return render(
+    <Providers queryClient={queryClient} telemetry={telemetry} onReauthenticated={router.invalidate}>
       <FeatureFlagsProvider flags={FEATURE_FLAGS} user={{ id: 'u', name: 'u', roles: ['admin'] }}>
-        <RouterProvider router={buildRouter(`/todos${search}`)} />
+        <RouterProvider router={router} />
       </FeatureFlagsProvider>
     </Providers>
   )
+}
 
 // Bypass the route loader: hydrate the user directly so
 // permission-gated controls render.
