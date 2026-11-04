@@ -32,12 +32,12 @@
     "@vitejs/plugin-react": "^6.0.2",
     "jsdom": "^29.1.1",
     "typescript": "~6.0.3",
-    "vite": "^8.0.14",
+    "vite": "^8.1.6",
     "vite-plugin-checker": "^0.14.1",
     "vite-plugin-csp-guard": "^4.0.1",
     "vite-plugin-svgr": "^5.2.0",
     "vite-tsconfig-paths": "^6.1.1",
-    "vitest": "^4.1.7"
+    "vitest": "^4.1.11"
   },
   "packageManager": "yarn@4.12.0",
   "dependenciesMeta": {
