@@ -39,6 +39,7 @@ export const TodosFilter = ({ value, onChange }: TodosFilterProps) => {
               className={cn(
                 'cursor-pointer select-none px-4 py-1 rounded-full text-sm font-medium',
                 'transition-colors',
+                'peer-focus-visible:[outline:var(--focus-outline)] peer-focus-visible:outline-offset-2',
                 isChecked ? 'bg-accent text-on-accent shadow-sm' : 'text-muted hover:text-strong hover:bg-hover'
               )}
             >

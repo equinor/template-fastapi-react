@@ -38,7 +38,7 @@ export enum FeatureFlagName {
 }
 
 export const FEATURE_FLAGS: FeatureFlagsTable<FeatureFlagName> = {
-  [FeatureFlagName.NEW_TODO_FORM]: ENV.isDev,                 // boolean
+  [FeatureFlagName.NEW_TODO_FORM]: true,                     // boolean, including production
   [FeatureFlagName.BULK_TOOLS]: [{ allowedRoles: ['admin'] }], // role-gated
 }
 ```

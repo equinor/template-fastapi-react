@@ -21,8 +21,9 @@ import {
 } from '@tanstack/react-router'
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { HttpResponse, http } from 'msw'
 import { Suspense } from 'react'
-import { beforeEach, describe, expect, test } from 'vitest'
+import { beforeEach, describe, expect, test, vi } from 'vitest'
 import { z } from 'zod'
 import { createQueryClient } from '@/app/bootstrap/createQueryClient'
 import { Providers } from '@/app/bootstrap/Providers'
@@ -32,7 +33,13 @@ import { FeatureFlagsProvider } from '@/shared/platform/feature-flags'
 import { createTelemetry, TelemetryBackend } from '@/shared/platform/telemetry'
 import { toastStore } from '@/shared/platform/toast'
 import { db } from '../../../../mocks/db'
+import { server } from '../../../../mocks/server'
 import { TodosPage } from './TodosPage'
+
+vi.mock('@/config/env', async (importOriginal) => {
+  const original = await importOriginal<typeof import('@/config/env')>()
+  return { ...original, ENV: { ...original.ENV, isDev: false, isProd: true } }
+})
 
 const telemetry = createTelemetry(TelemetryBackend.None)
 let queryClient = createQueryClient({ telemetry })
@@ -105,7 +112,7 @@ describe('TodosPage', () => {
     })
   })
 
-  test('adds a new todo via the form', async () => {
+  test('adds a new todo via the form with production feature flags', async () => {
     const user = userEvent.setup()
     renderPage()
 
@@ -116,6 +123,31 @@ describe('TodosPage', () => {
     await waitFor(() => {
       expect(screen.getByText('Write docs')).toBeDefined()
     })
+  })
+
+  test('keeps the title after a failed submission and allows retry without an unhandled rejection', async () => {
+    const user = userEvent.setup()
+    toastStore._reset()
+    server.use(
+      http.post('http://localhost/todos', () => HttpResponse.json({ message: 'failed' }, { status: 500 }), {
+        once: true,
+      })
+    )
+    renderPage()
+
+    const input = await screen.findByPlaceholderText('Add Task')
+    await user.type(input, 'Retry this task')
+    await user.click(screen.getByRole('button', { name: 'Add' }))
+
+    expect(await screen.findByRole('alert')).toHaveTextContent('Server error')
+    expect(input).toHaveValue('Retry this task')
+    await waitFor(() => expect(screen.getByRole('button', { name: 'Add' })).toBeEnabled())
+
+    await user.click(screen.getByRole('button', { name: 'Add' }))
+
+    await waitFor(() => expect(input).toHaveValue(''))
+    expect(await screen.findByText('Retry this task')).toBeInTheDocument()
+    expect(db.todos).toHaveLength(1)
   })
 
   test('filters todos by status from the URL', async () => {

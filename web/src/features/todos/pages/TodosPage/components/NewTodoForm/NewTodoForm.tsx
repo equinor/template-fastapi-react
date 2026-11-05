@@ -30,9 +30,8 @@ export const NewTodoForm = () => {
     defaultValues: { title: '' },
   })
 
-  const onSubmit = handleSubmit(async ({ title }) => {
-    await create.mutateAsync({ body: { title } })
-    reset()
+  const onSubmit = handleSubmit(({ title }) => {
+    create.mutate({ body: { title } }, { onSuccess: () => reset() })
   })
 
   return (
