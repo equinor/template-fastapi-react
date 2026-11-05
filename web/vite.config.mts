@@ -38,15 +38,14 @@ export default defineConfig({
       //     and EDS for theme tokens). Browser nonces aren't viable
       //     because the inline injections happen post-load. The CSP
       //     plugin still hashes static styles for production builds.
-      //   `connect-src 'http:' 'https:'`
-      //     Allows arbitrary-origin connections so the App Insights SDK
-      //     can ship telemetry to the configured ingestion endpoint
-      //     without needing the URL at build time.
+      //   `connect-src https://js.monitor.azure.com`
+      //     App Insights fetches its SDK configuration from this CDN.
+      //     Ingestion itself uses the same-origin /api/monitoring/ BFF.
       policy: {
         'default-src': ["'self'"],
         'font-src': ["'self'", 'https://*.equinor.com'],
         'style-src': ["'self'", "'unsafe-inline'", 'https://*.equinor.com'],
-        'connect-src': ["'self'", 'https://*.microsoftonline.com', 'http:', ' https:'],
+        'connect-src': ["'self'", 'https://js.monitor.azure.com'],
       },
       build: {
         sri: true,
@@ -62,20 +61,15 @@ export default defineConfig({
     // identical to production.
     proxy: {
       '/api': {
-        target: 'http://127.0.0.1:5001',
+        target: 'http://127.0.0.1:80',
         changeOrigin: true,
-        rewrite: (p) => p.replace(/^\/api/, ''),
       },
     },
   },
   build: {
     outDir: 'build',
-    // 'hidden' emits .map files but omits the //# sourceMappingURL=
-    // comment, so browsers never fetch them. App Insights symbolicates
-    // server-side from sourcemaps uploaded to the AI resource's symbol
-    // store (Azure portal → App Insights → Source map support, or
-    // `az monitor app-insights ...`). Upload `build/assets/*.map` from
-    // CI and exclude them from the static-hosting artifact.
-    sourcemap: 'hidden',
+    // Keep maps out of the public image until CI uploads them privately
+    // and removes them from the static-hosting artifact.
+    sourcemap: false,
   },
 })
