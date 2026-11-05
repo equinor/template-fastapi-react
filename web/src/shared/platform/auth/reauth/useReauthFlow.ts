@@ -16,6 +16,11 @@ import { getCurrentUser, USER_QUERY_KEY, userQuery } from '../userQuery'
 import { POPUP_FEATURES, REAUTH_URL, subscribeAuthSuccess } from './reauthChannel'
 import { sessionExpiredStore } from './sessionExpiredStore'
 
+const POPUP_CLOSED_POLL_MS = 500
+// The popup posts the handshake and then closes itself, so give the
+// message time to arrive before treating the close as an abandoned sign-in.
+const POPUP_CLOSED_GRACE_MS = 1000
+
 // Another account signed in: drop everything cached for the previous one.
 // `resetQueries` (not `removeQueries`) so mounted observers refetch too.
 const resetPreviousUserData = (queryClient: QueryClient) => {
@@ -37,14 +42,18 @@ export interface ReauthFlow {
 export const useReauthFlow = (queryClient: QueryClient, onReauthenticated: () => void | Promise<void>): ReauthFlow => {
   const open = useSyncExternalStore(sessionExpiredStore.subscribe, sessionExpiredStore.getSnapshot)
   const popupRef = useRef<Window | null>(null)
+  const stopPopupWatchRef = useRef<(() => void) | null>(null)
   const [signingIn, setSigningIn] = useState(false)
   const [signInFailed, setSignInFailed] = useState(false)
+
+  useEffect(() => () => stopPopupWatchRef.current?.(), [])
 
   useEffect(() => {
     if (!open) return
     // Confirm the new session is real before dismissing — guards
     // against a popup that resolved without actually signing in.
     const finishSignIn = async () => {
+      stopPopupWatchRef.current?.()
       setSigningIn(true)
       setSignInFailed(false)
       try {
@@ -67,11 +76,35 @@ export const useReauthFlow = (queryClient: QueryClient, onReauthenticated: () =>
     return subscribeAuthSuccess(finishSignIn)
   }, [open, queryClient, onReauthenticated])
 
+  // Re-enable "Sign in" when the user closes the popup without finishing.
+  // If COOP severs the opener, `closed` can read true early; that only
+  // re-enables the button — the handshake above still completes sign-in.
+  const watchPopup = (popup: Window) => {
+    let graceTimer: ReturnType<typeof setTimeout> | undefined
+    const pollTimer = setInterval(() => {
+      if (!popup.closed || graceTimer) return
+      graceTimer = setTimeout(() => {
+        stopPopupWatchRef.current?.()
+        if (popupRef.current === popup) popupRef.current = null
+        setSigningIn(false)
+      }, POPUP_CLOSED_GRACE_MS)
+    }, POPUP_CLOSED_POLL_MS)
+    stopPopupWatchRef.current = () => {
+      clearInterval(pollTimer)
+      clearTimeout(graceTimer)
+      stopPopupWatchRef.current = null
+    }
+  }
+
   const requestSignIn = () => {
+    stopPopupWatchRef.current?.()
     setSignInFailed(false)
     setSigningIn(true)
     popupRef.current = window.open(REAUTH_URL, 'reauth', POPUP_FEATURES)
-    if (popupRef.current) return
+    if (popupRef.current) {
+      watchPopup(popupRef.current)
+      return
+    }
     // Popup blocked → fall back to same-tab redirect (the original
     // flow). The user loses page state but at least gets re-auth'd.
     setSigningIn(false)
