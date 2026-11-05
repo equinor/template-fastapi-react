@@ -14,11 +14,13 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    outputs:
+      changed: ${{ steps.changes.outputs.changed }}
     steps:
       - name: "Setup: checkout Dependabot branch"
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          ref: ${{ github.ref_name }}
+          ref: ${{ github.sha }}
           persist-credentials: false
 
       - name: "Setup: Environment"
@@ -39,18 +41,85 @@ jobs:
             exit "$first_status"
           fi
 
-      - name: "Check: changes to commit"
+      - name: "Export: binary-safe hook fixes"
         id: changes
         shell: bash
         run: |
           if [[ -n "$(git status --porcelain)" ]]; then
+            git add --all
+            git diff --cached --binary --full-index > "$RUNNER_TEMP/hook-fixes.patch"
             echo "changed=true" >> "$GITHUB_OUTPUT"
           else
             echo "changed=false" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: "Setup: create bot token"
+      - name: "Upload: hook fixes"
         if: steps.changes.outputs.changed == 'true'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: hook-fixes
+          path: ${{ runner.temp }}/hook-fixes.patch
+          if-no-files-found: error
+          retention-days: 1
+
+  push-fixes:
+    needs: autofix
+    if: vars.DEPENDABOT_AUTOFIX_ENABLED == 'true' && needs.autofix.outputs.changed == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: "Setup: checkout tested commit"
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+
+      - name: "Download: hook fixes"
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: hook-fixes
+          path: ${{ runner.temp }}/hook-fixes
+
+      - name: "Validate and commit untrusted patch without executing repository code"
+        shell: bash
+        run: |
+          set -euo pipefail
+          patch="$RUNNER_TEMP/hook-fixes/hook-fixes.patch"
+          # Apply only to the index: patched files are never executed or checked out.
+          /usr/bin/git apply --cached --check "$patch"
+          /usr/bin/git apply --cached "$patch"
+          /usr/bin/git diff --cached --raw --no-renames -z > "$RUNNER_TEMP/changed-paths"
+          while IFS= read -r -d '' header && IFS= read -r -d '' path; do
+            read -r old_mode new_mode _old_oid _new_oid status <<< "${header#:}"
+            case "$status:$old_mode:$new_mode" in
+              M:100644:100644|A:000000:100644|D:100644:000000) ;;
+              *) echo "Rejected non-regular file or mode change: $path" >&2; exit 1 ;;
+            esac
+            # Only source, generated clients/schema and prose are eligible.
+            # Configuration, workflows, scripts, manifests and lockfiles are not.
+            case "$path" in
+              api/.openapi.json) ;;
+              .*|*/.*|*\\*) echo "Rejected sensitive path: $path" >&2; exit 1 ;;
+            esac
+            case "$path" in
+              api/src/*.py|api/tests/*.py|web/src/*.ts|web/src/*.tsx|web/src/*.css|docs/docs/*.md|*.md) ;;
+              *) if [[ "$path" != "api/.openapi.json" ]]; then
+                   echo "Rejected path outside autofix allowlist: $path" >&2
+                   exit 1
+                 fi ;;
+            esac
+          done < "$RUNNER_TEMP/changed-paths"
+          if /usr/bin/git diff --cached --quiet; then
+            echo "Patch contained no changes" >&2
+            exit 1
+          fi
+          /usr/bin/git -c core.hooksPath=/dev/null -c commit.gpgsign=false \
+            -c user.name="Dependabot autofix" \
+            -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            commit -m "chore: apply Dependabot hook fixes"
+
+      - name: "Setup: create bot token on fresh runner"
         id: app-token
         uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
         with:
@@ -58,24 +127,14 @@ jobs:
           private-key: ${{ secrets.DEPENDABOT_AUTOFIX_PRIVATE_KEY }}
           permission-contents: write
 
-      - name: "Setup: configure bot Git identity"
-        if: steps.changes.outputs.changed == 'true'
+      - name: "Push: hook fixes without force"
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
-          APP_SLUG: ${{ steps.app-token.outputs.app-slug }}
+          BRANCH: ${{ github.ref_name }}
         shell: bash
         run: |
-          user_id="$(gh api "/users/${APP_SLUG}[bot]" --jq .id)"
-          git config user.name "${APP_SLUG}[bot]"
-          git config user.email "${user_id}+${APP_SLUG}[bot]@users.noreply.github.com"
-          gh auth setup-git
-
-      - name: "Commit and push hook fixes"
-        if: steps.changes.outputs.changed == 'true'
-        env:
-          GH_TOKEN: ${{ steps.app-token.outputs.token }}
-        shell: bash
-        run: |
-          git add --all
-          git commit -m "chore: apply Dependabot hook fixes"
-          git push origin "$GITHUB_REF_NAME"
+          authorization="$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)"
+          echo "::add-mask::$authorization"
+          /usr/bin/git -c core.hooksPath=/dev/null -c credential.helper= \
+            -c "http.https://github.com/.extraheader=AUTHORIZATION: basic $authorization" \
+            push origin "HEAD:refs/heads/$BRANCH"

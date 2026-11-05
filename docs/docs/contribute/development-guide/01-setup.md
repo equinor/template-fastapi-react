@@ -68,6 +68,15 @@ Dependabot-triggered runs need the Dependabot secret; the App-token follow-up pu
 uses the Actions secret. Ordinary Dependabot pushes do not need these credentials
 while the enable variable is unset.
 
+Hooks run in a separate, secret-free job. When they produce fixes, a fresh runner
+checks a binary-safe patch against the exact tested commit, commits with hooks
+disabled, and only then creates the write token. It never runs repository code.
+Only regular, non-executable source files, generated API schema/client files and
+Markdown documentation are eligible. Workflow/configuration files, dependency
+manifests, lockfiles, scripts, symlinks, submodules and file-mode changes are
+rejected and require manual fixes. The push does not force-update the branch, so
+a concurrent Dependabot update fails safely.
+
 ## API
 
 From inside the `/api` folder.
