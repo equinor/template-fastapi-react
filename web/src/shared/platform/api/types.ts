@@ -3,10 +3,7 @@
 // Single funnel for outbound HTTP errors. Every failure (network /
 // non-2xx / parse) is normalised into one of these three shapes,
 // carrying a traceId for log correlation.
-export type ApiError =
-  | { kind: 'network'; traceId: string; message: string }
-  | { kind: 'http'; status: number; traceId: string; message: string }
-  | { kind: 'parse'; traceId: string; message: string }
+export type { ApiError } from '@team-hermes/react-components'
 
 export type NotificationSource = 'mutation' | 'query'
 

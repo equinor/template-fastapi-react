@@ -1,9 +1,17 @@
 import { describe, expect, test } from 'vite-plus/test'
-import { isApiError } from './ApiError'
+import { isAbortError, isApiError } from './ApiError'
 
 describe('isApiError', () => {
   test('true for a well-formed network error', () => {
     expect(isApiError({ kind: 'network', traceId: 't1', message: 'offline' })).toBe(true)
+  })
+
+  test('Hermes abort guard accepts native and cross-realm abort errors only', () => {
+    expect(isAbortError(new DOMException('cancelled', 'AbortError'))).toBe(true)
+    expect(isAbortError({ name: 'AbortError' })).toBe(true)
+    expect(isAbortError(new DOMException('timeout', 'TimeoutError'))).toBe(false)
+    expect(isAbortError(null)).toBe(false)
+    expect(isAbortError('AbortError')).toBe(false)
   })
 
   test('true for a well-formed parse error', () => {

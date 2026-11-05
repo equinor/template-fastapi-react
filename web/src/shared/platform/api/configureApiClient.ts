@@ -19,6 +19,7 @@
 import { client } from '@/api-generated/client.gen'
 import { sessionExpiredStore } from '../auth/reauth/sessionExpiredStore'
 import type { Telemetry } from '../telemetry'
+import { isAbortError } from './ApiError'
 import type { ApiError } from './types'
 
 // Default per-request timeout. Long enough for slow back-ends behind
@@ -69,7 +70,7 @@ const createHttpClient = (telemetry: Telemetry): typeof fetch => {
       // errors with a descriptive message so the toast/error panel renders
       // something useful instead of a cryptic "fetch failed".
       const isTimeout = e instanceof DOMException && e.name === 'TimeoutError'
-      const isAbort = e instanceof DOMException && e.name === 'AbortError'
+      const isAbort = isAbortError(e)
       const message = isTimeout
         ? `Request timed out after ${DEFAULT_TIMEOUT_MS / 1000}s`
         : isAbort

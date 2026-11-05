@@ -15,7 +15,7 @@ import { createTelemetry, TelemetryBackend } from '@/shared/platform/telemetry'
 
 const telemetry = createTelemetry(TelemetryBackend.None)
 const renderProviders = (onReauthenticated = vi.fn()) => {
-  const queryClient = createQueryClient({ telemetry })
+  const queryClient = createQueryClient({ telemetry, toast: { success: vi.fn(), error: vi.fn() } })
   render(
     <Providers queryClient={queryClient} telemetry={telemetry} onReauthenticated={onReauthenticated}>
       {null}

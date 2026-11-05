@@ -18,7 +18,7 @@ bearer tokens are touched in JS.
 | File                       | Purpose                                                                                      |
 | -------------------------- | -------------------------------------------------------------------------------------------- |
 | `types.ts`                 | Public types: `ApiError`, `QueryNotifier`, `NotificationSource`, `CreateQueryClientOptions`. |
-| `ApiError.ts`              | `isApiError` runtime guard.                                                                  |
+| `ApiError.ts`              | Hermes `isApiError` and `isAbortError` runtime guards (re-exported).                         |
 | `configureApiClient.ts`    | Installs the shared `fetch` funnel onto the generated SDK.                                   |
 | `createBaseQueryClient.ts` | Pure `QueryClient` factory + `noopNotifier`.                                                 |
 | `index.ts`                 | Public barrel (deep imports blocked by Oxlint).                                              |
@@ -31,7 +31,9 @@ bearer tokens are touched in JS.
 // src/index.tsx
 const telemetry = createTelemetry(/* … */)
 configureApiClient({ telemetry })
-const queryClient = createQueryClient({/* notifier, suppressNotification */})
+// In the bootstrap React component:
+const toast = useCustomToast()
+const queryClient = createQueryClient({ telemetry, toast })
 ```
 
 Tests do the same in `setupTests.ts` (MSW handlers are registered
@@ -52,16 +54,17 @@ type ApiError =
 - `parse` — 2xx but the response wasn't JSON (typically the SPA
   fallback returning `text/html` because the proxy is misconfigured).
 
-Use `isApiError(e)` in catch sites and error boundaries. Components
-that render an error pane should narrow on `kind` for messaging.
+The error type and guards come from `@team-hermes/react-components`. Use
+`isApiError(e)` in catch sites. Hermes `ErrorPanel` renders the same kinds,
+statuses and trace IDs produced by our fetch funnel.
 
 ## Telemetry
 
 Failed requests emit a low-noise `http.error` event with
 `{ kind, traceId, status?, url, reason? }`. They do **not** trigger
 exception telemetry — exceptions are reserved for the route boundary
-and the top-level React error boundary, so a single user-visible
-failure shows up exactly once in App Insights.
+and the top-level React error boundary. Hermes 1.11.0 still enables SDK automatic
+exception collection, so uncaught exceptions may be duplicated (see telemetry README).
 
 ## 401 handling
 
@@ -135,5 +138,5 @@ Tests/Storybook can use `noopNotifier`.
 
 - New cross-cutting `meta` field → extend the `Register` declaration
   in `createBaseQueryClient.ts` and read it in the cache callbacks.
-- New error kind → widen `ApiError` in `types.ts` and detect the
-  condition in `configureApiClient.ts`'s fetch wrapper.
+- New error kind -> coordinate the shared Hermes contract before detecting it in
+  `configureApiClient.ts`'s fetch wrapper.

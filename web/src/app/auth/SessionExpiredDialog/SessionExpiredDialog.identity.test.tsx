@@ -33,7 +33,7 @@ const signedInAs = (userId: string) =>
 
 // Load `/todos` as Alice, then expire the session with the dialog mounted.
 const loadTodosAsAliceThenExpire = async () => {
-  const queryClient = createQueryClient({ telemetry })
+  const queryClient = createQueryClient({ telemetry, toast: { success: vi.fn(), error: vi.fn() } })
   const router = createRouter({
     routeTree,
     history: createMemoryHistory({ initialEntries: ['/todos'] }),

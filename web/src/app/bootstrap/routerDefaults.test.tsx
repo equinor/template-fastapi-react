@@ -128,7 +128,7 @@ describe('routerDefaults', () => {
         ...routerDefaults,
       })
       const telemetry = createTelemetry(TelemetryBackend.None)
-      const queryClient = createQueryClient({ telemetry })
+      const queryClient = createQueryClient({ telemetry, toast: { success: vi.fn(), error: vi.fn() } })
 
       render(
         <Providers telemetry={telemetry} queryClient={queryClient} onReauthenticated={router.invalidate}>

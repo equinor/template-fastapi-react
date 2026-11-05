@@ -12,8 +12,8 @@
  */
 
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useCustomToast } from '@team-hermes/react-components'
 import { deleteTodoById } from '@/api-generated'
-import { toast } from '@/shared/platform/toast'
 import { todoInvalidations } from '../invalidations'
 import { todoKeys } from '../keys'
 import type { Todo } from '../schema'
@@ -21,6 +21,7 @@ import type { Todo } from '../schema'
 type ClearResult = { deleted: number; failed: number }
 
 export const useClearCompletedTodos = () => {
+  const toast = useCustomToast()
   const qc = useQueryClient()
   return useMutation({
     mutationFn: async (): Promise<ClearResult> => {
@@ -40,9 +41,9 @@ export const useClearCompletedTodos = () => {
       if (failed === 0) {
         toast.success(`Cleared ${deleted} completed ${deleted === 1 ? 'todo' : 'todos'}`)
       } else if (deleted === 0) {
-        toast.error(`Could not clear ${failed} completed ${failed === 1 ? 'todo' : 'todos'}`)
+        toast.error('Could not clear completed todos', `${failed} failed`)
       } else {
-        toast.info(`Cleared ${deleted}, failed ${failed}`)
+        toast.info('Partially cleared completed todos', `Cleared ${deleted}, failed ${failed}`, 8000)
       }
     },
     meta: {

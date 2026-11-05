@@ -104,8 +104,21 @@ describe('ErrorPanel', () => {
     expect(screen.getByText('Something went wrong')).toBeInTheDocument()
   })
 
-  test('shows thrown strings verbatim, without JSON quotes', () => {
+  // https://github.com/equinor/team-hermes-packages/pull/92
+  test.fails('shows thrown strings verbatim, without JSON quotes', () => {
     render(<ErrorPanel error="oops" />)
     expect(screen.getByText('oops')).toBeInTheDocument()
+  })
+
+  test.fails('does not crash if both serialization and string coercion throw', () => {
+    const error = {
+      toJSON() {
+        throw new Error('not serializable')
+      },
+      toString() {
+        throw new Error('not coercible')
+      },
+    }
+    expect(() => render(<ErrorPanel error={error} />)).not.toThrow()
   })
 })
