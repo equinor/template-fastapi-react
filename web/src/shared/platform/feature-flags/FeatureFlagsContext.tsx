@@ -1,6 +1,6 @@
 // Generic feature-flag context: holds the flag table plus the subject
 // (typically the current user) the flags are evaluated against. Apps
-// pick their own `FlagName` enum and supply both at the provider.
+// pick their own `FlagName` string union and supply both at the provider.
 
 import { createContext, type ReactNode, useContext, useMemo } from 'react'
 import type { FeatureFlagsSubject, FeatureFlagsTable } from './types'

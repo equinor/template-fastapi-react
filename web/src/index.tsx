@@ -1,5 +1,5 @@
 import { createRouter, RouterProvider } from '@tanstack/react-router'
-import { StrictMode } from 'react'
+import { lazy, StrictMode, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
 import { ApplicationError } from './app/bootstrap/ApplicationError'
 import { createQueryClient } from './app/bootstrap/createQueryClient'
@@ -11,6 +11,13 @@ import { configureApiClient } from './shared/platform/api'
 import { startSessionWatcher } from './shared/platform/auth'
 import { createTelemetry, registerGlobalErrorHandlers } from './shared/platform/telemetry'
 import './app/styles/index.css'
+
+const ReactQueryDevtools = import.meta.env.DEV
+  ? lazy(() => import('@tanstack/react-query-devtools').then((m) => ({ default: m.ReactQueryDevtools })))
+  : null
+const TanStackRouterDevtools = import.meta.env.DEV
+  ? lazy(() => import('@tanstack/react-router-devtools').then((m) => ({ default: m.TanStackRouterDevtools })))
+  : null
 
 const container = document.getElementById('root')
 if (!container) throw new Error('Root element #root not found')
@@ -32,6 +39,12 @@ try {
     <StrictMode>
       <Providers telemetry={telemetry} queryClient={queryClient} onReauthenticated={router.invalidate}>
         <RouterProvider router={router} />
+        {import.meta.env.DEV && ReactQueryDevtools && TanStackRouterDevtools && (
+          <Suspense fallback={null}>
+            <ReactQueryDevtools initialIsOpen={false} />
+            <TanStackRouterDevtools router={router} initialIsOpen={false} position="bottom-right" />
+          </Suspense>
+        )}
       </Providers>
     </StrictMode>
   )

@@ -1,6 +1,6 @@
 import { defineConfig } from 'vitest/config'
 
-// Vite 8+ resolves `tsconfig.json` `paths` natively (see vite.config.mts).
+// Vite 8+ resolves referenced app tsconfig `paths` natively (see vite.config.mts).
 export default defineConfig({
   resolve: {
     tsconfigPaths: true,
