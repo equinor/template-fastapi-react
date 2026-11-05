@@ -24,5 +24,5 @@ export const signOut = (telemetry: Telemetry): void => {
   // login session doesn't inherit the previous user's `ai_user` cookie
   // across the sign-out gap.
   telemetry.setUser(null)
-  window.location.assign(withRedirect('/oauth2/sign_out'))
+  window.location.assign('/oauth2/sign_out?rd=%2Fsigned-out.html')
 }

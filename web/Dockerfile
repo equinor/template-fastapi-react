@@ -4,6 +4,8 @@ HEALTHCHECK CMD ["nginx", "-t"]
 
 # Copy configs
 COPY nginx/rootfs/ /
+# Available without the SPA/dev server, including in nginx-dev.
+COPY public/signed-out.html /data/www/signed-out.html
 
 # Keep the node patch in sync with `node = ...` in .mise/config.toml.
 FROM dhi.io/node:24.22.2-debian13-dev AS base
