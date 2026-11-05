@@ -38,6 +38,7 @@ export const createQueryClient = ({
           ...(error.kind === 'http' ? { status: String(error.status) } : {}),
         })
       } else {
+        telemetry.trackException(error)
         telemetry.trackEvent('toast.error', {
           kind: source,
           template: message,

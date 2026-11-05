@@ -1,7 +1,7 @@
 import { Button, Typography } from '@equinor/eds-core-react'
 import { ErrorPanel } from '@team-hermes/react-components'
 
-// Outermost fallback rendered by TelemetryProvider's error boundary —
+// Outermost fallback rendered by the root telemetry error boundary —
 // if this is showing, the provider stack itself failed (no router, no
 // theme, possibly no auth). The Tailwind stylesheet is loaded by
 // `index.tsx` *before* AppProviders mounts, so utility classes are safe
