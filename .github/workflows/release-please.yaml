@@ -2,6 +2,10 @@ name: release-please
 
 on:
   workflow_call:
+    secrets:
+      APP_PRIVATE_KEY:
+        description: "Private key for the release GitHub App"
+        required: true
     outputs:
       release_created:
         description: "If 'true', a release PR was merged and GitHub release was created"
@@ -13,6 +17,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: release-please-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   release-please:
     runs-on: ubuntu-latest
@@ -23,6 +31,9 @@ jobs:
         with:
           client-id: ${{ vars.APP_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-issues: write
+          permission-pull-requests: write
 
       - name: release-please
         id: release-please

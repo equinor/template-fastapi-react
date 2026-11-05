@@ -15,7 +15,6 @@ on:
     inputs:
       radix-environment:
         description: "Which radix environment to deploy into"
-        default: "test"
         required: true
         type: string
       image-tag:
@@ -27,6 +26,10 @@ permissions:
   id-token: write
   contents: read
 
+concurrency:
+  group: deploy-to-radix-${{ inputs.radix-environment }}
+  cancel-in-progress: false
+
 env:
   RADIX_APP: heracles
   RADIX_USER: heracles@equinor.com
@@ -36,6 +39,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       # You'll need an app registration with a Federated Credential for this to
       # work. Note that the credential will need to specify a branch name. This
@@ -53,7 +58,7 @@ jobs:
         run: |
           token=$(az account get-access-token --resource 6dae42f8-4368-4678-94ff-3960e28e3630 --query=accessToken -otsv)
           echo "::add-mask::$token"
-          echo "APP_SERVICE_ACCOUNT_TOKEN=$token" >> $GITHUB_ENV
+          echo "APP_SERVICE_ACCOUNT_TOKEN=$token" >> "$GITHUB_ENV"
 
       - name: Deploy on Radix
         uses: equinor/radix-github-actions@b23674a56b82a1da783b507bc7f15e7ca7067dd8 # v2.0.2

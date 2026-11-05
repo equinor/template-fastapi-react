@@ -7,14 +7,17 @@ on:
         required: true
         type: string
 
-permissions:
-  contents: read
-  id-token: write
-  packages: write
+permissions: {}
+
+concurrency:
+  group: rollback-production
+  cancel-in-progress: false
 
 jobs:
   set-prod-tag:
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
     strategy:
       matrix:
         image:
@@ -32,11 +35,14 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: "Set prod tag on older image"
+        env:
+          IMAGE: ${{ matrix.image }}
+          RELEASE_TAG: ${{ inputs.release-tag }}
         run: |
-          echo "Tagging ${{ matrix.image }}:${{ inputs.release-tag }} with 'production'"
-          docker pull ${{ matrix.image }}:${{ inputs.release-tag }}
-          docker tag ${{ matrix.image }}:${{ inputs.release-tag }} ${{ matrix.image }}:production
-          docker push ${{ matrix.image }}:production
+          echo "Tagging $IMAGE:$RELEASE_TAG with 'production'"
+          docker pull "$IMAGE:$RELEASE_TAG"
+          docker tag "$IMAGE:$RELEASE_TAG" "$IMAGE:production"
+          docker push "$IMAGE:production"
 
   # uncomment to apply rollback to radix
   # deploy:

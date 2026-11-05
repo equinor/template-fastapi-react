@@ -12,6 +12,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: linting-and-checks-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   IMAGE_REGISTRY: ghcr.io
   REGISTRY_USER: $GITHUB_ACTOR
@@ -25,6 +29,8 @@ jobs:
     steps:
       - name: "Setup: checkout repository"
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: "Setup: Environment"
         uses: ./.github/actions/setup-environment
@@ -45,6 +51,7 @@ jobs:
       - name: "Setup: checkout repository"
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          persist-credentials: false
           sparse-checkout: |
             .github
             .mise
@@ -67,6 +74,7 @@ jobs:
       - name: "Setup: check out repository"
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          persist-credentials: false
           sparse-checkout: |
             .github
             .mise
@@ -85,6 +93,8 @@ jobs:
     steps:
       - name: "Setup: checkout repository"
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - uses: equinor/radix-github-actions@b23674a56b82a1da783b507bc7f15e7ca7067dd8 # v2.0.2
       - name: "Run: validate radix config"
         run: rx validate radix-config

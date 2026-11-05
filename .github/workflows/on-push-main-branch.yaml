@@ -8,6 +8,11 @@ on:
 permissions:
   contents: read
 
+# This pipeline also publishes images, deploys docs, and creates releases.
+concurrency:
+  group: on-push-main-branch-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   linting-and-checks:
     name: "Linting and checks"
@@ -48,11 +53,8 @@ jobs:
 
   release-please:
     needs: tests
-    permissions:
-      issues: write
-      contents: write
-      pull-requests: write
-    secrets: inherit
+    secrets:
+      APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }}
     uses: ./.github/workflows/release-please.yaml
 
   publish-staging:
