@@ -5,7 +5,7 @@
  *   2. popup posts AUTH_SUCCESS_MESSAGE → store is cleared
  */
 
-import { act, render, screen, waitFor } from '@testing-library/react'
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, describe, expect, test, vi } from 'vitest'
 import { createQueryClient } from '@/app/bootstrap/createQueryClient'
@@ -34,7 +34,15 @@ const notifyAuthSuccess = () =>
     )
   })
 
+const openPopup = () => {
+  const popup = { closed: false, close: vi.fn() }
+  vi.spyOn(window, 'open').mockReturnValue(popup as unknown as Window)
+  fireEvent.click(screen.getByRole('button', { name: 'Sign in' }))
+  return popup
+}
+
 afterEach(() => {
+  vi.useRealTimers()
   act(() => sessionExpiredStore._reset())
   vi.restoreAllMocks()
 })
@@ -108,6 +116,55 @@ describe('SessionExpiredDialog', () => {
     expect(await screen.findByRole('alert')).toHaveTextContent('Could not complete sign-in. Please try again.')
     expect(sessionExpiredStore.getSnapshot()).toBe(true)
     expect(onReauthenticated).toHaveBeenCalledOnce()
+  })
+
+  test('re-enables sign-in when the popup is closed without signing in', async () => {
+    vi.useFakeTimers()
+    sessionExpiredStore.notify()
+    renderProviders()
+
+    const popup = openPopup()
+    expect(screen.getByRole('button', { name: 'Waiting for sign-in…' })).toBeDisabled()
+
+    await act(() => vi.advanceTimersByTimeAsync(5000))
+    expect(screen.getByRole('button', { name: 'Waiting for sign-in…' })).toBeDisabled()
+
+    popup.closed = true
+    await act(() => vi.advanceTimersByTimeAsync(5000))
+
+    expect(screen.getByRole('button', { name: 'Sign in' })).toBeEnabled()
+    expect(sessionExpiredStore.getSnapshot()).toBe(true)
+  })
+
+  test('keeps waiting when the popup closes itself right after the handshake', async () => {
+    vi.useFakeTimers()
+    sessionExpiredStore.notify()
+    const { queryClient, onReauthenticated } = renderProviders()
+    const fetchQuery = queryClient.fetchQuery.bind(queryClient)
+    let finishVerification = () => {}
+    const verified = new Promise<void>((resolve) => {
+      finishVerification = resolve
+    })
+    vi.spyOn(queryClient, 'fetchQuery').mockImplementationOnce(async (options) => {
+      await verified
+      return fetchQuery(options)
+    })
+
+    const popup = openPopup()
+    popup.closed = true
+    // The close is noticed before the handshake message arrives.
+    await act(() => vi.advanceTimersByTimeAsync(600))
+    await notifyAuthSuccess()
+    await act(() => vi.advanceTimersByTimeAsync(5000))
+
+    expect(screen.getByRole('button', { name: 'Waiting for sign-in…' })).toBeDisabled()
+    expect(screen.queryByRole('alert')).toBeNull()
+
+    finishVerification()
+    await act(() => vi.advanceTimersByTimeAsync(100))
+
+    expect(onReauthenticated).toHaveBeenCalledOnce()
+    expect(screen.queryByText('Session expired')).toBeNull()
   })
 
   test('ignores AUTH_SUCCESS_MESSAGE from a foreign origin', async () => {
