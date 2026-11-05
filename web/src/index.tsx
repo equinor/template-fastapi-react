@@ -1,3 +1,4 @@
+import './config/zod'
 import { createRouter, RouterProvider } from '@tanstack/react-router'
 import { lazy, StrictMode, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
