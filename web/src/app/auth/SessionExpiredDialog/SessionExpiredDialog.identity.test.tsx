@@ -8,7 +8,7 @@
 import { createMemoryHistory, createRouter } from '@tanstack/react-router'
 import { act, render, screen, waitFor } from '@testing-library/react'
 import { HttpResponse, http } from 'msw'
-import { afterEach, describe, expect, test, vi } from 'vitest'
+import { afterEach, describe, expect, test, vi } from 'vite-plus/test'
 import { createQueryClient } from '@/app/bootstrap/createQueryClient'
 import { Providers } from '@/app/bootstrap/Providers'
 import { routerDefaults } from '@/app/bootstrap/routerDefaults'

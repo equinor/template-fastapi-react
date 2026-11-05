@@ -22,6 +22,13 @@ repos:
         files: ^api/.openapi.json$
         pass_filenames: false
 
+      - id: vite-plus-check
+        name: "Lint : Vite+ (web)"
+        entry: mise exec -- bash -c 'cd web && files=(); for file; do files+=("${file#web/}"); done; pnpm exec vp check --fix "${files[@]}"' --
+        language: system
+        files: ^web/.*\.(ts|tsx|js|jsx|mts|mjs|cts|cjs|json|jsonc|css|html|md|yaml|yml)$
+        exclude: ^web/(src/api-generated/|src/app/routeTree\.gen\.ts$|pnpm-lock\.yaml$)
+
   - repo: https://github.com/compilerla/conventional-pre-commit
     rev: v4.4.0
     hooks:
@@ -77,18 +84,6 @@ repos:
       - id: ruff-format
         name: "Lint : ruff-format (python)"
         files: ^api/.*\.py$
-
-  - repo: https://github.com/biomejs/pre-commit
-    rev: v2.5.0
-    hooks:
-      - id: biome-check
-        name: "Lint : biome (ts/js)"
-        additional_dependencies: ["@biomejs/biome@2.6.3"]
-        exclude: |
-          (?x)(
-            ^web/\.pnp\.cjs$
-            |^web/\.pnp\.loader\.mjs$
-          )
 
   - repo: https://github.com/scop/pre-commit-shfmt
     rev: v3.13.1-1

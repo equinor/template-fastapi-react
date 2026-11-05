@@ -6,7 +6,7 @@
  */
 
 import { render, screen } from '@testing-library/react'
-import { describe, expect, test } from 'vitest'
+import { describe, expect, test } from 'vite-plus/test'
 import { FeatureFlagsProvider, isEnabled } from './FeatureFlagsContext'
 import { FeatureToggle } from './FeatureToggle'
 

@@ -8,10 +8,6 @@
 *.png binary
 *.jpg binary
 
-# Ignore massive diffs each time you add/update yarn plugins
-/web/.yarn/releases/** binary
-/web/.yarn/plugins/** binary
-
 # Generated files — hide from GitHub diffs/language stats and mark as not
 # hand-edited. The TanStack Router Vite plugin owns routeTree.gen.ts;
 # `@hey-api/openapi-ts` owns api-generated/.

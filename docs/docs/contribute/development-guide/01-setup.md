@@ -57,8 +57,7 @@ Pre-commit tests can be skipped on commits with `git commit --no-verify`.
 | [econchick/interrogate](https://github.com/econchick/interrogate)                                            | interrogate             | Check the code base for missing docstrings                                         |
 | [hadialqattan/pycln](https://github.com/hadialqattan/pycln)                                               | pycln                   | Finds and removes unused import statements                                         |
 | [pycqa/isort](https://github.com/pycqa/isort)                                                      | isort                   | Sort imports alphabetically, and automatically separated into sections and by type |
-| [pre-commit/mirrors-prettier](https://github.com/pre-commit/mirrors-prettier)                                      | prettier                | TypeScript/JavaScript/JSON ++ code formatter                                       |
-| [pre-commit/mirrors-eslint](https://github.com/pre-commit/mirrors-eslint)                                        | eslint                  | Helps you find and fix problems in your JavaScript code                            |
+| [local](https://github.com/equinor/template-fastapi-react/blob/main/.pre-commit-config.yaml) | vite-plus-check | Vite+ formatting, lint, import boundaries, TanStack Query rules and type checks |
 | [pycqa/flake8](https://gitlab.com/pycqa/flake8)                                                     | flake8                  | Check the style and quality of Python code                                         |
 | [local](https://github.com/equinor/template-fastapi-react/blob/main/.pre-commit-config.yaml) | mypy                    | Python type checker                                                                |
 |                                                                                     | pytest                  | Python test runner                                                                 |
@@ -92,21 +91,27 @@ From inside the /web folder.
 
 ### Package management
 
-This project uses __Yarn 2 Plug'n'Play__ to manage web package dependencies.
-After cloning or switching branches, you need to run `yarn install` to generate the PnP resolution files.
+This project uses **pnpm** and **Vite+**, pinned in `web/package.json` and
+`web/pnpm-workspace.yaml`. mise installs Node 24.22.2 and pnpm; a global `vp`
+installation is not needed. After cloning or switching branches, install the
+locked dependencies:
 
 ```shell
-cd web
-corepack enable
-yarn install
+mise install
+mise run install-dependencies:web
 ```
 
-#### Yarn PnP in Jetbrains IDEs
+#### Editors
 
-To let the IDE know that dependencies can be found in `.yarn` instead of `node_modules`, follow these steps; https://www.jetbrains.com/help/idea/installing-and-removing-external-software-using-node-package-manager.html#ws_npm_yarn_set_up_yarn2
+Dependencies use standard `web/node_modules` resolution. Remove old Yarn PnP SDK
+settings from your editor. For VSCode, select the workspace TypeScript installation
+at `web/node_modules/typescript/lib`; in JetBrains IDEs, select pnpm as the package
+manager and `web/node_modules/typescript` as the TypeScript package.
 
-#### Yarn PnP in VSCode
+Use the Oxc editor extension for formatting and linting. Configuration lives in
+`web/vite.config.ts`, not separate ESLint or Biome files. Repository-local editor
+settings are intentionally untracked.
 
-Because the project uses Yarn PnP, VSCode's language server must use the same typescript executable as the project in order to access dependencies. This is located in `web/.yarn/sdks/typescript/lib`. To use this version, simply open a `.ts(x)` file, open the command palette (default `Ctrl+Shift+P` or `Cmd+Shift+P`), find `TypeScript: Select TypeScript Version...` and select `Use Workspace Version`.
-
-Not using the correct typescript executable might cause `Cannot find module '***' or its corresponding type declarations.` and `JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.` errors.
+Run `mise run lint:web` for formatting, lint and both native TypeScript checks and
+the TypeScript 6 compiler check. The latter remains available because OpenAPI
+generation still requires the JavaScript compiler API removed in TypeScript 7.

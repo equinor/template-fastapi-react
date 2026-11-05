@@ -1,4 +1,4 @@
-import { describe, expect, test } from 'vitest'
+import { describe, expect, test } from 'vite-plus/test'
 import { EMPTY_COMMIT_INFO, parseVersionFile } from './VersionText.utils'
 
 describe('parseVersionFile', () => {

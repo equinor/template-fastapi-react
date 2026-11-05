@@ -20,11 +20,11 @@ runs:
 
     - name: "Cache: web dependencies"
       id: cache-web
-      if: hashFiles('web') != ''
+      if: hashFiles('web/package.json') != ''
       uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
       with:
-        path: /home/runner/.yarn/berry/cache
-        key: deps-web-${{ runner.os }}-${{ hashFiles('.mise/config.toml', 'web/yarn.lock') }}
+        path: web/.pnpm-store
+        key: deps-web-${{ runner.os }}-${{ hashFiles('.mise/config.toml', 'web/pnpm-lock.yaml', 'web/pnpm-workspace.yaml') }}
 
     - name: "Cache: docs dependencies"
       id: cache-docs
@@ -43,7 +43,7 @@ runs:
       run: mise run install-dependencies:api
 
     - name: "Setup: web dependencies"
-      if: hashFiles('web') != ''
+      if: hashFiles('web/package.json') != ''
       shell: bash
       run: mise run install-dependencies:web
 

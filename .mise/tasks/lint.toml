@@ -13,19 +13,19 @@ run = [
 description = "Typecheck the Web application, by compiling the TypeScript code"
 depends = ["install-dependencies:web"]
 dir = "{{config_root}}/web"
-run = "yarn compile"
+run = "pnpm compile"
 
-["lint:web:query"]
-description = "Lint TanStack Query usage in the Web application"
+["lint:web:check"]
+description = "Check web formatting, lint rules and types with Vite+"
 depends = ["install-dependencies:web"]
 dir = "{{config_root}}/web"
-run = "yarn lint:query"
+run = "pnpm exec vp check"
 
 ["lint:web"]
 description = "Lint the Web application"
 run = [
     "mise run lint:web:typecheck",
-    "mise run lint:web:query",
+    "mise run lint:web:check",
 ]
 
 ["lint:shell"]

@@ -7,7 +7,7 @@ import { QueryClientProvider, useQuery } from '@tanstack/react-query'
 import { act, renderHook, waitFor } from '@testing-library/react'
 import { HttpResponse, http } from 'msw'
 import type { ReactNode } from 'react'
-import { expect, test } from 'vitest'
+import { expect, test } from 'vite-plus/test'
 import { createQueryClient } from '@/app/bootstrap/createQueryClient'
 import { createTelemetry, TelemetryBackend } from '@/shared/platform/telemetry'
 import { db } from '../../../../mocks/db'
@@ -39,7 +39,11 @@ test('a late failed toggle rolls back only its own todo', async () => {
   const queryClient = createQueryClient({ telemetry })
   await queryClient.fetchQuery(todoListQuery())
   const { result } = renderHook(
-    () => ({ list: useQuery(todoListQuery()), toggleFirst: useToggleTodo(), toggleSecond: useToggleTodo() }),
+    () => ({
+      list: useQuery(todoListQuery()),
+      toggleFirst: useToggleTodo(),
+      toggleSecond: useToggleTodo(),
+    }),
     {
       wrapper: ({ children }: { children: ReactNode }) => (
         <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>

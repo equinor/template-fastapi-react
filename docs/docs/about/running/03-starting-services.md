@@ -25,7 +25,7 @@ uvicorn app.app:create_app --reload
 Navigate to the /web folder, and then start web application:
 
 ```shell
-yarn start
+pnpm start
 ```
 
 </details>

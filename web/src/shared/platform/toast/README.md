@@ -6,12 +6,12 @@ as the global `MutationCache` callbacks in `app/bootstrap/createQueryClient`.
 
 ## Files
 
-| File | Purpose |
-|---|---|
-| `types.ts` | `Toast`, `ToastVariant`. |
-| `toastStore.ts` | The store (pub/sub) plus `toast.success / .error / .info / .dismiss` API. |
-| `ToastContainer.tsx` | Mounted once near the root; renders the queue with EDS `<Snackbar>`. |
-| `index.ts` | Public barrel (deep imports blocked by ESLint). |
+| File                 | Purpose                                                                   |
+| -------------------- | ------------------------------------------------------------------------- |
+| `types.ts`           | `Toast`, `ToastVariant`.                                                  |
+| `toastStore.ts`      | The store (pub/sub) plus `toast.success / .error / .info / .dismiss` API. |
+| `ToastContainer.tsx` | Mounted once near the root; renders the queue with EDS `<Snackbar>`.      |
+| `index.ts`           | Public barrel (deep imports blocked by ESLint).                           |
 
 ## Wiring
 
@@ -39,11 +39,11 @@ toast.dismiss(id)
 
 Default auto-hide:
 
-| Variant | ms |
-|---|---|
-| `success` | 4000 |
-| `info` | 4000 |
-| `error` | 8000 (longer so the user can read trace ids) |
+| Variant   | ms                                           |
+| --------- | -------------------------------------------- |
+| `success` | 4000                                         |
+| `info`    | 4000                                         |
+| `error`   | 8000 (longer so the user can read trace ids) |
 
 ## UX hygiene baked in
 

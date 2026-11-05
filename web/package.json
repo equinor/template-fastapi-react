@@ -2,15 +2,18 @@
   "name": "web",
   "version": "1.5.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "start": "vite",
-    "build": "tsc -b && vite build",
-    "serve": "vite preview",
+    "start": "vp dev",
+    "build": "vp check && vp build",
+    "serve": "vp preview",
     "compile": "tsc -b",
     "generate": "openapi-ts",
-    "test": "vitest",
-    "lint": "biome check --write --no-errors-on-unmatched",
-    "lint:query": "eslint 'src/**/*.{ts,tsx}'"
+    "test": "vp test run",
+    "test:watch": "vp test",
+    "lint": "vp lint",
+    "fmt": "vp fmt",
+    "check": "vp check"
   },
   "dependencies": {
     "@equinor/eds-core-react": "^2.6.4",
@@ -34,7 +37,6 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.6.3",
     "@faker-js/faker": "^9.0.0",
     "@hey-api/openapi-ts": "0.97.3",
     "@tanstack/eslint-plugin-query": "^5.100.9",
@@ -49,25 +51,13 @@
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.1.2",
-    "eslint": "^10.3.0",
-    "jiti": "^2.6.1",
     "jsdom": "^29.1.1",
     "msw": "^2.14.2",
     "typescript": "~6.0.3",
-    "typescript-eslint": "^8.59.2",
-    "vite": "^8.3.5",
-    "vite-plugin-checker": "^0.14.5",
+    "vite": "catalog:",
     "vite-plugin-csp-guard": "^4.0.1",
     "vite-plugin-svgr": "^5.2.0",
-    "vitest": "^4.1.11"
+    "vite-plus": "catalog:"
   },
-  "packageManager": "yarn@4.14.0",
-  "dependenciesMeta": {
-    "@equinor/eds-core-react@2.5.0": {
-      "unplugged": true
-    },
-    "@hey-api/openapi-ts@0.97.1": {
-      "unplugged": true
-    }
-  }
+  "packageManager": "pnpm@10.34.9"
 }

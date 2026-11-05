@@ -7,7 +7,7 @@
 
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { afterEach, describe, expect, test, vi } from 'vitest'
+import { afterEach, describe, expect, test, vi } from 'vite-plus/test'
 import { createQueryClient } from '@/app/bootstrap/createQueryClient'
 import { Providers } from '@/app/bootstrap/Providers'
 import { AUTH_SUCCESS_MESSAGE, sessionExpiredStore } from '@/shared/platform/auth'
