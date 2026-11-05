@@ -9,12 +9,19 @@
  * convention used by `startSessionWatcher` and `createTodosLoader`).
  */
 
-import type { QueryClient } from '@tanstack/react-query'
+import { hashKey, type QueryClient } from '@tanstack/react-query'
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import { signIn } from '../redirects'
-import { userQuery } from '../userQuery'
+import { getCurrentUser, USER_QUERY_KEY, userQuery } from '../userQuery'
 import { POPUP_FEATURES, REAUTH_URL, subscribeAuthSuccess } from './reauthChannel'
 import { sessionExpiredStore } from './sessionExpiredStore'
+
+// Another account signed in: drop everything cached for the previous one.
+// `resetQueries` (not `removeQueries`) so mounted observers refetch too.
+const resetPreviousUserData = (queryClient: QueryClient) => {
+  const userQueryHash = hashKey(USER_QUERY_KEY)
+  return queryClient.resetQueries({ predicate: (query) => query.queryHash !== userQueryHash })
+}
 
 export interface ReauthFlow {
   /** True while the session-expired latch is set. Drives dialog visibility. */
@@ -41,7 +48,11 @@ export const useReauthFlow = (queryClient: QueryClient, onReauthenticated: () =>
       setSigningIn(true)
       setSignInFailed(false)
       try {
-        await queryClient.fetchQuery({ ...userQuery(), staleTime: 0 })
+        const previousUser = getCurrentUser(queryClient)
+        const user = await queryClient.fetchQuery({ ...userQuery(), staleTime: 0 })
+        if (previousUser && previousUser.id !== user.id) {
+          await resetPreviousUserData(queryClient)
+        }
         sessionExpiredStore.clear()
         await onReauthenticated()
       } catch {
