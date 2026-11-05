@@ -31,7 +31,14 @@ Of note:
   * You can also add a `tsconfig.prod.json` and a `tsconfig.test.json` in case you want to make any tweaks to your production builds, or your test builds.
 * `.eslintrc.js` stores the settings for linting, [eslint](https://github.com/eslint/eslint).
 * `package.json` contains dependencies, as well as some shortcuts for commands we'd like to run for testing, previewing, and deploying the app.
-* `public` contains static assets like the HTML page we're planning to deploy to, or images. You can delete any file in this folder apart from `index.html`.
+* `public` contains static assets, including the unauthenticated `signed-out.html` landing page. Keep that page when customizing the app.
 * `src` contains the code. `index.tsx` is the entry-point for your file, and is mandatory.
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+## Sign-out
+
+Sign-out clears the oauth2-proxy session and redirects to `/signed-out.html`.
+Nginx serves that public page without authentication, even without the Vite dev
+server. It does not end the user's Entra SSO session; signing in again requires
+clicking the page's link. Keep `public/signed-out.html` in the image.
