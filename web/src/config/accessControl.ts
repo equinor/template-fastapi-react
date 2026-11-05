@@ -20,8 +20,10 @@ import type { CurrentUser } from '@/shared/platform/auth'
 
 /* Make sure roles stay in sync with the backend's `/whoami`
  * response as unknown role strings are silently ignored.
+ * `default` and `admin` are the app roles provisioned by
+ * `IaC/app-registration.bicep`; `editor`/`viewer` are template examples.
  */
-export type Role = 'admin' | 'editor' | 'viewer'
+export type Role = 'admin' | 'default' | 'editor' | 'viewer'
 
 export type Permissions = {
   todos: {
@@ -35,6 +37,14 @@ const isOwnTodo = (user: CurrentUser, todo: Todo | null): boolean => todo != nul
 export const ROLES: RolesWithPermissions<Role, Permissions, CurrentUser> = {
   admin: {
     todos: { read: true, create: true, update: true, delete: true },
+  },
+  default: {
+    todos: {
+      read: true,
+      create: true,
+      update: isOwnTodo,
+      delete: isOwnTodo,
+    },
   },
   editor: {
     todos: {

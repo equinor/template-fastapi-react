@@ -66,3 +66,23 @@ describe('isAllowed — admin / viewer', () => {
     expect(isAllowed(v, 'todos', 'delete', todoOwnedBy('u1'))).toBe(false)
   })
 })
+
+describe('isAllowed — IaC-provisioned default role', () => {
+  const defaultUser: CurrentUser = { id: 'u1', name: 'D', roles: ['default'] }
+
+  test('default can read and create todos', () => {
+    expect(isAllowed(defaultUser, 'todos', 'read')).toBe(true)
+    expect(isAllowed(defaultUser, 'todos', 'create')).toBe(true)
+  })
+
+  test('default can only change their own todos', () => {
+    expect(isAllowed(defaultUser, 'todos', 'update', todoOwnedBy('u1'))).toBe(true)
+    expect(isAllowed(defaultUser, 'todos', 'delete', todoOwnedBy('u1'))).toBe(true)
+    expect(isAllowed(defaultUser, 'todos', 'update', todoOwnedBy('u2'))).toBe(false)
+    expect(isAllowed(defaultUser, 'todos', 'delete', todoOwnedBy('u2'))).toBe(false)
+  })
+
+  test('a user without any app role is still denied', () => {
+    expect(isAllowed({ id: 'u1', name: 'N', roles: [] }, 'todos', 'read')).toBe(false)
+  })
+})
