@@ -42,6 +42,10 @@ Selected via `VITE_TELEMETRY` (parsed in `@/config/env`):
 
 App Insights ingestion is proxied through the BFF — no connection string or
 instrumentation key in the SPA. Page views use `enableAutoRouteTracking`.
+Automatic exception/rejection collection is disabled in the SDK because
+`registerGlobalErrorHandlers` reports those errors. CSP permits the SDK's
+configuration fetch from `https://js.monitor.azure.com`; ingestion stays
+same-origin.
 
 ## Add a backend
 
