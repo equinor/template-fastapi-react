@@ -41,6 +41,9 @@ export const createAppInsightsTelemetry = (): Telemetry => {
     config: {
       connectionString: buildPlaceholderConnectionString(),
       disableInstrumentationKeyValidation: true,
+      // registerGlobalErrorHandlers owns uncaught errors and rejections.
+      disableExceptionTracking: true,
+      enableUnhandledPromiseRejectionTracking: false,
       enableAutoRouteTracking: true,
       disableFetchTracking: false,
       autoTrackPageVisitTime: true,
