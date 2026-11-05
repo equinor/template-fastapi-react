@@ -1,3 +1,8 @@
+# dclint disable no-build-and-image service-image-require-explicit-tag service-keys-order services-alphabetical-order
+# Image names are local build tags and published references; existing service ordering stays grouped for readability.
+
+name: template-fastapi-react
+
 services:
   nginx:
     image: ghcr.io/equinor/template-fastapi-react/nginx:latest
@@ -9,7 +14,7 @@ services:
       - /var/cache/nginx:uid=65532,gid=65532
       - /run/nginx:uid=65532,gid=65532
     ports:
-      - "80:8080"
+      - "127.0.0.1:80:8080"
     depends_on:
       - api
       - oauth2

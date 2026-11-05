@@ -4,66 +4,67 @@
 
 To work with the template monorepo you'll need to install [these tools](../../about/running/01-prerequisites.md).
 
-## Pre-commit
+## Git hooks
 
-When contributing to this project, pre-commits are necessary, as they run certain tests, sanitisers, and formatters.
+When contributing to this project, Git hooks are necessary, as they run certain tests, sanitisers, and formatters.
 
-The project provides a `.pre-commit-config.yaml` file that is used to setup git _pre-commit hooks_.
+The project uses [prek](https://prek.j178.dev/) to configure and run Git hooks in
+`prek.toml`. The pinned version is installed by mise.
 
-On commit locally, code is automatically formatted and checked for security vulnerabilities using pre-commit git hooks.
+On commit locally, code is automatically formatted and checked by the configured hooks.
 
 ### Installation
 
-To initialize pre-commit in your local repository, run
+Install the pinned tools, then initialize the hooks:
 
 ```shell
-pre-commit install
+mise install
+prek install
 ```
 
-This tells pre-commit to run for this repository on every commit.
+`prek install` installs the configured `pre-commit` and `commit-msg` hooks.
 
 ### Usage
 
-Pre-commit will run on every commit, but can also be run manually on all files:
+The hooks run on each commit. Run them manually on all files with:
 
 ```shell
-pre-commit run --all-files
+prek run --all-files
 ```
 
-Pre-commit tests can be skipped on commits with `git commit --no-verify`.
+Hooks can be skipped with `git commit --no-verify`.
 
 !!! caution "Caution"
-    If you have to skip the pre-commit tests, you're probably doing something you're not supposed to, and whoever commits after you might have to fix your "mistakes". Consider updating the pre-commit hooks if your code is non-compliant.
+    If you have to skip the hooks, you're probably doing something you're not supposed to, and whoever commits after you might have to fix your "mistakes". Consider updating the hooks if your code is non-compliant.
 
 ### Hooks
 <details>
 
 <summary>Overview</summary>
 
-| Repository                                                                          | Hook                    | Purpose                                                                            |
-|-------------------------------------------------------------------------------------|-------------------------|------------------------------------------------------------------------------------|
-| [pre-commit/pre-commit-hooks](https://github.com/pre-commit/pre-commit-hooks)                                      | check-ast               | Check whether files parse as valid python                                          |
-|                                                                                     | check-merge-conflict    | Check for files that contain merge conflict strings                                |
-|                                                                                     | check-case-conflict     | Check for files with names that would conflict on a case-insensitive filesystem    |
-|                                                                                     | check-json              | Verify syntax of all JSON files                                                    |
-|                                                                                     | check-toml              | Verify syntax of all TOML files                                                    |
-|                                                                                     | check-yaml              | Verify syntax of all YAML files                                                    |
-|                                                                                     | trailing-whitespace     | Trim trailing whitespace                                                           |
-|                                                                                     | mixed-line-ending       | Replaces or checks mixed line ending                                               |
-|                                                                                     | detect-private-key      | Checks for the existence of private keys                                           |
-| [compilerla/conventional-pre-commit](https://github.com/compilerla/conventional-pre-commit)                               | conventional-pre-commit | A pre-commit hook to check commit messages for Conventional Commits formatting     |
-| [ambv/black](https://github.com/ambv/black)                                                       | black                   | Python code formatter                                                              |
-| [PyCQA/bandit](https://github.com/PyCQA/bandit)                                                     | bandit                  | A security linter designed to find common security issues in Python code           |
-| [econchick/interrogate](https://github.com/econchick/interrogate)                                            | interrogate             | Check the code base for missing docstrings                                         |
-| [hadialqattan/pycln](https://github.com/hadialqattan/pycln)                                               | pycln                   | Finds and removes unused import statements                                         |
-| [pycqa/isort](https://github.com/pycqa/isort)                                                      | isort                   | Sort imports alphabetically, and automatically separated into sections and by type |
-| [local](https://github.com/equinor/template-fastapi-react/blob/main/.pre-commit-config.yaml) | vite-plus-check | Vite+ formatting, lint, import boundaries, TanStack Query rules and type checks |
-| [pycqa/flake8](https://gitlab.com/pycqa/flake8)                                                     | flake8                  | Check the style and quality of Python code                                         |
-| [local](https://github.com/equinor/template-fastapi-react/blob/main/.pre-commit-config.yaml) | mypy                    | Python type checker                                                                |
-|                                                                                     | pytest                  | Python test runner                                                                 |
-|                                                                                     |                         |                                                                                    |
+| Hooks | Purpose |
+| ----- | ------- |
+| `check-ast`, `check-json`, `check-toml`, `check-yaml` | Validate Python, JSON, TOML and YAML syntax |
+| `check-merge-conflict`, `check-case-conflict`, `check-shebang-scripts-are-executable`, `check-executables-have-shebangs` | Check repository consistency and executable scripts |
+| `trailing-whitespace`, `end-of-file-fixer`, `mixed-line-ending` | Normalize whitespace and line endings |
+| `detect-private-key` | Check for accidentally committed private keys |
+| `conventional-pre-commit`, `no-commit-to-branch` | Validate commit messages and prevent commits to protected branch names |
+| `ruff-check`, `ruff-format`, `shellcheck`, `shfmt` | Lint and format Python and shell scripts |
+| `vite-plus-check` | Format and check web code, import boundaries, TanStack Query rules and types |
+| `generate-openapi-spec`, `generate-api-client-from-spec` | Keep the API schema and generated web client in sync |
+| `hadolint`, `dclint` | Lint Dockerfiles and Docker Compose files |
+| `ensure-consistent-tool-versions`, `ensure-consistent-vite-plus-versions`, `dependabot-is-aware-of-all-lockfiles` | Keep tool versions and Dependabot coverage consistent |
 
 </details>
+
+### Dependabot autofix
+
+The Dependabot autofix workflow is disabled by default. To enable it, configure the
+repository variable `DEPENDABOT_AUTOFIX_ENABLED=true`, the variable
+`DEPENDABOT_AUTOFIX_APP_ID`, and the secret `DEPENDABOT_AUTOFIX_PRIVATE_KEY` for a
+GitHub App installed on this repository with **Contents: read and write** permission.
+The workflow uses that app's token to push hook fixes; ordinary Dependabot pushes do
+not require these credentials while the variable is unset.
 
 ## API
 

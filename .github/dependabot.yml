@@ -24,21 +24,12 @@ updates:
     cooldown:
       default-days: 7
 
-  - package-ecosystem: "pre-commit"
-    directory: "/"
-    groups:
-      pre-commit:
-        patterns: ["*"]
-    schedule:
-      interval: "cron"
-      cronjob: "0 0 1 3,10 *"
-    cooldown:
-      default-days: 7
-
   - package-ecosystem: "docker"
     directories:
       - "/api"
       - "/web"
+      - "/web/oauth2"
+      - "/redis"
     registries:
       - dhi-io
     groups:

@@ -69,7 +69,7 @@ Run these from `web/` after `pnpm install --frozen-lockfile`:
 | `pnpm generate`      | Generate the API client from `api/.openapi.json`   |
 
 CI runs the same checks, tests and production build through mise. The existing
-pre-commit policy uses the local Vite+ dependency and translates repository-root
+prek policy uses the local Vite+ dependency and translates repository-root
 changed-file paths into web-relative paths. Install dependencies before committing.
 
 Query and router devtools load lazily in development only and are excluded

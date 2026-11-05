@@ -1,9 +1,10 @@
 [tools]
-python = "3.14.4"
+python = "3.14.9"
 # Keep in sync with the `dhi.io/node:<version>-debian13-dev` tag in web/Dockerfile.
 node = "24.22.2"
 pnpm = "10.34.9"
-pre-commit = "4.5.1"
+prek = "0.4.14"
+hadolint = "2.14.0"
 uv = "0.11.6"
 shellcheck = "0.10.0"
 zizmor = "1.29.0"

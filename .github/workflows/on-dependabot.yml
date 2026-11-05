@@ -1,0 +1,79 @@
+name: Autofix Dependabot updates
+
+on:
+  push:
+    branches:
+      - "dependabot/**"
+
+permissions:
+  contents: read
+
+jobs:
+  autofix:
+    if: vars.DEPENDABOT_AUTOFIX_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: "Setup: checkout Dependabot branch"
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.ref_name }}
+          persist-credentials: false
+
+      - name: "Setup: Environment"
+        uses: ./.github/actions/setup-environment
+        timeout-minutes: 10
+
+      - name: "Run: prek hooks and verify automatic fixes"
+        shell: bash
+        run: |
+          set +e
+          prek run --all-files
+          first_status=$?
+          set -e
+
+          if [[ -n "$(git status --porcelain)" ]]; then
+            prek run --all-files
+          elif (( first_status != 0 )); then
+            exit "$first_status"
+          fi
+
+      - name: "Check: changes to commit"
+        id: changes
+        shell: bash
+        run: |
+          if [[ -n "$(git status --porcelain)" ]]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: "Setup: create bot token"
+        if: steps.changes.outputs.changed == 'true'
+        id: app-token
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          client-id: ${{ vars.DEPENDABOT_AUTOFIX_APP_ID }}
+          private-key: ${{ secrets.DEPENDABOT_AUTOFIX_PRIVATE_KEY }}
+          permission-contents: write
+
+      - name: "Setup: configure bot Git identity"
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          APP_SLUG: ${{ steps.app-token.outputs.app-slug }}
+        shell: bash
+        run: |
+          user_id="$(gh api "/users/${APP_SLUG}[bot]" --jq .id)"
+          git config user.name "${APP_SLUG}[bot]"
+          git config user.email "${user_id}+${APP_SLUG}[bot]@users.noreply.github.com"
+          gh auth setup-git
+
+      - name: "Commit and push hook fixes"
+        if: steps.changes.outputs.changed == 'true'
+        shell: bash
+        run: |
+          git add --all
+          git commit -m "chore: apply Dependabot hook fixes"
+          git push origin "$GITHUB_REF_NAME"

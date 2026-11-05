@@ -1,0 +1,45 @@
+#!/usr/bin/env python3
+import json
+import os
+import re
+import sys
+import tomllib
+from pathlib import Path
+
+
+root = Path(os.environ.get("MISE_CONFIG_ROOT", Path.cwd()))
+package = json.loads((root / "web/package.json").read_text())
+workspace = (root / "web/pnpm-workspace.yaml").read_text()
+mise = tomllib.loads((root / ".mise/config.toml").read_text()).get("tools", {})
+
+failures = []
+for dependency in ("vite", "vite-plus"):
+    value = package.get("dependencies", {}).get(dependency)
+    if value is None:
+        value = package.get("devDependencies", {}).get(dependency)
+    if value != "catalog:":
+        failures.append(f"web/package.json must use the pnpm catalog for {dependency}.")
+
+pins = {
+    "Vite+": re.findall(r"(?m)^  vite-plus:\s*([0-9][^\s#]*)\s*$", workspace),
+    "Vite core alias": re.findall(r"(?m)^  vite:\s*npm:@voidzero-dev/vite-plus-core@([0-9][^\s#]*)\s*$", workspace),
+    "Vite core override": re.findall(r"(?m)^  vite@\*:\s*npm:@voidzero-dev/vite-plus-core@([0-9][^\s#]*)\s*$", workspace),
+}
+for source, matches in pins.items():
+    if len(matches) != 1:
+        failures.append(f"Expected exactly one {source} version in web/pnpm-workspace.yaml.")
+
+all_versions = {version for matches in pins.values() for version in matches}
+if len(all_versions) > 1:
+    failures.append(f"Vite+ catalog and Vite core pins differ: {', '.join(sorted(all_versions))}.")
+if "vite-plus" in mise and all_versions and str(mise["vite-plus"]) not in all_versions:
+    failures.append(
+        f"mise vite-plus pin {mise['vite-plus']} differs from web/pnpm-workspace.yaml "
+        f"({', '.join(sorted(all_versions))})."
+    )
+
+if failures:
+    print("\n".join(failures), file=sys.stderr)
+    sys.exit(1)
+
+print("Vite+, Vite core alias, and optional mise pin are consistent.")

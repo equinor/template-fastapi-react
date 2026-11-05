@@ -1,3 +1,7 @@
+# dclint disable no-build-and-image service-image-require-explicit-tag service-keys-order services-alphabetical-order
+# The CI image name is consumed by the integration-test job; keep its established service layout.
+name: template-fastapi-react
+
 services:
   api:
     build:

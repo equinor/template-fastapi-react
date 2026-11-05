@@ -1,0 +1,68 @@
+#!/usr/bin/env python3
+import os
+import re
+import sys
+from pathlib import Path
+
+
+root = Path(os.environ.get("MISE_CONFIG_ROOT", Path.cwd()))
+config_path = root / ".github/dependabot.yml"
+lines = config_path.read_text().splitlines()
+updates = {}
+index = 0
+
+while index < len(lines):
+    match = re.match(r'^  - package-ecosystem:\s*["\']?([^"\'\s]+)', lines[index])
+    if not match:
+        index += 1
+        continue
+
+    ecosystem = match.group(1)
+    directories = set()
+    index += 1
+    while index < len(lines) and not re.match(r"^  - package-ecosystem:", lines[index]):
+        single = re.match(r'^    directory:\s*["\']?(/[^"\'\s]+)', lines[index])
+        if single:
+            directories.add(single.group(1).rstrip("/"))
+        if re.match(r"^    directories:\s*$", lines[index]):
+            index += 1
+            while index < len(lines) and re.match(r"^      -\s+", lines[index]):
+                path_match = re.search(r'(/[^"\'\s]+)', lines[index])
+                if path_match:
+                    directories.add(path_match.group(1).rstrip("/"))
+                index += 1
+            continue
+        index += 1
+    updates.setdefault(ecosystem, set()).update(directories)
+
+missing = {}
+ignored_directories = {".git", "node_modules", ".venv", ".pnpm-store"}
+for current_directory, directories, filenames in os.walk(root):
+    directories[:] = [directory for directory in directories if directory not in ignored_directories]
+    parent = Path(current_directory)
+    for name in filenames:
+        if name == "Dockerfile" or name.startswith("Dockerfile."):
+            ecosystem = "docker"
+        elif name == "uv.lock" or name.endswith(".py.lock"):
+            ecosystem = "uv"
+        elif name in {"pnpm-lock.yaml", "package-lock.json", "yarn.lock"}:
+            ecosystem = "npm"
+        else:
+            continue
+
+        relative = (parent / name).relative_to(root)
+        dependabot_directory = "/" + str(relative.parent)
+        if dependabot_directory == "/.":
+            dependabot_directory = "/"
+        if dependabot_directory not in updates.get(ecosystem, set()):
+            missing.setdefault(ecosystem, set()).add(dependabot_directory)
+
+if missing:
+    for ecosystem, directories in sorted(missing.items()):
+        print(
+            f"Missing Dependabot {ecosystem} directories: {', '.join(sorted(directories))}",
+            file=sys.stderr,
+        )
+    sys.exit(1)
+
+print("Dependabot covers every Dockerfile directory and supported lockfile.")

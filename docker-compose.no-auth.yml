@@ -1,3 +1,7 @@
+# dclint disable no-build-and-image service-image-require-explicit-tag service-keys-order services-alphabetical-order
+# Build targets intentionally reset inherited image names; preserve the overlay's explanatory grouping.
+name: template-fastapi-react
+
 # Local-dev override: run the stack without oauth2-proxy / Entra ID,
 # with API + SPA hot-reload via source bind-mounts.
 #

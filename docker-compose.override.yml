@@ -1,3 +1,7 @@
+# dclint disable no-build-and-image service-image-require-explicit-tag service-keys-order services-alphabetical-order
+# Development images are local build tags, and the override keeps its existing grouping.
+name: template-fastapi-react
+
 services:
   api:
     build:
