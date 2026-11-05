@@ -13,7 +13,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: linting-and-checks-${{ github.ref }}
+  group: linting-and-checks-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 env:
