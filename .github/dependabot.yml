@@ -20,8 +20,9 @@ updates:
       actions-security:
         applies-to: security-updates
         patterns: ["*"]
-    schedule:
-      interval: "monthly" # when template is used, recommended interval is "weekly"
+    schedule: # schedules do not apply to security updates
+      interval: "cron" # active projects are recommended to update dependencies "monthly" instead
+      cron: "0 0 1 3,10 *" # At 00:00 on day-of-month 1 in March and October
     cooldown:
       default-days: 7
 
@@ -33,7 +34,8 @@ updates:
           - "minor"
           - "patch"
     schedule:
-      interval: "monthly" # when template is used, recommended interval is "weekly"
+      interval: "cron"
+      cron: "0 0 1 3,10 *"
     cooldown:
       default-days: 7
 
@@ -49,7 +51,8 @@ updates:
           - "minor"
           - "patch"
     schedule:
-      interval: "monthly" # when template is used, recommended interval is "weekly"
+      interval: "cron"
+      cron: "0 0 1 3,10 *"
     cooldown:
       default-days: 7
 
@@ -64,7 +67,8 @@ updates:
         applies-to: security-updates
         patterns: ["*"]
     schedule:
-      interval: "monthly" # when template is used, recommended interval is "weekly"
+      interval: "cron"
+      cron: "0 0 1 3,10 *"
     cooldown:
       default-days: 7
 
@@ -79,7 +83,8 @@ updates:
         applies-to: security-updates
         patterns: ["*"]
     schedule:
-      interval: "monthly" # when template is used, recommended interval is "weekly"
+      interval: "cron"
+      cron: "0 0 1 3,10 *"
     cooldown:
       default-days: 7
 
@@ -96,6 +101,7 @@ updates:
         applies-to: security-updates
         patterns: ["*"]
     schedule:
-      interval: "monthly" # when template is used, recommended interval is "weekly"
+      interval: "cron"
+      cron: "0 0 1 3,10 *"
     cooldown:
       default-days: 7
