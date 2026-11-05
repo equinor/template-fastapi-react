@@ -42,3 +42,11 @@ Sign-out clears the oauth2-proxy session and redirects to `/signed-out.html`.
 Nginx serves that public page without authentication, even without the Vite dev
 server. It does not end the user's Entra SSO session; signing in again requires
 clicking the page's link. Keep `public/signed-out.html` in the image.
+
+## BFF development and deployment
+
+The standalone Vite server forwards `/api` requests unchanged to the Docker
+Compose nginx on port 80. Nginx strips `/api/` before proxying to FastAPI.
+
+Production builds do not emit source maps. Enable them only after CI can upload
+them privately and remove them from the public static-hosting artifact.
