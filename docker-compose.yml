@@ -1,7 +1,5 @@
-# dclint disable no-build-and-image service-image-require-explicit-tag service-keys-order services-alphabetical-order
-# Image names are local build tags and published references; existing service ordering stays grouped for readability.
-
-name: template-fastapi-react
+# dclint disable no-build-and-image service-image-require-explicit-tag service-keys-order services-alphabetical-order require-project-name-field
+# Image names are local build tags; retain directory-derived or COMPOSE_PROJECT_NAME project identity.
 
 services:
   nginx:

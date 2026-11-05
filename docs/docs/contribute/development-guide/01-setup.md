@@ -61,10 +61,12 @@ Hooks can be skipped with `git commit --no-verify`.
 
 The Dependabot autofix workflow is disabled by default. To enable it, configure the
 repository variable `DEPENDABOT_AUTOFIX_ENABLED=true`, the variable
-`DEPENDABOT_AUTOFIX_APP_ID`, and the secret `DEPENDABOT_AUTOFIX_PRIVATE_KEY` for a
-GitHub App installed on this repository with **Contents: read and write** permission.
-The workflow uses that app's token to push hook fixes; ordinary Dependabot pushes do
-not require these credentials while the variable is unset.
+`DEPENDABOT_AUTOFIX_APP_ID`, and a GitHub App installed on this repository with
+**Contents: read and write** permission. Store its private key as
+`DEPENDABOT_AUTOFIX_PRIVATE_KEY` in both **Dependabot secrets** and **Actions secrets**.
+Dependabot-triggered runs need the Dependabot secret; the App-token follow-up push
+uses the Actions secret. Ordinary Dependabot pushes do not need these credentials
+while the enable variable is unset.
 
 ## API
 

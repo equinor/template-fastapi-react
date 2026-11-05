@@ -11,6 +11,12 @@ lines = config_path.read_text().splitlines()
 updates = {}
 index = 0
 
+
+def normalize_directory(directory):
+    normalized = directory.rstrip("/")
+    return normalized or "/"
+
+
 while index < len(lines):
     match = re.match(r'^  - package-ecosystem:\s*["\']?([^"\'\s]+)', lines[index])
     if not match:
@@ -21,15 +27,15 @@ while index < len(lines):
     directories = set()
     index += 1
     while index < len(lines) and not re.match(r"^  - package-ecosystem:", lines[index]):
-        single = re.match(r'^    directory:\s*["\']?(/[^"\'\s]+)', lines[index])
+        single = re.match(r'^    directory:\s*["\']?(/[^"\'\s]*)', lines[index])
         if single:
-            directories.add(single.group(1).rstrip("/"))
+            directories.add(normalize_directory(single.group(1)))
         if re.match(r"^    directories:\s*$", lines[index]):
             index += 1
             while index < len(lines) and re.match(r"^      -\s+", lines[index]):
-                path_match = re.search(r'(/[^"\'\s]+)', lines[index])
+                path_match = re.search(r'(/[^"\'\s]*)', lines[index])
                 if path_match:
-                    directories.add(path_match.group(1).rstrip("/"))
+                    directories.add(normalize_directory(path_match.group(1)))
                 index += 1
             continue
         index += 1
@@ -51,9 +57,8 @@ for current_directory, directories, filenames in os.walk(root):
             continue
 
         relative = (parent / name).relative_to(root)
-        dependabot_directory = "/" + str(relative.parent)
-        if dependabot_directory == "/.":
-            dependabot_directory = "/"
+        relative_directory = relative.parent.as_posix()
+        dependabot_directory = "/" if relative_directory == "." else "/" + relative_directory
         if dependabot_directory not in updates.get(ecosystem, set()):
             missing.setdefault(ecosystem, set()).add(dependabot_directory)
 

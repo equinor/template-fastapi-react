@@ -13,7 +13,7 @@ jobs:
     if: vars.DEPENDABOT_AUTOFIX_ENABLED == 'true'
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: read
     steps:
       - name: "Setup: checkout Dependabot branch"
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -72,6 +72,8 @@ jobs:
 
       - name: "Commit and push hook fixes"
         if: steps.changes.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
         shell: bash
         run: |
           git add --all
