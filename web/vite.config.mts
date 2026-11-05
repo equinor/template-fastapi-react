@@ -43,6 +43,9 @@ export default defineConfig({
       //     Ingestion itself uses the same-origin /api/monitoring/ BFF.
       policy: {
         'default-src': ["'self'"],
+        // ES module imports have no script element carrying an integrity
+        // attribute, so the plugin's hashes alone cannot authorize them.
+        'script-src-elem': ["'self'"],
         'font-src': ["'self'", 'https://*.equinor.com'],
         'style-src': ["'self'", "'unsafe-inline'", 'https://*.equinor.com'],
         'connect-src': ["'self'", 'https://js.monitor.azure.com'],
