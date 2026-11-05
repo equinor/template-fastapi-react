@@ -47,8 +47,8 @@ export function ColorSchemaToggle() {
                 type="radio"
                 name="color-scheme"
                 key={value}
-                onClick={() => setScheme(value)}
-                aria-checked={scheme === value}
+                onChange={() => setScheme(value)}
+                checked={scheme === value}
                 className="sr-only"
               />
               <Icon data={icon} size={18} />

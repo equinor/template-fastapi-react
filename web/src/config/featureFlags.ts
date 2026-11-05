@@ -9,11 +9,10 @@
  *      or `useFeatureFlag(FeatureFlagName.X)`.
  */
 
-import { ENV } from '@/config/env'
 import type { FeatureFlagsTable } from '@/shared/platform/feature-flags'
 
 export enum FeatureFlagName {
-  /** Show the create-todo form. Demo flag — on in dev, off in prod (boolean form). */
+  /** Show the create-todo form in every environment (boolean flag example). */
   NEW_TODO_FORM = 'NEW_TODO_FORM',
   /**
    * Bulk operations on todos (e.g. "Clear completed"). Demo flag — admin only
@@ -23,6 +22,6 @@ export enum FeatureFlagName {
 }
 
 export const FEATURE_FLAGS: FeatureFlagsTable<FeatureFlagName> = {
-  [FeatureFlagName.NEW_TODO_FORM]: ENV.isDev,
+  [FeatureFlagName.NEW_TODO_FORM]: true,
   [FeatureFlagName.BULK_TOOLS]: [{ allowedRoles: ['admin'] }],
 } as const
