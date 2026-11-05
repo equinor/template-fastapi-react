@@ -12,7 +12,7 @@
 !src/**/*.css
 
 !index.html
-!tsconfig.json
+!tsconfig*.json
 !vite.config.mts
 !vitest.config.mts
 
