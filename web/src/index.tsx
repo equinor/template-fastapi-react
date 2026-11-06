@@ -49,7 +49,7 @@ try {
     </StrictMode>
   )
 } catch (error) {
-  // eslint-disable-next-line no-console
+  // oxlint-disable-next-line no-console
   console.error('Bootstrap failed', error)
   root.render(<ApplicationError error={error} />)
 }
