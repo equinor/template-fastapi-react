@@ -1,10 +1,5 @@
 // Public types for the api platform module.
 
-// Single funnel for outbound HTTP errors. Every failure (network /
-// non-2xx / parse) is normalised into one of these three shapes,
-// carrying a traceId for log correlation.
-export type { ApiError } from '@team-hermes/react-components'
-
 export type NotificationSource = 'mutation' | 'query'
 
 export interface QueryNotifier {

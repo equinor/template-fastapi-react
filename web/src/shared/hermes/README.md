@@ -1,11 +1,20 @@
-# Theme
+# Hermes consumer contracts
 
-This barrel re-exports Hermes' `initColorScheme` and `useColorScheme`.
+These tests cover the released package as consumed by the template, including
+API error guards, ErrorPanel rendering and theme behavior. They import Hermes
+directly; no local component or platform re-export is needed. Keep the
+expected-failure and todo trackers until the corresponding upstream fixes ship.
+
+## Theme
+
+Import `initColorScheme` and `useColorScheme` from `@team-hermes/react-components`.
 Bootstrap calls `initColorScheme()` before rendering; Hermes' NavBar provides the
 light/dark toggle. EDS tokens and Hermes CSS select colors through the
 `data-color-scheme` attribute on `<html>`.
 
 ```tsx
+import { useColorScheme } from '@team-hermes/react-components'
+
 const { colorScheme, toggleColorScheme } = useColorScheme()
 return <button onClick={toggleColorScheme}>Current scheme: {colorScheme}</button>
 ```

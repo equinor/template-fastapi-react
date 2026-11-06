@@ -30,7 +30,7 @@
 // nothing — both are opt-in.
 
 import { MutationCache, QueryCache, QueryClient, type QueryKey } from '@tanstack/react-query'
-import { isApiError } from './ApiError'
+import { isApiError } from '@team-hermes/react-components'
 import type { CreateQueryClientOptions, QueryNotifier } from './types'
 
 declare module '@tanstack/react-query' {

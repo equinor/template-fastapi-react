@@ -13,12 +13,13 @@ web/src/
   app/
     bootstrap/         Providers, query-client composition, router defaults
     auth/              Session-expired dialog and reauthentication
-    layout/            Hermes NavBar + TanStack Router adapter
+    layout/            Hermes NavBar + TanStack Router Link
     routes/            File-based routes and loaders
   config/              Typed environment, flags and role configuration
   features/todos/      Todo UI, schema, query keys, queries and mutations
   shared/
-    components/        Template-specific UI; ErrorPanel re-exports Hermes
+    components/        Template-specific UI
+    hermes/            Released-package consumer contracts and gap trackers
     platform/          API/auth/access-control/flags and Hermes public barrels
 ```
 
@@ -54,12 +55,13 @@ access-control and feature flags: Hermes does not replace them.
 
 ## Shared components and platform
 
-Use Hermes `ErrorPanel`, `Popover`, `NavBar`, `useCustomToast`, theme helpers and
-telemetry instead of recreating them locally. Import
+Import Hermes `ErrorPanel`, `Popover`, `NavBar`, `useCustomToast` and theme helpers
+directly from `@team-hermes/react-components`. Use its telemetry
+instead of recreating it locally. Import
 `@team-hermes/react-components/style.css` and React Toastify's CSS once in
 `index.tsx`. Keep one React Toastify container in `Providers`.
 
-The template's Header supplies a small TanStack Router link adapter, application
+The template's Header supplies TanStack Router's Link directly, application
 name/repository, user and sign-out callback to `NavBar`. Its support dialog owns
 version information; its user popover owns identity and sign-out. The template has
 no navigation categories beyond its home link. The BFF user model has no email,

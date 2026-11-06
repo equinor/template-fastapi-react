@@ -4,7 +4,6 @@
 //
 // Note: `sessionExpiredStore` lives in `auth/reauth/` — it's an auth
 // concern that `configureApiClient` happens to write to.
-export { isApiError, isAbortError } from './ApiError'
 export { configureApiClient } from './configureApiClient'
 export { createBaseQueryClient, noopNotifier } from './createBaseQueryClient'
-export type { ApiError, CreateQueryClientOptions, NotificationSource, QueryNotifier } from './types'
+export type { CreateQueryClientOptions, NotificationSource, QueryNotifier } from './types'

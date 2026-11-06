@@ -17,7 +17,7 @@ import {
 import { act, render, screen } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vite-plus/test'
 import { RouteErrorBoundary } from '@/app/error-pages/RouteErrorBoundary/RouteErrorBoundary'
-import type { ApiError } from '@/shared/platform/api'
+import type { ApiError } from '@team-hermes/react-components'
 import { AUTH_SUCCESS_MESSAGE, sessionExpiredStore } from '@/shared/platform/auth'
 import { createTelemetry, TelemetryBackend, TelemetryProvider } from '@/shared/platform/telemetry'
 import { createQueryClient } from './createQueryClient'

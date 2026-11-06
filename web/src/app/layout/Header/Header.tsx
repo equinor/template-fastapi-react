@@ -2,11 +2,8 @@ import { Icon } from '@equinor/eds-core-react'
 import { receipt } from '@equinor/eds-icons'
 import { Link } from '@tanstack/react-router'
 import { NavBar } from '@team-hermes/react-components'
-import type { ComponentProps } from 'react'
 import { ENV } from '@/config/env'
 import { useCurrentUser, useSignOut } from '@/shared/platform/auth'
-
-const RouterLink = ({ to, ...props }: ComponentProps<'a'> & { to: string }) => <Link {...props} to={to} />
 
 export const Header = () => {
   const { data: user } = useCurrentUser()
@@ -14,7 +11,7 @@ export const Header = () => {
 
   return (
     <NavBar
-      LinkComponent={RouterLink}
+      LinkComponent={Link}
       applicationIcon={<Icon data={receipt} />}
       applicationConfig={{
         name: 'Todo App',

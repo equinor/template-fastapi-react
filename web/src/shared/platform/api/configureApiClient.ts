@@ -19,8 +19,7 @@
 import { client } from '@/api-generated/client.gen'
 import { sessionExpiredStore } from '../auth/reauth/sessionExpiredStore'
 import type { Telemetry } from '../telemetry'
-import { isAbortError } from './ApiError'
-import type { ApiError } from './types'
+import { isAbortError, type ApiError } from '@team-hermes/react-components'
 
 // Default per-request timeout. Long enough for slow back-ends behind
 // cold-start, short enough that the UI doesn't appear to hang. Override

@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vite-plus/test'
-import { isAbortError, isApiError } from './ApiError'
+import { isAbortError, isApiError } from '@team-hermes/react-components'
 
 describe('isApiError', () => {
   test('true for a well-formed network error', () => {

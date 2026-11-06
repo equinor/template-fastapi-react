@@ -15,13 +15,12 @@ bearer tokens are touched in JS.
 
 ## Files
 
-| File                       | Purpose                                                                                      |
-| -------------------------- | -------------------------------------------------------------------------------------------- |
-| `types.ts`                 | Public types: `ApiError`, `QueryNotifier`, `NotificationSource`, `CreateQueryClientOptions`. |
-| `ApiError.ts`              | Hermes `isApiError` and `isAbortError` runtime guards (re-exported).                         |
-| `configureApiClient.ts`    | Installs the shared `fetch` funnel onto the generated SDK.                                   |
-| `createBaseQueryClient.ts` | Pure `QueryClient` factory + `noopNotifier`.                                                 |
-| `index.ts`                 | Public barrel (deep imports blocked by Oxlint).                                              |
+| File                       | Purpose                                                                          |
+| -------------------------- | -------------------------------------------------------------------------------- |
+| `types.ts`                 | Public types: `QueryNotifier`, `NotificationSource`, `CreateQueryClientOptions`. |
+| `configureApiClient.ts`    | Installs the shared `fetch` funnel onto the generated SDK.                       |
+| `createBaseQueryClient.ts` | Pure `QueryClient` factory + `noopNotifier`.                                     |
+| `index.ts`                 | Public barrel (deep imports blocked by Oxlint).                                  |
 
 ## Wiring
 
@@ -54,9 +53,11 @@ type ApiError =
 - `parse` — 2xx but the response wasn't JSON (typically the SPA
   fallback returning `text/html` because the proxy is misconfigured).
 
-The error type and guards come from `@team-hermes/react-components`. Use
+Import the error type and guards directly from `@team-hermes/react-components`. Use
 `isApiError(e)` in catch sites. Hermes `ErrorPanel` renders the same kinds,
 statuses and trace IDs produced by our fetch funnel.
+Consumer contract tests live in `shared/hermes/`, alongside the ErrorPanel and
+theme gap trackers.
 
 ## Telemetry
 

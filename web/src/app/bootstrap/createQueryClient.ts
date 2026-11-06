@@ -4,9 +4,9 @@
 // breadcrumbs, nothing at all — should fork *this* file and leave
 // `shared/platform/api/createBaseQueryClient.ts` untouched.
 
-import { createBaseQueryClient, isApiError, type QueryNotifier } from '@/shared/platform/api'
+import { createBaseQueryClient, type QueryNotifier } from '@/shared/platform/api'
 import type { Telemetry } from '@/shared/platform/telemetry'
-import type { useCustomToast } from '@team-hermes/react-components'
+import { isApiError, type useCustomToast } from '@team-hermes/react-components'
 
 // 401s are handled out-of-band by `SessionExpiredDialog` (which listens
 // for the `sessionExpiredStore` flag latched by `httpClient`). A toast

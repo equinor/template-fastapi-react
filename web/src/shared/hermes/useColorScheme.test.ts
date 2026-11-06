@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react'
 import { afterEach, describe, expect, test, vi } from 'vite-plus/test'
-import { initColorScheme, useColorScheme } from './index'
+import { initColorScheme, useColorScheme } from '@team-hermes/react-components'
 
 afterEach(() => {
   vi.restoreAllMocks()

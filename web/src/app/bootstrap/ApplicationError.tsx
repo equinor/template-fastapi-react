@@ -1,5 +1,5 @@
 import { Button, Typography } from '@equinor/eds-core-react'
-import { ErrorPanel } from '@/shared/components/ErrorPanel/ErrorPanel'
+import { ErrorPanel } from '@team-hermes/react-components'
 
 // Outermost fallback rendered by TelemetryProvider's error boundary —
 // if this is showing, the provider stack itself failed (no router, no

@@ -6,8 +6,7 @@
 
 import { render, screen } from '@testing-library/react'
 import { describe, expect, test } from 'vite-plus/test'
-import type { ApiError } from '../../platform/api'
-import { ErrorPanel } from './ErrorPanel'
+import { type ApiError, ErrorPanel } from '@team-hermes/react-components'
 
 describe('ErrorPanel', () => {
   test('renders a network error with traceId', () => {
