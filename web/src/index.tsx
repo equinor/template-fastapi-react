@@ -11,7 +11,7 @@ import { routeTree } from './app/routeTree.gen'
 import { ENV } from './config/env'
 import { configureApiClient } from './shared/platform/api'
 import { startSessionWatcher } from './shared/platform/auth'
-import { createTelemetry, registerGlobalErrorHandlers } from './shared/platform/telemetry'
+import { createTelemetry, registerGlobalErrorHandlers, TelemetryErrorBoundary } from './shared/platform/telemetry'
 import '@team-hermes/react-components/style.css'
 import 'react-toastify/dist/ReactToastify.css'
 import './app/styles/index.css'
@@ -71,7 +71,9 @@ try {
   configureApiClient({ telemetry })
   root.render(
     <StrictMode>
-      <Application />
+      <TelemetryErrorBoundary telemetry={telemetry} fallback={ApplicationError}>
+        <Application />
+      </TelemetryErrorBoundary>
     </StrictMode>
   )
 } catch (error) {

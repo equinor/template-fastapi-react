@@ -14,6 +14,7 @@ const setup = () => {
   const { result } = renderHook(useCustomToast)
   const telemetry = createTelemetry(TelemetryBackend.None)
   const trackEvent = vi.spyOn(telemetry, 'trackEvent')
+  const trackException = vi.spyOn(telemetry, 'trackException')
   const queryClient = createQueryClient({ telemetry, toast: result.current })
   configureApiClient({ telemetry })
   render(
@@ -21,7 +22,7 @@ const setup = () => {
       {null}
     </Providers>
   )
-  return { toast: result.current, queryClient, trackEvent }
+  return { toast: result.current, queryClient, trackEvent, trackException }
 }
 
 describe('Hermes notifications', () => {
@@ -56,7 +57,7 @@ describe('Hermes notifications', () => {
   })
 
   test('correlates an API error panel with the toast.error telemetry event', async () => {
-    const { queryClient, trackEvent } = setup()
+    const { queryClient, trackEvent, trackException } = setup()
     let requestTraceId: string | null = null
     server.use(
       http.delete('http://localhost/todos/:id', ({ request }) => {
@@ -92,10 +93,70 @@ describe('Hermes notifications', () => {
       errorKind: 'http',
       status: '500',
     })
+    expect(trackException).not.toHaveBeenCalled()
+  })
+
+  test('tracks unexpected mutation failures as exceptions and keeps the toast event', async () => {
+    const { queryClient, trackEvent, trackException } = setup()
+    const error = new Error('unexpected mutation failure')
+    const mutation = queryClient.getMutationCache().build(queryClient, {
+      mutationFn: () => Promise.reject(error),
+      meta: { errorMessage: 'Could not save' },
+    })
+
+    await act(async () => {
+      await expect(mutation.execute(undefined)).rejects.toBe(error)
+    })
+
+    expect(trackException).toHaveBeenCalledExactlyOnceWith(error)
+    expect(trackEvent).toHaveBeenCalledWith('toast.error', {
+      kind: 'mutation',
+      template: 'Could not save',
+      errorKind: 'unknown',
+      message: error.message,
+    })
+    expect(await screen.findByText('Could not save')).toBeInTheDocument()
+  })
+
+  test('tracks unexpected refetch failures but not initial-load failures', async () => {
+    const { queryClient, trackEvent, trackException } = setup()
+    const queryKey = ['notifications', 'refetch']
+    const meta = { errorMessage: 'Could not refresh' }
+    const initialError = new Error('initial load failure')
+
+    await expect(
+      queryClient.fetchQuery({
+        queryKey,
+        queryFn: () => Promise.reject(initialError),
+        staleTime: 0,
+        meta,
+      })
+    ).rejects.toBe(initialError)
+    expect(trackException).not.toHaveBeenCalled()
+
+    queryClient.setQueryData(queryKey, 'cached response')
+    const refetchError = new Error('unexpected refetch failure')
+    await expect(
+      queryClient.fetchQuery({
+        queryKey,
+        queryFn: () => Promise.reject(refetchError),
+        staleTime: 0,
+        meta,
+      })
+    ).rejects.toBe(refetchError)
+
+    expect(trackException).toHaveBeenCalledExactlyOnceWith(refetchError)
+    expect(trackEvent).toHaveBeenCalledWith('toast.error', {
+      kind: 'query',
+      template: 'Could not refresh',
+      errorKind: 'unknown',
+      message: refetchError.message,
+    })
+    expect(await screen.findByText('Could not refresh')).toBeInTheDocument()
   })
 
   test('suppresses 401 toasts and toast.error telemetry', async () => {
-    const { queryClient, trackEvent } = setup()
+    const { queryClient, trackEvent, trackException } = setup()
     const error: ApiError = { kind: 'http', status: 401, traceId: 'auth', message: 'unauthorized' }
     const mutation = queryClient.getMutationCache().build(queryClient, {
       mutationFn: () => Promise.reject(error),
@@ -106,5 +167,6 @@ describe('Hermes notifications', () => {
     })
     expect(screen.queryByText('Could not save')).toBeNull()
     expect(trackEvent).not.toHaveBeenCalled()
+    expect(trackException).not.toHaveBeenCalled()
   })
 })
