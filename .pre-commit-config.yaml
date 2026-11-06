@@ -23,7 +23,7 @@ repos:
         pass_filenames: false
 
   - repo: https://github.com/compilerla/conventional-pre-commit
-    rev: v4.4.0
+    rev: v4.5.0
     hooks:
       - id: conventional-pre-commit
         name: "Check: conventional formatted commit message"
@@ -67,7 +67,7 @@ repos:
         exclude: api/tests/integration/mock_authentication.py
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: "v0.17.2"
+    rev: "v0.17.3"
     hooks:
       - id: ruff-check
         name: "Lint : ruff (python)"
@@ -79,11 +79,11 @@ repos:
         files: ^api/.*\.py$
 
   - repo: https://github.com/biomejs/pre-commit
-    rev: v2.5.0
+    rev: v2.6.4
     hooks:
       - id: biome-check
         name: "Lint : biome (ts/js)"
-        additional_dependencies: ["@biomejs/biome@2.6.3"]
+        additional_dependencies: ["@biomejs/biome@2.6.4"]
         exclude: |
           (?x)(
             ^web/\.pnp\.cjs$
@@ -91,7 +91,7 @@ repos:
           )
 
   - repo: https://github.com/scop/pre-commit-shfmt
-    rev: v3.13.1-1
+    rev: v3.14.1-1
     hooks:
       - id: shfmt
         name: "Lint : shfmt (bash)"
