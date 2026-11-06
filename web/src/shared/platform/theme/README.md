@@ -11,7 +11,7 @@ provider, no `dark:` Tailwind variants — the CSS layer uses EDS tokens
 | ------------------- | --------------------------------------------------------------------------------------------------- |
 | `types.ts`          | `ColorScheme` type.                                                                                 |
 | `useColorScheme.ts` | `useColorScheme()` hook + `setColorScheme()` setter (also a `useSyncExternalStore`-backed pub/sub). |
-| `index.ts`          | Public barrel (deep imports blocked by ESLint).                                                     |
+| `index.ts`          | Public barrel (deep imports blocked by Oxlint).                                                     |
 
 ## Usage
 

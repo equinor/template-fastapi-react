@@ -11,7 +11,7 @@ own `Permissions` map and `ROLES` table and bind a checker via
 | ------------------------ | -------------------------------------------------------------------------------------- |
 | `types.ts`               | Public type vocabulary: `PermissionMap`, `RolesWithPermissions`, `HasPermission`, etc. |
 | `access-control.ts`      | `createHasPermission(roles)` runtime factory.                                          |
-| `index.ts`               | Public barrel (deep imports blocked by ESLint).                                        |
+| `index.ts`               | Public barrel (deep imports blocked by Oxlint).                                        |
 | `access-control.test.ts` | Unit tests for the factory.                                                            |
 
 ## Concepts

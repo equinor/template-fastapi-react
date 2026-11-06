@@ -1,7 +1,5 @@
 # Generate API clients
 
-To generate the typescript client for the API, run:
-
 ```shell
 mise run generate:api-client-from-spec
 ```

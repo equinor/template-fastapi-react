@@ -21,7 +21,7 @@ bearer tokens are touched in JS.
 | `ApiError.ts`              | `isApiError` runtime guard.                                                                  |
 | `configureApiClient.ts`    | Installs the shared `fetch` funnel onto the generated SDK.                                   |
 | `createBaseQueryClient.ts` | Pure `QueryClient` factory + `noopNotifier`.                                                 |
-| `index.ts`                 | Public barrel (deep imports blocked by ESLint).                                              |
+| `index.ts`                 | Public barrel (deep imports blocked by Oxlint).                                              |
 
 ## Wiring
 

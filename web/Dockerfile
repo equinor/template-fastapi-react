@@ -21,8 +21,9 @@ WORKDIR /code
 USER "node"
 
 COPY --chown="node:node" package.json pnpm-workspace.yaml pnpm-lock.yaml ./
-RUN --mount=type=cache,target=/pnpm/store,uid=1000,gid=1000 \
-    pnpm install --frozen-lockfile --store-dir=/pnpm/store
+# Match storeDir: .pnpm-store in pnpm-workspace.yaml.
+RUN --mount=type=cache,target=/code/.pnpm-store,uid=1000,gid=1000 \
+    pnpm install --frozen-lockfile
 
 COPY --chown="node:node" index.html tsconfig*.json vite.config.ts ./
 

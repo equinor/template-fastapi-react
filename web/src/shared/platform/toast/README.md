@@ -11,7 +11,7 @@ as the global `MutationCache` callbacks in `app/bootstrap/createQueryClient`.
 | `types.ts`           | `Toast`, `ToastVariant`.                                                  |
 | `toastStore.ts`      | The store (pub/sub) plus `toast.success / .error / .info / .dismiss` API. |
 | `ToastContainer.tsx` | Mounted once near the root; renders the queue with EDS `<Snackbar>`.      |
-| `index.ts`           | Public barrel (deep imports blocked by ESLint).                           |
+| `index.ts`           | Public barrel (deep imports blocked by Oxlint).                           |
 
 ## Wiring
 

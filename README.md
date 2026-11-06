@@ -105,7 +105,6 @@ Web development uses Vite+ and pnpm with Node 24.22.2:
 
 ```sh
 mise install
-mise run install-dependencies:web
 mise run lint:web
 mise run test:web
 mise run build:web

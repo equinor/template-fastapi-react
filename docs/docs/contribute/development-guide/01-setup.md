@@ -94,12 +94,15 @@ From inside the /web folder.
 This project uses **pnpm** and **Vite+**, pinned in `web/package.json` and
 `web/pnpm-workspace.yaml`. mise installs Node 24.22.2 and pnpm; a global `vp`
 installation is not needed. After cloning or switching branches, install the
-locked dependencies:
+locked dependencies for editors and direct `pnpm` commands:
 
 ```shell
 mise install
 mise run install-dependencies:web
 ```
+
+The `mise run lint:web`, `test:web`, `build:web`, and API-client generation tasks
+install web dependencies automatically.
 
 #### Editors
 
