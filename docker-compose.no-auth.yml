@@ -57,7 +57,7 @@ services:
     # "web-1 exited with code 0 (restarting)" loop.
     stdin_open: true
     tty: true
-    # Vite dev server with HMR. vite.config.mts already binds host: true
+    # Vite dev server with HMR. vite.config.ts already binds host: true
     # on port 3000, so nginx can reach it as http://web:3000.
     volumes:
       - ./web/src:/code/src

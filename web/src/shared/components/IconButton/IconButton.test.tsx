@@ -7,7 +7,7 @@ import { accessible } from '@equinor/eds-icons'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { createRef } from 'react'
-import { describe, expect, test } from 'vitest'
+import { describe, expect, test } from 'vite-plus/test'
 import { IconButton } from './IconButton'
 
 describe('IconButton', () => {

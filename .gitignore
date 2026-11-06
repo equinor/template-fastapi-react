@@ -10,8 +10,8 @@ __pycache__/
 
 # Dependency directories
 node_modules
-web/.pnp.*
 web/package-lock.json
+web/.pnpm-store/
 
 # Testing
 /coverage
@@ -29,8 +29,7 @@ web/package-lock.json
 .env.production.local
 
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+pnpm-debug.log*
 
 # Distribution / packaging
 .Python
@@ -153,15 +152,6 @@ dmypy.json
 .pyre/
 .idea
 data
-
-# Yarn stuff
-web/.yarn/*
-!web/.yarn/patches
-!web/.yarn/plugins
-!web/.yarn/releases
-!web/.yarn/sdks
-!web/.yarn/versions
-!web/.yarn/sdks/*/lib/
 
 # Asdf package manager
 /*/.tool-versions

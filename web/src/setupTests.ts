@@ -1,11 +1,11 @@
-/// <reference types="vitest/jsdom" />
+/// <reference types="vite-plus/test/jsdom" />
 // jest-dom adds custom jest matchers for asserting on DOM nodes.
 // allows you to do things like:
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
-import '@testing-library/jest-dom'
+import '@testing-library/jest-dom/vitest'
 import { cleanup } from '@testing-library/react'
-import { afterAll, afterEach, beforeAll } from 'vitest'
+import { afterAll, afterEach, beforeAll } from 'vite-plus/test'
 import { resetDb } from './mocks/db'
 import { server } from './mocks/server'
 import { configureApiClient } from './shared/platform/api'
@@ -24,19 +24,17 @@ configureApiClient({ telemetry: testTelemetry })
 // jsdom has no Popover API (used by EDS Tooltip/Dialog). Stub the methods
 // so components that mount popovers don't crash during tests.
 if (typeof HTMLElement !== 'undefined') {
-  // biome-ignore lint/suspicious/noExplicitAny: jsdom polyfill
-  const proto = HTMLElement.prototype as any
+  const proto = HTMLElement.prototype
   if (typeof proto.showPopover !== 'function') proto.showPopover = () => {}
   if (typeof proto.hidePopover !== 'function') proto.hidePopover = () => {}
-  if (typeof proto.togglePopover !== 'function') proto.togglePopover = () => {}
+  if (typeof proto.togglePopover !== 'function') proto.togglePopover = () => false
 }
 
 // jsdom doesn't implement the native <dialog> showModal/close. Polyfill
 // just enough for SessionExpiredDialog: toggle the `open` attribute and
 // fire the `cancel`/`close` events the component listens for.
 if (typeof HTMLDialogElement !== 'undefined') {
-  // biome-ignore lint/suspicious/noExplicitAny: jsdom polyfill
-  const proto = HTMLDialogElement.prototype as any
+  const proto = HTMLDialogElement.prototype
   if (typeof proto.showModal !== 'function') {
     proto.showModal = function () {
       this.setAttribute('open', '')
@@ -48,14 +46,6 @@ if (typeof HTMLDialogElement !== 'undefined') {
       this.dispatchEvent(new Event('close'))
     }
   }
-}
-
-// Node >= 25 has built-in `localStorage`/`sessionStorage` globals that Vitest 4's
-// jsdom environment doesn't replace (without `--localstorage-file`, Node's
-// `localStorage` is undefined). Use jsdom's so tests behave the same on every
-// Node version. Vitest 5 does this itself; drop this block after upgrading.
-for (const key of ['localStorage', 'sessionStorage'] as const) {
-  Object.defineProperty(globalThis, key, { configurable: true, value: jsdom.window[key] })
 }
 
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))

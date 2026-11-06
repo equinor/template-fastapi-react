@@ -38,12 +38,17 @@ These tests depends on mongodb and that it's running.
 #### Using docker
 
 ```shell
-docker compose run --rm web yarn test
+docker compose run --rm web pnpm test
 ```
 
 #### Without using docker
 
 ```shell
 cd web/
-yarn test
+pnpm test
 ```
+
+`pnpm test` runs Vite+'s Vitest 5 once, including all colocated tests, the jsdom
+environment and MSW setup. Use `pnpm test:watch` for watch mode. From the repository
+root, run `mise run test:web`, `mise run lint:web` and `mise run build:web` to match
+the active web CI job.

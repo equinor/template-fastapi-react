@@ -101,10 +101,22 @@ Additional secrets are documented in [secrets/README.md](secrets/README.md).
 
 ## :dizzy: Development
 
+Web development uses Vite+ and pnpm with Node 24.22.2:
+
+```sh
+mise install
+mise run install-dependencies:web
+mise run lint:web
+mise run test:web
+mise run build:web
+```
+
+See [web/README.md](web/README.md) for dev server, formatting and API generation commands.
+
 See the [docs](https://equinor.github.io/template-fastapi-react/) or run locally:
 
 ```sh
-mise run docs-serve
+mise run docs:serve
 ```
 
 ## :+1: Contributing

@@ -6,7 +6,7 @@
  */
 
 import { render, screen, waitFor } from '@testing-library/react'
-import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vite-plus/test'
 import { VersionText } from './VersionText'
 
 const mockFetchOk = (body: string) =>
