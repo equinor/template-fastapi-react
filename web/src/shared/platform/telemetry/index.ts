@@ -1,7 +1,12 @@
-export { isTelemetryBackend, TelemetryBackend } from './backend'
-export { createTelemetry } from './createTelemetry'
-export { registerGlobalErrorHandlers } from './registerGlobalErrorHandlers'
-export { TelemetryProvider, useTelemetry } from './TelemetryContext'
-export { TelemetryErrorBoundary } from './TelemetryErrorBoundary'
-export type { Telemetry } from './types'
-export { useTrackEvent, useTrackMount } from './useTrackEvent'
+export {
+  createTelemetry,
+  isTelemetryBackend,
+  registerGlobalErrorHandlers,
+  TelemetryBackend,
+  TelemetryErrorBoundary,
+  TelemetryProvider,
+  useTelemetry,
+  useTrackEvent,
+  useTrackMount,
+} from '@team-hermes/react-components'
+export type { Telemetry } from '@team-hermes/react-components'

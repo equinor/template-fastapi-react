@@ -1,5 +1,7 @@
+import './config/zod'
 import { createRouter, RouterProvider } from '@tanstack/react-router'
-import { lazy, StrictMode, Suspense } from 'react'
+import { initColorScheme, useCustomToast } from '@team-hermes/react-components'
+import { lazy, StrictMode, Suspense, useEffect, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import { ApplicationError } from './app/bootstrap/ApplicationError'
 import { createQueryClient } from './app/bootstrap/createQueryClient'
@@ -10,6 +12,8 @@ import { ENV } from './config/env'
 import { configureApiClient } from './shared/platform/api'
 import { startSessionWatcher } from './shared/platform/auth'
 import { createTelemetry, registerGlobalErrorHandlers } from './shared/platform/telemetry'
+import '@team-hermes/react-components/style.css'
+import 'react-toastify/dist/ReactToastify.css'
 import './app/styles/index.css'
 
 const ReactQueryDevtools = import.meta.env.DEV
@@ -27,29 +31,47 @@ const container = document.getElementById('root')
 if (!container) throw new Error('Root element #root not found')
 const root = createRoot(container)
 
-try {
-  const telemetry = createTelemetry(ENV.telemetryBackend)
-  configureApiClient({ telemetry })
-  const queryClient = createQueryClient({ telemetry })
-  startSessionWatcher(queryClient)
-  registerGlobalErrorHandlers(telemetry)
+const telemetry = createTelemetry(ENV.telemetryBackend)
 
-  const router = createRouter({
-    routeTree,
-    context: { queryClient, telemetry },
-    ...routerDefaults,
+const Application = () => {
+  const toast = useCustomToast()
+  const [{ queryClient, router }] = useState(() => {
+    const queryClient = createQueryClient({ telemetry, toast })
+    const router = createRouter({
+      routeTree,
+      context: { queryClient, telemetry },
+      ...routerDefaults,
+    })
+    return { queryClient, router }
   })
+  useEffect(() => {
+    const stopWatcher = startSessionWatcher(queryClient)
+    const removeErrorHandlers = registerGlobalErrorHandlers(telemetry)
+    return () => {
+      stopWatcher()
+      removeErrorHandlers()
+    }
+  }, [queryClient])
+
+  return (
+    <Providers telemetry={telemetry} queryClient={queryClient} onReauthenticated={router.invalidate}>
+      <RouterProvider router={router} />
+      {import.meta.env.DEV && ReactQueryDevtools && TanStackRouterDevtools && (
+        <Suspense fallback={null}>
+          <ReactQueryDevtools initialIsOpen={false} />
+          <TanStackRouterDevtools router={router} initialIsOpen={false} position="bottom-right" />
+        </Suspense>
+      )}
+    </Providers>
+  )
+}
+
+try {
+  initColorScheme()
+  configureApiClient({ telemetry })
   root.render(
     <StrictMode>
-      <Providers telemetry={telemetry} queryClient={queryClient} onReauthenticated={router.invalidate}>
-        <RouterProvider router={router} />
-        {import.meta.env.DEV && ReactQueryDevtools && TanStackRouterDevtools && (
-          <Suspense fallback={null}>
-            <ReactQueryDevtools initialIsOpen={false} />
-            <TanStackRouterDevtools router={router} initialIsOpen={false} position="bottom-right" />
-          </Suspense>
-        )}
-      </Providers>
+      <Application />
     </StrictMode>
   )
 } catch (error) {
@@ -57,6 +79,8 @@ try {
   console.error('Bootstrap failed', error)
   root.render(<ApplicationError error={error} />)
 }
+
+if (import.meta.hot) import.meta.hot.dispose(() => root.unmount())
 
 // Type-safe router registration.
 declare module '@tanstack/react-router' {

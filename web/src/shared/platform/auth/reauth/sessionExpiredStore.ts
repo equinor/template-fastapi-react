@@ -8,8 +8,7 @@
  * fire into the void. Storing a flag means the dialog reads the latched
  * value on mount via `useSyncExternalStore` regardless of when it ran.
  *
- * Mirrors `shared/platform/toast/toastStore` deliberately so both have
- * the same shape.
+ * The framework-free subscription works for callers outside React.
  */
 
 type Listener = () => void

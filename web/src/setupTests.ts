@@ -5,18 +5,26 @@
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom/vitest'
 import { cleanup } from '@testing-library/react'
+import { toast } from 'react-toastify'
 import { afterAll, afterEach, beforeAll } from 'vite-plus/test'
 import { resetDb } from './mocks/db'
 import { server } from './mocks/server'
 import { configureApiClient } from './shared/platform/api'
 import { createTelemetry, TelemetryBackend } from './shared/platform/telemetry'
 
-// Build a console telemetry instance for tests so the few assertions
-// that spy on `console` have something to observe, and pass it to the
-// SDK wiring. Tests that mount `<AppProviders>` use `appTelemetry` from
-// `app/telemetry.ts` directly — both instances share the same console
-// backend so assertions are stable either way.
+// The generated SDK uses the same Hermes telemetry contract as the app.
 const testTelemetry = createTelemetry(TelemetryBackend.Console)
+
+window.matchMedia ??= (query) => ({
+  matches: false,
+  media: query,
+  onchange: null,
+  addListener: () => {},
+  removeListener: () => {},
+  addEventListener: () => {},
+  removeEventListener: () => {},
+  dispatchEvent: () => false,
+})
 
 // Wire the generated SDK to httpClient with a test-safe baseUrl.
 configureApiClient({ telemetry: testTelemetry })
@@ -51,6 +59,8 @@ if (typeof HTMLDialogElement !== 'undefined') {
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
 afterEach(() => {
   cleanup()
+  toast.dismiss()
+  toast.clearWaitingQueue()
   server.resetHandlers()
   resetDb()
   localStorage.clear()

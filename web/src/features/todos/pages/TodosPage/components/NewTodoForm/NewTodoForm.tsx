@@ -15,7 +15,7 @@ import { Button, Input, Typography } from '@equinor/eds-core-react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useCreateTodo } from '@/features/todos/api'
-import { ErrorPanel } from '@/shared/components/ErrorPanel/ErrorPanel'
+import { ErrorPanel } from '@team-hermes/react-components'
 import { type FormValues, schema } from './NewTodoForm.utils'
 
 export const NewTodoForm = () => {

@@ -4,9 +4,9 @@
 // breadcrumbs, nothing at all — should fork *this* file and leave
 // `shared/platform/api/createBaseQueryClient.ts` untouched.
 
-import { createBaseQueryClient, isApiError, type QueryNotifier } from '@/shared/platform/api'
+import { createBaseQueryClient, type QueryNotifier } from '@/shared/platform/api'
 import type { Telemetry } from '@/shared/platform/telemetry'
-import { toast } from '@/shared/platform/toast'
+import { isApiError, type useCustomToast } from '@team-hermes/react-components'
 
 // 401s are handled out-of-band by `SessionExpiredDialog` (which listens
 // for the `sessionExpiredStore` flag latched by `httpClient`). A toast
@@ -14,7 +14,13 @@ import { toast } from '@/shared/platform/toast'
 const isSessionExpired = (error: unknown): boolean =>
   isApiError(error) && error.kind === 'http' && error.status === 401
 
-export const createQueryClient = ({ telemetry }: { telemetry: Telemetry }) => {
+export const createQueryClient = ({
+  telemetry,
+  toast,
+}: {
+  telemetry: Telemetry
+  toast: Pick<ReturnType<typeof useCustomToast>, 'success' | 'error'>
+}) => {
   const toastNotifier: QueryNotifier = {
     success: toast.success,
     error: (message, { error, source }) => {
@@ -39,7 +45,7 @@ export const createQueryClient = ({ telemetry }: { telemetry: Telemetry }) => {
           message: error instanceof Error ? error.message : String(error),
         })
       }
-      toast.error(message)
+      toast.error('Request failed', message)
     },
   }
 

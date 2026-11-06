@@ -1,4 +1,4 @@
-import { ErrorPanel } from '@/shared/components/ErrorPanel/ErrorPanel'
+import { ErrorPanel } from '@team-hermes/react-components'
 import { StatusPanel } from '../components/StatusPanel/StatusPanel'
 
 type ErrorPageProps = {

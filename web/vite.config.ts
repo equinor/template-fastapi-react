@@ -106,7 +106,12 @@ export default defineConfig({
       'typescript/no-misused-spread': 'warn',
     },
   },
-  test: { globals: true, environment: 'jsdom', setupFiles: './src/setupTests.ts' },
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './src/setupTests.ts',
+    server: { deps: { inline: [/@team-hermes\/react-components/] } },
+  },
   resolve: { tsconfigPaths: true },
   plugins: lazyPlugins(() => [
     tailwindcss(),

@@ -28,14 +28,12 @@
  *   --shadow-*   elevation
  *   --radius-*   corner radii
  *
- * Dark mode: `:root { color-scheme: light dark }` (set below) follows the OS
- * setting; the theme toggle overrides it by setting `color-scheme` and
- * `data-color-scheme` on <html> (see shared/platform/theme). EDS tokens
+ * Dark mode: Hermes initializes and toggles `data-color-scheme` on <html>.
+ * Its stylesheet also sets the native `color-scheme`. EDS tokens
  * resolve their light/dark values from those. No theme provider, no `dark:`
  * prefixes anywhere in component code.
  */
 :root {
-  color-scheme: light dark;
   /* Backgrounds */
   --bg-canvas: var(--eds-color-bg-canvas);
   --bg-surface: var(--eds-color-bg-surface);
