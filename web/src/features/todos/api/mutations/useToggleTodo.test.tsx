@@ -39,7 +39,11 @@ test('a late failed toggle rolls back only its own todo', async () => {
   const queryClient = createQueryClient({ telemetry })
   await queryClient.fetchQuery(todoListQuery())
   const { result } = renderHook(
-    () => ({ list: useQuery(todoListQuery()), toggleFirst: useToggleTodo(), toggleSecond: useToggleTodo() }),
+    () => ({
+      list: useQuery(todoListQuery()),
+      toggleFirst: useToggleTodo(),
+      toggleSecond: useToggleTodo(),
+    }),
     {
       wrapper: ({ children }: { children: ReactNode }) => (
         <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
