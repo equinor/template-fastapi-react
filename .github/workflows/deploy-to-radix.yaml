@@ -46,7 +46,7 @@ jobs:
       # work. Note that the credential will need to specify a branch name. This
       # step will therefore fail for all branches not mentioned in the credentials
       - name: Az CLI login
-        uses: azure/login@532459ea530d8321f2fb9bb10d1e0bcf23869a43 # v3.0.0
+        uses: azure/login@a641126d1b8aa4d1fa005f4f92df94a3a4c4c906 # v3.1.0
         with:
           client-id: ${{ vars.AZURE_CLIENT_ID }}
           tenant-id: ${{ vars.AZURE_TENANT_ID }}
@@ -61,7 +61,7 @@ jobs:
           echo "APP_SERVICE_ACCOUNT_TOKEN=$token" >> "$GITHUB_ENV"
 
       - name: Deploy on Radix
-        uses: equinor/radix-github-actions@b23674a56b82a1da783b507bc7f15e7ca7067dd8 # v2.0.2
+        uses: equinor/radix-github-actions@e80f8b60d4b433cf7e7b207765cd8df61ce0f73a # v2.0.3
         env:
           APP_SERVICE_ACCOUNT_TOKEN: ${{ env.APP_SERVICE_ACCOUNT_TOKEN }}
         with:
