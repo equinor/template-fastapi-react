@@ -36,10 +36,9 @@ Of note:
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
-TypeScript stays on `~6.0.3` until the Vite+/pnpm migration removes ESLint and
-vite-plugin-checker and resolves OpenAPI generator compatibility. TypeScript 7
-removes the legacy JavaScript compiler API used by these tools;
-Yarn PnP's TypeScript compatibility patch also currently fails to install it.
+TypeScript stays on `~6.0.3` until OpenAPI generator compatibility is resolved.
+`@hey-api/openapi-ts` uses the legacy `ts.factory` API, which is absent in
+TypeScript 7.
 The configs use erasable syntax, verbatim module syntax, and forced module
 detection in preparation for that migration.
 

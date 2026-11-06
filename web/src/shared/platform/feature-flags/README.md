@@ -49,9 +49,11 @@ export const FEATURE_FLAGS: FeatureFlagsTable<FeatureFlagName> = {
 
 ```tsx
 // JSX gate
-;<FeatureToggle featureFlag={FeatureFlagName.BULK_TOOLS}>
-  <BulkActions />
-</FeatureToggle>
+const bulkTools = (
+  <FeatureToggle featureFlag={FeatureFlagName.BULK_TOOLS}>
+    <BulkActions />
+  </FeatureToggle>
+)
 
 // Boolean in handlers / conditionals
 const showBulk = useFeatureFlag(FeatureFlagName.BULK_TOOLS)
@@ -111,7 +113,9 @@ The provider takes `user` directly, so tests can pass any subject
 without mocking auth:
 
 ```tsx
-;<FeatureFlagsProvider flags={{ DEMO: true }} user={{ roles: ['admin'] }}>
-  <FeatureToggle featureFlag="DEMO">…</FeatureToggle>
-</FeatureFlagsProvider>
+const example = (
+  <FeatureFlagsProvider flags={{ DEMO: true }} user={{ roles: ['admin'] }}>
+    <FeatureToggle featureFlag="DEMO">…</FeatureToggle>
+  </FeatureFlagsProvider>
+)
 ```
