@@ -71,7 +71,6 @@ try {
   configureApiClient({ telemetry })
   root.render(
     <StrictMode>
-      {/* React 19 render errors are reported through the root boundary, not the synchronous bootstrap catch. */}
       <TelemetryErrorBoundary telemetry={telemetry} fallback={ApplicationError}>
         <Application />
       </TelemetryErrorBoundary>
