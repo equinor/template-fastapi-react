@@ -33,7 +33,12 @@ description = "Lint shell scripts with shellcheck"
 dir = "{{config_root}}"
 run = "shellcheck --external-sources IaC/*.sh .mise/tasks/iac/* redis/rootfs/usr/local/sbin/*.sh web/oauth2/*.sh api/src/*.sh"
 
+["lint:workflows"]
+description = "Audit GitHub Actions workflows with zizmor"
+dir = "{{config_root}}"
+run = "zizmor --offline .github/workflows"
+
 [lint]
 description = "Lint the entire project"
-depends = ["lint:shell", "lint:api", "lint:web"]
+depends = ["lint:shell", "lint:api", "lint:web", "lint:workflows"]
 run = "mise fmt"

@@ -14,7 +14,10 @@ on:
 
 permissions:
   contents: read
-  packages: write
+
+concurrency:
+  group: publish-image
+  cancel-in-progress: false
 
 env:
   API_IMAGE: ghcr.io/equinor/template-fastapi-react/api
@@ -23,9 +26,13 @@ env:
 jobs:
   build-and-publish-nginx-main:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          persist-credentials: false
           fetch-depth: 2
 
       - name: "Login to image registry"
@@ -36,34 +43,43 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: "Build web"
+        env:
+          AZURE_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
+          AZURE_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
         run: |
-          docker pull $NGINX_IMAGE
-          printf "$(git log -n 1 --format=format:'hash: %h%ndate: %cs%nrefs: %d' --decorate=short --decorate-refs=refs/tags | sed 's/ (tag: \([^\s]*\))/\1/')" > ./web/public/version.txt
+          docker pull "$NGINX_IMAGE"
+          printf '%s' "$(git log -n 1 --format=format:'hash: %h%ndate: %cs%nrefs: %d' --decorate=short --decorate-refs=refs/tags | sed 's/ (tag: \([^\s]*\))/\1/')" > ./web/public/version.txt
           docker build \
           --build-arg AUTH_ENABLED=1 \
-          --build-arg AUTH_SCOPE=api://${{ vars.AZURE_CLIENT_ID }}/api \
-          --build-arg CLIENT_ID=${{ vars.AZURE_CLIENT_ID }} \
-          --build-arg TENANT_ID=${{ vars.AZURE_TENANT_ID }} \
-          --cache-from ${NGINX_IMAGE} \
-          --tag ${NGINX_IMAGE} \
+          --build-arg "AUTH_SCOPE=api://${AZURE_CLIENT_ID}/api" \
+          --build-arg "CLIENT_ID=${AZURE_CLIENT_ID}" \
+          --build-arg "TENANT_ID=${AZURE_TENANT_ID}" \
+          --cache-from "$NGINX_IMAGE" \
+          --tag "$NGINX_IMAGE" \
           --target nginx-prod \
           ./web
 
       - name: "Publish web"
+        env:
+          IMAGE_TAGS: ${{ inputs.image-tags }}
         run: |
-          IFS=','
-          for IMAGE_TAG in $(echo ${{ inputs.image-tags }})
+          IFS=',' read -r -a tags <<< "$IMAGE_TAGS"
+          for IMAGE_TAG in "${tags[@]}"
           do
             echo "Tagging with $IMAGE_TAG"
-            docker tag $NGINX_IMAGE $NGINX_IMAGE:$IMAGE_TAG
-            docker push $NGINX_IMAGE:$IMAGE_TAG
+            docker tag "$NGINX_IMAGE" "$NGINX_IMAGE:$IMAGE_TAG"
+            docker push "$NGINX_IMAGE:$IMAGE_TAG"
           done
 
   build-and-publish-api-main:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          persist-credentials: false
           fetch-depth: 2
 
       - name: "Login to image registry"
@@ -75,16 +91,18 @@ jobs:
 
       - name: "Build API"
         run: |
-          docker pull $API_IMAGE
-          printf "$(git log -n 1 --format=format:'hash: %h%ndate: %cs%nrefs: %d' --decorate=short --decorate-refs=refs/tags | sed 's/ (tag: \([^\s]*\))/\1/')" > ./api/src/version.txt
-          docker build --cache-from $API_IMAGE --target prod --tag $API_IMAGE ./api
+          docker pull "$API_IMAGE"
+          printf '%s' "$(git log -n 1 --format=format:'hash: %h%ndate: %cs%nrefs: %d' --decorate=short --decorate-refs=refs/tags | sed 's/ (tag: \([^\s]*\))/\1/')" > ./api/src/version.txt
+          docker build --cache-from "$API_IMAGE" --target prod --tag "$API_IMAGE" ./api
 
       - name: "Publish API"
+        env:
+          IMAGE_TAGS: ${{ inputs.image-tags }}
         run: |
-          IFS=','
-          for IMAGE_TAG in $(echo ${{ inputs.image-tags }})
+          IFS=',' read -r -a tags <<< "$IMAGE_TAGS"
+          for IMAGE_TAG in "${tags[@]}"
           do
             echo "Tagging with $IMAGE_TAG"
-            docker tag $API_IMAGE $API_IMAGE:$IMAGE_TAG
-            docker push $API_IMAGE:$IMAGE_TAG
+            docker tag "$API_IMAGE" "$API_IMAGE:$IMAGE_TAG"
+            docker push "$API_IMAGE:$IMAGE_TAG"
           done

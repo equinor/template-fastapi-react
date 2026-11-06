@@ -9,6 +9,10 @@ permissions:
   contents: read
   packages: read
 
+concurrency:
+  group: tests-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   api-unit-tests:
     runs-on: ubuntu-latest
@@ -16,6 +20,7 @@ jobs:
       - name: "Setup: checkout repository"
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          persist-credentials: false
           sparse-checkout: |
             .github
             .mise
@@ -34,6 +39,8 @@ jobs:
       API_IMAGE: ghcr.io/equinor/template-fastapi-react/api
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Login to image registry
         uses: docker/login-action@650006c6eb7dba73a995cc03b0b2d7f5ca915bee # v4.2.0
@@ -44,10 +51,10 @@ jobs:
 
       - name: Build API image
         run: |
-          docker pull $API_IMAGE
+          docker pull "$API_IMAGE"
           docker build --target development --tag api-development ./api # TODO: --cache-from $API_IMAGE
       - name: BDD Integration tests
-        if: ${{ false }} # disable for now
+        if: false # disable for now
         run: docker compose -f docker-compose.yml -f docker-compose.ci.yml run api behave
 
       - name: Pytest Integration tests
@@ -55,11 +62,13 @@ jobs:
 
   web-tests:
     runs-on: ubuntu-latest
-    if: ${{ false }} # disable for now as they do not currently work
+    if: false # disable for now as they do not currently work
     env:
       NGINX_IMAGE: ghcr.io/equinor/template-fastapi-react/nginx
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Login to image registry
         uses: docker/login-action@650006c6eb7dba73a995cc03b0b2d7f5ca915bee # v4.2.0
@@ -70,11 +79,11 @@ jobs:
 
       - name: Build Web Image
         run: |
-          docker pull $NGINX_IMAGE
-          docker build --cache-from $NGINX_IMAGE --target development --tag web-dev ./web
+          docker pull "$NGINX_IMAGE"
+          docker build --cache-from "$NGINX_IMAGE" --target development --tag web-dev ./web
 
       - name: Run Web tests
-        if: ${{ false }} # disable for now as they do not currently work
+        if: false # disable for now as they do not currently work
         run: docker compose -f docker-compose.yml -f docker-compose.ci.yml run --rm web yarn test
 
   docs-tests:
@@ -85,6 +94,7 @@ jobs:
       - name: "Setup: checkout repository"
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          persist-credentials: false
           sparse-checkout: |
             .github
             .mise
