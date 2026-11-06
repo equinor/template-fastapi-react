@@ -2,11 +2,10 @@
 
 This project was set up with [Create React App](https://github.com/facebook/create-react-app), but then ported to use [Vite](https://vitejs.dev/), which is faster and more actively maintained.
 
-* TypeScript React
-* Linting with eslint
-* Formatting with prettier
-* Testing with Jest and Enzyme
-* State management with React Context
+- TypeScript React
+- Formatting and linting with Biome, with ESLint for TanStack Query and import boundaries
+- Testing with Vitest and Testing Library
+- State management with React Context
 
 ## TypeScript React
 
@@ -14,27 +13,37 @@ The starter project layout should look like the following:
 
 ```text
 web/
-├─ node_modules/
 ├─ public/
 ├─ src/
 │  └─ ...
 ├─ package.json
 ├─ tsconfig.json
-├─ tsconfig.prod.json
-├─ tsconfig.test.json
-└─ .eslintrc.js
+├─ tsconfig.app.json
+├─ tsconfig.node.json
+└─ eslint.config.mts
 ```
 
 Of note:
 
-* `tsconfig.json` contains TypeScript-specific options for the project.
-  * You can also add a `tsconfig.prod.json` and a `tsconfig.test.json` in case you want to make any tweaks to your production builds, or your test builds.
-* `.eslintrc.js` stores the settings for linting, [eslint](https://github.com/eslint/eslint).
-* `package.json` contains dependencies, as well as some shortcuts for commands we'd like to run for testing, previewing, and deploying the app.
-* `public` contains static assets, including the unauthenticated `signed-out.html` landing page. Keep that page when customizing the app.
-* `src` contains the code. `index.tsx` is the entry-point for your file, and is mandatory.
+- `tsconfig.json` references `tsconfig.app.json` (source and tests) and
+  `tsconfig.node.json` (root tool configuration files). Run `yarn compile`
+  (`tsc -b`) to check both; `yarn build` checks both before building with Vite.
+  The app config owns the `@/*` alias without `baseUrl`.
+- `eslint.config.mts` stores the TanStack Query and import-boundary rules.
+- `package.json` contains dependencies, as well as some shortcuts for commands we'd like to run for testing, previewing, and deploying the app.
+- `public` contains static assets, including the unauthenticated `signed-out.html` landing page. Keep that page when customizing the app.
+- `src` contains the code. `index.tsx` is the entry-point for your file, and is mandatory.
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+TypeScript stays on `~6.0.3` until OpenAPI generator compatibility is resolved.
+`@hey-api/openapi-ts` uses the legacy `ts.factory` API, which is absent in
+TypeScript 7.
+The configs use erasable syntax, verbatim module syntax, and forced module
+detection in preparation for that migration.
+
+Query and router devtools load lazily in development only and are excluded
+from production builds.
 
 ## Sign-out
 

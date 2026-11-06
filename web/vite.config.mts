@@ -7,7 +7,7 @@ import csp from 'vite-plugin-csp-guard'
 import svgrPlugin from 'vite-plugin-svgr'
 
 export default defineConfig({
-  // Vite 8+ resolves `tsconfig.json` `paths` natively — no plugin needed.
+  // Vite 8+ resolves referenced app tsconfig `paths` natively — no plugin needed.
   // Replaces the previous `vite-tsconfig-paths` dependency.
   resolve: {
     tsconfigPaths: true,
@@ -23,7 +23,9 @@ export default defineConfig({
       autoCodeSplitting: true,
     }),
     checker({
-      typescript: true,
+      typescript: {
+        buildMode: true,
+      },
     }),
     react(),
     svgrPlugin(),
