@@ -34,11 +34,10 @@ Of note:
   (`tsc -b`) to check both; `pnpm build` runs `vp check` before building.
   The app config owns the `@/*` alias without `baseUrl`.
 - `vite.config.ts` owns lint, format, test and build configuration. TanStack Query's
-  recommended rules run through Oxlint's JS-plugin support; import-boundary overrides
-  preserve feature and platform barrels and shared/config layering.
-  `no-void-query-fn` remains declared but cannot run without ESLint parser services;
-  it was also inert in the previous untyped ESLint configuration. All six other
-  recommended Query rules are exercised by migration validation.
+  six supported recommended rules run through Oxlint's JS-plugin support;
+  import-boundary overrides preserve feature and platform barrels and shared/config
+  layering. `no-void-query-fn` is not enabled: it needs ESLint parser services
+  unavailable in this bridge and was also inert in the previous untyped ESLint config.
 - `pnpm-workspace.yaml` pins Vite+ and its Vite core alias together in the catalog.
   Keep the Vite override and bundled Vitest override aligned when upgrading Vite+.
 - `package.json` contains dependencies, as well as some shortcuts for commands we'd like to run for testing, previewing, and deploying the app.
