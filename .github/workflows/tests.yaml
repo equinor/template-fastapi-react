@@ -62,29 +62,27 @@ jobs:
 
   web-tests:
     runs-on: ubuntu-latest
-    if: false # disable for now as they do not currently work
-    env:
-      NGINX_IMAGE: ghcr.io/equinor/template-fastapi-react/nginx
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+          sparse-checkout: |
+            .github
+            .mise
+            web
 
-      - name: Login to image registry
-        uses: docker/login-action@650006c6eb7dba73a995cc03b0b2d7f5ca915bee # v4.2.0
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: "Setup: Environment"
+        uses: ./.github/actions/setup-environment
+        timeout-minutes: 5
 
-      - name: Build Web Image
-        run: |
-          docker pull "$NGINX_IMAGE"
-          docker build --cache-from "$NGINX_IMAGE" --target development --tag web-dev ./web
+      - name: "Run: web checks"
+        run: mise run lint:web
 
-      - name: Run Web tests
-        if: false # disable for now as they do not currently work
-        run: docker compose -f docker-compose.yml -f docker-compose.ci.yml run --rm web yarn test
+      - name: "Run: web tests"
+        run: mise run test:web
+
+      - name: "Run: production web build"
+        run: mise run build:web
 
   docs-tests:
     name: test-docs

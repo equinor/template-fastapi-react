@@ -17,33 +17,27 @@ RUN mkdir /code && \
 
 RUN corepack enable
 
-# Workaround: repo.yarnpkg.com (GitHub Pages mirror corepack uses by default)
-# is currently returning 404, which makes corepack silently cache an empty
-# yarn.js. Pointing corepack at the npm registry uses @yarnpkg/cli-dist
-# instead and produces a working yarn binary.
-ENV COREPACK_NPM_REGISTRY=https://registry.npmjs.org
-
 WORKDIR /code
 USER "node"
 
-COPY --chown="node:node" .yarnrc.yml package.json yarn.lock ./
-ENV YARN_CACHE_FOLDER="/var/lib/yarn"
-RUN --mount=type=cache,target="$YARN_CACHE_FOLDER" \
-    yarn install --immutable
+COPY --chown="node:node" package.json pnpm-workspace.yaml pnpm-lock.yaml ./
+# Match storeDir: .pnpm-store in pnpm-workspace.yaml.
+RUN --mount=type=cache,target=/code/.pnpm-store,uid=1000,gid=1000 \
+    pnpm install --frozen-lockfile
 
-COPY --chown="node:node" index.html tsconfig*.json vite.config.mts vitest.config.mts ./
+COPY --chown="node:node" index.html tsconfig*.json vite.config.ts ./
 
 COPY --chown="node:node" public public
 COPY --chown="node:node" src src
 
 FROM base AS development
-CMD ["yarn", "start"]
+CMD ["pnpm", "start"]
 
 FROM server AS nginx-dev
 COPY nginx/environments/web.dev.conf  /etc/nginx/environments/
 
 FROM base AS build
-RUN yarn build
+RUN pnpm build
 
 FROM server AS nginx-prod
 COPY nginx/environments/web.prod.conf /etc/nginx/environments/

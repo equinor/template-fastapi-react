@@ -15,13 +15,13 @@ bearer tokens are touched in JS.
 
 ## Files
 
-| File | Purpose |
-|---|---|
-| `types.ts` | Public types: `ApiError`, `QueryNotifier`, `NotificationSource`, `CreateQueryClientOptions`. |
-| `ApiError.ts` | `isApiError` runtime guard. |
-| `configureApiClient.ts` | Installs the shared `fetch` funnel onto the generated SDK. |
-| `createBaseQueryClient.ts` | Pure `QueryClient` factory + `noopNotifier`. |
-| `index.ts` | Public barrel (deep imports blocked by ESLint). |
+| File                       | Purpose                                                                                      |
+| -------------------------- | -------------------------------------------------------------------------------------------- |
+| `types.ts`                 | Public types: `ApiError`, `QueryNotifier`, `NotificationSource`, `CreateQueryClientOptions`. |
+| `ApiError.ts`              | `isApiError` runtime guard.                                                                  |
+| `configureApiClient.ts`    | Installs the shared `fetch` funnel onto the generated SDK.                                   |
+| `createBaseQueryClient.ts` | Pure `QueryClient` factory + `noopNotifier`.                                                 |
+| `index.ts`                 | Public barrel (deep imports blocked by Oxlint).                                              |
 
 ## Wiring
 
@@ -31,7 +31,7 @@ bearer tokens are touched in JS.
 // src/index.tsx
 const telemetry = createTelemetry(/* … */)
 configureApiClient({ telemetry })
-const queryClient = createQueryClient({ /* notifier, suppressNotification */ })
+const queryClient = createQueryClient({/* notifier, suppressNotification */})
 ```
 
 Tests do the same in `setupTests.ts` (MSW handlers are registered
@@ -101,7 +101,7 @@ useQuery({
   queryKey: todoKeys.list(),
   queryFn: fetchTodos,
   meta: {
-    errorMessage: 'Could not refresh todos',  // shown only on REFETCH failure
+    errorMessage: 'Could not refresh todos', // shown only on REFETCH failure
     // skipNotification: true,
   },
 })

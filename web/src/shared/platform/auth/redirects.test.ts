@@ -1,4 +1,4 @@
-import { afterEach, expect, test, vi } from 'vitest'
+import { afterEach, expect, test, vi } from 'vite-plus/test'
 import type { Telemetry } from '@/shared/platform/telemetry'
 import { signIn, signOut } from './redirects'
 

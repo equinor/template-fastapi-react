@@ -3,3 +3,15 @@ description = "Run the API unit tests"
 depends = ["install-dependencies:api"]
 dir = "{{config_root}}/api"
 run = "uv run pytest --unit"
+
+["test:web"]
+description = "Run web unit tests without watch mode"
+depends = ["install-dependencies:web"]
+dir = "{{config_root}}/web"
+run = "pnpm exec vp test run"
+
+["build:web"]
+description = "Build the production web application"
+depends = ["install-dependencies:web"]
+dir = "{{config_root}}/web"
+run = "pnpm exec vp build"

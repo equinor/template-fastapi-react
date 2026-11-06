@@ -15,7 +15,7 @@ import {
   RouterProvider,
 } from '@tanstack/react-router'
 import { act, render, screen } from '@testing-library/react'
-import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vite-plus/test'
 import { RouteErrorBoundary } from '@/app/error-pages/RouteErrorBoundary/RouteErrorBoundary'
 import type { ApiError } from '@/shared/platform/api'
 import { AUTH_SUCCESS_MESSAGE, sessionExpiredStore } from '@/shared/platform/auth'
@@ -39,7 +39,11 @@ const renderWithThrowingPage = (thrown: unknown) => {
     component: StubLayout,
     errorComponent: () => <div>root error boundary (should not appear)</div>,
   })
-  const leafRoute = createRoute({ getParentRoute: () => rootRoute, path: '/', component: ThrowingPage })
+  const leafRoute = createRoute({
+    getParentRoute: () => rootRoute,
+    path: '/',
+    component: ThrowingPage,
+  })
   const router = createRouter({
     routeTree: rootRoute.addChildren([leafRoute]),
     history: createMemoryHistory({ initialEntries: ['/'] }),
@@ -78,7 +82,12 @@ describe('routerDefaults', () => {
   })
 
   test('a 401 renders a sign-in-required page instead of a blank screen', async () => {
-    const unauthorized: ApiError = { kind: 'http', status: 401, traceId: 't1', message: 'unauthorized' }
+    const unauthorized: ApiError = {
+      kind: 'http',
+      status: 401,
+      traceId: 't1',
+      message: 'unauthorized',
+    }
     const { trackException } = renderWithThrowingPage(unauthorized)
 
     expect(await screen.findByText('Sign-in required')).toBeInTheDocument()
@@ -90,7 +99,12 @@ describe('routerDefaults', () => {
     'successful reauthentication retries a failed %s without navigating away',
     async (failureLocation) => {
       let signedIn = false
-      const unauthorized: ApiError = { kind: 'http', status: 401, traceId: 't1', message: 'unauthorized' }
+      const unauthorized: ApiError = {
+        kind: 'http',
+        status: 401,
+        traceId: 't1',
+        message: 'unauthorized',
+      }
       const loadProtectedRoute = vi.fn(() => {
         if (!signedIn) {
           sessionExpiredStore.notify()

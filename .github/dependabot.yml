@@ -84,6 +84,11 @@ updates:
   - package-ecosystem: "npm"
     directory: "/web"
     groups:
+      vite-plus:
+        patterns:
+          - "vite"
+          - "vite-plus"
+          - "@voidzero-dev/vite-plus-core"
       web-prod:
         dependency-type: production
         update-types: [minor, patch]

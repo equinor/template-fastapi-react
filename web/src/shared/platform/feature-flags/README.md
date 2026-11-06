@@ -11,7 +11,7 @@ agnostic of the app's user shape: it consumes any subject that has a
 | `FeatureFlagsContext.tsx` | Provider, context, types, `isEnabled` evaluator.                                 |
 | `useFeatureFlag.ts`       | Hook returning a `boolean` for a flag. Handles dev-only `localStorage` override. |
 | `FeatureToggle.tsx`       | JSX gate — `<FeatureToggle featureFlag={…}>{children}</FeatureToggle>`.          |
-| `index.ts`                | Public barrel (deep imports blocked by ESLint).                                  |
+| `index.ts`                | Public barrel (deep imports blocked by Oxlint).                                  |
 
 ## Wiring
 

@@ -16,7 +16,11 @@ const ReactQueryDevtools = import.meta.env.DEV
   ? lazy(() => import('@tanstack/react-query-devtools').then((m) => ({ default: m.ReactQueryDevtools })))
   : null
 const TanStackRouterDevtools = import.meta.env.DEV
-  ? lazy(() => import('@tanstack/react-router-devtools').then((m) => ({ default: m.TanStackRouterDevtools })))
+  ? lazy(() =>
+      import('@tanstack/react-router-devtools').then((m) => ({
+        default: m.TanStackRouterDevtools,
+      }))
+    )
   : null
 
 const container = document.getElementById('root')
@@ -49,7 +53,7 @@ try {
     </StrictMode>
   )
 } catch (error) {
-  // eslint-disable-next-line no-console
+  // oxlint-disable-next-line no-console
   console.error('Bootstrap failed', error)
   root.render(<ApplicationError error={error} />)
 }

@@ -3,8 +3,8 @@
 # Single Page Application
 !public/
 !package.json
-!yarn.lock
-!.yarnrc.yml
+!pnpm-lock.yaml
+!pnpm-workspace.yaml
 !src/*.ts
 !src/**/*.ts
 !src/*.tsx
@@ -13,8 +13,7 @@
 
 !index.html
 !tsconfig*.json
-!vite.config.mts
-!vitest.config.mts
+!vite.config.ts
 
 # NginX server
 !nginx/**/*.conf

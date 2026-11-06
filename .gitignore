@@ -12,6 +12,7 @@ __pycache__/
 node_modules
 web/.pnp.*
 web/package-lock.json
+web/.pnpm-store/
 
 # Testing
 /coverage
@@ -31,6 +32,7 @@ web/package-lock.json
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
 
 # Distribution / packaging
 .Python
@@ -154,7 +156,7 @@ dmypy.json
 .idea
 data
 
-# Yarn stuff
+# Yarn stuff; ignored to avoid tracking stale local Yarn files after migration.
 web/.yarn/*
 !web/.yarn/patches
 !web/.yarn/plugins

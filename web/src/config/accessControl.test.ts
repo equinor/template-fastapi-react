@@ -5,7 +5,7 @@
  * cross-user edits would fail here.
  */
 
-import { describe, expect, test } from 'vitest'
+import { describe, expect, test } from 'vite-plus/test'
 import type { Todo } from '@/features/todos'
 import type { CurrentUser } from '@/shared/platform/auth'
 import { isAllowed } from './accessControl'

@@ -39,7 +39,19 @@ services:
           path: ./web/src
           target: /code/src
         - action: rebuild
-          path: ./web/yarn.lock
+          path: ./web/pnpm-lock.yaml
+        - action: rebuild
+          path: ./web/pnpm-workspace.yaml
+        - action: rebuild
+          path: ./web/package.json
+        - action: rebuild
+          path: ./web/vite.config.ts
+        - action: rebuild
+          path: ./web/tsconfig.app.json
+        - action: rebuild
+          path: ./web/tsconfig.node.json
+        - action: rebuild
+          path: ./web/tsconfig.json
 
   db:
     volumes:
