@@ -2,16 +2,16 @@
 
 Generic, role-aware feature flag plumbing. The platform module is
 agnostic of the app's user shape: it consumes any subject that has a
-`roles: readonly string[]` field. Apps own the flag enum and the table.
+`roles: readonly string[]` field. Apps own the flag names and the table.
 
 ## Files
 
-| File | Purpose |
-|---|---|
-| `FeatureFlagsContext.tsx` | Provider, context, types, `isEnabled` evaluator. |
-| `useFeatureFlag.ts` | Hook returning a `boolean` for a flag. Handles dev-only `localStorage` override. |
-| `FeatureToggle.tsx` | JSX gate — `<FeatureToggle featureFlag={…}>{children}</FeatureToggle>`. |
-| `index.ts` | Public barrel (deep imports blocked by ESLint). |
+| File                      | Purpose                                                                          |
+| ------------------------- | -------------------------------------------------------------------------------- |
+| `FeatureFlagsContext.tsx` | Provider, context, types, `isEnabled` evaluator.                                 |
+| `useFeatureFlag.ts`       | Hook returning a `boolean` for a flag. Handles dev-only `localStorage` override. |
+| `FeatureToggle.tsx`       | JSX gate — `<FeatureToggle featureFlag={…}>{children}</FeatureToggle>`.          |
+| `index.ts`                | Public barrel (deep imports blocked by ESLint).                                  |
 
 ## Wiring
 
@@ -32,13 +32,15 @@ The flag table lives in app config:
 
 ```ts
 // config/featureFlags.ts
-export enum FeatureFlagName {
-  NEW_TODO_FORM = 'NEW_TODO_FORM',
-  BULK_TOOLS = 'BULK_TOOLS',
-}
+export const FeatureFlagName = {
+  NEW_TODO_FORM: 'NEW_TODO_FORM',
+  BULK_TOOLS: 'BULK_TOOLS',
+} as const
+
+export type FeatureFlagName = (typeof FeatureFlagName)[keyof typeof FeatureFlagName]
 
 export const FEATURE_FLAGS: FeatureFlagsTable<FeatureFlagName> = {
-  [FeatureFlagName.NEW_TODO_FORM]: true,                     // boolean, including production
+  [FeatureFlagName.NEW_TODO_FORM]: true, // boolean, including production
   [FeatureFlagName.BULK_TOOLS]: [{ allowedRoles: ['admin'] }], // role-gated
 }
 ```
@@ -47,9 +49,11 @@ export const FEATURE_FLAGS: FeatureFlagsTable<FeatureFlagName> = {
 
 ```tsx
 // JSX gate
-<FeatureToggle featureFlag={FeatureFlagName.BULK_TOOLS}>
-  <BulkActions />
-</FeatureToggle>
+const bulkTools = (
+  <FeatureToggle featureFlag={FeatureFlagName.BULK_TOOLS}>
+    <BulkActions />
+  </FeatureToggle>
+)
 
 // Boolean in handlers / conditionals
 const showBulk = useFeatureFlag(FeatureFlagName.BULK_TOOLS)
@@ -74,9 +78,12 @@ isEnabled(FeatureFlagName.BULK_TOOLS, user.roles, FEATURE_FLAGS)
 In development, `useFeatureFlag` checks `localStorage` first:
 
 ```js
-localStorage.setItem('flag:BULK_TOOLS', '1'); location.reload()  // force on
-localStorage.setItem('flag:BULK_TOOLS', '0'); location.reload()  // force off
-localStorage.removeItem('flag:BULK_TOOLS');   location.reload()  // back to configured
+localStorage.setItem('flag:BULK_TOOLS', '1')
+location.reload() // force on
+localStorage.setItem('flag:BULK_TOOLS', '0')
+location.reload() // force off
+localStorage.removeItem('flag:BULK_TOOLS')
+location.reload() // back to configured
 ```
 
 The override branch is dead code in production builds
@@ -106,7 +113,9 @@ The provider takes `user` directly, so tests can pass any subject
 without mocking auth:
 
 ```tsx
-<FeatureFlagsProvider flags={{ DEMO: true }} user={{ roles: ['admin'] }}>
-  <FeatureToggle featureFlag="DEMO">…</FeatureToggle>
-</FeatureFlagsProvider>
+const example = (
+  <FeatureFlagsProvider flags={{ DEMO: true }} user={{ roles: ['admin'] }}>
+    <FeatureToggle featureFlag="DEMO">…</FeatureToggle>
+  </FeatureFlagsProvider>
+)
 ```

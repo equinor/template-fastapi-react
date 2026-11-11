@@ -1,5 +1,4 @@
 import { type QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { SessionExpiredDialog } from '@/app/auth/SessionExpiredDialog/SessionExpiredDialog'
 import { ApplicationError } from '@/app/bootstrap/ApplicationError'
 import { type Telemetry, TelemetryErrorBoundary, TelemetryProvider } from '@/shared/platform/telemetry'
@@ -19,7 +18,6 @@ export const Providers = ({ telemetry, queryClient, onReauthenticated, children 
         <SessionExpiredDialog onReauthenticated={onReauthenticated} />
         {children}
         <ToastContainer />
-        {import.meta.env.DEV && <ReactQueryDevtools initialIsOpen={false} />}
       </QueryClientProvider>
     </TelemetryErrorBoundary>
   </TelemetryProvider>

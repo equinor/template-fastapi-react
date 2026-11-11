@@ -31,7 +31,7 @@ ENV YARN_CACHE_FOLDER="/var/lib/yarn"
 RUN --mount=type=cache,target="$YARN_CACHE_FOLDER" \
     yarn install --immutable
 
-COPY --chown="node:node" index.html tsconfig.json vite.config.mts vitest.config.mts ./
+COPY --chown="node:node" index.html tsconfig*.json vite.config.mts vitest.config.mts ./
 
 COPY --chown="node:node" public public
 COPY --chown="node:node" src src
