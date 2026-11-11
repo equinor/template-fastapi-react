@@ -36,7 +36,7 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@faker-js/faker": "^9.0.0",
+    "@faker-js/faker": "^10.5.0",
     "@hey-api/openapi-ts": "0.97.3",
     "@microsoft/applicationinsights-react-js": "^19.4.1",
     "@microsoft/applicationinsights-web": "^3.4.3",
