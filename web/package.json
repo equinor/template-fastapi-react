@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^9.0.0",
-    "@hey-api/openapi-ts": "0.97.3",
+    "@hey-api/openapi-ts": "0.99.0",
     "@microsoft/applicationinsights-react-js": "^19.4.1",
     "@microsoft/applicationinsights-web": "^3.4.3",
     "@tanstack/eslint-plugin-query": "^5.100.9",
