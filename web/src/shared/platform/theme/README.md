@@ -7,11 +7,11 @@ provider, no `dark:` Tailwind variants — the CSS layer uses EDS tokens
 
 ## Files
 
-| File | Purpose |
-|---|---|
-| `types.ts` | `ColorScheme` type. |
+| File                | Purpose                                                                                             |
+| ------------------- | --------------------------------------------------------------------------------------------------- |
+| `types.ts`          | `ColorScheme` type.                                                                                 |
 | `useColorScheme.ts` | `useColorScheme()` hook + `setColorScheme()` setter (also a `useSyncExternalStore`-backed pub/sub). |
-| `index.ts` | Public barrel (deep imports blocked by ESLint). |
+| `index.ts`          | Public barrel (deep imports blocked by Oxlint).                                                     |
 
 ## Usage
 
@@ -32,11 +32,11 @@ automatically; no per-component `dark:` styles needed.
 
 ## How it works
 
-| `scheme` | Effect on `<html>` |
-|---|---|
-| `light` | `color-scheme: light` + `data-color-scheme="light"` |
-| `dark` | `color-scheme: dark` + `data-color-scheme="dark"` |
-| `auto` | inline style and attribute removed; falls back to `:root { color-scheme: light dark }` from CSS and the OS preference |
+| `scheme` | Effect on `<html>`                                                                                                    |
+| -------- | --------------------------------------------------------------------------------------------------------------------- |
+| `light`  | `color-scheme: light` + `data-color-scheme="light"`                                                                   |
+| `dark`   | `color-scheme: dark` + `data-color-scheme="dark"`                                                                     |
+| `auto`   | inline style and attribute removed; falls back to `:root { color-scheme: light dark }` from CSS and the OS preference |
 
 The browser then resolves `light-dark(...)` and native widgets based on
 the active `color-scheme`. EDS tokens (from `@equinor/eds-tokens` 2.3)

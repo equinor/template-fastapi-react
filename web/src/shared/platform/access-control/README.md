@@ -7,12 +7,12 @@ own `Permissions` map and `ROLES` table and bind a checker via
 
 ## Files
 
-| File | Purpose |
-|---|---|
-| `types.ts` | Public type vocabulary: `PermissionMap`, `RolesWithPermissions`, `HasPermission`, etc. |
-| `access-control.ts` | `createHasPermission(roles)` runtime factory. |
-| `index.ts` | Public barrel (deep imports blocked by ESLint). |
-| `access-control.test.ts` | Unit tests for the factory. |
+| File                     | Purpose                                                                                |
+| ------------------------ | -------------------------------------------------------------------------------------- |
+| `types.ts`               | Public type vocabulary: `PermissionMap`, `RolesWithPermissions`, `HasPermission`, etc. |
+| `access-control.ts`      | `createHasPermission(roles)` runtime factory.                                          |
+| `index.ts`               | Public barrel (deep imports blocked by Oxlint).                                        |
+| `access-control.test.ts` | Unit tests for the factory.                                                            |
 
 ## Concepts
 
@@ -38,8 +38,7 @@ export type Permissions = {
   todos: { dataType: Todo | null; action: 'read' | 'create' | 'update' | 'delete' }
 }
 
-const isOwnTodo = (user: CurrentUser, todo: Todo | null) =>
-  todo != null && todo.user_id === user.id
+const isOwnTodo = (user: CurrentUser, todo: Todo | null) => todo != null && todo.user_id === user.id
 
 export const ROLES: RolesWithPermissions<Role, Permissions, CurrentUser> = {
   admin: { todos: { read: true, create: true, update: true, delete: true } },

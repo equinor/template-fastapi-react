@@ -17,7 +17,7 @@ import {
 import { render, screen } from '@testing-library/react'
 import { HttpResponse, http } from 'msw'
 import { Suspense } from 'react'
-import { describe, expect, test } from 'vitest'
+import { describe, expect, test } from 'vite-plus/test'
 import { z } from 'zod'
 import { RouteErrorBoundary } from '@/app/error-pages/RouteErrorBoundary/RouteErrorBoundary'
 import { createTelemetry, TelemetryBackend, TelemetryProvider } from '@/shared/platform/telemetry'

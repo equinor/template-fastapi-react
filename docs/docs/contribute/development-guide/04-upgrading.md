@@ -35,6 +35,17 @@ uv sync --dev
 
 ```shell
 cd web/
-# Add or remove package to package.json
-yarn install
+pnpm add <dependency>
+pnpm remove <dependency>
+pnpm install --frozen-lockfile
 ```
+
+Commit `pnpm-lock.yaml` with manifest changes. The `vite` and `vite-plus` catalog
+entries in `pnpm-workspace.yaml` must use the same Vite+ release; update the Vite
+override and bundled Vitest override together. Dependabot uses the `npm` ecosystem
+for `/web`, including pnpm catalogs.
+
+Do not upgrade the project's `typescript` dependency to 7 until the OpenAPI
+generator no longer requires `ts.factory`. Vite+ already provides independent
+TypeScript 7-based checking via `vp check`. After upgrades, run `pnpm exec vp check`,
+`pnpm test`, `pnpm build` and `pnpm generate`.

@@ -1,10 +1,12 @@
 # Getting Started with TypeScript React
 
-This project was set up with [Create React App](https://github.com/facebook/create-react-app), but then ported to use [Vite](https://vitejs.dev/), which is faster and more actively maintained.
+The web application uses [Vite+](https://viteplus.dev/) with pnpm and Node 24.22.2.
+Run `mise install` from the repository root, then `mise run install-dependencies:web`.
+All `vp` commands below use the pinned local dependency, not a global Vite+ install.
 
 - TypeScript React
-- Formatting and linting with Biome, with ESLint for TanStack Query and import boundaries
-- Testing with Vitest and Testing Library
+- Formatting and linting with Oxfmt/Oxlint, including TanStack Query and import boundaries
+- Testing with Vite+'s Vitest 5 and Testing Library
 - State management with React Context
 
 ## TypeScript React
@@ -20,27 +22,55 @@ web/
 ├─ tsconfig.json
 ├─ tsconfig.app.json
 ├─ tsconfig.node.json
-└─ eslint.config.mts
+├─ pnpm-workspace.yaml
+├─ pnpm-lock.yaml
+└─ vite.config.ts
 ```
 
 Of note:
 
 - `tsconfig.json` references `tsconfig.app.json` (source and tests) and
-  `tsconfig.node.json` (root tool configuration files). Run `yarn compile`
-  (`tsc -b`) to check both; `yarn build` checks both before building with Vite.
+  `tsconfig.node.json` (root tool configuration files). Run `pnpm compile`
+  (`tsc -b`) to check both; `pnpm build` runs `vp check` before building.
   The app config owns the `@/*` alias without `baseUrl`.
-- `eslint.config.mts` stores the TanStack Query and import-boundary rules.
+- `vite.config.ts` owns lint, format, test and build configuration. TanStack Query's
+  six supported recommended rules run through Oxlint's JS-plugin support;
+  import-boundary overrides preserve feature and platform barrels and shared/config
+  layering. `no-void-query-fn` is not enabled: it needs ESLint parser services
+  unavailable in this bridge and was also inert in the previous untyped ESLint config.
+- `pnpm-workspace.yaml` pins Vite+ and its Vite core alias together in the catalog.
+  Keep the Vite override and bundled Vitest override aligned when upgrading Vite+.
 - `package.json` contains dependencies, as well as some shortcuts for commands we'd like to run for testing, previewing, and deploying the app.
 - `public` contains static assets, including the unauthenticated `signed-out.html` landing page. Keep that page when customizing the app.
 - `src` contains the code. `index.tsx` is the entry-point for your file, and is mandatory.
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
-TypeScript stays on `~6.0.3` until OpenAPI generator compatibility is resolved.
-`@hey-api/openapi-ts` uses the legacy `ts.factory` API, which is absent in
-TypeScript 7.
-The configs use erasable syntax, verbatim module syntax, and forced module
-detection in preparation for that migration.
+TypeScript remains `~6.0.3` for `tsc` and OpenAPI generation: even
+`@hey-api/openapi-ts@0.99.0` still imports `typescript` and calls `ts.factory`,
+which TypeScript 7 no longer provides. No compiler API patches are applied.
+`vp check` independently runs TypeScript 7-based type-aware linting and type checks
+through Vite+'s bundled tsgolint. The configs use erasable syntax, verbatim module
+syntax, and forced module detection.
+
+## Web commands
+
+Run these from `web/` after `pnpm install --frozen-lockfile`:
+
+| Command              | Purpose                                            |
+| -------------------- | -------------------------------------------------- |
+| `pnpm start`         | Dev server on port 3000                            |
+| `pnpm exec vp check` | Formatting, lint and native TypeScript checks      |
+| `pnpm compile`       | Check app and tooling projects with TypeScript 6   |
+| `pnpm exec vp fmt`   | Format web source, CSS/Tailwind, JSON and Markdown |
+| `pnpm test`          | Run all colocated tests once (CI-safe)             |
+| `pnpm test:watch`    | Watch tests locally                                |
+| `pnpm build`         | Check and build production assets into `build/`    |
+| `pnpm generate`      | Generate the API client from `api/.openapi.json`   |
+
+CI runs the same checks, tests and production build through mise. The existing
+pre-commit policy uses the local Vite+ dependency and translates repository-root
+changed-file paths into web-relative paths. Install dependencies before committing.
 
 Query and router devtools load lazily in development only and are excluded
 from production builds.

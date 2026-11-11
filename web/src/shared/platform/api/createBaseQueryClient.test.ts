@@ -4,7 +4,7 @@
  */
 
 import { QueryClient } from '@tanstack/react-query'
-import { describe, expect, test, vi } from 'vitest'
+import { describe, expect, test, vi } from 'vite-plus/test'
 import { createBaseQueryClient, noopNotifier } from './createBaseQueryClient'
 import type { ApiError } from './types'
 

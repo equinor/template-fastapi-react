@@ -8,7 +8,7 @@
  *   - predicate called without data is denied (and warns in DEV)
  */
 
-import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vite-plus/test'
 import { createHasPermission } from './access-control'
 import type { RolesWithPermissions } from './types'
 

@@ -15,6 +15,7 @@ registerGlobalErrorHandlers(telemetry)
 ```
 
 `telemetry` is then injected into:
+
 - `<TelemetryProvider>` for React consumers
 - `<TelemetryErrorBoundary>` to catch render/commit errors
 - function arguments for non-React code (e.g. `configureApiClient({ telemetry })`)
@@ -34,11 +35,11 @@ const handle = (telemetry: Telemetry) => telemetry.trackException(err, { url })
 
 Selected via `VITE_TELEMETRY` (parsed in `@/config/env`):
 
-| Value          | Behaviour                                                     |
-|----------------|---------------------------------------------------------------|
-| `appinsights`  | Azure Application Insights via the BFF at `/api/monitoring/`  |
-| `console`      | `console.*` (dev default)                                     |
-| `none`         | no-op (prod default)                                          |
+| Value         | Behaviour                                                    |
+| ------------- | ------------------------------------------------------------ |
+| `appinsights` | Azure Application Insights via the BFF at `/api/monitoring/` |
+| `console`     | `console.*` (dev default)                                    |
+| `none`        | no-op (prod default)                                         |
 
 App Insights ingestion is proxied through the BFF — no connection string or
 instrumentation key in the SPA. Page views use `enableAutoRouteTracking`.

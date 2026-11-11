@@ -1,5 +1,5 @@
 import { ApplicationInsights } from '@microsoft/applicationinsights-web'
-import { expect, test, vi } from 'vitest'
+import { expect, test, vi } from 'vite-plus/test'
 import { registerGlobalErrorHandlers } from '../registerGlobalErrorHandlers'
 import { createAppInsightsTelemetry } from './appinsights'
 

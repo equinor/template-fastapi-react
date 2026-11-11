@@ -12,20 +12,5 @@ The API documentation can be found at [http://localhost/api/docs](http://localho
 
 The OpenAPI spec can be found at [http://localhost/api/openapi.json](http://localhost/api/openapi.json)
 
-<details>
-<summary>Skip Docker (not recommended)</summary>
-
-Navigate to the /api folder, activate local venv, then start the backend with Uvicorn:
-
-```shell
-cd api/src/  # go to the src directory
-uvicorn app.app:create_app --reload
-```
-
-Navigate to the /web folder, and then start web application:
-
-```shell
-yarn start
-```
-
-</details>
+The supported development setup runs the services together through Docker Compose;
+the web app's `/api` proxy depends on the Compose nginx service.
