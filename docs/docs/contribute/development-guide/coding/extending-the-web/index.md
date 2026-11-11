@@ -31,11 +31,11 @@ deep imports from outside those modules, and prevents `shared/` from depending o
 
 ```mermaid
 flowchart
-    index --> Application
+    index --> TelemetryErrorBoundary
+    TelemetryErrorBoundary --> Application
     Application --> Providers
     Providers --> TelemetryProvider
-    TelemetryProvider --> TelemetryErrorBoundary
-    TelemetryErrorBoundary --> QueryClientProvider
+    TelemetryProvider --> QueryClientProvider
     QueryClientProvider --> SessionExpiredDialog
     QueryClientProvider --> ToastContainer
     QueryClientProvider --> RouterProvider
@@ -71,11 +71,14 @@ Call `useCustomToast()` in React. Bootstrap passes its callbacks to
 `createQueryClient({ telemetry, toast })`, preserving metadata-driven invalidation,
 non-retryable 401/403/404 queries, no mutation retries, and 401 toast suppression.
 `toast.error` telemetry retains the API trace ID shown by `ErrorPanel`.
+Unexpected non-`ApiError` failures that trigger a notification are also reported
+as exceptions; expected API failures are not reported twice.
 
 Telemetry is created once from `ENV.telemetryBackend`. App Insights loads lazily
 and ingests through `/api/monitoring/`. Global error handlers and the session
 watcher return cleanup functions used on unmount/HMR. The single telemetry error
-boundary remains inside `Providers`.
+boundary wraps `Application` at the React root, outside `Providers`, so it also
+catches failures while the query client and router are initialized.
 
 Zod is configured with `jitless: true` before route/schema imports. Its optional
 JIT uses `Function()`, which violates the production CSP even when the probe
