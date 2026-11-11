@@ -1,4 +1,4 @@
-import { isApiError } from '@/shared/platform/api'
+import { isApiError } from '@team-hermes/react-components'
 
 const isResponse = (e: unknown): e is Response => typeof Response !== 'undefined' && e instanceof Response
 

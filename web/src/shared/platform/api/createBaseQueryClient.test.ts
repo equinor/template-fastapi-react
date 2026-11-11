@@ -6,7 +6,7 @@
 import { QueryClient } from '@tanstack/react-query'
 import { describe, expect, test, vi } from 'vite-plus/test'
 import { createBaseQueryClient, noopNotifier } from './createBaseQueryClient'
-import type { ApiError } from './types'
+import type { ApiError } from '@team-hermes/react-components'
 
 const httpError = (status: number): ApiError => ({
   kind: 'http',

@@ -1,73 +1,35 @@
-# telemetry
+# Telemetry
 
-Neutral telemetry surface for the SPA. Three concerns: errors (`trackException`),
-events (`trackEvent`), and identity (`setUser`).
+The public barrel re-exports `@team-hermes/react-components` telemetry, types,
+providers, error boundary, backend guard, and tracking hooks. There are no local
+backend implementations. Pass telemetry into non-React code rather than importing
+a singleton.
 
-## Boot
+`src/index.tsx` creates one instance from `ENV.telemetryBackend`. `Application`
+registers global error handlers and the session watcher in an effect, returning
+both disposers; HMR unmounts the root. `Providers` keeps the single
+`TelemetryErrorBoundary` inside `TelemetryProvider`.
 
-```ts
-// src/index.tsx
-import { createTelemetry, registerGlobalErrorHandlers } from '@/shared/platform/telemetry'
-import { ENV } from '@/config/env'
-
-const telemetry = createTelemetry(ENV.telemetryBackend)
-registerGlobalErrorHandlers(telemetry)
-```
-
-`telemetry` is then injected into:
-
-- `<TelemetryProvider>` for React consumers
-- `<TelemetryErrorBoundary>` to catch render/commit errors
-- function arguments for non-React code (e.g. `configureApiClient({ telemetry })`)
-
-## Use it
+| `VITE_TELEMETRY` | Backend                                                                     |
+| ---------------- | --------------------------------------------------------------------------- |
+| `console`        | Console events, development default                                         |
+| `none`           | No-op, production default                                                   |
+| `appinsights`    | Lazy Application Insights SDK, same-origin `/api/monitoring/` BFF ingestion |
 
 ```tsx
-// React
 const telemetry = useTelemetry()
 telemetry.trackEvent('todo.created', { id })
-
-// Non-React (pass telemetry as an argument; do not import a singleton)
-const handle = (telemetry: Telemetry) => telemetry.trackException(err, { url })
+const trackSave = useTrackEvent('todo.saved')
+useTrackMount('todos.opened')
 ```
 
-## Backends
+HTTP failures still emit `http.error` events from `configureApiClient`; query
+notifications emit `toast.error` with the same trace ID shown in Hermes'
+`ErrorPanel`. The CSP allows SDK configuration from `https://js.monitor.azure.com`
+and same-origin ingestion/dynamic chunks.
 
-Selected via `VITE_TELEMETRY` (parsed in `@/config/env`):
-
-| Value         | Behaviour                                                    |
-| ------------- | ------------------------------------------------------------ |
-| `appinsights` | Azure Application Insights via the BFF at `/api/monitoring/` |
-| `console`     | `console.*` (dev default)                                    |
-| `none`        | no-op (prod default)                                         |
-
-App Insights ingestion is proxied through the BFF — no connection string or
-instrumentation key in the SPA. Page views use `enableAutoRouteTracking`.
-Automatic exception/rejection collection is disabled in the SDK because
-`registerGlobalErrorHandlers` reports those errors. CSP permits the SDK's
-configuration fetch from `https://js.monitor.azure.com`; ingestion stays
-same-origin.
-
-## Add a backend
-
-1. Create `backends/<name>.ts` exporting `create<Name>Telemetry(): Telemetry`.
-2. Add the identifier to `backend.ts` (`TelemetryBackend`).
-3. Add a `case` in [createTelemetry.ts](createTelemetry.ts).
-
-## Files
-
-- [createTelemetry.ts](createTelemetry.ts) — backend factory dispatcher
-- [backend.ts](backend.ts) — backend identifier enum + type guard
-- [types.ts](types.ts) — `Telemetry` contract
-- [TelemetryContext.tsx](TelemetryContext.tsx) — React provider + `useTelemetry` hook
-- [TelemetryErrorBoundary.tsx](TelemetryErrorBoundary.tsx) — outermost render-error boundary
-- [registerGlobalErrorHandlers.ts](registerGlobalErrorHandlers.ts) — `window` listeners for unhandled rejections / errors
-- [backends/](backends/) — backend implementations
-
-## Design
-
-Pure module — no module-level state, no singleton. The composition root creates
-exactly one instance and propagates it. Errors should reach App Insights exactly
-once: render errors via `TelemetryErrorBoundary`, escapes via
-`registerGlobalErrorHandlers`, HTTP failures as low-noise `http.error` events
-(see `shared/platform/api/configureApiClient.ts`).
+**Released 1.11.0 deviation:** Hermes does not disable SDK automatic exception
+collection, so global errors can be reported twice alongside
+`registerGlobalErrorHandlers`. The contract is retained as an expected-failure
+test pending [upstream #93](https://github.com/equinor/team-hermes-packages/pull/93).
+Backend changes belong in Hermes, not a local patch.

@@ -19,7 +19,8 @@ import {
   Outlet,
   RouterProvider,
 } from '@tanstack/react-router'
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, renderHook, screen, waitFor } from '@testing-library/react'
+import { useCustomToast } from '@team-hermes/react-components'
 import userEvent from '@testing-library/user-event'
 import { HttpResponse, http } from 'msw'
 import { Suspense } from 'react'
@@ -31,7 +32,6 @@ import { FEATURE_FLAGS } from '@/config/featureFlags'
 import { userQuery } from '@/shared/platform/auth'
 import { FeatureFlagsProvider } from '@/shared/platform/feature-flags'
 import { createTelemetry, TelemetryBackend } from '@/shared/platform/telemetry'
-import { toastStore } from '@/shared/platform/toast'
 import { db } from '../../../../mocks/db'
 import { server } from '../../../../mocks/server'
 import { TodosPage } from './TodosPage'
@@ -42,7 +42,7 @@ vi.mock('@/config/env', async (importOriginal) => {
 })
 
 const telemetry = createTelemetry(TelemetryBackend.None)
-let queryClient = createQueryClient({ telemetry })
+let queryClient: ReturnType<typeof createQueryClient>
 
 // Test-local route tree mirroring `src/app/routes/todos.tsx` minus the
 // loader. `getRouteApi('/todos')` inside `useTodosFilter` resolves
@@ -95,7 +95,8 @@ describe('TodosPage', () => {
   beforeEach(() => {
     // Fresh client per test so cached `[]` from the previous test doesn't
     // leak across boundaries.
-    queryClient = createQueryClient({ telemetry })
+    const { result } = renderHook(useCustomToast)
+    queryClient = createQueryClient({ telemetry, toast: result.current })
   })
 
   test('renders existing todos from the API', async () => {
@@ -127,7 +128,6 @@ describe('TodosPage', () => {
 
   test('keeps the title after a failed submission and allows retry without an unhandled rejection', async () => {
     const user = userEvent.setup()
-    toastStore._reset()
     server.use(
       http.post('http://localhost/todos', () => HttpResponse.json({ message: 'failed' }, { status: 500 }), {
         once: true,
@@ -222,16 +222,15 @@ describe('TodosPage', () => {
      * Locks the meta-driven toast pipeline end-to-end:
      *   useDeleteTodo (meta.successMessage)
      *     → MutationCache.onSuccess in shared/platform/api/createBaseQueryClient
-     *     → toast.success → toastStore
+     *     → Hermes useCustomToast → react-toastify
      *     → ToastContainer (mounted by Providers)
      *
      * If anyone breaks any link in that chain, this test fails. The unit
-     * tests in `shared/platform/toast/toastStore.test.ts` cover the store
-     * in isolation; this one proves the wiring.
+     * tests at the notification boundary cover dismissal and durations;
+     * this one proves the wiring.
      */
     beforeEach(() => {
       seedAdminUser()
-      toastStore._reset()
     })
 
     test('shows a success toast after deleting a todo', async () => {
@@ -242,7 +241,7 @@ describe('TodosPage', () => {
       await screen.findByText('Buy milk')
       await user.click(screen.getByRole('button', { name: /Remove/i }))
 
-      const toast = await waitFor(() => screen.getByTestId('toast-success'))
+      const toast = await waitFor(() => screen.getByRole('alert'))
       expect(toast.textContent).toContain('Todo deleted')
     })
   })
