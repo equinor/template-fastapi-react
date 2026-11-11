@@ -30,7 +30,7 @@ repos:
         exclude: ^web/(src/api-generated/|src/app/routeTree\.gen\.ts$|pnpm-lock\.yaml$)
 
   - repo: https://github.com/compilerla/conventional-pre-commit
-    rev: v4.4.0
+    rev: v4.5.0
     hooks:
       - id: conventional-pre-commit
         name: "Check: conventional formatted commit message"
@@ -74,7 +74,7 @@ repos:
         exclude: api/tests/integration/mock_authentication.py
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: "v0.17.2"
+    rev: "v0.17.3"
     hooks:
       - id: ruff-check
         name: "Lint : ruff (python)"
@@ -86,7 +86,7 @@ repos:
         files: ^api/.*\.py$
 
   - repo: https://github.com/scop/pre-commit-shfmt
-    rev: v3.13.1-1
+    rev: v3.14.1-1
     hooks:
       - id: shfmt
         name: "Lint : shfmt (bash)"
