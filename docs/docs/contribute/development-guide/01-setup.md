@@ -33,35 +33,36 @@ pre-commit run --all-files
 Pre-commit tests can be skipped on commits with `git commit --no-verify`.
 
 !!! caution "Caution"
-    If you have to skip the pre-commit tests, you're probably doing something you're not supposed to, and whoever commits after you might have to fix your "mistakes". Consider updating the pre-commit hooks if your code is non-compliant.
+If you have to skip the pre-commit tests, you're probably doing something you're not supposed to, and whoever commits after you might have to fix your "mistakes". Consider updating the pre-commit hooks if your code is non-compliant.
 
 ### Hooks
+
 <details>
 
 <summary>Overview</summary>
 
-| Repository                                                                          | Hook                    | Purpose                                                                            |
-|-------------------------------------------------------------------------------------|-------------------------|------------------------------------------------------------------------------------|
-| [pre-commit/pre-commit-hooks](https://github.com/pre-commit/pre-commit-hooks)                                      | check-ast               | Check whether files parse as valid python                                          |
-|                                                                                     | check-merge-conflict    | Check for files that contain merge conflict strings                                |
-|                                                                                     | check-case-conflict     | Check for files with names that would conflict on a case-insensitive filesystem    |
-|                                                                                     | check-json              | Verify syntax of all JSON files                                                    |
-|                                                                                     | check-toml              | Verify syntax of all TOML files                                                    |
-|                                                                                     | check-yaml              | Verify syntax of all YAML files                                                    |
-|                                                                                     | trailing-whitespace     | Trim trailing whitespace                                                           |
-|                                                                                     | mixed-line-ending       | Replaces or checks mixed line ending                                               |
-|                                                                                     | detect-private-key      | Checks for the existence of private keys                                           |
-| [compilerla/conventional-pre-commit](https://github.com/compilerla/conventional-pre-commit)                               | conventional-pre-commit | A pre-commit hook to check commit messages for Conventional Commits formatting     |
-| [ambv/black](https://github.com/ambv/black)                                                       | black                   | Python code formatter                                                              |
-| [PyCQA/bandit](https://github.com/PyCQA/bandit)                                                     | bandit                  | A security linter designed to find common security issues in Python code           |
-| [econchick/interrogate](https://github.com/econchick/interrogate)                                            | interrogate             | Check the code base for missing docstrings                                         |
-| [hadialqattan/pycln](https://github.com/hadialqattan/pycln)                                               | pycln                   | Finds and removes unused import statements                                         |
-| [pycqa/isort](https://github.com/pycqa/isort)                                                      | isort                   | Sort imports alphabetically, and automatically separated into sections and by type |
-| [local](https://github.com/equinor/template-fastapi-react/blob/main/.pre-commit-config.yaml) | vite-plus-check | Vite+ formatting, lint, import boundaries, TanStack Query rules and type checks |
-| [pycqa/flake8](https://gitlab.com/pycqa/flake8)                                                     | flake8                  | Check the style and quality of Python code                                         |
+| Repository                                                                                   | Hook                    | Purpose                                                                            |
+| -------------------------------------------------------------------------------------------- | ----------------------- | ---------------------------------------------------------------------------------- |
+| [pre-commit/pre-commit-hooks](https://github.com/pre-commit/pre-commit-hooks)                | check-ast               | Check whether files parse as valid python                                          |
+|                                                                                              | check-merge-conflict    | Check for files that contain merge conflict strings                                |
+|                                                                                              | check-case-conflict     | Check for files with names that would conflict on a case-insensitive filesystem    |
+|                                                                                              | check-json              | Verify syntax of all JSON files                                                    |
+|                                                                                              | check-toml              | Verify syntax of all TOML files                                                    |
+|                                                                                              | check-yaml              | Verify syntax of all YAML files                                                    |
+|                                                                                              | trailing-whitespace     | Trim trailing whitespace                                                           |
+|                                                                                              | mixed-line-ending       | Replaces or checks mixed line ending                                               |
+|                                                                                              | detect-private-key      | Checks for the existence of private keys                                           |
+| [compilerla/conventional-pre-commit](https://github.com/compilerla/conventional-pre-commit)  | conventional-pre-commit | A pre-commit hook to check commit messages for Conventional Commits formatting     |
+| [ambv/black](https://github.com/ambv/black)                                                  | black                   | Python code formatter                                                              |
+| [PyCQA/bandit](https://github.com/PyCQA/bandit)                                              | bandit                  | A security linter designed to find common security issues in Python code           |
+| [econchick/interrogate](https://github.com/econchick/interrogate)                            | interrogate             | Check the code base for missing docstrings                                         |
+| [hadialqattan/pycln](https://github.com/hadialqattan/pycln)                                  | pycln                   | Finds and removes unused import statements                                         |
+| [pycqa/isort](https://github.com/pycqa/isort)                                                | isort                   | Sort imports alphabetically, and automatically separated into sections and by type |
+| [local](https://github.com/equinor/template-fastapi-react/blob/main/.pre-commit-config.yaml) | vite-plus-check         | Vite+ formatting, lint, import boundaries, TanStack Query rules and type checks    |
+| [pycqa/flake8](https://gitlab.com/pycqa/flake8)                                              | flake8                  | Check the style and quality of Python code                                         |
 | [local](https://github.com/equinor/template-fastapi-react/blob/main/.pre-commit-config.yaml) | mypy                    | Python type checker                                                                |
-|                                                                                     | pytest                  | Python test runner                                                                 |
-|                                                                                     |                         |                                                                                    |
+|                                                                                              | pytest                  | Python test runner                                                                 |
+|                                                                                              |                         |                                                                                    |
 
 </details>
 
@@ -112,9 +113,28 @@ settings from your editor. For VSCode, select the workspace TypeScript installat
 at `web/node_modules/typescript/lib`; in JetBrains IDEs, select pnpm as the package
 manager and `web/node_modules/typescript` as the TypeScript package.
 
-Use the Oxc editor extension for formatting and linting. Configuration lives in
-`web/vite.config.ts`, not separate ESLint or Biome files. Repository-local editor
-settings are intentionally untracked.
+Use the Oxc editor extension for formatting and linting. Repository-wide
+formatting is configured in the root `oxfmt.config.ts`; lint, test, and build
+settings are in `web/vite.config.ts`, not separate ESLint or Biome files.
+Repository-local editor settings are intentionally untracked.
+
+For formatting outside `web/`, mise also installs standalone Oxfmt, pinned to
+the version bundled with Vite+. From the repository root, run
+`mise run format:root` to format non-web files, or `mise run format:root:check`
+to check them without changes. Pre-commit formats changed non-web files with
+Oxfmt and checks web files with Vite+; CI runs both hooks. Generated API files,
+the generated route tree, and pnpm lockfiles are excluded.
+
+The Oxc extension supports Vite+ for web linting and formatting. To use the
+standalone formatter consistently across the entire repository, run
+`mise which oxfmt` and set `oxc.path.oxfmt` in your local VS Code settings to
+the absolute path it prints. Leave `oxc.fmt.configPath` unset so Oxfmt discovers
+the shared root configuration. Set `editor.defaultFormatter` to
+`oxc.oxc-vscode` and enable `editor.formatOnSave` if desired. This formatter-only
+setting leaves Vite+ linting unchanged. If VS Code cannot find Node, also set
+`oxc.path.node` to the output of `mise which node`. After changing tool paths
+or versions, run **Oxc: Restart oxfmt Server**. Check **Output > Oxc (Fmt)**
+if formatting does not start.
 
 Run `mise run lint:web` for formatting, lint and TypeScript checks.
 

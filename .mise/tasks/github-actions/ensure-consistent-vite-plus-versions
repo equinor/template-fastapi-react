@@ -10,9 +10,19 @@ from pathlib import Path
 root = Path(os.environ.get("MISE_CONFIG_ROOT", Path.cwd())).resolve()
 package = json.loads((root / "web/package.json").read_text())
 workspace = (root / "web/pnpm-workspace.yaml").read_text()
+lockfile = (root / "web/pnpm-lock.yaml").read_text()
 mise = tomllib.loads((root / ".mise/config.toml").read_text()).get("tools", {})
 
 failures = []
+oxfmt_versions = re.findall(r"(?m)^  oxfmt@(\d+\.\d+\.\d+):$", lockfile)
+if len(oxfmt_versions) != 1:
+    failures.append("Expected exactly one bundled Oxfmt version in web/pnpm-lock.yaml.")
+elif str(mise.get("oxfmt", "")) != oxfmt_versions[0]:
+    failures.append(
+        f"mise oxfmt pin {mise.get('oxfmt', '(missing)')} differs from "
+        f"the bundled Oxfmt version {oxfmt_versions[0]}."
+    )
+
 for dependency in ("vite", "vite-plus"):
     value = package.get("dependencies", {}).get(dependency)
     if value is None:

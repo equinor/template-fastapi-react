@@ -5,9 +5,7 @@ run = "uv run mypy src"
 
 ["lint:api"]
 description = "Lint the API"
-run = [
-    "mise run lint:api:typecheck",
-]
+run = ["mise run lint:api:typecheck"]
 
 ["lint:web:typecheck"]
 description = "Typecheck the Web application, by compiling the TypeScript code"
@@ -23,10 +21,7 @@ run = "pnpm exec vp check"
 
 ["lint:web"]
 description = "Lint the Web application"
-run = [
-    "mise run lint:web:typecheck",
-    "mise run lint:web:check",
-]
+run = ["mise run lint:web:typecheck", "mise run lint:web:check"]
 
 ["lint:shell"]
 description = "Lint shell scripts with shellcheck"
@@ -40,5 +35,5 @@ run = "zizmor --offline .github/workflows"
 
 [lint]
 description = "Lint the entire project"
-depends = ["lint:shell", "lint:api", "lint:web", "lint:workflows"]
+depends = ["lint:shell", "lint:api", "lint:web", "lint:workflows", "format:root:check"]
 run = "mise fmt"
