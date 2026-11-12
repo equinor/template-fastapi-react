@@ -1,4 +1,4 @@
-name: "On PR updated"
+name: 'On PR updated'
 on:
   pull_request:
     types: [opened, reopened, synchronize]
@@ -12,11 +12,11 @@ concurrency:
 
 jobs:
   linting-and-checks:
-    name: "Linting and checks"
+    name: 'Linting and checks'
     uses: ./.github/workflows/linting-and-checks.yaml
 
   tests:
-    name: "Tests"
+    name: 'Tests'
     permissions:
       contents: read
       packages: read

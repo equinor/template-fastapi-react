@@ -1,4 +1,4 @@
-name: "Test"
+name: 'Test'
 on:
   # Workflow dispatch is used for manual triggers
   workflow_dispatch:
@@ -17,7 +17,7 @@ jobs:
   api-unit-tests:
     runs-on: ubuntu-latest
     steps:
-      - name: "Setup: checkout repository"
+      - name: 'Setup: checkout repository'
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
@@ -26,11 +26,11 @@ jobs:
             .mise
             api
 
-      - name: "Setup: Environment"
+      - name: 'Setup: Environment'
         uses: ./.github/actions/setup-environment
         timeout-minutes: 5
 
-      - name: "Run: pytest unit tests"
+      - name: 'Run: pytest unit tests'
         run: mise run test:api:unit
 
   api-integration-tests:
@@ -71,17 +71,17 @@ jobs:
             .mise
             web
 
-      - name: "Setup: Environment"
+      - name: 'Setup: Environment'
         uses: ./.github/actions/setup-environment
         timeout-minutes: 5
 
-      - name: "Run: web checks"
+      - name: 'Run: web checks'
         run: mise run lint:web
 
-      - name: "Run: web tests"
+      - name: 'Run: web tests'
         run: mise run test:web
 
-      - name: "Run: production web build"
+      - name: 'Run: production web build'
         run: mise run build:web
 
   docs-tests:
@@ -89,7 +89,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: "Setup: checkout repository"
+      - name: 'Setup: checkout repository'
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
@@ -98,9 +98,9 @@ jobs:
             .mise
             docs
 
-      - name: "Setup: Environment"
+      - name: 'Setup: Environment'
         uses: ./.github/actions/setup-environment
         timeout-minutes: 5
 
-      - name: "Run: build docs site"
+      - name: 'Run: build docs site'
         run: mise run docs:build

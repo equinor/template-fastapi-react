@@ -18,12 +18,7 @@ dependencies = [
 ]
 
 [dependency-groups]
-dev = [
-  "mongomock>=4.1.2",
-  "mypy>=2.1.0",
-  "pytest>=8.3.0",
-  "types-cachetools>=7.0.0.20260518",
-]
+dev = ["mongomock>=4.1.2", "mypy>=2.1.0", "pytest>=8.3.0", "types-cachetools>=7.0.0.20260518"]
 
 [build-system]
 requires = ["hatchling"]
@@ -46,13 +41,13 @@ line-length = 119
 
 [tool.ruff.lint]
 select = [
-  "E",  # pycodestyle errors
-  "W",  # pycodestyle warnings
-  "F",  # pyflakes
-  "I",  # isort
-  "S",  # flake8-bandit
-  "C",  # flake8-comprehensions
-  "B",  # flake8-bugbear
+  "E", # pycodestyle errors
+  "W", # pycodestyle warnings
+  "F", # pyflakes
+  "I", # isort
+  "S", # flake8-bandit
+  "C", # flake8-comprehensions
+  "B", # flake8-bugbear
   "UP", # automatically upgrade syntax for newer versions of the language
 ]
 ignore = [
@@ -61,16 +56,11 @@ ignore = [
 ]
 
 [tool.ruff.lint.per-file-ignores]
-"__init__.py" = [
-  "E402",
-] # Ignore `E402` (import violations) in all `__init__.py` files
+"__init__.py" = ["E402"] # Ignore `E402` (import violations) in all `__init__.py` files
 "tests/*" = ["S101"] # Allow the use of ´assert´ in tests
 
 [tool.pytest.ini_options]
 # Makes pytest CLI discover markers and conftest settings:
-markers = [
-  "unit: mark a test as unit test.",
-  "integration: mark a test as integration test.",
-]
+markers = ["unit: mark a test as unit test.", "integration: mark a test as integration test."]
 testpaths = ["tests/unit", "tests/integration"]
 pythonpath = ["src"]

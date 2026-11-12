@@ -8,11 +8,11 @@ The controller (adapter layer) is responsible for validating and transforming re
 --8<-- "api/src/app/features/todo/todo_feature.py"
 ```
 
-* `Required`
-  * The controller needs to be decorated with the `create_response` decorator, which handles exceptions and returns a unified response type.
-  * The controller needs to have set the `response_model` and `request_model`, that is used to generate API documentation and used for validation.
-* `Optional`
-  * Add [repository interface](../adding-data-providers/02-repository-interfaces.md) to handle communication to external services such as databases and inject the repository implementations to the controller endpoint and pass the injected repository implementations to the use case.
+- `Required`
+  - The controller needs to be decorated with the `create_response` decorator, which handles exceptions and returns a unified response type.
+  - The controller needs to have set the `response_model` and `request_model`, that is used to generate API documentation and used for validation.
+- `Optional`
+  - Add [repository interface](../adding-data-providers/02-repository-interfaces.md) to handle communication to external services such as databases and inject the repository implementations to the controller endpoint and pass the injected repository implementations to the use case.
 
 !!! note "Note"
 

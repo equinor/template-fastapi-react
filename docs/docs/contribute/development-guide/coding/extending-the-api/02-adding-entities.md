@@ -11,7 +11,7 @@ data (state) and logic reusable for various applications.
 ```
 
 !!! info "Info"
-    Entities must not depend on anything, except possibly other entities.
+Entities must not depend on anything, except possibly other entities.
 
     Entities should be the most stable code within your application.
 

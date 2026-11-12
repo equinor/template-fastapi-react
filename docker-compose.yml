@@ -9,7 +9,7 @@ services:
       - /var/cache/nginx:uid=65532,gid=65532
       - /run/nginx:uid=65532,gid=65532
     ports:
-      - "80:8080"
+      - '80:8080'
     depends_on:
       - api
       - oauth2
@@ -28,7 +28,7 @@ services:
     environment:
       OTEL_SERVICE_NAME: template-fastapi-react-api
       MONGODB_HOSTNAME: db
-      MONGODB_PORT: "27017"
+      MONGODB_PORT: '27017'
       MONGODB_DATABASE: ${MONGODB_DATABASE:-test}
       MONGODB_USERNAME: ${MONGODB_USERNAME:-root}
       MONGODB_PASSWORD: ${MONGODB_PASSWORD:-mongodb}
@@ -46,7 +46,7 @@ services:
         - mongosh
         - --quiet
         - --eval
-        - "db.adminCommand({ ping: 1 }).ok"
+        - 'db.adminCommand({ ping: 1 }).ok'
       interval: 10s
       timeout: 5s
       retries: 5

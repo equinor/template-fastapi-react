@@ -12,13 +12,14 @@ We trigger the reusable workflow like this (note that the chart is slightly outd
 
 ::uml:: format="svg" alt="Github Actions"
 @startmindmap
-* on push to
-** all branches
-***_ tests.yaml
-** only main
-***_ release.yaml
-***_ generate-docs.yaml
-@endmindmap
+
+- on push to
+  ** all branches
+  ***_ tests.yaml
+  ** only main
+  ***_ release.yaml
+  ***_ generate-docs.yaml
+  @endmindmap
 
 ::end-uml::
 
@@ -34,19 +35,19 @@ Release to production is triggered when we merge in the auto-generated pull requ
 
 Reusable workflows
 
-| Workflow                                                                                                                                     | Job                        | Purpose                                                               |
-| -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- | --------------------------------------------------------------------- |
-| [release-please.yaml](https://github.com/equinor/template-fastapi-react/blob/main/.github/workflows/release-please.yaml)                     | release-please             | Creates a new release on GitHub                                       |
-| [deploy-to-radix.yaml](https://github.com/equinor/template-fastapi-react/blob/main/.github/workflows/deploy-to-radix.yaml)                   | deploy-on-radix            | Deploys the services to Radix                                         |
-| [label-importer.yaml](https://github.com/equinor/template-fastapi-react/blob/main/.github/workflows/label-importer.yaml)                     | labeler                    | Import labels from `labels.yml`                                       |
-| [publish-docs.yaml](https://github.com/equinor/template-fastapi-react/blob/main/.github/workflows/publish-docs.yaml)                         | publish-docs               | Builds and publishes the latest docs to GitHub pages                  |
-| [publish-image.yaml](https://github.com/equinor/template-fastapi-react/blob/main/.github/workflows/publish-image.yaml)                       | build-and-publish-web-main | Builds and publishes the Docker image for the Web (frontend)          |
-|                                                                                                                                              | build-and-publish-api-main | Builds and publishes the Docker image for the API (backend)           |
-|                                                                                                                                              | build-and-publish-nginx    | Builds and publishes the Docker image for the Nginx proxy             |
-| [tests.yaml](https://github.com/equinor/template-fastapi-react/blob/main/.github/workflows/tests.yaml)                                       | pre-commit                 | Runs the pre-commit hooks. See [Hooks](01-setup.md#hooks) for details |
-|                                                                                                                                              | test-api                   | Runs tests on the API (backend) using pytest and behave               |
-|                                                                                                                                              | test-web                   | Runs tests on the Web (frontend)                                      |
-|                                                                                                                                              | test-docs                  | Checks that the doc pages build without errors                        |
+| Workflow                                                                                                                   | Job                        | Purpose                                                               |
+| -------------------------------------------------------------------------------------------------------------------------- | -------------------------- | --------------------------------------------------------------------- |
+| [release-please.yaml](https://github.com/equinor/template-fastapi-react/blob/main/.github/workflows/release-please.yaml)   | release-please             | Creates a new release on GitHub                                       |
+| [deploy-to-radix.yaml](https://github.com/equinor/template-fastapi-react/blob/main/.github/workflows/deploy-to-radix.yaml) | deploy-on-radix            | Deploys the services to Radix                                         |
+| [label-importer.yaml](https://github.com/equinor/template-fastapi-react/blob/main/.github/workflows/label-importer.yaml)   | labeler                    | Import labels from `labels.yml`                                       |
+| [publish-docs.yaml](https://github.com/equinor/template-fastapi-react/blob/main/.github/workflows/publish-docs.yaml)       | publish-docs               | Builds and publishes the latest docs to GitHub pages                  |
+| [publish-image.yaml](https://github.com/equinor/template-fastapi-react/blob/main/.github/workflows/publish-image.yaml)     | build-and-publish-web-main | Builds and publishes the Docker image for the Web (frontend)          |
+|                                                                                                                            | build-and-publish-api-main | Builds and publishes the Docker image for the API (backend)           |
+|                                                                                                                            | build-and-publish-nginx    | Builds and publishes the Docker image for the Nginx proxy             |
+| [tests.yaml](https://github.com/equinor/template-fastapi-react/blob/main/.github/workflows/tests.yaml)                     | pre-commit                 | Runs the pre-commit hooks. See [Hooks](01-setup.md#hooks) for details |
+|                                                                                                                            | test-api                   | Runs tests on the API (backend) using pytest and behave               |
+|                                                                                                                            | test-web                   | Runs tests on the Web (frontend)                                      |
+|                                                                                                                            | test-docs                  | Checks that the doc pages build without errors                        |
 
 Triggerable workflows
 

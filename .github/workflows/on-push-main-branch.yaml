@@ -1,4 +1,4 @@
-name: "Push to main branch"
+name: 'Push to main branch'
 on:
   workflow_dispatch:
   push:
@@ -15,11 +15,11 @@ concurrency:
 
 jobs:
   linting-and-checks:
-    name: "Linting and checks"
+    name: 'Linting and checks'
     uses: ./.github/workflows/linting-and-checks.yaml
 
   tests:
-    name: "Tests"
+    name: 'Tests'
     permissions:
       contents: read
       packages: read
@@ -27,7 +27,7 @@ jobs:
 
   docs:
     needs: tests
-    name: "Build and publish docs"
+    name: 'Build and publish docs'
     permissions:
       contents: read
       pages: write
@@ -36,7 +36,7 @@ jobs:
 
   publish-latest:
     needs: tests
-    name: "Publish dev docker images"
+    name: 'Publish dev docker images'
     permissions:
       contents: read
       packages: write
@@ -60,7 +60,7 @@ jobs:
   publish-staging:
     needs: release-please
     if: ${{ needs.release-please.outputs.release_created == 'true' }}
-    name: "Publish staging docker images"
+    name: 'Publish staging docker images'
     permissions:
       contents: read
       packages: write

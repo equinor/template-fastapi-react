@@ -6,8 +6,8 @@ There will be one use case for each individual action/command of an actor. An ac
 
 For a meetup.com clone, it could be:
 
-* Confirming attendance as an attendee
-* Cancelling attendance as an attendee
-* Drafting new meeting as an organizer
+- Confirming attendance as an attendee
+- Cancelling attendance as an attendee
+- Drafting new meeting as an organizer
 
 ## Related concepts

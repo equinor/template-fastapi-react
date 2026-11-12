@@ -9,7 +9,7 @@ services:
     # in case that default ever flips.
     env_file: !reset []
     environment:
-      AUTH_ENABLED: "False"
+      AUTH_ENABLED: 'False'
     depends_on:
       - db
     links:

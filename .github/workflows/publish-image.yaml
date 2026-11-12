@@ -1,4 +1,4 @@
-name: "Publish container images"
+name: 'Publish container images'
 on:
   workflow_dispatch:
   workflow_call: # Workflow is meant to be called from another workflow, with the image tag as input
@@ -9,7 +9,7 @@ on:
         type: string
     secrets:
       CR_SECRET:
-        description: "Secret to authenticate if using an other container registry than Github"
+        description: 'Secret to authenticate if using an other container registry than Github'
         required: false
 
 permissions:
@@ -35,14 +35,14 @@ jobs:
           persist-credentials: false
           fetch-depth: 2
 
-      - name: "Login to image registry"
+      - name: 'Login to image registry'
         uses: docker/login-action@650006c6eb7dba73a995cc03b0b2d7f5ca915bee # v4.2.0
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: "Build web"
+      - name: 'Build web'
         env:
           AZURE_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
           AZURE_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
@@ -59,7 +59,7 @@ jobs:
           --target nginx-prod \
           ./web
 
-      - name: "Publish web"
+      - name: 'Publish web'
         env:
           IMAGE_TAGS: ${{ inputs.image-tags }}
         run: |
@@ -82,20 +82,20 @@ jobs:
           persist-credentials: false
           fetch-depth: 2
 
-      - name: "Login to image registry"
+      - name: 'Login to image registry'
         uses: docker/login-action@650006c6eb7dba73a995cc03b0b2d7f5ca915bee # v4.2.0
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: "Build API"
+      - name: 'Build API'
         run: |
           docker pull "$API_IMAGE"
           printf '%s' "$(git log -n 1 --format=format:'hash: %h%ndate: %cs%nrefs: %d' --decorate=short --decorate-refs=refs/tags | sed 's/ (tag: \([^\s]*\))/\1/')" > ./api/src/version.txt
           docker build --cache-from "$API_IMAGE" --target prod --tag "$API_IMAGE" ./api
 
-      - name: "Publish API"
+      - name: 'Publish API'
         env:
           IMAGE_TAGS: ${{ inputs.image-tags }}
         run: |

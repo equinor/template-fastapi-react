@@ -1,9 +1,9 @@
-name: "Rollback prod to an older release"
+name: 'Rollback prod to an older release'
 on:
   workflow_dispatch:
     inputs:
       release-tag:
-        description: "GitHub release tag. Must match a Docker image tag"
+        description: 'GitHub release tag. Must match a Docker image tag'
         required: true
         type: string
 
@@ -27,14 +27,14 @@ jobs:
             ghcr.io/equinor/template-fastapi-react/nginx,
           ]
     steps:
-      - name: "Login to image registry"
+      - name: 'Login to image registry'
         uses: docker/login-action@650006c6eb7dba73a995cc03b0b2d7f5ca915bee # v4.2.0
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: "Set prod tag on older image"
+      - name: 'Set prod tag on older image'
         env:
           IMAGE: ${{ matrix.image }}
           RELEASE_TAG: ${{ inputs.release-tag }}

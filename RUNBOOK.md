@@ -38,36 +38,36 @@ See [resources](#resources) section for overview of all resources used by the ap
 <details>
   <summary>Permissions required</summary>
 
-* **For Managing User Access**
-  * Added as owner to the [Enterprise registration][enterprise-registration].
-* **For Managing Radix**
-  * To access the Radix console
-    * Apply for the `Radix Platform Users` and `Radix Playground Users` through https://accessit.equinor.com
-    * Added to the [Team Hermes Radix Admin][radix-admin-group] group that controls who can administrate the Radix application.
-  * To change the `radixconfig.yaml` file
-    * Added to the [GitHub repository][github-repository]
-* **For Managing App registration**
-  * Apply for the Application Developer role through https://accessit.equinor.com
-    * Need to be a certified developer to get this role.
-  * Added as owners to the Azure [App registration][app-registration]
-* **For building service images locally**
-  * A Docker account with access to [Docker Hardened Images](https://docs.docker.com/dhi/) (free). Run `docker login dhi.io` once before `docker compose build`/`up`, otherwise pulls of `dhi.io/{nginx,node,busybox,oauth2-proxy,redis}` fail with `unauthorized`. Dependabot uses the `DHI_USERNAME` / `DHI_PASSWORD` repository secrets to track updates for these images (see [.github/dependabot.yml](.github/dependabot.yml)).
+- **For Managing User Access**
+  - Added as owner to the [Enterprise registration][enterprise-registration].
+- **For Managing Radix**
+  - To access the Radix console
+    - Apply for the `Radix Platform Users` and `Radix Playground Users` through https://accessit.equinor.com
+    - Added to the [Team Hermes Radix Admin][radix-admin-group] group that controls who can administrate the Radix application.
+  - To change the `radixconfig.yaml` file
+    - Added to the [GitHub repository][github-repository]
+- **For Managing App registration**
+  - Apply for the Application Developer role through https://accessit.equinor.com
+    - Need to be a certified developer to get this role.
+  - Added as owners to the Azure [App registration][app-registration]
+- **For building service images locally**
+  - A Docker account with access to [Docker Hardened Images](https://docs.docker.com/dhi/) (free). Run `docker login dhi.io` once before `docker compose build`/`up`, otherwise pulls of `dhi.io/{nginx,node,busybox,oauth2-proxy,redis}` fail with `unauthorized`. Dependabot uses the `DHI_USERNAME` / `DHI_PASSWORD` repository secrets to track updates for these images (see [.github/dependabot.yml](.github/dependabot.yml)).
 
 </details>
 
 <details>
   <summary>Competence required</summary>
 
-* [Radix](https://www.radix.equinor.com)
-* [GitHub Actions](https://docs.github.com/en/actions)
-* [Azure](https://learn.microsoft.com/en-us/azure/)
-* [npm](https://docs.npmjs.com/)
-* [Docker](https://docs.docker.com/)
-* [React](https://react.dev/)
-* [Oauth2](https://oauth.net/2/)
-* [Python](https://www.python.org/)
-* [Pre-commit](https://pre-commit.com/)
-* [Git](https://git-scm.com/)
+- [Radix](https://www.radix.equinor.com)
+- [GitHub Actions](https://docs.github.com/en/actions)
+- [Azure](https://learn.microsoft.com/en-us/azure/)
+- [npm](https://docs.npmjs.com/)
+- [Docker](https://docs.docker.com/)
+- [React](https://react.dev/)
+- [Oauth2](https://oauth.net/2/)
+- [Python](https://www.python.org/)
+- [Pre-commit](https://pre-commit.com/)
+- [Git](https://git-scm.com/)
 
 </details>
 
@@ -227,8 +227,9 @@ UpdateLayoutConfig($c4ShapeInRow="1", $c4BoundaryInRow="1")
 | [App registration][app-registration] | The application object registered in Azure for this application. |
 
 To make sure that the app registration are compliant:
-* Add additional owner (to the Enterprise Application)
-* Go to the `Branding & Properties` section and update the `Service Management Reference` to contain the App ID of the [configuration item][it-application-url].
+
+- Add additional owner (to the Enterprise Application)
+- Go to the `Branding & Properties` section and update the `Service Management Reference` to contain the App ID of the [configuration item][it-application-url].
 
 _In order for the application to be able to authenticate users, you need an Application Registration in Azure AD that can sign in users and issue tokens._
 
@@ -279,7 +280,7 @@ This table shows other secrets not directly used by the application.
 <details>
   <summary>Environments and Resources Management</summary>
 
->  _Updating system configuration files. Deploying new versions or patches._
+> _Updating system configuration files. Deploying new versions or patches._
 
 **Radix Environments**
 
@@ -297,19 +298,19 @@ Outlined below are descriptions of each environment with their respective deploy
 
 How to deploy to development environment:
 
-  1. Create a pull request to main branch and assert that all checks passes.
-  2. Merge the pull request and follow conventional commits for commit message.
-  3. The development environment in Radix will now be built and deployed automatically.
+1. Create a pull request to main branch and assert that all checks passes.
+2. Merge the pull request and follow conventional commits for commit message.
+3. The development environment in Radix will now be built and deployed automatically.
 
 How to deploy to testing environment:
 
-  1. The `release-please` GitHub action runs on every commit to main, generating a changelog, and proposing a new version bump in a pull-request to main branch.
-  2. Merging an open `release-please` pull request will make the `release-please` workflow create a new GitHub release, with the output of `release_created` as `true`.
-  3. The testing environment in Radix will then be built and deployed automatically.
+1. The `release-please` GitHub action runs on every commit to main, generating a changelog, and proposing a new version bump in a pull-request to main branch.
+2. Merging an open `release-please` pull request will make the `release-please` workflow create a new GitHub release, with the output of `release_created` as `true`.
+3. The testing environment in Radix will then be built and deployed automatically.
 
 How to promote testing to production environment:
 
-  1. Go to the Radix web console and promote the application from the Testing environment to the Production environment.
+1. Go to the Radix web console and promote the application from the Testing environment to the Production environment.
 
 **Azure Resources**
 
@@ -319,10 +320,10 @@ Azure resources are defined using [Bicep](https://learn.microsoft.com/en-us/azur
 
 Bicep files (found under the IaC/ folder):
 
-* The `main.bicep` file creates the resource group (dev, staging, or prod) and calls the `resources.bicep` file to create the resources (key vault, database, app insights, etc.).
-* The `app-registration.bicep` file creates the app registration used for the application.
+- The `main.bicep` file creates the resource group (dev, staging, or prod) and calls the `resources.bicep` file to create the resources (key vault, database, app insights, etc.).
+- The `app-registration.bicep` file creates the app registration used for the application.
 
-* How to test the bicep files:
+- How to test the bicep files:
 
 `az bicep build --file ./<FILENAME>.bicep --stdout`
 
@@ -351,7 +352,6 @@ Teardown (this deletes everything in the resource group)
 
 </details>
 
-
 <details>
    <summary>Firewall and Network Configuration</summary>
 
@@ -372,18 +372,17 @@ Firewall is configured through [Access & Network Services][access-and-network-se
 | ------- | ------------------ | ------ |
 | Q1 xxxx | username, username | OK     |
 
-
 Tasks to perform:
 
-* Update passwords and certificates.
-* Check users and admin accesses.
+- Update passwords and certificates.
+- Check users and admin accesses.
 
 **Monitoring Vulnerabilities**
 
 > _Identifying, review and apply security patches._
 
-* [Snyk][snyk] is used to monitor and manage security vulnerabilities in the application.
-* [Dependabot][dependabot] is used to monitor and manage dependencies in the application.
+- [Snyk][snyk] is used to monitor and manage security vulnerabilities in the application.
+- [Dependabot][dependabot] is used to monitor and manage dependencies in the application.
 
 **Penetration Tests**
 
@@ -418,8 +417,8 @@ See more about threat-modeling [here](https://appsec.equinor.com/threat-modeling
 
 Azure Active Directory (AD) handles user authentication and authorization.
 
-* Application roles are managed in the [Application registration][app-registration] under the app roles section, here you can add roles, or remove existing ones.
-* User access are managed in the [Enterprise registration][enterprise-registration] under the users and groups section, here you can add new users and groups, or remove existing ones.
+- Application roles are managed in the [Application registration][app-registration] under the app roles section, here you can add roles, or remove existing ones.
+- User access are managed in the [Enterprise registration][enterprise-registration] under the users and groups section, here you can add new users and groups, or remove existing ones.
 
 </details>
 
@@ -428,8 +427,8 @@ Azure Active Directory (AD) handles user authentication and authorization.
 
 > _Describe how system health and security monitoring is performed._
 
-* Application status, and logs can be monitored via the [Radix Application Console][radix-application-console], and can also from there navigate to Grafana dashboard to monitor application performance and resource utilization.
-* Usage statistics of site traffic, inspect applications logs for errors or unusual activity is available in [Application Insights][application-insights].
+- Application status, and logs can be monitored via the [Radix Application Console][radix-application-console], and can also from there navigate to Grafana dashboard to monitor application performance and resource utilization.
+- Usage statistics of site traffic, inspect applications logs for errors or unusual activity is available in [Application Insights][application-insights].
 
 </details>
 
@@ -459,6 +458,7 @@ Security Incidents should be reported at [Equinor's Computer Security Incident R
 <!-- codespell:ignore-start -->
 <!-- TODO: When instantiating the template - remember to review and replace links in this list. -->
 <!-- See e.g. VOID project for a filled-out version: https://github.com/equinor/void2/blob/main/RUNBOOK.md -->
+
 [github-repository]: https://github.com/equinor/template-fastapi-react
 [github-team]: https://github.com/orgs/equinor/teams/team-hermes
 [github-project]: https://github.com/orgs/equinor/projects/990
@@ -481,4 +481,5 @@ Security Incidents should be reported at [Equinor's Computer Security Incident R
 [dependabot]: https://github.com/equinor/template-fastapi-react/security/dependabot
 [cyber-self-assessment]: #N/A
 [access-and-network-services]: #N/A
+
 <!-- codespell:ignore-end -->

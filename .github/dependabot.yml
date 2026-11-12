@@ -8,50 +8,50 @@ registries:
     password: ${{secrets.DHI_PASSWORD}}
 
 updates:
-  - package-ecosystem: "github-actions"
+  - package-ecosystem: 'github-actions'
     directories:
-      - "/.github/workflows"
-      - "/.github/actions/*"
+      - '/.github/workflows'
+      - '/.github/actions/*'
     groups:
       ci:
-        patterns: ["*"]
+        patterns: ['*']
       ci-security:
         applies-to: security-updates
-        patterns: ["*"]
+        patterns: ['*']
     schedule: # schedules do not apply to security updates
-      interval: "cron" # active projects are recommended to update dependencies "monthly" instead
-      cronjob: "0 0 1 3,10 *" # At 00:00 on day-of-month 1 in March and October
+      interval: 'cron' # active projects are recommended to update dependencies "monthly" instead
+      cronjob: '0 0 1 3,10 *' # At 00:00 on day-of-month 1 in March and October
     cooldown:
       default-days: 7
 
-  - package-ecosystem: "pre-commit"
-    directory: "/"
+  - package-ecosystem: 'pre-commit'
+    directory: '/'
     groups:
       pre-commit:
-        patterns: ["*"]
+        patterns: ['*']
     schedule:
-      interval: "cron"
-      cronjob: "0 0 1 3,10 *"
+      interval: 'cron'
+      cronjob: '0 0 1 3,10 *'
     cooldown:
       default-days: 7
 
-  - package-ecosystem: "docker"
+  - package-ecosystem: 'docker'
     directories:
-      - "/api"
-      - "/web"
+      - '/api'
+      - '/web'
     registries:
       - dhi-io
     groups:
       docker:
         update-types: [minor, patch]
     schedule:
-      interval: "cron"
-      cronjob: "0 0 1 3,10 *"
+      interval: 'cron'
+      cronjob: '0 0 1 3,10 *'
     cooldown:
       default-days: 7
 
-  - package-ecosystem: "uv"
-    directory: "/api"
+  - package-ecosystem: 'uv'
+    directory: '/api'
     groups:
       api-prod:
         dependency-type: production
@@ -60,35 +60,35 @@ updates:
         dependency-type: development
       api-security:
         applies-to: security-updates
-        patterns: ["*"]
+        patterns: ['*']
     schedule:
-      interval: "cron"
-      cronjob: "0 0 1 3,10 *"
+      interval: 'cron'
+      cronjob: '0 0 1 3,10 *'
     cooldown:
       default-days: 7
 
-  - package-ecosystem: "uv"
-    directory: "/docs"
+  - package-ecosystem: 'uv'
+    directory: '/docs'
     groups:
       docs:
-        patterns: ["*"]
+        patterns: ['*']
       docs-security:
         applies-to: security-updates
-        patterns: ["*"]
+        patterns: ['*']
     schedule:
-      interval: "cron"
-      cronjob: "0 0 1 3,10 *"
+      interval: 'cron'
+      cronjob: '0 0 1 3,10 *'
     cooldown:
       default-days: 7
 
-  - package-ecosystem: "npm"
-    directory: "/web"
+  - package-ecosystem: 'npm'
+    directory: '/web'
     groups:
       vite-plus:
         patterns:
-          - "vite"
-          - "vite-plus"
-          - "@voidzero-dev/vite-plus-core"
+          - 'vite'
+          - 'vite-plus'
+          - '@voidzero-dev/vite-plus-core'
       web-prod:
         dependency-type: production
         update-types: [minor, patch]
@@ -96,23 +96,23 @@ updates:
         dependency-type: development
       web-security:
         applies-to: security-updates
-        patterns: ["*"]
+        patterns: ['*']
     schedule:
-      interval: "cron"
-      cronjob: "0 0 1 3,10 *"
+      interval: 'cron'
+      cronjob: '0 0 1 3,10 *'
     cooldown:
       default-days: 7
 
-  - package-ecosystem: "npm"
-    directory: "/openapi"
+  - package-ecosystem: 'npm'
+    directory: '/openapi'
     groups:
       openapi-generator:
-        patterns: ["*"]
+        patterns: ['*']
       openapi-security:
         applies-to: security-updates
-        patterns: ["*"]
+        patterns: ['*']
     schedule:
-      interval: "cron"
-      cronjob: "0 0 1 3,10 *"
+      interval: 'cron'
+      cronjob: '0 0 1 3,10 *'
     cooldown:
       default-days: 7

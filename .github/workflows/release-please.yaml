@@ -4,7 +4,7 @@ on:
   workflow_call:
     secrets:
       APP_PRIVATE_KEY:
-        description: "Private key for the release GitHub App"
+        description: 'Private key for the release GitHub App'
         required: true
     outputs:
       release_created:
