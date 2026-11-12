@@ -36,6 +36,12 @@ jobs:
         uses: ./.github/actions/setup-environment
         timeout-minutes: 5
 
+      - name: 'Check: tool versions'
+        run: |
+          mise exec -- python -m unittest discover -s .mise/tests
+          mise run github-actions:ensure-consistent-tool-versions
+          mise run github-actions:ensure-consistent-vite-plus-versions
+
       - name: 'Run: pre-commit'
         uses: pre-commit/action@2c7b3805fd2a0fd8c1884dcaebf91fc102a13ecd # v3.0.1
         with:

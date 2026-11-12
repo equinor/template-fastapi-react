@@ -12,3 +12,7 @@ regenerate only the client from an existing spec, run
 The generator and its lockfile are isolated in `openapi/`, so they do not
 constrain the web application's TypeScript version. Commit generated changes,
 not manual edits.
+
+The generator still uses the TypeScript 6 JavaScript compiler API. Dependabot
+ignores TypeScript major updates in this package until the generator supports
+TypeScript 7; this does not restrict TypeScript updates in `web/`.

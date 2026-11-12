@@ -31,11 +31,6 @@ jobs:
         uses: ./.github/actions/setup-environment
         timeout-minutes: 10
 
-      - name: 'Check: tool versions'
-        run: |
-          mise run github-actions:ensure-consistent-tool-versions
-          mise run github-actions:ensure-consistent-vite-plus-versions
-
       - name: 'Run: pre-commit hooks and verify automatic fixes'
         shell: bash
         run: |
@@ -132,7 +127,7 @@ jobs:
           /usr/bin/git -c core.hooksPath=/dev/null -c commit.gpgsign=false \
             -c user.name="Dependabot autofix" \
             -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
-            commit -m "chore: apply Dependabot hook fixes"
+            commit -m "chore: apply Dependabot hook fixes [dependabot skip]"
 
       - name: 'Setup: create bot token on fresh runner'
         id: app-token
