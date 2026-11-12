@@ -92,17 +92,18 @@ From inside the /web folder.
 ### Package management
 
 This project uses **pnpm** and **Vite+**, pinned in `web/package.json` and
-`web/pnpm-workspace.yaml`. mise installs Node 24.22.2 and pnpm; a global `vp`
-installation is not needed. After cloning or switching branches, install the
-locked dependencies for editors and direct `pnpm` commands:
+`web/pnpm-workspace.yaml`. mise installs Node 24.22.2, pnpm, and Vite+; Vite+
+uses the package manager declared in `web/package.json` when installing
+dependencies. After cloning or switching branches, install the locked
+dependencies for editors and direct `pnpm` commands:
 
 ```shell
 mise install
 mise run install-dependencies:web
 ```
 
-The `mise run lint:web`, `test:web`, `build:web`, and API-client generation tasks
-install web dependencies automatically.
+The `mise run lint:web`, `test:web`, and `build:web` tasks install web dependencies
+automatically. API-client generation installs its separate `openapi/` dependencies.
 
 #### Editors
 
@@ -115,6 +116,18 @@ Use the Oxc editor extension for formatting and linting. Configuration lives in
 `web/vite.config.ts`, not separate ESLint or Biome files. Repository-local editor
 settings are intentionally untracked.
 
-Run `mise run lint:web` for formatting, lint and both native TypeScript checks and
-the TypeScript 6 compiler check. The latter remains available because OpenAPI
-generation still requires the JavaScript compiler API removed in TypeScript 7.
+Run `mise run lint:web` for formatting, lint and TypeScript checks.
+
+### Dependabot autofixes
+
+Tool version consistency checks run on every pull request, independently of
+whether automatic fixes are enabled.
+
+The Dependabot branch autofix workflow is disabled unless the
+`DEPENDABOT_AUTOFIX_ENABLED` repository variable is set to `true`. Enabling it
+requires a GitHub App installed on this repository with contents write
+permission, the app ID in the `DEPENDABOT_AUTOFIX_APP_ID` repository variable,
+and its private key in both the `DEPENDABOT_AUTOFIX_PRIVATE_KEY` Actions secret
+and Dependabot secret. The workflow runs checks without write credentials; a
+separate job applies only allowlisted source and documentation fixes and pushes
+them without force.

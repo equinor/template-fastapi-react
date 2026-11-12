@@ -6,6 +6,12 @@ run = "uv run python -m app open-api"
 
 ["generate:api-client-from-spec"]
 description = "Generate typescript types from the OpenAPI JSON Schema"
-depends = ["generate:openapi-spec", "install-dependencies:web"]
-dir = "{{config_root}}/web"
-run = "pnpm generate"
+depends = ["generate:openapi-spec", "install-dependencies:openapi"]
+dir = "{{config_root}}/openapi"
+run = "vpr generate"
+
+["generate:api-client"]
+description = "Generate the API client from the existing OpenAPI JSON Schema"
+depends = ["install-dependencies:openapi"]
+dir = "{{config_root}}/openapi"
+run = "vpr generate"

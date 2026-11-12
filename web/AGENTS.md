@@ -14,9 +14,8 @@ mise run test:web
 mise run build:web
 ```
 
-`mise run lint:web` runs the TypeScript 6 compile check and Vite+ checks. Vite+
-uses its native TypeScript 7 checker. The OpenAPI generator is pinned to
-TypeScript 6; regenerate the API client with
+`mise run lint:web` runs the TypeScript compile check and Vite+ checks. OpenAPI
+generation is isolated under `openapi/`; regenerate the API client with
 `mise run generate:api-client-from-spec`.
 
 ## Structure and imports

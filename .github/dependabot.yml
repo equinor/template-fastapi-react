@@ -94,9 +94,25 @@ updates:
         update-types: [minor, patch]
       web-dev:
         dependency-type: development
-        exclude-patterns:
-          - "@hey-api/openapi-ts"
       web-security:
+        applies-to: security-updates
+        patterns: ["*"]
+    schedule:
+      interval: "cron"
+      cronjob: "0 0 1 3,10 *"
+    cooldown:
+      default-days: 7
+
+  - package-ecosystem: "npm"
+    directory: "/openapi"
+    ignore:
+      # The generator still requires the TypeScript 6 JavaScript compiler API.
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
+    groups:
+      openapi-generator:
+        patterns: ["*"]
+      openapi-security:
         applies-to: security-updates
         patterns: ["*"]
     schedule:

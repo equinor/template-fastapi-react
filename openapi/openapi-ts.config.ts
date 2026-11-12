@@ -2,7 +2,7 @@ import type { UserConfig } from '@hey-api/openapi-ts'
 
 export default {
   input: '../api/.openapi.json',
-  output: './src/api-generated',
+  output: '../web/src/api-generated',
   plugins: [
     {
       name: '@hey-api/client-fetch',
