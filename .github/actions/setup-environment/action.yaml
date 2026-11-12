@@ -7,8 +7,8 @@ runs:
     - name: "Setup: sparse checkout runtimes"
       if: hashFiles('web/package.json') == ''
       shell: bash
-      # Node's postinstall needs web/; API/docs-only jobs must also work without a warm cache.
-      run: echo "MISE_DISABLE_TOOLS=node" >> "$GITHUB_ENV"
+      # Node and Vite+ need web/; API/docs-only jobs must also work without a warm cache.
+      run: echo "MISE_DISABLE_TOOLS=node,viteplus" >> "$GITHUB_ENV"
 
     - name: "Cache: API dependencies"
       id: cache-api

@@ -1,0 +1,50 @@
+#!/usr/bin/env python3
+import os
+import re
+import subprocess
+import sys
+import tomllib
+from pathlib import Path
+
+
+root = Path(os.environ.get("MISE_CONFIG_ROOT", Path.cwd())).resolve()
+config = tomllib.loads((root / ".mise/config.toml").read_text())
+tools = config.get("tools", {})
+patterns = {
+    "node": re.compile(r"\bnode:(\d+\.\d+\.\d+)"),
+    "python": re.compile(r"\bpython:(\d+\.\d+\.\d+)"),
+    "uv": re.compile(r"\buv:(\d+\.\d+\.\d+)"),
+}
+tracked_files = subprocess.run(
+    ["git", "-C", str(root), "ls-files", "-z"],
+    check=True,
+    capture_output=True,
+    text=True,
+).stdout.split("\0")
+versions = {tool: set() for tool in patterns}
+
+for relative_path in tracked_files:
+    if not relative_path:
+        continue
+    filename = Path(relative_path).name
+    if filename != "Dockerfile" and not filename.startswith("Dockerfile."):
+        continue
+    for tool, pattern in patterns.items():
+        versions[tool].update(pattern.findall((root / relative_path).read_text()))
+
+failures = []
+for tool, docker_versions in versions.items():
+    mise_version = str(tools.get(tool, ""))
+    if len(docker_versions) != 1:
+        failures.append(f"Expected one Dockerfile {tool} version, found {sorted(docker_versions)}.")
+    elif mise_version != next(iter(docker_versions)):
+        failures.append(
+            f"{tool} version differs: mise pins {mise_version or '(missing)'}, "
+            f"Dockerfile pins {next(iter(docker_versions))}."
+        )
+
+if failures:
+    print("\n".join(failures), file=sys.stderr)
+    sys.exit(1)
+
+print("Dockerfile Node, Python, and uv versions match mise.")

@@ -46,12 +46,10 @@ Of note:
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
-TypeScript remains `~6.0.3` for `tsc` and OpenAPI generation: even
-`@hey-api/openapi-ts@0.99.0` still imports `typescript` and calls `ts.factory`,
-which TypeScript 7 no longer provides. No compiler API patches are applied.
-`vp check` independently runs TypeScript 7-based type-aware linting and type checks
-through Vite+'s bundled tsgolint. The configs use erasable syntax, verbatim module
-syntax, and forced module detection.
+The web application uses TypeScript 7. OpenAPI generation has its own package
+and lockfile under `openapi/`, so its generator dependencies do not affect the
+web toolchain. The configs use erasable syntax, verbatim module syntax, and
+forced module detection.
 
 ## Web commands
 
@@ -61,12 +59,11 @@ Run these from `web/` after `pnpm install --frozen-lockfile`:
 | -------------------- | -------------------------------------------------- |
 | `pnpm start`         | Dev server on port 3000                            |
 | `pnpm exec vp check` | Formatting, lint and native TypeScript checks      |
-| `pnpm compile`       | Check app and tooling projects with TypeScript 6   |
+| `pnpm compile`       | Check app and tooling projects with TypeScript 7   |
 | `pnpm exec vp fmt`   | Format web source, CSS/Tailwind, JSON and Markdown |
 | `pnpm test`          | Run all colocated tests once (CI-safe)             |
 | `pnpm test:watch`    | Watch tests locally                                |
 | `pnpm build`         | Check and build production assets into `build/`    |
-| `pnpm generate`      | Generate the API client from `api/.openapi.json`   |
 
 CI runs the same checks, tests and production build through mise. The existing
 pre-commit policy uses the local Vite+ dependency and translates repository-root

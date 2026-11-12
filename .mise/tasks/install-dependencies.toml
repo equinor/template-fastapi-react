@@ -6,4 +6,9 @@ run = "uv sync --locked"
 ["install-dependencies:web"]
 description = "Install the dependencies for the Web application"
 dir = "{{config_root}}/web"
-run = "pnpm install --frozen-lockfile"
+run = "vp install --frozen-lockfile"
+
+["install-dependencies:openapi"]
+description = "Install the dependencies for the OpenAPI client generator"
+dir = "{{config_root}}/openapi"
+run = "vp install --frozen-lockfile"
