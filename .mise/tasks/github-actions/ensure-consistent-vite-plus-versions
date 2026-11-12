@@ -20,12 +20,19 @@ for dependency in ("vite", "vite-plus"):
     if value != "catalog:":
         failures.append(f"web/package.json must use the pnpm catalog for {dependency}.")
 
-package_manager = package.get("packageManager", "")
-manager_match = re.fullmatch(r"pnpm@(.+)", package_manager)
-if manager_match is None:
-    failures.append("web/package.json must pin pnpm in packageManager.")
-elif str(mise.get("pnpm", "")) != manager_match.group(1):
-    failures.append(f"mise pnpm pin {mise.get('pnpm', '(missing)')} differs from {package_manager}.")
+for manifest, contents in (
+    ("web/package.json", package),
+    ("openapi/package.json", json.loads((root / "openapi/package.json").read_text())),
+):
+    package_manager = contents.get("packageManager", "")
+    manager_match = re.fullmatch(r"pnpm@(.+)", package_manager)
+    if manager_match is None:
+        failures.append(f"{manifest} must pin pnpm in packageManager.")
+    elif str(mise.get("pnpm", "")) != manager_match.group(1):
+        failures.append(
+            f"{manifest} packageManager {package_manager} differs from "
+            f"mise pnpm pin {mise.get('pnpm', '(missing)')}."
+        )
 
 pins = {
     "Vite+": re.findall(r"(?m)^  vite-plus:\s*([0-9][^\s#]*)\s*$", workspace),

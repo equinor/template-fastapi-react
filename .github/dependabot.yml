@@ -105,6 +105,10 @@ updates:
 
   - package-ecosystem: "npm"
     directory: "/openapi"
+    ignore:
+      # The generator still requires the TypeScript 6 JavaScript compiler API.
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
     groups:
       openapi-generator:
         patterns: ["*"]

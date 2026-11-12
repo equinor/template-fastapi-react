@@ -120,6 +120,9 @@ Run `mise run lint:web` for formatting, lint and TypeScript checks.
 
 ### Dependabot autofixes
 
+Tool version consistency checks run on every pull request, independently of
+whether automatic fixes are enabled.
+
 The Dependabot branch autofix workflow is disabled unless the
 `DEPENDABOT_AUTOFIX_ENABLED` repository variable is set to `true`. Enabling it
 requires a GitHub App installed on this repository with contents write
