@@ -17,7 +17,7 @@ concurrency:
 
 jobs:
   publish-docs:
-    name: "Publish docs site"
+    name: 'Publish docs site'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
@@ -32,7 +32,7 @@ jobs:
             .mise
             docs
 
-      - name: "Setup: Environment"
+      - name: 'Setup: Environment'
         uses: ./.github/actions/setup-environment
         timeout-minutes: 5
 

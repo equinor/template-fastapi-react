@@ -22,8 +22,15 @@ repos:
         files: ^api/.openapi.json$
         pass_filenames: false
 
+      - id: oxfmt-root
+        name: 'Lint : Oxfmt (non-web)'
+        entry: mise exec -- oxfmt --no-error-on-unmatched-pattern
+        language: system
+        files: \.(ts|tsx|js|jsx|mts|mjs|cts|cjs|json|jsonc|css|html|md|yaml|yml|toml)$
+        exclude: ^web/|(^|/)pnpm-lock\.yaml$|^api/\.openapi\.json$
+
       - id: vite-plus-check
-        name: "Lint : Vite+ (web)"
+        name: 'Lint : Vite+ (web)'
         entry: mise exec -- bash -c 'cd web && files=(); for file; do files+=("${file#web/}"); done; pnpm exec vp check --fix "${files[@]}"' --
         language: system
         files: ^web/.*\.(ts|tsx|js|jsx|mts|mjs|cts|cjs|json|jsonc|css|html|md|yaml|yml)$
@@ -33,69 +40,69 @@ repos:
     rev: v4.4.0
     hooks:
       - id: conventional-pre-commit
-        name: "Check: conventional formatted commit message"
+        name: 'Check: conventional formatted commit message'
         stages: [commit-msg]
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
     hooks:
       - id: check-merge-conflict
-        name: "Check: no merge conflict strings"
+        name: 'Check: no merge conflict strings'
       - id: no-commit-to-branch
-        name: "Check: no commit to main"
+        name: 'Check: no commit to main'
         args: [--branch, main, --branch, master]
         stages: [commit-msg]
       - id: check-ast
-        name: "Check: parse .py files"
+        name: 'Check: parse .py files'
         language_version: python3.14
       - id: check-json
-        name: "Check: parse .json files"
+        name: 'Check: parse .json files'
       - id: check-toml
-        name: "Check: parse .toml files"
+        name: 'Check: parse .toml files'
       - id: check-yaml
-        name: "Check: parse .yaml files"
+        name: 'Check: parse .yaml files'
         # mkdocs.yml uses Python-tagged YAML for mermaid2; docker-compose
         # overrides use Compose-specific !override / !reset tags. Both are
         # valid for their own parsers but not for the standard YAML loader.
         exclude: (^|/)(mkdocs\.yml|docker-compose\.(no-auth|ci)\.yml)$
       - id: check-case-conflict
-        name: "Check: no case conflicting file names"
+        name: 'Check: no case conflicting file names'
       - id: trailing-whitespace
-        name: "Lint : remove trailing whitespaces"
+        name: 'Lint : remove trailing whitespaces'
         exclude: ^web/src/api/generated/|^.*\.(lock)$
       - id: end-of-file-fixer
-        name: "Lint : files end with only newline"
+        name: 'Lint : files end with only newline'
         exclude: ^web/src/api/generated/|^.*\.(lock)$
       - id: mixed-line-ending
-        name: "Lint : consistent file ending"
+        name: 'Lint : consistent file ending'
         exclude: ^.*\.(lock)$
       - id: detect-private-key
-        name: "Check: no private keys are commited"
+        name: 'Check: no private keys are commited'
         exclude: api/tests/integration/mock_authentication.py
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: "v0.17.2"
+    rev: 'v0.17.2'
     hooks:
       - id: ruff-check
-        name: "Lint : ruff (python)"
+        name: 'Lint : ruff (python)'
         files: ^api/.*\.py$
-        args: ["--fix"]
+        args: ['--fix']
 
       - id: ruff-format
-        name: "Lint : ruff-format (python)"
+        name: 'Lint : ruff-format (python)'
         files: ^api/.*\.py$
 
   - repo: https://github.com/scop/pre-commit-shfmt
     rev: v3.13.1-1
     hooks:
       - id: shfmt
-        name: "Lint : shfmt (bash)"
-        args: ["-w", "-i", "4", "-ci"]
+        name: 'Lint : shfmt (bash)'
+        args: ['-w', '-i', '4', '-ci']
         files: ^(IaC/.*\.sh|\.mise/tasks/iac/[^/]+)$
 
   - repo: https://github.com/shellcheck-py/shellcheck-py
     rev: v0.11.0.1
     hooks:
       - id: shellcheck
-        name: "Lint : shellcheck (bash)"
+        name: 'Lint : shellcheck (bash)'
         files: ^(IaC/.*\.sh|\.mise/tasks/iac/[^/]+|redis/rootfs/usr/local/sbin/.*\.sh|web/oauth2/.*\.sh|api/src/.*\.sh)$

@@ -4,11 +4,11 @@ The REST API (i.e. python FastAPI server) has access to, and is responsible for 
 
 We do that in these steps;
 
-  1. Require a JWT on each request
-  2. Fetch the RSA public keys from the authentication server.
-  3. Validate the JWT signature with the auth server's public key
+1. Require a JWT on each request
+2. Fetch the RSA public keys from the authentication server.
+3. Validate the JWT signature with the auth server's public key
 
-FastAPI has system called [__dependencies__](https://fastapi.tiangolo.com/tutorial/dependencies) that is well suited for running a specific function before every request.
+FastAPI has system called [**dependencies**](https://fastapi.tiangolo.com/tutorial/dependencies) that is well suited for running a specific function before every request.
 
 Here is an example;
 
@@ -23,7 +23,7 @@ app.include_router(routes, dependencies=[Security(auth_with_jwt)])
 
 That's it! Now every route added like this will require a successful JWT validation before the request will be processed.
 
-Dependencies can also return values, useful if you need to do some kind of __authorization__.
+Dependencies can also return values, useful if you need to do some kind of **authorization**.
 Here is one example;
 
 ```python

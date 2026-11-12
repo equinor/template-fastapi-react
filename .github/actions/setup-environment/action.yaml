@@ -4,13 +4,13 @@ description: Configure development environment with all runtimes and dependencie
 runs:
   using: composite
   steps:
-    - name: "Setup: sparse checkout runtimes"
+    - name: 'Setup: sparse checkout runtimes'
       if: hashFiles('web/package.json') == ''
       shell: bash
       # Node and Vite+ need web/; API/docs-only jobs must also work without a warm cache.
       run: echo "MISE_DISABLE_TOOLS=node,viteplus" >> "$GITHUB_ENV"
 
-    - name: "Cache: API dependencies"
+    - name: 'Cache: API dependencies'
       id: cache-api
       if: hashFiles('api') != ''
       uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
@@ -18,7 +18,7 @@ runs:
         path: api/.venv
         key: deps-api-${{ runner.os }}-${{ hashFiles('.mise/config.toml', 'api/pyproject.toml', 'api/uv.lock') }}
 
-    - name: "Cache: web dependencies"
+    - name: 'Cache: web dependencies'
       id: cache-web
       if: hashFiles('web/package.json') != ''
       uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
@@ -26,7 +26,7 @@ runs:
         path: web/.pnpm-store
         key: deps-web-${{ runner.os }}-${{ hashFiles('.mise/config.toml', 'web/pnpm-lock.yaml', 'web/pnpm-workspace.yaml') }}
 
-    - name: "Cache: docs dependencies"
+    - name: 'Cache: docs dependencies'
       id: cache-docs
       if: hashFiles('docs') != ''
       uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
@@ -34,20 +34,20 @@ runs:
         path: docs/.venv
         key: deps-docs-${{ runner.os }}-${{ hashFiles('.mise/config.toml', 'docs/pyproject.toml', 'docs/uv.lock') }}
 
-    - name: "Setup: Runtimes"
+    - name: 'Setup: Runtimes'
       uses: jdx/mise-action@1648a7812b9aeae629881980618f079932869151 # v4.0.1
 
-    - name: "Setup: install API dependencies"
+    - name: 'Setup: install API dependencies'
       if: hashFiles('api') != ''
       shell: bash
       run: mise run install-dependencies:api
 
-    - name: "Setup: web dependencies"
+    - name: 'Setup: web dependencies'
       if: hashFiles('web/package.json') != ''
       shell: bash
       run: mise run install-dependencies:web
 
-    - name: "Setup: install docs dependencies"
+    - name: 'Setup: install docs dependencies'
       if: hashFiles('docs') != ''
       working-directory: ./docs
       shell: bash

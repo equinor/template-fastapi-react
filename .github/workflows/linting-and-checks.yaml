@@ -1,4 +1,4 @@
-name: "Test"
+name: 'Test'
 on:
   # Workflow dispatch is used for manual triggers
   workflow_dispatch:
@@ -6,7 +6,7 @@ on:
   workflow_call:
     secrets:
       CR_SECRET:
-        description: "Secret to authenticate if using an other container registry than Github"
+        description: 'Secret to authenticate if using an other container registry than Github'
         required: false
 
 permissions:
@@ -25,36 +25,36 @@ env:
 jobs:
   pre-commit:
     runs-on: ubuntu-latest
-    name: "pre-commit"
+    name: 'pre-commit'
     steps:
-      - name: "Setup: checkout repository"
+      - name: 'Setup: checkout repository'
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
-      - name: "Setup: Environment"
+      - name: 'Setup: Environment'
         uses: ./.github/actions/setup-environment
         timeout-minutes: 5
 
-      - name: "Check: tool versions"
+      - name: 'Check: tool versions'
         run: |
           mise exec -- python -m unittest discover -s .mise/tests
           mise run github-actions:ensure-consistent-tool-versions
           mise run github-actions:ensure-consistent-vite-plus-versions
 
-      - name: "Run: pre-commit"
+      - name: 'Run: pre-commit'
         uses: pre-commit/action@2c7b3805fd2a0fd8c1884dcaebf91fc102a13ecd # v3.0.1
         with:
           extra_args: --all-files
 
   mypy:
     runs-on: ubuntu-latest
-    name: "mypy static type checking"
+    name: 'mypy static type checking'
     defaults:
       run:
         working-directory: ./api
     steps:
-      - name: "Setup: checkout repository"
+      - name: 'Setup: checkout repository'
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
@@ -63,21 +63,21 @@ jobs:
             .mise
             api
 
-      - name: "Setup: Environment"
+      - name: 'Setup: Environment'
         uses: ./.github/actions/setup-environment
         timeout-minutes: 5
 
-      - name: "Run: mypy"
+      - name: 'Run: mypy'
         run: mise run lint:api:typecheck
 
   typescript-compile:
     runs-on: ubuntu-latest
-    name: "typescript compilation"
+    name: 'typescript compilation'
     defaults:
       run:
         working-directory: ./web
     steps:
-      - name: "Setup: check out repository"
+      - name: 'Setup: check out repository'
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
@@ -86,21 +86,21 @@ jobs:
             .mise
             web
 
-      - name: "Setup: Environment"
+      - name: 'Setup: Environment'
         uses: ./.github/actions/setup-environment
         timeout-minutes: 5
 
-      - name: "Run: compile"
+      - name: 'Run: compile'
         run: mise run lint:web:typecheck
 
   validate-radix-config:
     runs-on: ubuntu-latest
-    name: "validate Radix config"
+    name: 'validate Radix config'
     steps:
-      - name: "Setup: checkout repository"
+      - name: 'Setup: checkout repository'
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
       - uses: equinor/radix-github-actions@b23674a56b82a1da783b507bc7f15e7ca7067dd8 # v2.0.2
-      - name: "Run: validate radix config"
+      - name: 'Run: validate radix config'
         run: rx validate radix-config

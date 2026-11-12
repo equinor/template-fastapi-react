@@ -33,7 +33,10 @@ Of note:
   `tsconfig.node.json` (root tool configuration files). Run `pnpm compile`
   (`tsc -b`) to check both; `pnpm build` runs `vp check` before building.
   The app config owns the `@/*` alias without `baseUrl`.
-- `vite.config.ts` owns lint, format, test and build configuration. TanStack Query's
+- The root `oxfmt.config.ts` owns formatting settings; this package's
+  `vite.config.ts` imports those same settings and owns lint, test and build configuration.
+  `mise run format:root` formats non-web files using standalone Oxfmt at the
+  same version bundled with Vite+. TanStack Query's
   six supported recommended rules run through Oxlint's JS-plugin support;
   import-boundary overrides preserve feature and platform barrels and shared/config
   layering. `no-void-query-fn` is not enabled: it needs ESLint parser services

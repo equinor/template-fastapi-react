@@ -59,7 +59,7 @@ services:
 
   oauth2:
     environment:
-      OAUTH2_PROXY_SHOW_DEBUG_ON_ERROR: "true"
+      OAUTH2_PROXY_SHOW_DEBUG_ON_ERROR: 'true'
     volumes:
       - ./web/oauth2/entrypoint.sh:/usr/local/bin/entrypoint.sh
       - ./web/oauth2/oauth2-proxy.toml:/etc/oauth2-proxy.toml

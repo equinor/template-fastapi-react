@@ -15,8 +15,8 @@ A demo is running at https://template-fastapi-react.app.playground.radix.equinor
 
 </div>
 
-
 <a id="key-features"></a>
+
 ## :dart: Key features
 
 - Clean architecture
@@ -29,6 +29,7 @@ A demo is running at https://template-fastapi-react.app.playground.radix.equinor
 - Pydantic data validation
 
 <a id="quickstart"></a>
+
 ## :zap: Quickstart
 
 Prerequisites: [Docker](https://www.docker.com/) and Docker Compose.

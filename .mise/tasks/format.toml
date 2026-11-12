@@ -1,0 +1,9 @@
+["format:root"]
+description = "Format supported files outside web with the shared Oxfmt configuration"
+dir = "{{config_root}}"
+run = 'oxfmt . "!web/**"'
+
+["format:root:check"]
+description = "Check formatting outside web with the shared Oxfmt configuration"
+dir = "{{config_root}}"
+run = 'oxfmt --check . "!web/**"'

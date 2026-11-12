@@ -23,7 +23,7 @@ services:
       target: nginx-dev-noauth
       context: ./web
       args:
-        AUTH_ENABLED: "0"
+        AUTH_ENABLED: '0'
     # Compose merges depends_on by default; !override is required to actually
     # remove `oauth2` and add `web` instead.
     depends_on: !override
@@ -38,7 +38,7 @@ services:
       target: development
     # Force AUTH off regardless of any value in `.env`.
     environment:
-      AUTH_ENABLED: "False"
+      AUTH_ENABLED: 'False'
     # Don't require `.env` — the no-auth path needs no Entra config.
     env_file: !reset []
     # Hot-reload: uvicorn watches /app/src (see api/src/app/__main__.py).
@@ -50,7 +50,7 @@ services:
       context: ./web
       target: development
       args:
-        AUTH_ENABLED: "0"
+        AUTH_ENABLED: '0'
     # Vite's dev server reads stdin for keyboard shortcuts (r/q/…).
     # Without an open stdin it sees EOF at startup and exits 0, which
     # combined with `restart: unless-stopped` produces an infinite
@@ -67,7 +67,7 @@ services:
   # via a profile that is never activated. Cleaner than redeclaring them
   # as no-ops.
   oauth2:
-    profiles: ["disabled"]
+    profiles: ['disabled']
 
   cookie-cache:
-    profiles: ["disabled"]
+    profiles: ['disabled']

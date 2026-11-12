@@ -2,19 +2,12 @@ import tailwindcss from '@tailwindcss/vite'
 import { tanstackRouter } from '@tanstack/router-plugin/vite'
 import react from '@vitejs/plugin-react'
 import { defineConfig, lazyPlugins } from 'vite-plus'
+import fmt from '../oxfmt.config'
 import csp from 'vite-plugin-csp-guard'
 import svgrPlugin from 'vite-plugin-svgr'
 
 export default defineConfig({
-  fmt: {
-    singleQuote: true,
-    semi: false,
-    printWidth: 119,
-    trailingComma: 'es5',
-    sortImports: false,
-    sortPackageJson: false,
-    ignorePatterns: ['src/api-generated/**', 'src/app/routeTree.gen.ts', 'pnpm-lock.yaml', 'oauth2/**', 'nginx/**'],
-  },
+  fmt,
   lint: {
     plugins: ['oxc', 'typescript', 'unicorn', 'react', 'jsx-a11y', 'import'],
     categories: { correctness: 'error' },

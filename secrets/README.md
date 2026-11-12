@@ -6,11 +6,11 @@ checked into git (see `.gitignore`).
 
 Create the following files before running `docker compose up`:
 
-| File                              | Used by   | How to generate                                                                          |
-| --------------------------------- | --------- | ---------------------------------------------------------------------------------------- |
-| `OAUTH2_CLIENT_SECRET.txt`        | `oauth2`  | Client secret of the Azure AD app registration backing the BFF.                          |
-| `OAUTH2_PROXY_COOKIE_SECRET.txt`  | `oauth2`  | `python -c "import os, base64; print(base64.urlsafe_b64encode(os.urandom(32)).decode())"`|
-| `COOKIE_CACHE_PASSWORD.txt`       | `oauth2`, `cookie-cache` | Any random string, e.g. `openssl rand -hex 32`.                            |
+| File                             | Used by                  | How to generate                                                                           |
+| -------------------------------- | ------------------------ | ----------------------------------------------------------------------------------------- |
+| `OAUTH2_CLIENT_SECRET.txt`       | `oauth2`                 | Client secret of the Azure AD app registration backing the BFF.                           |
+| `OAUTH2_PROXY_COOKIE_SECRET.txt` | `oauth2`                 | `python -c "import os, base64; print(base64.urlsafe_b64encode(os.urandom(32)).decode())"` |
+| `COOKIE_CACHE_PASSWORD.txt`      | `oauth2`, `cookie-cache` | Any random string, e.g. `openssl rand -hex 32`.                                           |
 
 The file contents must not contain a trailing newline. Use `printf` instead of
 `echo`, or strip the newline afterwards:
